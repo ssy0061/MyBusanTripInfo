@@ -13,15 +13,31 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <style type="text/css">
 	.container{
-		border: 2px dotted blue;
+		border: 5px dotted red;
+		min-height: 100vh;
+	    width: 100%;
+	    margin: 100px auto;
+	    padding-top: 30px;
+	    padding-bottom: 30px;
+	}
+	p{
+		margin-top: 100px;
 	}
 </style>
 </head>
 <body>
-	<c:import url="header/nav.jsp" />
-	<div class="container">
-		<h2 align="center">홈</h2>
+	<div>
+		<c:import url="header/nav.jsp" />
+		<div class="container">
+			<h2 align="center">홈</h2>
+			<p>contents</p>
+			<p>contents</p>
+			<p>contents</p>
+			<p>contents</p>
+			<p>contents</p>
+			<p>contents</p>
+		</div>
+		<c:import url="footer/footer.jsp" />
 	</div>
-	<c:import url="footer/footer.jsp" />
 </body>
 </html>
