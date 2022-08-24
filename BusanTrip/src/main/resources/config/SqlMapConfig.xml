@@ -9,9 +9,9 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />		
 	</settings>
 
-	<typeAliases>
+	<!-- <typeAliases>
 		<package name="com.service.spring.domain"/>
-	</typeAliases>
+	</typeAliases> -->
 	
 	<!-- JUnit 기반의 단위테스트용  -->
  	<environments default="development">
@@ -26,7 +26,7 @@
 		</environment>
 	</environments> 
 	<mappers>		
-		<mapper resource="mapper/phone_query.xml"/>	
+		<mapper resource="mapper/mapper.xml"/>	
 	</mappers>
 </configuration>
  
