@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.web</groupId>
 	<artifactId>trip</artifactId>
-	<name>MyBusanTripInfo</name>
+	<name>SpringMavenTest</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
