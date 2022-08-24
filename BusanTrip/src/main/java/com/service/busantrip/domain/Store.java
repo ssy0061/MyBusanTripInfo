@@ -11,12 +11,13 @@ public class Store {
 	private Double storeLongitude;
 	private String storeCategory;
 	private int storeTotalvisit;
+	private String storeThumbnail;
 	
 	public Store() {}
 	
 	public Store(String storeId, String storeName, String storeTele, String storeAddr, String storeWorkshop,
 			String storeHoliday, Double storeLatitude, Double storeLongitude, String storeCategory,
-			int storeTotalvisit) {
+			int storeTotalvisit, String storeThumbnail) {
 		super();
 		this.storeId = storeId;
 		this.storeName = storeName;
@@ -28,6 +29,7 @@ public class Store {
 		this.storeLongitude = storeLongitude;
 		this.storeCategory = storeCategory;
 		this.storeTotalvisit = storeTotalvisit;
+		this.storeThumbnail = storeThumbnail;
 	}
 
 	public String getStoreId() {
@@ -110,11 +112,19 @@ public class Store {
 		this.storeTotalvisit = storeTotalvisit;
 	}
 
+	public String getStoreThumbnail() {
+		return storeThumbnail;
+	}
+
+	public void setStoreThumbnail(String storeThumbnail) {
+		this.storeThumbnail = storeThumbnail;
+	}
+
 	@Override
 	public String toString() {
 		return "Store [storeId=" + storeId + ", storeName=" + storeName + ", storeTele=" + storeTele + ", storeAddr="
 				+ storeAddr + ", storeWorkshop=" + storeWorkshop + ", storeHoliday=" + storeHoliday + ", storeLatitude="
 				+ storeLatitude + ", storeLongitude=" + storeLongitude + ", storeCategory=" + storeCategory
-				+ ", storeTotalvisit=" + storeTotalvisit + "]";
+				+ ", storeTotalvisit=" + storeTotalvisit + ", storeThumbnail=" + storeThumbnail + "]";
 	}
 }
