@@ -25,12 +25,15 @@
 	}
 </style>
 </head>
-<body>
+<body> 
 	<div>
 		<c:import url="header/nav.jsp">
-			<c:param name="navSubTitle" value="조회222"/>
+			<%-- param 없으면 home log 출력--%>
+			<%-- <c:param name="navTitle" value="주요기능"/> --%>
+			<%-- <c:param name="navSubTitle" value="상세기능"/> --%>
+			<c:param name="navSubTitle" value="조회"/>
 		</c:import>
-		<div class="index container">
+		<div class="index container p-5">
 			<h2 align="center">홈</h2>
 			<p>contents</p>
 			<p>contents</p>
