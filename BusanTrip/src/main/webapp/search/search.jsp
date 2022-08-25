@@ -14,39 +14,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <style type="text/css">
 .index{
+	border: 5px dotted red;
 	min-height: 100vh;
     width: 100%;
-    margin-top:100px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    margin: 100px auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-p{
-	margin-top: 100px;
-}
-
-.home-top, .home-middle, .home-bottom {
+.search-box {
 	max-width: 400px;
 	margin: 0 auto;
 	text-align: center;
 	position: relative;
+	min-height: 10vh;
 }
 
-.home-middle, .home-bottom{
-	margin-top: 15px;
+.search-box-inner {
+	max-width: 300px;
+	margin: 15px auto;
+	height: 80px;
 }
 
-.home-top {
-	height: 180px;
-}
-
-.home-middle {
-	height: 180px;
-}
-
-.home-bottom {
-	height: 180px;
-}
 
 
 	
@@ -62,8 +51,28 @@ p{
 		
 		<div class="index container">
 			
-			<div class="rounded-lg border border-danger home-top">
-				sample
+			<div class="rounded-lg border border-danger search-box">
+			
+				<div class="rounded-lg border border-danger search-box-inner">
+					sample
+				</div>
+				
+				<div class="rounded-lg border border-danger search-box-inner">
+					sample
+				</div>
+				
+				<div class="rounded-lg border border-danger search-box-inner">
+					sample
+				</div>
+				
+				<div class="rounded-lg border border-danger search-box-inner">
+					sample
+				</div>
+				
+				<div class="rounded-lg border border-danger search-box-inner">
+					sample
+				</div>
+				
 			</div>
 
 			
