@@ -27,7 +27,7 @@
 		transition: 0.3s;
 		padding: 7px 10px 5px 10px;
 		align-items: center;
-		box-shadow: 0 -5px 10px 5px lightgray;
+		box-shadow: 0 -3px 10px 2px lightgray;
 	}
 	@media screen and (min-width: 576px) {
 		.footer-mobile{
@@ -47,21 +47,28 @@
 	$(function() {
 		let scrollNum = 0;
 		window.addEventListener('scroll', function(){
-			if(scrollNum<window.scrollY){
-				$('.footer-mobile').css("opacity", "0")
-				$('.footer-mobile').css("display", "none")
-				/* 
-				error 해결 예정
-				setTimeout(() => {
+			if(matchMedia("screen and (max-width: 575px)").matches){
+				if(scrollNum<window.scrollY){
+					$('.footer-mobile').css("opacity", "0")
+					$('.footer-mobile').css("display", "none")
+					setTimeout(function() {
+						$('.footer-mobile').css("display", "block")
+						$('.footer-mobile').css("opacity", "1")
+					}, 700);
+				}else{
 					$('.footer-mobile').css("display", "block")
 					$('.footer-mobile').css("opacity", "1")
-				}, 700); */
-			}else{
-				$('.footer-mobile').css("display", "block")
-				$('.footer-mobile').css("opacity", "1")
+				}
+				scrollNum = window.scrollY
 			}
-			scrollNum = window.scrollY
 		})
+		$(window).resize(function() {
+			if(matchMedia("screen and (max-width: 575px)").matches){
+				$('.footer-mobile').css("display", "block");
+			}else{
+				$('.footer-mobile').css("display", "none");
+			}
+		});
 	})
 </script>
 </head>

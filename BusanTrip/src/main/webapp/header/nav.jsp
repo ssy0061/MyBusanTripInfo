@@ -17,7 +17,7 @@
   		background-color: white;
   		display: block;
   		border-bottom-style:solid;
-        border-bottom-width:6px;
+        border-bottom-width:4px;
         border-color:#cb333b;
 	}
 	@media screen and (max-width: 575px) {
@@ -26,22 +26,32 @@
 		}
 		.nav-mobile{
 			display:flex;
-			justify-content: center;
+			justify-content: flex-start;
+			padding-top: 6px;
 			align-items: center;
 		}
-		#navSubTitle{
-			display: flex;
-			justify-content: space-between;
+		#navHome{
+			width: 100%;
+			display:flex;
+			justify-content: center;
+			padding-bottom: 5px;
 		}
-		#navSubTitle>h2{
+		#navTitle{
+			padding-left: 20px;
+		}
+		#navSubTitle{
+			padding-left: 80px;
+		}
+		#navSubTitle>h3{
 			display: inline;
 			margin: 0;
 		}
-		#navSubTitle>i{
+		#navSubTitle>.back{
 			position: fixed;
 			left: 10px;
-			top: 10px;
+			top: 12px;
 		}
+		
 	}
 	@media screen and (min-width: 576px) {
 		.nav-mobile{
@@ -52,6 +62,13 @@
 		height: 60px;
 	}
 </style>
+<script type="text/javascript">
+	$(function(){
+		$('.back').click(function(){
+			window.history.back();
+		})
+	});
+</script>
 </head>
 <body>
 	<nav class="nav nav-web">
@@ -62,17 +79,20 @@
 	<nav class="nav nav-mobile">
 		<c:choose>
 			<c:when test="${param.navTitle!=null}">
-				<h2 align="center">${param.navTitle}</h2>
+				<div id="navTitle">
+					<h2 align="center">${param.navTitle}</h2>
+				</div>
 			</c:when>
 			<c:when test="${param.navSubTitle!=null}">
 				<div id="navSubTitle">
-					<i class="bi bi-chevron-left" style="font-size: 2rem;"></i>
-					<h2 align="center">${param.navSubTitle}</h2>
-					<span></span>
+					<div class="back"><i class="bi bi-chevron-left" style="font-size: 2.2rem;"></i></div>
+					<h3 align="center">${param.navSubTitle}</h3>
 				</div>
 			</c:when>
 			<c:otherwise>
-				<img src="img/mbti.png" id="homelogo">
+				<div id="navHome">
+					<img src="img/mbti.png" id="homelogo">
+				</div>
 			</c:otherwise>
 		</c:choose>
 		
