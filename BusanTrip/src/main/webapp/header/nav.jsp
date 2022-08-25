@@ -56,7 +56,7 @@
 		}
 		
 	}
-	@media screen and (min-width: 576px) {
+	@media screen and (min-width: 575.1px) {
 		.nav{
 			height: 90px;
 		}
