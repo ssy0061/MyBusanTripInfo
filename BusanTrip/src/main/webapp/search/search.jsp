@@ -13,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <style type="text/css">
+
 .index{
 	border: 5px dotted red;
 	min-height: 100vh;
@@ -26,7 +27,6 @@
 	max-width: 400px;
 	margin: 0 auto;
 	text-align: center;
-	position: relative;
 	min-height: 10vh;
 }
 
@@ -34,6 +34,14 @@
 	max-width: 300px;
 	margin: 15px auto;
 	height: 80px;
+	position: relative;
+}
+
+.ud-center {
+	width: 100%;
+	position: absolute;
+	left: 50%; top: 50%;
+	transform: translate(-50%, -50%);
 }
 
 
@@ -53,25 +61,61 @@
 			
 			<div class="rounded-lg border border-danger search-box">
 			
-				<div class="rounded-lg border border-danger search-box-inner">
-					sample
+				<div class="rounded-lg border border-danger shadow bg-white search-box-inner">
+					<div class="ud-center">
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+					</div>
 				</div>
 				
-				<div class="rounded-lg border border-danger search-box-inner">
-					sample
+				<div class="rounded-lg border border-danger shadow bg-white search-box-inner">
+					<div class="ud-center">
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+					</div>
 				</div>
 				
-				<div class="rounded-lg border border-danger search-box-inner">
-					sample
+				<div class="rounded-lg border border-danger shadow bg-white search-box-inner">
+					<div class="ud-center">
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+					</div>
 				</div>
 				
-				<div class="rounded-lg border border-danger search-box-inner">
-					sample
+				<div class="rounded-lg border border-danger shadow bg-white search-box-inner">
+					<div class="ud-center">
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+					</div>
 				</div>
 				
-				<div class="rounded-lg border border-danger search-box-inner">
-					sample
+				<div class="rounded-lg border border-danger shadow bg-white search-box-inner">
+					<div class="ud-center">
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+						<div class = "rounded-lg border border-danger">
+							Sample text
+						</div>
+					</div>
 				</div>
+				
 				
 			</div>
 
