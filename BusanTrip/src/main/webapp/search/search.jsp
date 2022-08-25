@@ -129,11 +129,11 @@
 		var idArr = ["BNKBNK", "Q12345", "TEMP", "IDVALUE", "S0M31D"];
 		
 		for (var i=0; i<5; i++) {
-			var icon = "./img/bank_icon.png";
-			var name = nameArr[i];
-			var account = accountArr[i];
-			var money = moneyArr[i];
-			var id = idArr[i];
+			let icon = "./img/bank_icon.png";
+			let name = nameArr[i];
+			let account = accountArr[i];
+			let money = moneyArr[i];
+			let id = idArr[i];
 			
 			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",")  + "원";
 			
@@ -152,50 +152,64 @@
 				</div>
 			</div>
 			--%>	
-			var spanAccountNumber = document.createElement('span');
+			let spanAccountNumber = document.createElement('span');
 			spanAccountNumber.setAttribute('class', 'accountNumber');
 			spanAccountNumber.append(account);
 			
-			var spanAmount = document.createElement('span');
+			let spanAmount = document.createElement('span');
 			spanAmount.setAttribute('class', 'amount');
 			spanAmount.append(money);
 			
-			var divSearchBoxInnerLower = document.createElement('div');
+			let divSearchBoxInnerLower = document.createElement('div');
 			divSearchBoxInnerLower.setAttribute('class', 'search-box-inner-lower');
 			divSearchBoxInnerLower.append(spanAccountNumber);
 			divSearchBoxInnerLower.append(spanAmount);
 			
 			
-			var imgBankIcon = document.createElement('img');
+			let imgBankIcon = document.createElement('img');
 			imgBankIcon.setAttribute('class', 'bankIcon');
 			imgBankIcon.setAttribute('src', icon);
 			
-			var spanBankName = document.createElement('span');
+			let spanBankName = document.createElement('span');
 			spanBankName.setAttribute('class', 'bankName');
 			spanBankName.append(name);
 			
-			var divSearchBoxInnerUpper = document.createElement('div');
+			let divSearchBoxInnerUpper = document.createElement('div');
 			divSearchBoxInnerUpper.setAttribute('class', 'search-box-inner-upper');
 			divSearchBoxInnerUpper.append(imgBankIcon);
 			divSearchBoxInnerUpper.append(spanBankName);
 			
 			
-			var divUdCenter = document.createElement('div');
+			let divUdCenter = document.createElement('div');
 			divUdCenter.setAttribute('class', 'ud-center');
 			divUdCenter.append(divSearchBoxInnerUpper);
 			divUdCenter.append(divSearchBoxInnerLower);
 			
-			var divFinal = document.createElement('div');
+			let divFinal = document.createElement('div');
 			divFinal.setAttribute('class', 'rounded-lg shadow search-box-inner');
 			divFinal.setAttribute('id', id);
 			divFinal.append(divUdCenter);
 			
 			
 			$('#searchBox').append(divFinal);
-		} // for
-		
-	}); // JQuery
+		}  // Initial
 
+		
+		$('.search-box-inner').click(function(){
+			let id = $(this).attr('id');
+
+			// id값을 이용해서 페이지 이동. Post 방식.
+			let tempForm = document.createElement('form');
+		    tempForm.setAttribute('method', 'post');
+		    tempForm.setAttribute('action', 'somethingAction.do');
+			tempForm.setAttribute('id', id);
+		
+		    document.body.appendChild(tempForm);
+		    tempForm.submit();
+		});  // div click
+		
+	});  // JQuery
+	
 </script>
 
 </head>
