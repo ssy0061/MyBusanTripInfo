@@ -21,6 +21,8 @@
   --bnk-grey: #545443;
   --bnk-lightgray: #B3B38F;
   --bnk-lightgrey: #B3B38F;
+  --button-hover: #F5F5F5;
+  --button-active: #EEEEEE;
 }
 
 .index{
@@ -45,6 +47,15 @@
 	height: 80px;
 	position: relative;
 	border: 4px outset var(--bnk-lightgray);
+	background-color: white;
+}
+
+.search-box-inner:hover {
+    background-color: var(--button-hover);
+}
+
+.search-box-inner:active {
+    background-color: var(--button-active);
 }
 
 .search-box-inner-upper {
@@ -103,9 +114,10 @@
 	right: 10px;
 	font-weight: bold;
 }
+
+
 	
 </style>
-
 
 
 <script>
@@ -114,19 +126,20 @@
 		var nameArr = ["부산은행", "이런은행", "저런은행", "샘플링은행", "임시이름은행"];
 		var accountArr = ["777-7777-7777-77", "888-88-888888", "9876-543-210000", "010-10-101010-1", "123-456789-01-234"];
 		var moneyArr = ["9999999", "150000", "770000", "63500", "150"];
-		
+		var idArr = ["BNKBNK", "Q12345", "TEMP", "IDVALUE", "S0M31D"];
 		
 		for (var i=0; i<5; i++) {
 			var icon = "./img/bank_icon.png";
 			var name = nameArr[i];
 			var account = accountArr[i];
 			var money = moneyArr[i];
+			var id = idArr[i];
 			
 			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",")  + "원";
 			
 			// html tag 생성 form
 			<%--
-			<div class="rounded-lg shadow bg-white search-box-inner">
+			<div id="고유id값" class="rounded-lg shadow bg-white search-box-inner">
 				<div class="ud-center">
 					<div class="search-box-inner-upper">
 						<img class="bankIcon" src="./img/bank_icon.png">
@@ -173,18 +186,15 @@
 			divUdCenter.append(divSearchBoxInnerLower);
 			
 			var divFinal = document.createElement('div');
-			divFinal.setAttribute('class', 'rounded-lg shadow bg-white search-box-inner');
+			divFinal.setAttribute('class', 'rounded-lg shadow search-box-inner');
+			divFinal.setAttribute('id', id);
 			divFinal.append(divUdCenter);
 			
 			
 			$('#searchBox').append(divFinal);
-			
-			
-		}
-	});
-
+		} // for
 		
-
+	}); // JQuery
 
 </script>
 
@@ -200,7 +210,7 @@
 			<div id="searchBox" class="rounded-lg border border-danger search-box">
 			
 				<%--
-				<div class="rounded-lg shadow bg-white search-box-inner">
+				<div id="고유id값" class="rounded-lg shadow bg-white search-box-inner">
 					<div class="ud-center">
 						<div class="search-box-inner-upper">
 							<img id="bankIcon" src="./img/bank_icon.png">
