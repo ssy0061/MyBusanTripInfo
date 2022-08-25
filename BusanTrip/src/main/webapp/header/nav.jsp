@@ -21,6 +21,9 @@
         border-color:#cb333b;
 	}
 	@media screen and (max-width: 575px) {
+		.nav{
+			height: 80px;
+		}
 		.nav-web {
 			display: none;
 		}
@@ -30,7 +33,7 @@
 			padding-top: 6px;
 			align-items: center;
 		}
-		#navHome{
+		#navHomeImgWrap{
 			width: 100%;
 			display:flex;
 			justify-content: center;
@@ -49,16 +52,40 @@
 		#navSubTitle>.back{
 			position: fixed;
 			left: 10px;
-			top: 12px;
+			top: 15px;
 		}
 		
 	}
 	@media screen and (min-width: 576px) {
+		.nav{
+			height: 90px;
+		}
 		.nav-mobile{
 			display: none;
 		}
+		.nav-web {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 10%;
+		}
+		.navMenus{
+		}
+		.navMenus div{
+			display: inline;
+			margin: auto 10px;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+		.navMenus a{
+			text-decoration: none;
+			color: black;
+		}
 	}
-	#homelogo{
+	#nvaHomeMobileLogo{
+		height: 60px;
+	}
+	#navHomeWebLogo{
 		height: 60px;
 	}
 </style>
@@ -72,8 +99,12 @@
 </head>
 <body>
 	<nav class="nav nav-web">
-		<div>
-			<h2 align="center">web</h2>
+		<a href="/"><img src="img/mbti.png" id="navHomeWebLogo"></a>
+		<div class="navMenus">
+			<div><a href="#">조회</a></div>
+			<div><a href="#">여행스토리</a></div>
+			<div><a href="#">핫플</a></div>
+			<div><a href="#">MyPage</a></div>
 		</div>
 	</nav>
 	<nav class="nav nav-mobile">
@@ -90,8 +121,8 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div id="navHome">
-					<img src="img/mbti.png" id="homelogo">
+				<div id="navHomeImgWrap">
+					<img src="img/mbti.png" id="nvaHomeMobileLogo">
 				</div>
 			</c:otherwise>
 		</c:choose>

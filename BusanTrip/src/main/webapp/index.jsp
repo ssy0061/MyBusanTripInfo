@@ -33,7 +33,7 @@
 			<%-- <c:param name="navSubTitle" value="상세기능"/> --%>
 			<c:param name="navSubTitle" value="조회"/>
 		</c:import>
-		<div class="index container">
+		<div class="index container p-5">
 			<h2 align="center">홈</h2>
 			<p>contents</p>
 			<p>contents</p>
