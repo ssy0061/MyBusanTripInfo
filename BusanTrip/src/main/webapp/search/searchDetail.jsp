@@ -25,11 +25,39 @@
 	
 	.index{
 		border: 5px dotted red;
-		min-height: 20vh;
+		min-height: 100vh;
 	    width: 100%;
 	    margin: 100px auto;
 	    padding-top: 10px;
 	    padding-bottom: 10px;
+	}
+	
+	.searchDetail-upper {
+		max-width: 400px;
+		margin: 0 auto;
+		text-align: center;
+		height: 200px;
+		position: relative;
+	}
+	
+	.searchDetail-lower {
+		max-width: 400px;
+		margin: 0 auto;
+		text-align: center;
+		min-height: 10vh;
+		height: 80px;
+		position: relative;
+	}
+	
+	.searchDetail-lower-box {
+		margin: 10px auto;
+	}
+	
+	.ud-center {
+		width: 100%;
+		position: absolute;
+		left: 50%; top: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 </style>
@@ -41,7 +69,44 @@
 		</c:import>
 		
 		<div class="index container">
-			Temp
+			
+			<div class="rounded-lg border border-danger searchDetail-upper">
+				<div class="ud-center">
+					<div class="rounded-lg border border-danger">
+						<span class="border border-primary">계좌번호</span>
+						<span class="border border-primary">금액</span>
+					</div>
+					<div class="rounded-lg border border-danger">
+						<span class="border border-primary">기간 조회</span>
+					</div>
+					<div class="rounded-lg border border-danger">
+						<span class="border border-primary searchDetail-period-box" value="1">1개월</span>
+						<span class="border border-primary searchDetail-period-box" value="3">3개월</span>
+						<span class="border border-primary searchDetail-period-box" value="6">6개월</span>
+						<span class="border border-primary searchDetail-period-box" value="12">1년</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="rounded-lg border border-danger searchDetail-lower">
+				<div class="ud-center">
+					<div class="rounded-lg border border-danger searchDetail-lower-box">
+						<span class="border border-primary">결제일시</span>
+						<span class="border border-primary">가게이름</span>
+						<img class="border border-primary">
+						<img class="border border-primary">
+						<span class="border border-primary">결제금액</span>
+					</div>
+					<div class="rounded-lg border border-danger searchDetail-lower-box">
+						<span class="border border-primary">결제일시</span>
+						<span class="border border-primary">가게이름</span>
+						<img class="border border-primary">
+						<img class="border border-primary">
+						<span class="border border-primary">결제금액</span>
+					</div>
+				</div>
+			</div>
+
 		</div>
 		
 		<c:import url="../footer/footer.jsp" />
