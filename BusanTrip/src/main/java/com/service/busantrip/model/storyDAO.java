@@ -13,7 +13,7 @@ public interface storyDAO { // 쿼리문이나 메소드 결정해서 인자값 
 	public Diary findDiaryList();
 	public Diary findDiaryDetail();
 	public Diary findDiaryTimeline();
-	public DiaryTransaction addDiaryTransaction();
-	public DiaryTransaction addPhotoToDiaryTransaction();
+	public DiaryTransaction addDiarytransaction();
+	public DiaryTransaction addPhotoToDiarytransaction();
 	public void dutch();
 }
