@@ -13,110 +13,108 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <style type="text/css">
-
-:root {
-  --bnk-red: #E60000;
-  --bnk-dark-red: #BE0000;
-  --bnk-gray: #545443;
-  --bnk-grey: #545443;
-  --bnk-lightgray: #B3B38F;
-  --bnk-lightgrey: #B3B38F;
-  --button-hover: #F5F5F5;
-  --button-active: #EEEEEE;
-}
-
-.index{
-	border: 5px dotted red;
-	min-height: 20vh;
-    width: 100%;
-    margin: 100px auto 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.search-box {
-	max-width: 400px;
-	margin: 0 auto;
-	text-align: center;
-	min-height: 10vh;
-}
-
-.search-box-inner {
-	max-width: 300px;
-	margin: 30px auto;
-	height: 80px;
-	position: relative;
-	border: 4px outset var(--bnk-lightgray);
-	background-color: white;
-}
-
-.search-box-inner:hover {
-    background-color: var(--button-hover);
-}
-
-.search-box-inner:active {
-    background-color: var(--button-active);
-}
-
-.search-box-inner-upper {
-	height: auto;
-	text-align: left;
-}
-
-.search-box-inner-lower {
-	display: flex;
-	justify-content: space-around;
-}
-
-.ud-center {
-	width: 100%;
-	position: absolute;
-	left: 50%; top: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.bankIcon, .bankName {
-	position: relative;
-	left: 10px;
-}
-
-.bankIcon {
-	width: 25px;
-	height: 25px;
-	border-radius: 10px;
-	border: 1px solid var(--bnk-dark-red);
-	margin: 0 10px 0 0;
-}
-
-.bankName {
-	position: relative;
-	top: 2px;
-}
-
-.accountNumber {
-	max-width: 90px;
-	width: 100%;
-	font-size: 10px;
-	text-align: left;
-	position: relative;
-	left: 10px;
-	vertical-align: bottom;
-	margin: 15px 0 0;
-	color: gray;
-}
-
-.amount {
-	max-width: 160px;
-	width: 100%;
-	font-size: 22px;
-	text-align: right;
-	position: relative;
-	right: 10px;
-	font-weight: bold;
-}
-
-
+	:root {
+	  --bnk-red: #E60000;
+	  --bnk-dark-red: #BE0000;
+	  --bnk-gray: #545443;
+	  --bnk-grey: #545443;
+	  --bnk-lightgray: #B3B38F;
+	  --bnk-lightgrey: #B3B38F;
+	  --button-hover: #F5F5F5;
+	  --button-active: #EEEEEE;
+	}
 	
+	.index{
+		border: 5px dotted red;
+		min-height: 20vh;
+	    width: 100%;
+	    margin: 100px auto 10px;
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+	}
+	
+	.search-box {
+		max-width: 400px;
+		margin: 0 auto;
+		text-align: center;
+		min-height: 10vh;
+	}
+	
+	.search-box-inner {
+		max-width: 300px;
+		margin: 30px auto;
+		height: 80px;
+		position: relative;
+		border: 4px outset var(--bnk-lightgray);
+		background-color: white;
+	}
+	
+	.search-box-inner:hover {
+	    background-color: var(--button-hover);
+	}
+	
+	.search-box-inner:active {
+	    background-color: var(--button-active);
+	}
+	
+	.search-box-inner-upper {
+		height: auto;
+		text-align: left;
+	}
+	
+	.search-box-inner-lower {
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	.ud-center {
+		width: 100%;
+		position: absolute;
+		left: 50%; top: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
+	.bankIcon, .bankName {
+		position: relative;
+		left: 10px;
+	}
+	
+	.bankIcon {
+		width: 25px;
+		height: 25px;
+		border-radius: 10px;
+		border: 1px solid var(--bnk-dark-red);
+		margin: 0 10px 0 0;
+	}
+	
+	.bankName {
+		position: relative;
+		top: 2px;
+	}
+	
+	.accountNumber {
+		max-width: 90px;
+		width: 100%;
+		font-size: 10px;
+		text-align: left;
+		position: relative;
+		left: 10px;
+		vertical-align: bottom;
+		margin: 15px 0 0;
+		color: gray;
+	}
+	
+	.amount {
+		max-width: 160px;
+		width: 100%;
+		font-size: 22px;
+		text-align: right;
+		position: relative;
+		right: 10px;
+		font-weight: bold;
+	}
+
+
 </style>
 
 
