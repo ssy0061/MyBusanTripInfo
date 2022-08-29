@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql.story.mapper">
+	<insert id="addStory">
+		INSERT INTO STORY(STORY_ID, STORY_NAME)
+		VALUES(STORY_SEQ.NEXTVAL, #{storyName})
+		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID, STORYMEMBER_AUTH) 
+		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId},Y)
+	</insert>
+	
+	<select id="findStoryMember" parameterType="String">
+		SELECT MEMBER_ID FROM STORYMEMBER WHERE STORY_ID = #{storyId}
+	</select>
+	
+	<insert id="addStoryMember">
+		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID, STORYMEMBER_AUTH) 
+		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId},N)
+	</insert>
+	
+	<select id="findStoryInviteMember">
+		SELECT MEMBER_NAME FROM MEMBER WHERE MEMBER_ID=${memberId}
+	</select>
+	
+	<insert id="addDiary" parameterType="String">
+		INSERT INTO DIARY(DIARY_ID, STORY_ID, DIARY_NAME, DIARY_MAKEDATE) 
+		VALUES(DIARY_SEQ.NEXTVAL, #{storyId}, #{diaryName}, SYSDATE)
+	</insert>
+	
+	<select id="findDiaryList" parameterType="diary" resultType="diary">
+		SELECT DIARY_NAME, DIARY_MAKEDATE FROM DIARY WHERE STORY_ID = #{storyId}
+	</select>
+	
+	<select id="findDiaryTransaction" parameterType="diaryTransaction" resultType="diaryTransaction">
+		SELECT MEMBER_NAME, TRANSACTION_STORE, TRANSACTION_TIME, TRANSACTION_AMT
+		FROM DIARYTRANSACTION
+		WHERE DIARY_ID = #{diaryId}
+	</select>
+	<select id="findDiaryPhoto" parameterType="String" resultType="photo">
+		SELECT PHOTO_URL
+		FROM PHOTO
+		WHERE DIARYTRANSACTIONID = #{diaryTransactionId}
+	</select>
+	
+	<insert id="addDiaryTransaction" parameterType="">
+		INSERT INTO
+		DIARYTRANSACTION(DIARYTRASNACTION_ID, DIARY_ID, MEMBER_NAME, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
+		VALUES(DIARYTRANSACTION_SEQ.nextval, #{diaryId}, #{memberName}, #{storeId}, #{transactionTime}, #{transactionAmt}, #{transactionMemo))
+	</insert>
+	
+	<insert id="addPhotoToDiaryTransaction">
+		INSERT INTO PHOTO(PHOTO_ID, DIARYTRANSACTION_ID, PHOTO_URL) 
+		VALUES(PHOTO_SEQ.NEXTVAL, #{diaryTransactionId}, #{photoUrl})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+

@@ -26,7 +26,9 @@
 		</environment>
 	</environments> 
 	<mappers>		
-		<mapper resource="mapper/mapper.xml"/>	
+		<mapper resource="mapper/memeber_mapper.xml"/>	
+		<mapper resource="mapper/store_mapper.xml"/>	
+		<mapper resource="mapper/story_mapper.xml"/>	
 	</mappers>
 </configuration>
  

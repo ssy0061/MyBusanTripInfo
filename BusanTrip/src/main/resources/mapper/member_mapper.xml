@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql.member.mapper">
+
+	<insert id="join" parameterType="member">
+		INSERT INTO
+		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR, MEMBER_CHAR)
+		VALUES(#{memberId}, #{memberPw}, #{memberName}, #{memberTele},#{memberAddr}, #{memberChar})
+	</insert>
+	
+	<select id="login" parameterType="member" resultType="member">
+		SELECT MEMBER_ID, MEMBER_PW FROM MEMBER
+		WHERE MEMBER_ID=#{memberId} AND MEMBER_PW=#{memberPw}
+	</select>
+	
+	<update id="updateCharacter" parameterType="member">
+		UPDATE MEMBER SET MEMBER_CHAR = #{memberChar} WHERE MEMBER_ID=#{memberId}
+	</update>
+	
+	<select id="findAllTransaction" parameterType="String" resultType="transaction">
+		SELECT T.TRANSACTION_TIME, T.TRANSACTION_STORE, T.TRANSACTION_AMT
+		FROM TRANSACTION T, ACCOUNT A
+		WHERE  A.ACCOUNT_NUMBER = #{accountNumber}
+	</select>
+	
+	<select id="findTransactionByPeriod" parameterType="" resultType="transaction">
+		SELECT T.TRANSACTION_TIME, T.TRANSACTION_STORE, T.TRANSACTION_AMT
+		FROM TRANSACTION T, ACCOUNT A 
+		WHERE A.ACCOUNT_NUMBER  = #{accountNumber}
+		AND T.TRANSACTION_TIME BETWEEN #{firstDate} AND #{lastDate}
+	</select>
+	
+	<select id="findTransactionByPeriod" parameterType="" resultType="transaction">
+		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT
+		FROM TRANSACTION
+		WHERE ACCOUNT_NUMBER = #{accountNumber}
+		AND TRANSACTION_TIME BETWEEN (select to_char(add_months(sysdate,-#{month}),'yyyy-mm-dd') from dual) AND SYSDATE
+		ORDER BY TRANSACTION_TIME DESC;
+	</select>
+	
+	<insert id="addExternalTrasaction" parameterType="">
+		INSERT INTO 
+		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
+		VALUES(#{transactionId}, #{accountNumber}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt}, #{transactionMemo})
+	</insert>
+	
+	<insert id="addTransaction" parameterType="">
+		INSERT INTO 
+		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT)
+		VALUES(#{transactionId}, #{accountNumber}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt})
+	</insert>
+	
+	<update id="pay" parameterType="">
+		UPDATE ACCOUNT
+		SET account_balance=#{new_balance}
+		WHERE ACCOUNT_NUMBER=#{accountNumber};
+	</update>
+	
+	<update id="updateTransactionMemo" parameterType="transaction">
+		UPDATE TRANSACTION 
+		SET TRANSACTION_MEMO = #{transactionMemo} 
+		WHERE TRANSACTION_ID=#{transactionId} AND ACCOUNT_NUMBER = #{accountNumber}
+	</update>
+	
+	<select id="findAccount" parameterType="String" resultType="account">
+		SELECT *
+		FROM ACCOUNT
+		WHERE MEMBER_ID=#{memberId};
+	</select>
+	
+	<select id="getBalance" parameterType="String" resultType="int">
+		SELECT account_balance
+		FROM ACCOUNT
+		WHERE ACCOUNT_NUMBER=#{accountNumber};
+	</select>
+	
+	<update id="charge" parameterType="">
+		UPDATE ACCOUNT
+		SET account_balance=#{new_balance}
+		WHERE ACCOUNT_NUMBER=#{accountNumber};
+	</update>	
+	
+</mapper>
