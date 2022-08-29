@@ -42,15 +42,6 @@
 		position: relative;
 	}
 	
-	.searchDetail-lower {
-		max-width: 400px;
-		margin: 0 auto;
-		text-align: center;
-		min-height: 10vh;
-		height: 80px;
-		position: relative;
-	}
-	
 	.searchDetail-upper-top, .searchDetail-upper-bottom {
 		max-width: 300px;
 		margin: 10px auto;
@@ -107,6 +98,15 @@
 		margin: 0 1px 1px;
 	}
 	
+	.periodBox-choiced {
+		width: 100px;
+		border-radius: 10px;
+		border: 3px outset var(--bnk-gray);
+		background-color: var(--bnk-lightgray);
+		font-weight: bold;
+		margin: 0 1px 1px;
+	}
+	
 	.periodBox:hover {
 	    background-color: var(--button-hover);
 	}
@@ -115,8 +115,21 @@
 	    background-color: var(--button-active);
 	}
 	
+	.searchDetail-lower {
+		max-width: 400px;
+		margin: 0 auto;
+		text-align: center;
+		min-height: 5vh;
+	}
+	
 	.searchDetail-lower-box {
+		max-width: 300px;
 		margin: 10px auto;
+		height: 30px;
+		position: relative;
+		border-bottom-color: var(--bnk-gray);
+		border-bottom-width: 2px;
+		border-bottom-style: solid;
 	}
 	
 	.ud-center {
@@ -146,7 +159,7 @@
 					<div class="rounded-lg searchDetail-upper-bottom">
 						<span class="upper-bottom-text">기간별 조회하기</span>
 						<div class="searchDetail-upper-bottom-inner">
-							<span class="periodBox" value="1">1개월</span>
+							<span class="periodBox-choiced" value="1">1개월</span>
 							<span class="periodBox" value="3">3개월</span>
 							<span class="periodBox" value="6">6개월</span>
 							<span class="periodBox" value="12">1년</span>
@@ -156,15 +169,9 @@
 			</div>
 			
 			<div class="rounded-lg border border-danger searchDetail-lower">
-				<div class="ud-center">
-					<div class="rounded-lg border border-danger searchDetail-lower-box">
-						<span class="border border-primary">결제일시</span>
-						<span class="border border-primary">가게이름</span>
-						<img class="border border-primary">
-						<img class="border border-primary">
-						<span class="border border-primary">결제금액</span>
-					</div>
-					<div class="rounded-lg border border-danger searchDetail-lower-box">
+				
+				<div class="searchDetail-lower-box">
+					<div class="ud-center">
 						<span class="border border-primary">결제일시</span>
 						<span class="border border-primary">가게이름</span>
 						<img class="border border-primary">
@@ -172,6 +179,16 @@
 						<span class="border border-primary">결제금액</span>
 					</div>
 				</div>
+				<div class="searchDetail-lower-box">
+					<div class="ud-center">
+						<span class="border border-primary">결제일시</span>
+						<span class="border border-primary">가게이름</span>
+						<img class="border border-primary">
+						<img class="border border-primary">
+						<span class="border border-primary">결제금액</span>
+					</div>
+				</div>
+				
 			</div>
 
 		</div>
