@@ -13,7 +13,7 @@ public interface storeDAO {
 	public List<Store> findStorePopularByPeriod();
 	public List<Store> findStorePopularByCategory(String category); // 인기가게 카테고리별
 	public List<Store> findStorePopularByPersonal(Transaction transaction); // 개인별 가게 방문 순위
-	public void addWishlist(String storeId, String memeberId);
+	public void addWishlist(String storeId, String memberId);
 	public List<Store> findWishlistInfo(String storeId);
 }
 
