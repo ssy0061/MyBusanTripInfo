@@ -12,6 +12,10 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<%-- jquery ui 전용 import --%>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style type="text/css">
 
 	:root {
@@ -77,11 +81,7 @@
 	}
 	
 	.searchDetail-upper-bottom {
-		text-align: left;
-	}
-	
-	.upper-bottom-text {
-		margin: 0 0 0 10px;
+		text-align: center;
 	}
 	
 	.searchDetail-upper-bottom-inner {
@@ -90,12 +90,25 @@
 		justify-content: space-around;
 	}
 	
-	.periodBox {
-		width: 100px;
+	.periodBox, .searchBox {
 		border-radius: 10px;
 		border: 3px outset var(--bnk-gray);
 		font-weight: bold;
+	}
+	
+	.periodBox {
+		width: 100px;
 		margin: 0 1px 1px;
+	
+	}
+	.searchBox {
+		width: 40px;
+		margin: 1px 0;
+	}
+	
+	.searchBox>img {
+		position: relative;
+		bottom: 2px;
 	}
 	
 	.periodBox-choiced {
@@ -107,11 +120,11 @@
 		margin: 0 1px 1px;
 	}
 	
-	.periodBox:hover {
+	.periodBox:hover, .searchBox:hover {
 	    background-color: var(--button-hover);
 	}
 	
-	.periodBox:active {
+	.periodBox:active, .searchBox:active {
 	    background-color: var(--button-active);
 	}
 	
@@ -193,24 +206,47 @@
 		transform: translate(-50%, -50%);
 	}
 	
+	.datepicker {
+		margin: 1px 0 0;
+		width: 100px;
+		height: 30px;
+		text-align: center;
+		font-size: 13px;
+	}
+	
 
 </style>
 
 <script>
 
 	$(function() {
-		// something initial method
+		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		// initial method
 		
 		$('.periodBox').click(function(){
 			if ($(this).attr('class') != 'periodBox-choiced') {
 				let period = $(this).attr('value');
 				
-				// alert(period);
+				alert(period);
 				// 비동기 방식으로 정보 전달...
 				//
 				
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
+			}  // if
+		});  // div click
+		
+		$('.searchBox').click(function(){
+			let start = $('#startDate').val()
+			let end = $('#endDate').val()
+			
+			alert(start + ' ~ ' + end);
+			
+			if ($(this).attr('class') != 'periodBox-choiced') {
+				// 비동기 방식으로 정보 전달...
+				//
+				
+				$('.periodBox-choiced').attr('class', 'periodBox');
 			}  // if
 		});  // div click
 		
@@ -237,7 +273,13 @@
 						<span class="amount">0,000,000원</span>
 					</div>
 					<div class="rounded-lg searchDetail-upper-bottom">
-						<span class="upper-bottom-text">기간별 조회하기</span>
+						<div class="searchDetail-upper-bottom-inner">
+							<input type="text" class="datepicker" id="startDate" readonly="readonly">
+							<span width="15px"><b>~</b></span>
+							<input type="text" class="datepicker" id="endDate" readonly="readonly">
+							<span class="searchBox"><img src="./img/search.png" width=20px></span>
+						</div>
+						
 						<div class="searchDetail-upper-bottom-inner">
 							<span class="periodBox" value="1">1개월</span>
 							<span class="periodBox" value="3">3개월</span>
