@@ -21,6 +21,8 @@
 	  --bnk-grey: #545443;
 	  --bnk-lightgray: #B3B38F;
 	  --bnk-lightgrey: #B3B38F;
+	  --button-hover: #F5F5F5;
+	  --button-active: #EEEEEE;
 	}
 	
 	.index{
@@ -61,17 +63,6 @@
 		padding: 3px 0;
 	}
 	
-	.searchDetail-lower-box {
-		margin: 10px auto;
-	}
-	
-	.ud-center {
-		width: 100%;
-		position: absolute;
-		left: 50%; top: 50%;
-		transform: translate(-50%, -50%);
-	}
-	
 	.accountNumber {
 		max-width: 100px;
 		width: 100%;
@@ -93,6 +84,48 @@
 		right: 5px;
 		font-weight: bold;
 	}
+	
+	.searchDetail-upper-bottom {
+		text-align: left;
+	}
+	
+	.upper-bottom-text {
+		margin: 0 0 0 10px;
+	}
+	
+	.searchDetail-upper-bottom-inner {
+		text-align: center;
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	.periodBox {
+		width: 100px;
+		border-radius: 10px;
+		border: 3px outset var(--bnk-gray);
+		font-weight: bold;
+		margin: 0 1px 1px;
+	}
+	
+	.periodBox:hover {
+	    background-color: var(--button-hover);
+	}
+	
+	.periodBox:active {
+	    background-color: var(--button-active);
+	}
+	
+	.searchDetail-lower-box {
+		margin: 10px auto;
+	}
+	
+	.ud-center {
+		width: 100%;
+		position: absolute;
+		left: 50%; top: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
 
 </style>
 </head>
@@ -110,13 +143,13 @@
 						<span class="accountNumber">XXX-XXXXXX-XX-XXX</span>
 						<span class="amount">0,000,000원</span>
 					</div>
-					<div class="rounded-lg border border-danger searchDetail-upper-bottom">
-						<span class="border border-primary">기간 조회</span>
-						<div class="rounded-lg border border-danger">
-							<span class="border border-primary searchDetail-period-box" value="1">1개월</span>
-							<span class="border border-primary searchDetail-period-box" value="3">3개월</span>
-							<span class="border border-primary searchDetail-period-box" value="6">6개월</span>
-							<span class="border border-primary searchDetail-period-box" value="12">1년</span>
+					<div class="rounded-lg searchDetail-upper-bottom">
+						<span class="upper-bottom-text">기간별 조회하기</span>
+						<div class="searchDetail-upper-bottom-inner">
+							<span class="periodBox" value="1">1개월</span>
+							<span class="periodBox" value="3">3개월</span>
+							<span class="periodBox" value="6">6개월</span>
+							<span class="periodBox" value="12">1년</span>
 						</div>
 					</div>
 				</div>
