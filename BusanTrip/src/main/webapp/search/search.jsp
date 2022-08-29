@@ -225,12 +225,12 @@
 				<div id="고유id값" class="rounded-lg shadow bg-white search-box-inner">
 					<div class="ud-center">
 						<div class="search-box-inner-upper">
-							<img id="bankIcon" src="./img/bank_icon.png">
-							<span id="bankName">은행명칭</span>
+							<img class="bankIcon" src="./img/bank_icon.png">
+							<span class="bankName">은행명칭</span>
 						</div>
 						<div class="search-box-inner-lower">
-							<span id="accountNumber">XXX-XXXXXX-XX-XXX</span>
-							<span id="amount">0,000,000원</span>
+							<span class="accountNumber">XXX-XXXXXX-XX-XXX</span>
+							<span class="amount">0,000,000원</span>
 						</div>
 					</div>
 				</div>
