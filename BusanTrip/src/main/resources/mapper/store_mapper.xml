@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql.store.mapper">
+	<select id="findStoreTransaction" parameterType="" resultType="store">
+		SELECT TRANSACTION_TIME, TRANSACTION_AMT
+		FROM TRANSACTION
+		WHERE STORE_ID={storeId} AND ACCOUNT_NUMBER=#{accountNumber}
+	</select>
+	
+	<select id="findStoreInfo" parameterType="String" resultType="store">
+		SELECT STORE_NAME, STORE_TELE, STORE_ADDR, STORE_WORKHOUR, STORE_HOLIDAY, STORE_LATITUDE, STORE_LONGITUDE
+		FROM STORE
+		WHERE STORE_ID=#{VALUE} <!-- Value값에 storeId값 -->
+	</select>
+	
+	<select id="findStorePopularByRegion" parameterType="String" resultType="store">
+		SELECT STORE_NAME, STORE_ADDR, STORE_CATEGORY, STORE_TOTALVISIT
+		FROM(SELECT * FROM STORE
+		WHERE STORE_ADDR LIKE #{VALUE} || '%'
+		ORDER BY STORE_TOTALVISIT DESC)
+		WHERE ROWNUM <![CDATA[<=]]> 10;
+	</select>
+	
+	<select id="findStorePopularByPeriod" resultType="store">
+		SELECT S.STORE_ID, S.STORE_NAME, S.STORE_ADDR, S.STORE_CATEGORY, S.STORE_TOTALVISIT, T.TRANSACTION_TIME
+		FROM (SELECT STORE_ID, TRANSACTION_TIME FROM TRANSACTION WHERE TRANSACTION_TIME BETWEEN (select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual) AND SYSDATE) T,
+		(SELECT STORE_ID, STORE_NAME, STORE_ADDR, STORE_CATEGORY, STORE_TOTALVISIT FROM STORE ORDER BY STORE_TOTALVISIT DESC) S
+		WHERE T.STORE_ID = S.STORE_ID AND ROWNUM <![CDATA[<=]]> 10
+		ORDER BY S.STORE_TOTALVISIT DESC;
+	</select>
+	
+	<select id="findStorePopularByCategory" parameterType="String">
+		SELECT STORE_NAME, STORE_ADDR, STORE_CATEGORY, STORE_TOTALVISIT
+		FROM(SELECT * FROM STORE
+		WHERE STORE_CATEGORY = #{VALUE} <!-- Value = category -->
+		ORDER BY STORE_TOTALVISIT DESC)
+		WHERE ROWNUM <![CDATA[<=]]> 10;
+	</select>
+	
+	<select id="findStorePopularByPersonal" parameterType="transaction">
+		SELECT TRANSACTION_STORE, COUNT(TRANSACTION_STORE) AS CNT
+		FROM TRANSACTION
+		WHERE ACCOUNT_NUMBER = #{accountNumber} AND ROWNUM <![CDATA[<=]]> 3
+		GROUP BY TRANSACTION_STORE
+		ORDER BY CNT DESC;
+	</select>
+	
+	<insert id="addWishlist" parameterType="String">
+		INSERT INTO WISHLIST(WISHLIST_ID, MEMBER_ID, STORE_ID) 
+		VALUES(WISHLIST_SEQ.NEXTVAL, #{memberId}, #{storeId}) <!-- param뭐시기로 받아보기 -->
+	</insert>
+	
+	<select id="findWishlistInfo" parameterType="String" resultType="Store">
+		SELECT DISTINCT S.STORE_NAME
+		FROM WISHLIST W, STORE S
+		WHERE W.STORE_ID = S.STORE_ID AND W.MEMBER_ID = #{VALUE};
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
