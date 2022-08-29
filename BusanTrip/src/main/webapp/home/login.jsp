@@ -27,7 +27,7 @@
 		border: 5px dotted red;
 		height: 50vh;
 	    width: 100%;
-	    margin: 100px auto;
+	    margin: 100px auto 10px;
 	    padding-top: 10px;
 	    padding-bottom: 10px;
 	    position: relative;
@@ -53,6 +53,17 @@
 		margin: 10px auto;
 		text-align: center;
 	}
+	
+	.inner-text {
+		font-size: 20px;
+		margin: 0 5px;
+	}
+	
+	.form-login {
+		padding: 0 50px;
+	}
+	
+	
 
 </style>
 </head>
@@ -70,16 +81,18 @@
 						<form method="post" name="loginData" action="login.do">
 						<%-- 일단, login.do로 요청을 보내고 loginData라는 이름으로 요청 --%>
 						
-							<div class="rounded-lg border border-danger login-box-inner">
-								아이디
+							<div class="login-box-inner">
+								<span class="inner-text">아이디: </span>
+								<input type="text" name="id" class="form-box" required="required">
 							</div>
 							
-							<div class="rounded-lg border border-danger login-box-inner">
-								비밀번호
+							<div class="login-box-inner">
+								<span class="inner-text">비밀번호: </span>
+								<input type="text" name="pw" class="form-box" required="required">
 							</div>
 							
-							<div class="rounded-lg border border-danger login-box-inner">
-								버튼
+							<div class="login-box-inner">
+								<input type="submit" class="form-login" value="로그인">
 							</div>
 							
 						</form>
