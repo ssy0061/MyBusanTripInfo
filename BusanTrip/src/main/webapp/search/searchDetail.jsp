@@ -36,7 +36,7 @@
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
-		height: 200px;
+		height: 120px;
 		position: relative;
 	}
 	
@@ -49,6 +49,18 @@
 		position: relative;
 	}
 	
+	.searchDetail-upper-top, .searchDetail-upper-bottom {
+		max-width: 300px;
+		margin: 10px auto;
+		border: 1px solid var(--bnk-gray);
+	}
+	
+	.searchDetail-upper-top {
+		display: flex;
+		justify-content: space-around;
+		padding: 3px 0;
+	}
+	
 	.searchDetail-lower-box {
 		margin: 10px auto;
 	}
@@ -58,6 +70,28 @@
 		position: absolute;
 		left: 50%; top: 50%;
 		transform: translate(-50%, -50%);
+	}
+	
+	.accountNumber {
+		max-width: 100px;
+		width: 100%;
+		font-size: 10px;
+		text-align: left;
+		position: relative;
+		left: 5px;
+		vertical-align: bottom;
+		margin: 15px 0 0;
+		color: gray;
+	}
+	
+	.amount {
+		max-width: 160px;
+		width: 100%;
+		font-size: 22px;
+		text-align: right;
+		position: relative;
+		right: 5px;
+		font-weight: bold;
 	}
 
 </style>
@@ -72,18 +106,18 @@
 			
 			<div class="rounded-lg border border-danger searchDetail-upper">
 				<div class="ud-center">
-					<div class="rounded-lg border border-danger">
-						<span class="border border-primary">계좌번호</span>
-						<span class="border border-primary">금액</span>
+					<div class="rounded-lg searchDetail-upper-top">
+						<span class="accountNumber">XXX-XXXXXX-XX-XXX</span>
+						<span class="amount">0,000,000원</span>
 					</div>
-					<div class="rounded-lg border border-danger">
+					<div class="rounded-lg border border-danger searchDetail-upper-bottom">
 						<span class="border border-primary">기간 조회</span>
-					</div>
-					<div class="rounded-lg border border-danger">
-						<span class="border border-primary searchDetail-period-box" value="1">1개월</span>
-						<span class="border border-primary searchDetail-period-box" value="3">3개월</span>
-						<span class="border border-primary searchDetail-period-box" value="6">6개월</span>
-						<span class="border border-primary searchDetail-period-box" value="12">1년</span>
+						<div class="rounded-lg border border-danger">
+							<span class="border border-primary searchDetail-period-box" value="1">1개월</span>
+							<span class="border border-primary searchDetail-period-box" value="3">3개월</span>
+							<span class="border border-primary searchDetail-period-box" value="6">6개월</span>
+							<span class="border border-primary searchDetail-period-box" value="12">1년</span>
+						</div>
 					</div>
 				</div>
 			</div>
