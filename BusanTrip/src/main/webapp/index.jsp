@@ -27,7 +27,7 @@
 </head>
 <body> 
 	<div>
-		<c:import url="header/nav.jsp">
+		<c:import url="/header/nav.jsp">
 			<%-- param 없으면 home log 출력--%>
 			<%-- <c:param name="navTitle" value="주요기능"/> --%>
 			<%-- <c:param name="navSubTitle" value="상세기능"/> --%>
@@ -42,7 +42,7 @@
 			<p>contents</p>
 			<p>contents</p>
 		</div>
-		<c:import url="footer/footer.jsp" />
+		<c:import url="/footer/footer.jsp" />
 	</div>
 </body>
 </body>
