@@ -33,11 +33,17 @@
 		border-color:transparent;
 	}
 	.card{
-		margin:10px 0;
+		display: flex;
+        justify-content: center;
+        align-items: center;
+        margin:10px 0;
 	}
-	.card-body:hover{
+	.card:hover{
 		cursor:pointer;
 		background-color:#f0c2c4;
+	}
+	.card>img{
+		margin:0 0 10px 0;
 	}
 	/* modal */
 	#membersearch{
@@ -58,7 +64,7 @@
 </style>
 </head>
 <body>
-	<c:import url="header/nav.jsp">
+	<c:import url="/header/nav.jsp">
 		<c:param name="navSubTitle" value="여행"/>
 	</c:import>
 	<div class="container">
@@ -74,31 +80,41 @@
 					</svg>
 				</button>
 			</div>
-			<div class="col-12">
-				<div class="card bg-light">
-					<div class="card-body" onclick="location.href='#'">
-						<h5 class="card-title">통영에서의 추억</h5>
-					</div>
+		</div>
+		<div class="row d-flex justify-content-center">
+			<div class="card col-sm-6 col-md-4">
+				<div class="card-body">
+					<h5 class="card-text">통영에서의 추억</h5>
 				</div>
-				<div class="card bg-light">
-					<div class="card-body" onclick="location.href='#'">
-						<h5 class="card-title">염미정과의 이야기</h5>
-					</div>
+				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+			</div>
+			<div class="card col-sm-6 col-md-4">
+				<div class="card-body">
+					<h5 class="card-title">부산 당일치기</h5>
 				</div>
-				<div class="card bg-light">
-					<div class="card-body" onclick="location.href='test_diary_detail.html'">
-						<h5 class="card-title">부산 당일치기</h5>
-					</div>
+				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+			</div>
+			<div class="card col-sm-6 col-md-4">
+				<div class="card-body">
+					<h5 class="card-title">앨범003</h5>
 				</div>
-				<div class="card bg-light">
-					<div class="card-body" onclick="location.href='#'">
-						<h5 class="card-title">앨범004</h5>
-					</div>
+				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+			</div>
+			<div class="card col-sm-6 col-md-4">
+				<div class="card-body">
+					<h5 class="card-text">통영에서의 추억</h5>
 				</div>
+				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+			</div>
+			<div class="card col-sm-6 col-md-4">
+				<div class="card-body">
+					<h5 class="card-title">부산 당일치기</h5>
+				</div>
+				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
 			</div>
 		</div>
 	</div>
-	<c:import url="footer/footer.jsp" />
+	<c:import url="/footer/footer.jsp" />
 	<!-- The Modal -->
 	 <div class="modal fade" id="storyModal">
 	   <div class="modal-dialog modal-dialog-centered">
