@@ -29,7 +29,7 @@
 	border: 5px dotted red;
 	min-height: 20vh;
     width: 100%;
-    margin: 100px auto;
+    margin: 100px auto 10px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
