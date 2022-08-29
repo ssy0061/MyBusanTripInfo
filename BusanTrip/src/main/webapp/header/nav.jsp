@@ -19,6 +19,7 @@
   		border-bottom-style:solid;
         border-bottom-width:4px;
         border-color:#cb333b;
+        z-index: 99;
 	}
 	@media screen and (max-width: 575px) {
 		.nav{
@@ -30,24 +31,24 @@
 		.nav-mobile{
 			display:flex;
 			justify-content: flex-start;
-			padding-top: 6px;
 			align-items: center;
 		}
 		#navHomeImgWrap{
 			width: 100%;
 			display:flex;
 			justify-content: center;
-			padding-bottom: 5px;
+			padding-top: 5px;
 		}
 		#navTitle{
 			padding-left: 20px;
+			margin-top: 20px;
 		}
 		#navSubTitle{
 			padding-left: 80px;
+			margin-top: 25px;
 		}
 		#navSubTitle>h3{
 			display: inline;
-			margin: 0;
 		}
 		#navSubTitle>.back{
 			position: fixed;
@@ -67,9 +68,62 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			padding: 0 10%;
+			padding-left: 50px;
+			padding-right: 50px;
+			padding-top: 15px;
 		}
 		.navMenus{
+			display: none;
+		}
+		.navMenusButton{
+			display: inline;
+			cursor: pointer;
+		}
+		#collpaseBtn{
+			color: black;
+		}
+		#collpaseBtn:hover{
+			color: black;
+			background-color: white;
+		}
+		.collpaseWrap{
+			position: fixed;
+			width: 100%;
+			background-color: white;
+			top: 85px;
+		}
+		#navCollpase {
+		  	border-bottom-style:solid;
+	        border-bottom-width:4px;
+	        border-color:#cb333b;
+	        padding-bottom: 30px;
+		}
+		#navCollpase a{
+			text-decoration: none;
+			color: black;
+		}
+		#navCollpase div{
+			padding-left: 100px;
+			margin-top: 20px;
+		}
+		
+	}
+	@media screen and (min-width: 720px){
+		.navMenus{
+			display: inline;
+			margin-top: 5px;
+		}
+		.navMenusButton{
+			display: none;
+		}
+		.nav-web{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-left: 50px;
+			padding-right: 50px;
+			margin: 0 auto;
+			max-width: 1200px;
 		}
 		.navMenus div{
 			display: inline;
@@ -94,39 +148,61 @@
 		$('.back').click(function(){
 			window.history.back();
 		})
+		$('.navMenusButton').click(function(){
+			$('#navCollpase').slideToggle();
+		})
+		$(window).resize(function() {
+			$('#navCollpase').attr("class", "collapse");
+		});
 	});
 </script>
 </head>
 <body>
-	<nav class="nav nav-web">
-		<a href="/"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
-		<div class="navMenus">
-			<div><a href="#">조회</a></div>
-			<div><a href="#">여행스토리</a></div>
-			<div><a href="#">핫플</a></div>
-			<div><a href="#">MyPage</a></div>
+	<nav class="nav">
+		<div class="nav-web">
+			<a href="/"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
+			<div class="navMenus">
+				<div><a href="#">조회</a></div>
+				<div><a href="#">여행스토리</a></div>
+				<div><a href="#">핫플</a></div>
+				<div><a href="#">MyPage</a></div>
+			</div>
+			<div class="navMenusButton">
+				<a id="collpaseBtn" data-toggle="collapse" href="#navCollpase" role="button" aria-expanded="false" aria-controls="navCollpase">
+			    	<i class="bi bi-list" style="font-size: 2.5rem;"></i>
+			  	</a>
+			</div>
 		</div>
-	</nav>
-	<nav class="nav nav-mobile">
-		<c:choose>
-			<c:when test="${param.navTitle!=null}">
-				<div id="navTitle">
-					<h2 align="center">${param.navTitle}</h2>
-				</div>
-			</c:when>
-			<c:when test="${param.navSubTitle!=null}">
-				<div id="navSubTitle">
-					<div class="back"><i class="bi bi-chevron-left" style="font-size: 2.2rem;"></i></div>
-					<h3 align="center">${param.navSubTitle}</h3>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div id="navHomeImgWrap">
-					<img src="img/mbti.png" id="nvaHomeMobileLogo">
-				</div>
-			</c:otherwise>
-		</c:choose>
 		
+		<div class="collpaseWrap">
+			<div class="collapse" id="navCollpase">
+				<div><a href="#">조회</a></div>
+				<div><a href="#">여행스토리</a></div>
+				<div><a href="#">핫플</a></div>
+				<div><a href="#">MyPage</a></div>
+			</div>
+		</div>
+		
+		<div class="nav-mobile">
+			<c:choose>
+				<c:when test="${param.navTitle!=null}">
+					<div id="navTitle">
+						<h2 align="center">${param.navTitle}</h2>
+					</div>
+				</c:when>
+				<c:when test="${param.navSubTitle!=null}">
+					<div id="navSubTitle">
+						<div class="back"><i class="bi bi-chevron-left" style="font-size: 2.2rem;"></i></div>
+						<h3 align="center">${param.navSubTitle}</h3>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div id="navHomeImgWrap">
+						<img src="img/mbti.png" id="nvaHomeMobileLogo">
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
 	</nav>
 </body>
 </html>
