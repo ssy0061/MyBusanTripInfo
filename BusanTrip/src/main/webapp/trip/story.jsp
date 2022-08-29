@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,18 +17,6 @@
 	*{
 		font-family: 'Trebuchet MS', sans-serif;
 		box-sizing:border-box;
-	}
-	/* header */
-	header{
-		background-color:#ffffff;
-		height:100px;
-		border-bottom-style:solid;
-		border-bottom-width:6px;
-		border-color:#cb333b;
-		padding-top:30px;
-	}
-	svg{
-		vertical-align:middle;
 	}
 	/* container */
 	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
@@ -55,25 +44,6 @@
 		border-color:transparent;
 		border-radius:2px;
 	}
-	/* footer */
-	footer{
-		height:80px;
-	}
-	.icon{
-		margin:0 auto;
-	}
-	#mobilefooter{
-		width:340px;
-		margin:10px auto;
-		bottom:0;
-		position:center fixed;
-	}
-	#webfooter{
-		background-color:#53565A;
-		width:100%;
-		height:100px;
-		margin:0 auto;
-	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
 		.large {
@@ -88,22 +58,9 @@
 </style>
 </head>
 <body>
-	<header class="fixed-top">
-		<div class="row">
-			<div class="col-2" align="center">
-				<a href="#">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-				  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-				</svg>
-				</a>
-			</div>
-			<div class="col-8">
-				<h3 align="center">여행</h3>
-			</div>
-			<div class="col-2">
-			</div>
-		</div>
-	</header>
+	<c:import url="header/nav.jsp">
+		<c:param name="navSubTitle" value="여행"/>
+	</c:import>
 	<div class="container">
 		<div class="space100"></div>
 		<div class="row">
@@ -133,28 +90,11 @@
 			</div>
 		</div>
 	</div>
-	<footer>
-		<div class="row small fixed-bottom" id="mobilefooter">
-			<div class="icon">
-				<a href="#"><img src="./img/icon_home.png" width="80px" height="80px"></a>
-			</div>
-			<div class="icon">
-				<a href="#"><img src="./img/icon_search.png" width="80px" height="80px"></a>
-			</div>
-			<div class="icon">
-				<a href="#"><img src="./img/icon_album.png" width="80px" height="80px"></a>
-			</div>
-			<div class="icon">
-				<a href="#"><img src="./img/icon_hotplace.png" width="80px" height="80px"></a>
-			</div>
-		</div>
-		<div class="row large fixed-bottom" id="webfooter">
-		</div>
-	</footer>
+	<c:import url="footer/footer.jsp" />
 	<!-- The Modal -->
 	 <div class="modal fade" id="storyModal">
 	   <div class="modal-dialog modal-dialog-centered">
-	     <div class="modal-content">
+	     <div class="modal-content">s
 	     	<div class="modal-header">
 	     		<h4 class="modal-title">스토리 생성하기</h4>
 	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
