@@ -28,42 +28,17 @@
 		max-width:800px;
 		margin: 20px auto;
 	}
-	.add-button{
-		border-color:transparent;
-		background-color:transparent;
+	.pay-store{
+		width:50%;
+		float:left;
 	}
-	.add-picture, .add-transaction{
-		width:200px;
-		border-radius:10px;
-		border-style:solid;
-		border-color:silver;
-		display: flex;
-        justify-content: center;
-        align-items: center;
-		margin:10px auto;
-		padding:15px 0;
+	.pay-price{
+		width:50%;
+		float:right;
 	}
-	.add-picture:hover{
-		cursor:pointer;
-		background-color:lightgray;
-	}
-	.add-transaction:hover{
-		cursor:pointer;
-		background-color:lightgray;
-	}
-	 .each-picture{
-		/*background-image:url("https://www.visitbusan.net/uploadImgs/files/cntnts/20191209162810545_thumbL");*/
-		background-color:gray;
-		background-repeat: no-repeat;
-		background-size:100% 100%;
-		background-position: center;
-		border-radius:10px;
-		margin:10px 10px;
-	}
-	.each-picture>img{
+	.card-body>p{
 		width:100%;
-		min-width:100%;
-		height:auto;
+		float:left;
 	}
 	/* modal */
 	#membersearch{
@@ -71,7 +46,8 @@
 		border-radius:2px;
 	}
 	.mem-id, .mem-name{
-		float:left;
+		width:50%;
+		text-align:justify;
 	}
 	/* customizebutton */
 	#customizeButton{
@@ -112,36 +88,28 @@
 			<div class="col-12">
 				<h4 align="center">ㅇㅇ여행</h4>
 				<h6 align="center">2022.08.13 ~ 2022.08.15</h6>
+				<p></p>
+				<h5>사용자A</h5>
 			</div>
 		</div>
-		<!-- <div class="row">
-			<div class="col-12">
-				<div class="add-picture"  data-toggle="modal" data-target="#pictureModal">
-					<button type="button" class="add-button">
-						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#53565A" class="bi bi-camera-fill" viewBox="0 0 16 16">
-						  <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-						  <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
-						</svg>
-					</button>
+		<div class="row d-flex justify-content-center">
+			<div class="card col-md-6">
+				<img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
+				<div class="card-body">
+					<h6 class="card-text">결제일시</h6>
+					<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+					<div class="pay-price"><h5><small>결제금액</small></h5></div>
+					<p>메모 내용 들어갈 곳</p>
 				</div>
 			</div>
-		</div> -->
-		<div class="row d-flex justify-content-center">
-			<div class="col-5 each-picture" id="eachPic">
-			</div>
-			<div class="col-5 each-picture" id="eachPic">
-			</div>
-			<div class="col-5 each-picture" id="eachPic">
-				<img alt="이미지 들어갈 자리 확보" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL">
-			</div>
-			<div class="col-5 each-picture" id="eachPic">
-				<img alt="이미지 들어갈 자리 확보" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191217101816206_thumbL">
-			</div>
-			<div class="col-5 each-picture" id="eachPic">
-				<img alt="이미지 들어갈 자리 확보" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191217113924538_thumbL">
-			</div>
-			<div class="col-12" align="center">
-				거래내역 넣을 공간
+			<div class="card col-md-6">
+				<img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
+				<div class="card-body">
+					<h6 class="card-text">결제일시</h6>
+					<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+					<div class="pay-price"><h5><small>결제금액</small></h5></div>
+					<p>메모 내용 들어갈 곳</p>
+				</div>
 			</div>
 		</div>
 		<div id="customizeButton">
@@ -156,18 +124,8 @@
 				</a>
 				<a href="#" data-toggle="tooltip" data-placement="left" title="거래내역 추가하기">
 				<button type="button" class="btn btn-outline-secondary custom-button" data-toggle="modal" data-target="#transactionModal">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
-						  <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
-						  <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
-						  <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
-						  <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
-						</svg>
-				</button>
-				</a>
-				<a href="#" data-toggle="tooltip" data-placement="left" title="타임라인">
-				<button type="button" class="btn btn-outline-secondary custom-button">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-check-fill" viewBox="0 0 16 16">
-					  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5zm-2.6 5.854a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+					  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
 					</svg>
 				</button>
 				</a>
@@ -192,7 +150,7 @@
 	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
 	     	</div>
 	     	<div class="modal-body" align="center">
-				<input type="file" accept="image/png, image/jpeg">
+				<input type="file" accept="image/png, image/jpeg" multiple>
 	     	</div>
 	        <div class="modal-footer">
 	        	<input type="submit" value="추가" class="btn btn-secondary" data-dismiss="modal"></input>

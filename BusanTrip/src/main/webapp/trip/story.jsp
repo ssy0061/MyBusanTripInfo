@@ -22,7 +22,7 @@
 	.space100 {
 		height:100px;
 	}
-	.container{s
+	.container{
 		width:80%;
 		max-width:800px;
 		margin: 20px auto;
