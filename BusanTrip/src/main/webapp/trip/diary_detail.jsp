@@ -103,7 +103,7 @@
 </style>
 </head>
 <body>
-	<c:import url="../header/nav.jsp">
+	<c:import url="/header/nav.jsp">
 		<c:param name="navSubTitle" value="여행"/>
 	</c:import>
 	<div class="container">
@@ -181,7 +181,7 @@
 			</div>
 		</div>
 	</div>
-	<c:import url="../footer/footer.jsp" />
+	<c:import url="/footer/footer.jsp" />
 	<!-- The Modal -->
 	<!--  사진 추가 modal -->
 	 <div class="modal fade" id="pictureModal">
