@@ -37,6 +37,7 @@
         justify-content: center;
         align-items: center;
         margin:10px 0;
+    	border-radius:5px;
 	}
 	.card:hover{
 		cursor:pointer;
@@ -44,6 +45,9 @@
 	}
 	.card>img{
 		margin:0 0 10px 0;
+		border-style:solid;
+		border-color:#53565A;
+		border-radius:5px;
 	}
 	/* modal */
 	#membersearch{
@@ -81,7 +85,7 @@
 				</button>
 			</div>
 		</div>
-		<div class="row d-flex justify-content-center">
+		<div class="row d-flex justify-content-center diary-in-story">
 			<div class="card col-sm-6 col-md-4">
 				<div class="card-body">
 					<h5 class="card-text">통영에서의 추억</h5>
