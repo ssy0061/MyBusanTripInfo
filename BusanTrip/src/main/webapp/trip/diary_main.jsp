@@ -58,7 +58,7 @@
 </style>
 </head>
 <body>
-	<c:import url="header/nav.jsp">
+	<c:import url="../header/nav.jsp">
 		<c:param name="navSubTitle" value="여행"/>
 	</c:import>
 	<div class="container">
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 	</div>
-	<c:import url="footer/footer.jsp" />
+	<c:import url="../footer/footer.jsp" />
 	<!-- The Modal -->
 	 <div class="modal fade" id="storyModal">
 	   <div class="modal-dialog modal-dialog-centered">
