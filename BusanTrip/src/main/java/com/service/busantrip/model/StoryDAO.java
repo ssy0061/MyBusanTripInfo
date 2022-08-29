@@ -8,7 +8,7 @@ import com.service.busantrip.domain.story.DiaryTransaction;
 import com.service.busantrip.domain.story.Photo;
 import com.service.busantrip.dto.req.DiaryTransactionReqDTO;
 
-public interface storyDAO { // 쿼리문이나 메소드 결정해서 인자값 결정해야함
+public interface StoryDAO { // 쿼리문이나 메소드 결정해서 인자값 결정해야함
 	public void addStory(String storyName, String storyId, String memberId);
 	public List<Member> findStoryMember(String storyId);
 	public void addStoryMember(String storyId, String memberId);

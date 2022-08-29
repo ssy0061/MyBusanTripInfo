@@ -5,7 +5,7 @@ import java.util.List;
 import com.service.busantrip.domain.Store;
 import com.service.busantrip.domain.Transaction;
 
-public interface storeDAO {
+public interface StoreDAO {
 
 	public List<Store> findStoreTransaction(String accountNumber, String storeId);
 	public List<Store> findStoreInfo(String storeId);
