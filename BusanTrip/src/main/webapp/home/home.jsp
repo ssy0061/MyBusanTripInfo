@@ -160,7 +160,9 @@
 <body>
 
 	<div>
-		<c:import url="../header/nav.jsp" />
+		<c:import url="../header/nav.jsp">
+			<c:param name="navSubTitle" value="조회222"/>
+		</c:import>
 		
 			<div class="container">
 			
