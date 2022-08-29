@@ -38,7 +38,7 @@
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
-		height: 120px;
+		height: 130px;
 		position: relative;
 	}
 	
@@ -125,11 +125,65 @@
 	.searchDetail-lower-box {
 		max-width: 300px;
 		margin: 10px auto;
-		height: 30px;
-		position: relative;
-		border-bottom-color: var(--bnk-gray);
+		min-height: 60px;
+		height: auto;
+		border-bottom-color: var(--bnk-lightgray);
 		border-bottom-width: 2px;
 		border-bottom-style: solid;
+		padding: 5px 0 3px;
+	}
+	
+	.searchDetail-lower-box-inner {
+		text-align: center;
+		display: flex;
+		justify-content: space-around;
+		margin: 2px 0;
+	}
+	
+	.payTime { 
+		width: 220px;
+		text-align: left;
+		margin: 0 0 0 5px;
+		color: gray;
+		font-size: 14px;
+	}
+	
+	.image-box {
+		width: 80px;
+		text-align: right;
+		margin: 0 5px 0 0;
+	}
+	
+	.searchBtn, .memoBtn {
+		position: relative;
+		bottom: 4px;
+		margin: 0 2px;
+	}
+	
+	.storeName {
+		width: 200px;
+		text-align: left;
+		margin: 0 0 0 5px;
+		font-weight: bold;
+		font-size: 15px;
+	}
+	
+	.payAmount {
+		width: 100px;
+		text-align: right;
+		margin: 0 5px 0 0;
+		font-weight: bold;
+		font-size: 15px;
+	}
+	
+	.memo {
+		border: 1px solid burlywood;
+		background-color: beige;
+		width: 280px;
+		margin: 0 5px;
+		font-size: 10px;
+		text-align: left;
+		padding: 1px 2px;
 	}
 	
 	.ud-center {
@@ -141,6 +195,32 @@
 	
 
 </style>
+
+<script>
+
+	$(function() {
+		// something initial method
+		
+		$('.periodBox').click(function(){
+			if ($(this).attr('class') != 'periodBox-choiced') {
+				let period = $(this).attr('value');
+				
+				// alert(period);
+				// 비동기 방식으로 정보 전달...
+				//
+				
+				$('.periodBox-choiced').attr('class', 'periodBox');
+				$(this).attr('class', 'periodBox-choiced');
+			}  // if
+		});  // div click
+		
+		// 맨 처음 페이지 들어왔을 시 1개월을 기본으로 조회하도록 자동 호출.
+		$('.searchDetail-upper-bottom-inner span:eq(0)').click();
+		
+	});  // JQuery
+	
+</script>
+
 </head>
 <body>
 	<div>
@@ -159,7 +239,7 @@
 					<div class="rounded-lg searchDetail-upper-bottom">
 						<span class="upper-bottom-text">기간별 조회하기</span>
 						<div class="searchDetail-upper-bottom-inner">
-							<span class="periodBox-choiced" value="1">1개월</span>
+							<span class="periodBox" value="1">1개월</span>
 							<span class="periodBox" value="3">3개월</span>
 							<span class="periodBox" value="6">6개월</span>
 							<span class="periodBox" value="12">1년</span>
@@ -171,21 +251,40 @@
 			<div class="rounded-lg border border-danger searchDetail-lower">
 				
 				<div class="searchDetail-lower-box">
-					<div class="ud-center">
-						<span class="border border-primary">결제일시</span>
-						<span class="border border-primary">가게이름</span>
-						<img class="border border-primary">
-						<img class="border border-primary">
-						<span class="border border-primary">결제금액</span>
+					<div class="searchDetail-lower-box-inner">
+						<span class="payTime">2022-02-22</span>
+						<div class="image-box">
+							<img class="searchBtn" src="./img/search.png" width=20px>
+							<img class="memoBtn" src="./img/memo.png" width=20px>
+						</div>
+					</div>
+					
+					<div class="searchDetail-lower-box-inner">
+						<span class="storeName">부산은행 기장연수원</span>
+						<span class="payAmount">2,000,000</span>
+					</div>
+					
+					<div class="searchDetail-lower-box-inner">
+						<span class="memo">메모용 내용</span>
 					</div>
 				</div>
+				
 				<div class="searchDetail-lower-box">
-					<div class="ud-center">
-						<span class="border border-primary">결제일시</span>
-						<span class="border border-primary">가게이름</span>
-						<img class="border border-primary">
-						<img class="border border-primary">
-						<span class="border border-primary">결제금액</span>
+					<div class="searchDetail-lower-box-inner">
+						<span class="payTime">2022-02-22</span>
+						<div class="image-box">
+							<img class="searchBtn" src="./img/search.png" width=20px>
+							<img class="memoBtn" src="./img/memo.png" width=20px>
+						</div>
+					</div>
+					
+					<div class="searchDetail-lower-box-inner">
+						<span class="storeName">부산은행 기장연수원</span>
+						<span class="payAmount">2,000,000</span>
+					</div>
+					
+					<div class="searchDetail-lower-box-inner">
+						<span class="memo">메모용 내용</span>
 					</div>
 				</div>
 				
