@@ -10,14 +10,14 @@ public class DiaryTransaction {
 	private String transactionStore;
 	private int	transactionAmt;
 	private String transactionMemo;
-	private String photoUrl;
-	
+
 	private Diary diary;
-	
-	public DiaryTransaction() { }
+
+	public DiaryTransaction() {
+	}
 
 	public DiaryTransaction(int diarytransactionId, String memberId, String storeId, Date transactionTime,
-			String transactionStore, int transactionAmt, String transactionMemo, String photoUrl, Diary diary) {
+			String transactionStore, int transactionAmt, String transactionMemo, Diary diary) {
 		super();
 		this.diarytransactionId = diarytransactionId;
 		this.memberId = memberId;
@@ -26,7 +26,6 @@ public class DiaryTransaction {
 		this.transactionStore = transactionStore;
 		this.transactionAmt = transactionAmt;
 		this.transactionMemo = transactionMemo;
-		this.photoUrl = photoUrl;
 		this.diary = diary;
 	}
 
@@ -86,14 +85,6 @@ public class DiaryTransaction {
 		this.transactionMemo = transactionMemo;
 	}
 
-	public String getPhotoUrl() {
-		return photoUrl;
-	}
-
-	public void setPhotoUrl(String photoUrl) {
-		this.photoUrl = photoUrl;
-	}
-
 	public Diary getDiary() {
 		return diary;
 	}
@@ -106,7 +97,9 @@ public class DiaryTransaction {
 	public String toString() {
 		return "DiaryTransaction [diarytransactionId=" + diarytransactionId + ", memberId=" + memberId + ", storeId="
 				+ storeId + ", transactionTime=" + transactionTime + ", transactionStore=" + transactionStore
-				+ ", transactionAmt=" + transactionAmt + ", transactionMemo=" + transactionMemo + ", photoUrl="
-				+ photoUrl + ", diary=" + diary + "]";
+				+ ", transactionAmt=" + transactionAmt + ", transactionMemo=" + transactionMemo + ", diary=" + diary
+				+ "]";
 	}
+
+
 }
