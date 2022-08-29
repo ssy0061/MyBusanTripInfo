@@ -19,11 +19,10 @@
 		box-sizing:border-box;
 	}
 	/* container */
-	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
 	.space100 {
 		height:100px;
 	}
-	.container{
+	.container{s
 		width:80%;
 		max-width:800px;
 		margin: 20px auto;
