@@ -98,15 +98,4 @@ public class memberDAOImpl implements memberDAO{
 					  @Param("balance") int balance) {
 		return sqlSession.update(NS+"charge");
 	}
-
-	/*	
-	@Override
-	public int transfer(@Param("amt") int amt, 
-						@Param("sender") String sender, 
-						@Param("receiver") String receiver) {
-		// 추후 시간되면 작성
-		
-		return 0;
-	}
-	*/
 }
