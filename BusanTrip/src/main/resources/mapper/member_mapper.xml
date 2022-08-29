@@ -26,34 +26,34 @@
 		WHERE  A.ACCOUNT_NUMBER = #{accountNumber}
 	</select>
 	
-	<select id="findTransactionByPeriod" parameterType="" resultType="transaction">
+	<select id="findTransactionBySpecificPeriod" parameterType="String" resultType="transaction">
 		SELECT T.TRANSACTION_TIME, T.TRANSACTION_STORE, T.TRANSACTION_AMT
 		FROM TRANSACTION T, ACCOUNT A 
 		WHERE A.ACCOUNT_NUMBER  = #{accountNumber}
 		AND T.TRANSACTION_TIME BETWEEN #{firstDate} AND #{lastDate}
 	</select>
 	
-	<select id="findTransactionByPeriod" parameterType="" resultType="transaction">
+	<select id="findTransactionByMonthPeriod" parameterType="String" resultType="transaction">
 		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{accountNumber}
 		AND TRANSACTION_TIME BETWEEN (select to_char(add_months(sysdate,-#{month}),'yyyy-mm-dd') from dual) AND SYSDATE
 		ORDER BY TRANSACTION_TIME DESC;
 	</select>
-	
-	<insert id="addExternalTrasaction" parameterType="">
+
+	<insert id="addExternalTrasaction" parameterType="String">
 		INSERT INTO 
 		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
 		VALUES(#{transactionId}, #{accountNumber}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt}, #{transactionMemo})
 	</insert>
 	
-	<insert id="addTransaction" parameterType="">
+	<insert id="addTransaction" parameterType="String">
 		INSERT INTO 
 		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT)
 		VALUES(#{transactionId}, #{accountNumber}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt})
 	</insert>
 	
-	<update id="pay" parameterType="">
+	<update id="pay" parameterType="String">
 		UPDATE ACCOUNT
 		SET account_balance=#{new_balance}
 		WHERE ACCOUNT_NUMBER=#{accountNumber};
@@ -77,7 +77,7 @@
 		WHERE ACCOUNT_NUMBER=#{accountNumber};
 	</select>
 	
-	<update id="charge" parameterType="">
+	<update id="charge" parameterType="String">
 		UPDATE ACCOUNT
 		SET account_balance=#{new_balance}
 		WHERE ACCOUNT_NUMBER=#{accountNumber};

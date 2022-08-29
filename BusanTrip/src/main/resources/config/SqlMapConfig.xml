@@ -9,9 +9,9 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />		
 	</settings>
 
-	<!-- <typeAliases>
-		<package name="com.service.spring.domain"/>
-	</typeAliases> -->
+	<typeAliases>
+		<package name="com.service.busantrip.domain"/>
+	</typeAliases>
 	
 	<!-- JUnit 기반의 단위테스트용  -->
  	<environments default="development">

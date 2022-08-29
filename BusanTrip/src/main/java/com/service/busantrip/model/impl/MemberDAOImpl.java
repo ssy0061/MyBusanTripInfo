@@ -21,9 +21,6 @@ public class MemberDAOImpl implements MemberDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Autowired
-	private TransactionReqDTO transactionReqDTO;
-	
 	@Override
 	public void join(Member member) {
 		sqlSession.insert(NS+"join", member);

@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sql.store.mapper">
-	<select id="findStoreTransaction" parameterType="" resultType="store">
+	<select id="findStoreTransaction" parameterType="String" resultType="store">
 		SELECT TRANSACTION_TIME, TRANSACTION_AMT
 		FROM TRANSACTION
 		WHERE STORE_ID={storeId} AND ACCOUNT_NUMBER=#{accountNumber}
