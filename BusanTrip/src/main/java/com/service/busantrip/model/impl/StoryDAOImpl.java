@@ -5,15 +5,16 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.DiaryTransaction;
 import com.service.busantrip.domain.story.Photo;
 import com.service.busantrip.dto.req.DiaryTransactionReqDTO;
-import com.service.busantrip.model.storyDAO;
-
-public class storyDAOImpl implements storyDAO{
+import com.service.busantrip.model.StoryDAO;
+@Repository
+public class StoryDAOImpl implements StoryDAO{
 	
 	private final String NS = "sql.member.mapper.";
 	

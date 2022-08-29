@@ -11,10 +11,10 @@ import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.dto.req.TransactionReqDTO;
-import com.service.busantrip.model.memberDAO;
+import com.service.busantrip.model.MemberDAO;
 
 @Repository
-public class memberDAOImpl implements memberDAO{
+public class MemberDAOImpl implements MemberDAO{
 
 	private final String NS = "sql.member.mapper.";
 	

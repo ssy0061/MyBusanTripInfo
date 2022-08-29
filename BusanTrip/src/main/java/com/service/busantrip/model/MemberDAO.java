@@ -7,7 +7,7 @@ import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.dto.req.TransactionReqDTO;
 
-public interface memberDAO {
+public interface MemberDAO {
 	public void join(Member member); //회원가입
 	public void login(Member member); //로그인
 	public void logout(); //로그아웃
