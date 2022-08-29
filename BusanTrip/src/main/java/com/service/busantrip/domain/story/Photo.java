@@ -4,15 +4,16 @@ public class Photo {
 	private int photoId;
 	private String photoUrl;
 	
-	private Diary diary;
-	
-	public Photo() { }
+	private DiaryTransaction diaryTransaction;
 
-	public Photo(int photoId, String photoUrl, Diary diary) {
+	public Photo() {
+	}
+
+	public Photo(int photoId, String photoUrl, DiaryTransaction diaryTransaction) {
 		super();
 		this.photoId = photoId;
 		this.photoUrl = photoUrl;
-		this.diary = diary;
+		this.diaryTransaction = diaryTransaction;
 	}
 
 	public int getPhotoId() {
@@ -31,16 +32,18 @@ public class Photo {
 		this.photoUrl = photoUrl;
 	}
 
-	public Diary getDiary() {
-		return diary;
+	public DiaryTransaction getDiaryTransaction() {
+		return diaryTransaction;
 	}
 
-	public void setDiary(Diary diary) {
-		this.diary = diary;
+	public void setDiaryTransaction(DiaryTransaction diaryTransaction) {
+		this.diaryTransaction = diaryTransaction;
 	}
 
 	@Override
 	public String toString() {
-		return "Photo [photoId=" + photoId + ", photoUrl=" + photoUrl + ", diary=" + diary + "]";
+		return "Photo [photoId=" + photoId + ", photoUrl=" + photoUrl + ", diaryTransaction=" + diaryTransaction + "]";
 	}
+
+	
 }
