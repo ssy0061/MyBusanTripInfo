@@ -99,7 +99,7 @@
 </head>
 <body>
 	<nav class="nav nav-web">
-		<a href="/"><img src="img/mbti.png" id="navHomeWebLogo"></a>
+		<a href="/"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
 		<div class="navMenus">
 			<div><a href="#">조회</a></div>
 			<div><a href="#">여행스토리</a></div>
