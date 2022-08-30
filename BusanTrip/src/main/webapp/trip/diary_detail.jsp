@@ -100,7 +100,6 @@ $(document).ready(function () {
     var itemsMainDiv = ('.MultiCarousel');
     var itemsDiv = ('.MultiCarousel-inner');
     var itemWidth = "";
-    var itemNumbers = 0;
 
     $('.leftLst, .rightLst').click(function () {
         var condition = $(this).hasClass("leftLst");
@@ -125,21 +124,21 @@ $(document).ready(function () {
         var btnParentSb = '';
         var itemsSplit = '';
         var sampwidth = $(itemsMainDiv).width();
-        var bodyWidth = $('body').width();
         $(itemsDiv).each(function () {
             id = id + 1;
-            itemNumbers = $(this).find(itemClass).length;
+            var itemNumbers = $(this).find(itemClass).length;
             btnParentSb = $(this).parent().attr(dataItems);
             itemsSplit = btnParentSb.split(',');//['1', '3']
             $(this).parent().attr("id", "MultiCarousel" + id);
+            $(this).attr("id", "now-0");
 
-            if (bodyWidth >= 768) {
-                incno = itemsSplit[1];// 3
-                itemWidth = sampwidth / incno -20;// margin 보정
+            if(matchMedia("screen and (min-width: 575.1px)").matches){ // 575.1px보다 화면 사이즈가 크면
+                incno = itemsSplit[1];// '3'
+                itemWidth = sampwidth / incno -20;// - margin
             }
             else {
-                incno = itemsSplit[0];// 1
-                itemWidth = sampwidth / incno -20;// margin 보정
+                incno = itemsSplit[0];// '1'
+                itemWidth = sampwidth / incno -20;// - margin
             }
             $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
             $(this).find(itemClass).each(function () {
@@ -155,6 +154,12 @@ $(document).ready(function () {
     function ResCarousel(e, el, s) { // 왼 0, 오1 / MultiCarousel / 1
         var leftBtn = ('.leftLst');
         var rightBtn = ('.rightLst');
+        var itemNumbers = $(el + ' ' + itemsDiv).find('.item').length;
+        var now = $(el + ' ' + itemsDiv).attr("id").substring(4);
+        
+        // now 연속 (168.74566666666666168.74566666666666) 수정
+        
+        
         var translateXval = '';
         var divStyle = $(el + ' ' + itemsDiv).css('transform'); // matrix(1, 0, 0, 1, -468, 0)
         var values = divStyle.match(/-?[\d\.]+/g);
@@ -162,24 +167,39 @@ $(document).ready(function () {
         
         if (e == 0) {// 왼쪽이면
             translateXval = parseFloat(xds) - parseFloat((itemWidth+20) * s);// x좌표-(아이템길이*1) 즉, 이동 후 새 좌표값
+            if(Math.abs(now-translateXval)<parseFloat((itemWidth+20) * s))//결과적으로  xds 안씀
+            	translateXval = now-parseFloat((itemWidth+20) * s)
             $(el + ' ' + rightBtn).removeClass("over");
-            if (translateXval <= itemWidth+5) {
-                translateXval = 0;
-                $(el + ' ' + leftBtn).addClass("over");
+           	if (translateXval <= itemWidth+5) {
+                   translateXval = 0;
+                   $(el + ' ' + leftBtn).addClass("over");
             }
         }
         else if (e == 1) {// 오른쪽이면
             var itemsCondition = $(el).find(itemsDiv).width() - $(el).width()-20;//전체 가로길이 - 아이템 길이
             translateXval = parseFloat(xds) + parseFloat((itemWidth+20) * s);// x좌표+(아이템길이*1) 즉, 이동 후 새 좌표값
+            if(Math.abs(translateXval-now)<parseFloat((itemWidth+20) * s))//결과적으로  xds 안씀
+            	translateXval = now+parseFloat((itemWidth+20) * s)
             $(el + ' ' + leftBtn).removeClass("over");
-            if (translateXval >= itemsCondition - (itemWidth * 3 / 2)) {
-            	console.log(translateXval+">>>>"+itemsCondition, itemWidth)
-                translateXval = (itemWidth+20)*(itemNumbers-2);
-                console.log(translateXval)
-                $(el + ' ' + rightBtn).addClass("over");
+            if(matchMedia("screen and (min-width: 575.1px)").matches){
+            	if (translateXval >= itemsCondition - (itemWidth * 3 / 2)){
+            		console.log(translateXval+">>>>"+itemsCondition, itemWidth)
+            		var chkNum = 4;
+                    translateXval = (itemWidth+20)*(itemNumbers-chkNum);
+                    console.log(translateXval)
+                    $(el + ' ' + rightBtn).addClass("over");
+            	}
+            }else {
+                if (translateXval >= itemsCondition - (itemWidth * 3 / 2)) {
+                	console.log(translateXval+">>>>"+itemsCondition, itemWidth)
+                	var chkNum = 2
+                    translateXval = (itemWidth+20)*(itemNumbers-chkNum);
+                    console.log(translateXval)
+                    $(el + ' ' + rightBtn).addClass("over");
+                }
             }
         }
-        
+        $(el + ' ' + itemsDiv).attr("id", "now-"+translateXval);
         console.log("클릭 전 x좌표: "+xds+"////"+"전체 가로 길이: "+$(itemsDiv).width()+" "+"아이템 길이: "+itemWidth)
         console.log("새 x좌표"+translateXval+" 증가값: "+(translateXval-xds))
         $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
@@ -216,7 +236,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="card-text pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="card-text pay-store"><h5 class="card-title">가게이름1</h5></div>
 							<div class="card-text pay-price"><h5>결제금액</h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -225,7 +245,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름2</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -234,7 +254,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름3</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -243,7 +263,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름4</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -252,25 +272,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
-							<div class="pay-price"><h5><small>결제금액</small></h5></div>
-							<h6>메모 내용 들어갈 곳</h6>
-						</div>
-	                </div>
-	                <div class="item card">
-	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-						<div class="card-body">
-							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
-							<div class="pay-price"><h5><small>결제금액</small></h5></div>
-							<h6>메모 내용 들어갈 곳</h6>
-						</div>
-	                </div>
-	                <div class="item card">
-	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-						<div class="card-body">
-							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름5</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -294,7 +296,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름1</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -303,7 +305,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름2</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -312,7 +314,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름3</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -321,7 +323,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름4</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -330,7 +332,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름5</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
@@ -339,16 +341,7 @@ $(document).ready(function () {
 	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
 						<div class="card-body">
 							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
-							<div class="pay-price"><h5><small>결제금액</small></h5></div>
-							<h6>메모 내용 들어갈 곳</h6>
-						</div>
-	                </div>
-	                <div class="item card">
-	                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-						<div class="card-body">
-							<h6 class="card-text">결제일시</h6>
-							<div class="pay-store"><h5 class="card-title">가게이름</h5></div>
+							<div class="pay-store"><h5 class="card-title">가게이름6</h5></div>
 							<div class="pay-price"><h5><small>결제금액</small></h5></div>
 							<h6>메모 내용 들어갈 곳</h6>
 						</div>
