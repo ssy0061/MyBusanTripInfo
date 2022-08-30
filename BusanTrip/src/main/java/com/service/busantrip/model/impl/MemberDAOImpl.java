@@ -47,16 +47,16 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public List<Transaction> findTransactionByPeriod(@Param("accountNumber") String accountNumber, 
+	public List<Transaction> findTransactionBySpecificPeriod(@Param("accountNumber") String accountNumber, 
 													 @Param("startDay") String startDay, 
 													 @Param("finishDay") String finishDay) {
-		return sqlSession.selectList(NS+"findTransactionByPeriod");
+		return sqlSession.selectList(NS+"findTransactionBySpecificPeriod");
 	}
 
 	@Override
-	public List<Transaction> findTransactionByPeriod(@Param("accountNumber") String accountNumber, 
+	public List<Transaction> findTransactionByMonthPeriod(@Param("accountNumber") String accountNumber, 
 													 @Param("month") int month) {
-		return sqlSession.selectList(NS+"findTransactionByPeriod");
+		return sqlSession.selectList(NS+"findTransactionByMonthPeriod");
 	}
 
 	@Override
