@@ -4,18 +4,31 @@ public class Account {
 	private String accountNumber;
 	private int accountBalance;
 	private String accountInner;
+	private String memberId;
 
 	private Member member;
 	
 	public Account() {}
 
-	public Account(String accountNumber, int accountBalance, String accountInner, Member member) {
+
+	public Account(String accountNumber, int accountBalance, String accountInner, String memberId, Member member) {
 		super();
 		this.accountNumber = accountNumber;
 		this.accountBalance = accountBalance;
 		this.accountInner = accountInner;
+		this.memberId = memberId;
 		this.member = member;
 	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 
 	public String getAccountNumber() {
 		return accountNumber;
@@ -49,10 +62,10 @@ public class Account {
 		this.member = member;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Account [accountNumber=" + accountNumber + ", accountBalance=" + accountBalance + ", accountInner="
-				+ accountInner + ", member=" + member + "]";
+				+ accountInner + ", memberId=" + memberId + "]";
 	}
-
 }

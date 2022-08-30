@@ -38,7 +38,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void updateCharacter(Member member) {
+	public void updateCharacter(Member member) {	// hashmap으로 변경해야함
 		sqlSession.update(NS+"updateCharacter", member);
 	}
 
@@ -78,12 +78,17 @@ public class MemberDAOImpl implements MemberDAO{
 		sqlSession.update(NS+"pay", map);
 	}
 
-	@Override
-	public void addTransaction(Transaction transaction, String accountNumber) {
-		TransactionReqDTO dto = new TransactionReqDTO(transaction, accountNumber);
-		sqlSession.insert(NS+"addTransaction", dto);
-	}
+//	@Override
+//	public void addTransaction(Transaction transaction, String accountNumber) {
+//		TransactionReqDTO dto = new TransactionReqDTO(transaction, accountNumber);
+//		sqlSession.insert(NS+"addTransaction", dto);
+//	}
 
+	@Override
+	public void addTransaction(Transaction transaction) {
+		sqlSession.insert(NS+"addTransaction", transaction);
+	}
+	
 	@Override
 	public void updateTransactionMemo(Transaction transaction) {
 		sqlSession.update(NS+"updateTransactionMemo", transaction);

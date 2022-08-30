@@ -4,18 +4,39 @@ import java.util.Date;
 
 public class Wishlist {
 	private int wishlistId;
-
+	private String memberId;
+	private String storeId;
 
 	private Member member;
 	private Store store;
 	
 	public Wishlist() {}
 
-	public Wishlist(int wishlistId, Member member, Store store) {
+	public Wishlist(int wishlistId, String memberId, String storeId, Member member, Store store) {
 		super();
 		this.wishlistId = wishlistId;
+		this.memberId = memberId;
+		this.storeId = storeId;
 		this.member = member;
 		this.store = store;
+	}
+
+	
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
 	}
 
 	public int getWishlistId() {
@@ -44,6 +65,8 @@ public class Wishlist {
 
 	@Override
 	public String toString() {
-		return "Wishlist [wishlistId=" + wishlistId + ", member=" + member + ", store=" + store + "]";
+		return "Wishlist [wishlistId=" + wishlistId + ", memberId=" + memberId + ", storeId=" + storeId + "]";
 	}
+
+	
 }

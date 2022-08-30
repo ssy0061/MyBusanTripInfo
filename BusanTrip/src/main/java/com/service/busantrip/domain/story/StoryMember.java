@@ -5,18 +5,41 @@ import com.service.busantrip.domain.Member;
 public class StoryMember {
 	private int storymemberId;
 	private String storymemberAuth;
+	private String memberId;
+	private String storyId;
 	
 	private Member member;
 	private Story story;
 	
 	public StoryMember() { }
 
-	public StoryMember(int storymemberId, String storymemberAuth, Member member, Story story) {
+	public StoryMember(int storymemberId, String storymemberAuth, String memberId, String storyId, Member member,
+			Story story) {
 		super();
 		this.storymemberId = storymemberId;
 		this.storymemberAuth = storymemberAuth;
+		this.memberId = memberId;
+		this.storyId = storyId;
 		this.member = member;
 		this.story = story;
+	}
+
+	
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getStoryId() {
+		return storyId;
+	}
+
+	public void setStoryId(String storyId) {
+		this.storyId = storyId;
 	}
 
 	public int getStorymemberId() {
@@ -53,8 +76,9 @@ public class StoryMember {
 
 	@Override
 	public String toString() {
-		return "StoryMember [storymemberId=" + storymemberId + ", storymemberAuth=" + storymemberAuth + ", member="
-				+ member + ", story=" + story + "]";
+		return "StoryMember [storymemberId=" + storymemberId + ", storymemberAuth=" + storymemberAuth + ", memberId="
+				+ memberId + ", storyId=" + storyId + "]";
 	}
 
+	
 }

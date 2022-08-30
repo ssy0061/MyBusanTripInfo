@@ -68,8 +68,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void addTransaction(Transaction transaction, String accountNumber) {
-		memberDAO.addTransaction(transaction, accountNumber);
+	public void addTransaction(Transaction transaction) {
+		memberDAO.addTransaction(transaction);
 	}
 
 	@Override

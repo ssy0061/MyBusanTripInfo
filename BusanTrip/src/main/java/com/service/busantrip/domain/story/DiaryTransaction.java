@@ -10,6 +10,7 @@ public class DiaryTransaction {
 	private String transactionStore;
 	private int	transactionAmt;
 	private String transactionMemo;
+	private int diaryId;
 
 	private Diary diary;
 
@@ -17,7 +18,7 @@ public class DiaryTransaction {
 	}
 
 	public DiaryTransaction(int diarytransactionId, String memberId, String storeId, Date transactionTime,
-			String transactionStore, int transactionAmt, String transactionMemo, Diary diary) {
+			String transactionStore, int transactionAmt, String transactionMemo, int diaryId) {
 		super();
 		this.diarytransactionId = diarytransactionId;
 		this.memberId = memberId;
@@ -26,7 +27,16 @@ public class DiaryTransaction {
 		this.transactionStore = transactionStore;
 		this.transactionAmt = transactionAmt;
 		this.transactionMemo = transactionMemo;
-		this.diary = diary;
+		this.diaryId = diaryId;
+	}
+	
+
+	public int getDiaryId() {
+		return diaryId;
+	}
+
+	public void setDiaryId(int diaryId) {
+		this.diaryId = diaryId;
 	}
 
 	public int getDiarytransactionId() {
@@ -97,9 +107,8 @@ public class DiaryTransaction {
 	public String toString() {
 		return "DiaryTransaction [diarytransactionId=" + diarytransactionId + ", memberId=" + memberId + ", storeId="
 				+ storeId + ", transactionTime=" + transactionTime + ", transactionStore=" + transactionStore
-				+ ", transactionAmt=" + transactionAmt + ", transactionMemo=" + transactionMemo + ", diary=" + diary
+				+ ", transactionAmt=" + transactionAmt + ", transactionMemo=" + transactionMemo + ", diaryId=" + diaryId
 				+ "]";
 	}
-
 
 }

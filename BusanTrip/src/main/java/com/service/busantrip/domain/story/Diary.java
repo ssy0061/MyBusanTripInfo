@@ -6,17 +6,29 @@ public class Diary {
 	private int	diaryId;
 	private String diaryName;
 	private Date diaryMakedate;
+	private int storyId;
 	
 	private Story story;
 	
 	public Diary() { }
 
-	public Diary(int diaryId, String diaryName, Date diaryMakedate, Story story) {
+	public Diary(int diaryId, String diaryName, Date diaryMakedate, int storyId) {
 		super();
 		this.diaryId = diaryId;
 		this.diaryName = diaryName;
 		this.diaryMakedate = diaryMakedate;
-		this.story = story;
+		this.storyId = storyId;
+	}
+
+	
+	
+	
+	public int getStoryId() {
+		return storyId;
+	}
+
+	public void setStoryId(int storyId) {
+		this.storyId = storyId;
 	}
 
 	public int getDiaryId() {
@@ -54,7 +66,8 @@ public class Diary {
 	@Override
 	public String toString() {
 		return "Diary [diaryId=" + diaryId + ", diaryName=" + diaryName + ", diaryMakedate=" + diaryMakedate
-				+ ", story=" + story + "]";
+				+ ", storyId=" + storyId + "]";
 	}
+
 
 }
