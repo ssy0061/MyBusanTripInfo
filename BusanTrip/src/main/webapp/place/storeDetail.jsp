@@ -46,6 +46,7 @@
 		max-width: 300px;
 		margin: 10px auto;
 		padding: 5px 0;
+		border: 1px solid var(--bnk-lightgray);
 	}
 	
 	#storeName {
@@ -53,11 +54,10 @@
 		font-size: 20px;
 	}
 	
-	.storeDetail-box-top-inner {
+	.storeDetail-box-top-inner, .storeDetail-box-bottom-inner {
 		display: flex;
 		justify-content: space-around;
 	}
-
 	
 	.index-box {
 		width: 100px;
@@ -82,9 +82,41 @@
 	}
 	
 	.title-box {
-		
+		font-size: 14px;
+		font-weight: bold;
+		display: block;
+		padding: 0 0 4px;
+		border-bottom-color: var(--bnk-lightgray);
+		border-bottom-width: 2px;
+		border-bottom-style: solid;
 	}
 	
+	.storeDetail-box-bottom-inner {
+		margin: 6px 0;
+	}
+	
+	.visitDate {
+		width: 180px;
+		text-align: left;
+		margin: 0 0 0 10px;
+		padding: 1px 0;
+		font-size: 15px;
+		color: var(--bnk-gray);
+		border-bottom-color: var(--bnk-lightgray);
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+	}
+	
+	.payAmount {
+		width: 120px;
+		text-align: right;
+		margin: 0 10px 0 0;
+		font-size: 15px;
+		font-weight: bold;
+		border-bottom-color: var(--bnk-lightgray);
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+	}
 	
 	
 	
@@ -100,7 +132,7 @@
 		
 			<span id="storeName">아삭토스트 범내골점</span>
 			
-			<div class="rounded-lg border border-danger storeDetail-box-top">
+			<div class="rounded-lg storeDetail-box-top">
 				<div class="storeDetail-box-top-inner">
 					<span class="index-box">연락처</span>
 					<span class="contents-box" id="contact">051) 0150-5484</span>
@@ -119,19 +151,31 @@
 				</div>
 			</div>
 			
-			<div class="rounded-lg border border-danger storeDetail-box-middle">
+			<div class="rounded-lg storeDetail-box-middle">
 				<img src="/img/map.png" width="100%">
 			</div>
 			
-			<div class="rounded-lg border border-danger storeDetail-box-bottom">
+			<div class="rounded-lg storeDetail-box-bottom">
 				<span class="title-box">최근 나의 방문 기록</span>
 				<div class="storeDetail-box-bottom-inner">
-					<span class="visitDate">2022-01-23</span>
+					<span class="visitDate">2022-06-23</span>
 					<span class="payAmount">9,000</span>
 				</div>
 				<div class="storeDetail-box-bottom-inner">
+					<span class="visitDate">2022-05-21</span>
+					<span class="payAmount">4,500</span>
+				</div>
+				<div class="storeDetail-box-bottom-inner">
+					<span class="visitDate">2022-04-18</span>
+					<span class="payAmount">13,500</span>
+				</div>
+				<div class="storeDetail-box-bottom-inner">
+					<span class="visitDate">2022-03-02</span>
+					<span class="payAmount">7,000</span>
+				</div>
+				<div class="storeDetail-box-bottom-inner">
 					<span class="visitDate">2022-01-23</span>
-					<span class="payAmount">9,000</span>
+					<span class="payAmount">3,400</span>
 				</div>
 			</div>
 			
