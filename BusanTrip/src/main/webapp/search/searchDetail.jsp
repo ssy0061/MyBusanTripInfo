@@ -221,13 +221,33 @@
 
 	$(function() {
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		
+		let nowDay = new Date();
+		let nowYear = nowDay.getFullYear();
+		let nowMonth = nowDay.getMonth() + 1;
+		let nowDate = nowDay.getDate();
+		let now = nowYear + '-' + ('00' + nowMonth).slice(-2)
+					+ '-' + ('00' + nowDate).slice(-2);
 		// initial method
 		
 		$('.periodBox').click(function(){
 			if ($(this).attr('class') != 'periodBox-choiced') {
 				let period = $(this).attr('value');
 				
-				alert(period);
+				let befDay = new Date();
+				befDay.setMonth(nowMonth-1-period);
+				befDay.setDate(nowDate+1);
+				
+				let befYear = befDay.getFullYear();
+				let befMonth = befDay.getMonth() + 1;
+				let befDate = befDay.getDate();
+				let bef = befYear + '-' + ('00' + befMonth).slice(-2)
+							+ '-' + ('00' + befDate).slice(-2);
+				
+				$('#startDate').val(bef)
+				$('#endDate').val(now)
+				
+				// period - 기간. befDay - 시작점. nowDay - 끝점(오늘).
 				// 비동기 방식으로 정보 전달...
 				//
 				
@@ -251,7 +271,7 @@
 		});  // div click
 		
 		// 맨 처음 페이지 들어왔을 시 1개월을 기본으로 조회하도록 자동 호출.
-		$('.searchDetail-upper-bottom-inner span:eq(0)').click();
+		$('.periodBox:eq(0)').click();
 		
 	});  // JQuery
 	
