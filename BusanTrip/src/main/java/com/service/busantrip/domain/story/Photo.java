@@ -3,17 +3,28 @@ package com.service.busantrip.domain.story;
 public class Photo {
 	private int photoId;
 	private String photoUrl;
+	private int diaryTransactionId;
 	
 	private DiaryTransaction diaryTransaction;
 
 	public Photo() {
 	}
 
-	public Photo(int photoId, String photoUrl, DiaryTransaction diaryTransaction) {
+	public Photo(int photoId, String photoUrl, int diaryTransactionId) {
 		super();
 		this.photoId = photoId;
 		this.photoUrl = photoUrl;
-		this.diaryTransaction = diaryTransaction;
+		this.diaryTransactionId = diaryTransactionId;
+	}
+
+	
+	
+	public int getDiaryTransactionId() {
+		return diaryTransactionId;
+	}
+
+	public void setDiaryTransactionId(int diaryTransactionId) {
+		this.diaryTransactionId = diaryTransactionId;
 	}
 
 	public int getPhotoId() {
@@ -42,8 +53,8 @@ public class Photo {
 
 	@Override
 	public String toString() {
-		return "Photo [photoId=" + photoId + ", photoUrl=" + photoUrl + ", diaryTransaction=" + diaryTransaction + "]";
+		return "Photo [photoId=" + photoId + ", photoUrl=" + photoUrl + ", diaryTransactionId=" + diaryTransactionId
+				+ "]";
 	}
 
-	
 }

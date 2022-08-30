@@ -7,8 +7,8 @@
 
 	<insert id="join" parameterType="member">
 		INSERT INTO
-		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR, MEMBER_CHAR)
-		VALUES(#{memberId}, #{memberPw}, #{memberName},#{memberTele},#{memberAddr}, #{memberChar})
+		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR)
+		VALUES(#{memberId}, #{memberPw}, #{memberName},#{memberTele},#{memberAddr})
 	</insert>
 	
 	<select id="login" parameterType="hashmap" resultType="member">
@@ -16,7 +16,7 @@
 		WHERE MEMBER_ID=#{memberId} AND MEMBER_PW=#{memberPw}
 	</select>
 	
-	<update id="updateCharacter" parameterType="member">
+	<update id="updateCharacter" parameterType="hashmap">
 		UPDATE MEMBER SET MEMBER_CHAR = #{memberChar} WHERE MEMBER_ID=#{memberId}
 	</update>
 	
@@ -49,14 +49,14 @@
 	
 	<update id="pay" parameterType="hashmap">
 		UPDATE ACCOUNT
-		SET account_balance=#{new_balance}
+		SET account_balance=#{balance}
 		WHERE ACCOUNT_NUMBER=#{accountNumber}
 	</update>
 	
-	<insert id="addTransaction" parameterType="transactionReqDTO">
+	<insert id="addTransaction" parameterType="transaction">
 		INSERT INTO 
 		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT)
-		VALUES(#{transactionId}, #{accountNumber}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt})
+		VALUES(TRANSACTION_SEQ.NEXTVAL, #{accountNumber}, #{storeId}, #{transactionTime}, #{transactionStore}, #{transactionAmt})
 	</insert>
 	
 	

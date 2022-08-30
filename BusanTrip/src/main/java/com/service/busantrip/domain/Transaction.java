@@ -7,6 +7,10 @@ public class Transaction {
 	private Date transactionTime;
 	private int transactionAmt;
 	private String transactionMemo;
+	private String transactionStore;
+	
+	private String accountNumber;
+	private String storeId;
 
 	private Account account;
 	private Store store;
@@ -14,14 +18,43 @@ public class Transaction {
 	public Transaction() {}
 
 	public Transaction(int transactionId, Date transactionTime, int transactionAmt, String transactionMemo,
-			Account account, Store store) {
+			String accountNumber, String storeId, String transactionStore) {
 		super();
 		this.transactionId = transactionId;
 		this.transactionTime = transactionTime;
 		this.transactionAmt = transactionAmt;
 		this.transactionMemo = transactionMemo;
-		this.account = account;
-		this.store = store;
+		this.accountNumber = accountNumber;
+		this.storeId = storeId;
+		this.transactionStore = transactionStore;
+	}
+
+	public Transaction(Date transactionTime, int transactionAmt,
+			String accountNumber, String storeId, String transactionStore) {
+		super();
+		this.transactionTime = transactionTime;
+		this.transactionAmt = transactionAmt;
+		this.accountNumber = accountNumber;
+		this.storeId = storeId;
+		this.transactionStore = transactionStore;
+	}
+	
+	
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public String getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
 	}
 
 	public int getTransactionId() {
@@ -72,10 +105,22 @@ public class Transaction {
 		this.store = store;
 	}
 
+	
+	
+	public String getTransactionStore() {
+		return transactionStore;
+	}
+
+	public void setTransactionStore(String transactionStore) {
+		this.transactionStore = transactionStore;
+	}
+
 	@Override
 	public String toString() {
 		return "Transaction [transactionId=" + transactionId + ", transactionTime=" + transactionTime
-				+ ", transactionAmt=" + transactionAmt + ", transactionMemo=" + transactionMemo + ", account=" + account
-				+ ", store=" + store + "]";
+				+ ", transactionAmt=" + transactionAmt + ", transactionMemo=" + transactionMemo + ", transactionStore="
+				+ transactionStore + ", accountNumber=" + accountNumber + ", storeId=" + storeId + "]";
 	}
+
+	
 }

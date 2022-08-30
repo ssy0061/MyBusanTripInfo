@@ -23,7 +23,7 @@ public interface MemberDAO {
 	
 	//Service에서 두개 같이 불러야함
 	public void pay(String accountNumber, int balance); //결제 ==> 거래내역도 같이 반영시킴...
-	public void addTransaction(Transaction transaction, String accountNumber);//거래내역 생성(결제시)
+	public void addTransaction(Transaction transaction);//거래내역 생성(결제시)
 	
 	public void updateTransactionMemo(Transaction transaction); //거래내역 메모 수정
 	
