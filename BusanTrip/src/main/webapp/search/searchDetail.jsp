@@ -255,8 +255,19 @@
 				// 비동기 방식으로 정보 전달...
 				//
 				
+				$('#detailBox').html("");
+				loadData(parseInt(period/3)+1);  // 임시코드
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
+				
+				// 이미지랑 버튼 연결용 코드  (차후 JS로 함수 뽑아서 처리 예정)
+				$('.searchBtn').click(function(){
+					alert('search!  ' + $(this).parent().parent().text());
+				});  // img click
+				$('.memoBtn').click(function(){
+					alert('memo!  ' + $(this).parent().parent().text());
+				});  // img click
+				
 			}  // if
 		});  // div click
 		
@@ -272,24 +283,23 @@
 				// 비동기 방식으로 정보 전달...
 				//
 				
+				$('#detailBox').html("");
+				loadData(4);  // 임시코드
 				$('.periodBox-choiced').attr('class', 'periodBox');
+				
+				// 이미지랑 버튼 연결용 코드  (차후 JS로 함수 뽑아서 처리 예정)
+				$('.searchBtn').click(function(){
+					alert('search!  ' + $(this).parent().parent().text());
+				});  // img click
+				$('.memoBtn').click(function(){
+					alert('memo!  ' + $(this).parent().parent().text());
+				});  // img click
+				
 			} else {
 				// 날짜 관계가 역전된 경우.
 				alert('날짜의 입력이 잘못되었습니다.');
 			} // if-else
 		});  // div click
-		
-		loadData();
-		
-		
-		$('.searchBtn').click(function(){
-			alert('search!');
-		});  // img click
-		
-		
-		$('.memoBtn').click(function(){
-			alert('memo!');
-		});  // img click
 		
 		
 		// 맨 처음 페이지 들어왔을 시 1개월을 기본으로 조회하도록 자동 호출.
@@ -297,14 +307,14 @@
 		
 	});  // JQuery
 	
-	function loadData() {
+	function loadData(tmp) {
 		var dateArr = ["2022-08-30", "2022-08-30", "2022-08-14", "2022-07-15", "2022-06-08"];
 		var nameArr = ["해달별다방 기장점", "BNK치킨 부산본점", "온점반점 일광점", "JAVA카페 서면점", "충전"];
 		var moneyArr = ["-9000", "-23700", "-21000", "-4000", "500000"];
 		var idArr = ["A", "B", "", "D", ""];
 		var memoArr = ["", "메모가 다음과 같이 기재되어 있는 경우 이처럼 결과가 나오게 될 예정", "", "", "메모가 기재되어 있는 경우"];
 		
-		for (var i=0; i<5; i++) {
+		for (var i=0; i<tmp; i++) {
 			let date = dateArr[i];
 			let name = nameArr[i];
 			let money = moneyArr[i];
@@ -342,7 +352,7 @@
 			spanPayDate.setAttribute('class', 'payDate');
 			spanPayDate.append(date);
 			
-			if (hasId) {
+			if (hasId) {  // hasId
 				var imgSearchBtn = document.createElement('img');
 				imgSearchBtn.setAttribute('class', 'searchBtn');
 				imgSearchBtn.setAttribute('src', './img/search.png');
@@ -354,7 +364,7 @@
 			
 			let divImageBox = document.createElement('div');
 			divImageBox.setAttribute('class', 'image-box');
-			if (hasId) divImageBox.append(imgSearchBtn);
+			if (hasId) divImageBox.append(imgSearchBtn);  // hasId
 			divImageBox.append(imgMemoBtn);
 			
 			let divSearchDetailLowerBoxInner1 = document.createElement('div');
@@ -377,7 +387,7 @@
 			divSearchDetailLowerBoxInner2.append(spanPayAmount);
 			
 		
-			if (hasMemo) {
+			if (hasMemo) {  // hasMemo
 				let spanMemo = document.createElement('span');
 				spanMemo.setAttribute('class', 'memo');
 				spanMemo.append(memo);
@@ -392,7 +402,7 @@
 			divSearchDetailLowerBox.setAttribute('class', 'searchDetail-lower-box');
 			divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner1);
 			divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner2);
-			if (hasMemo) divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner3);
+			if (hasMemo) divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner3);  // hasMemo
 			
 			
 			$('#detailBox').append(divSearchDetailLowerBox);
