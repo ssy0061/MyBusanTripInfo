@@ -1,5 +1,6 @@
 package com.service.busantrip.model.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -27,8 +28,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void login(Member member) {
-		sqlSession.selectOne(NS+"login", member);
+	public Member login(Member member) {
+		return sqlSession.selectOne(NS+"login", member);
 	}
 
 	@Override
@@ -47,16 +48,20 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public List<Transaction> findTransactionBySpecificPeriod(@Param("accountNumber") String accountNumber, 
-													 @Param("startDay") String startDay, 
-													 @Param("finishDay") String finishDay) {
-		return sqlSession.selectList(NS+"findTransactionBySpecificPeriod");
+	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("accountNumber", accountNumber);
+		map.put("startDay", startDay);
+		map.put("finishDay", finishDay);
+		return sqlSession.selectList(NS+"findTransactionBySpecificPeriod", map);
 	}
 
 	@Override
-	public List<Transaction> findTransactionByMonthPeriod(@Param("accountNumber") String accountNumber, 
-													 @Param("month") int month) {
-		return sqlSession.selectList(NS+"findTransactionByMonthPeriod");
+	public List<Transaction> findTransactionByMonthPeriod(String accountNumber, int month) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("accountNumber", accountNumber);
+		map.put("month", month);
+		return sqlSession.selectList(NS+"findTransactionByMonthPeriod", map);
 	}
 
 	@Override

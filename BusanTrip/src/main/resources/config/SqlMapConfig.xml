@@ -10,7 +10,7 @@
 	</settings>
 
 	<typeAliases>
-		<package name="com.service.busantrip.domain"/>
+		<package name="com.service.busantrip"/>
 	</typeAliases>
 	
 	<!-- JUnit 기반의 단위테스트용  -->

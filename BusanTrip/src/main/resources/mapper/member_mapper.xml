@@ -8,10 +8,10 @@
 	<insert id="join" parameterType="member">
 		INSERT INTO
 		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR, MEMBER_CHAR)
-		VALUES(#{memberId}, #{memberPw}, #{memberName}, #{memberTele},#{memberAddr}, #{memberChar})
+		VALUES(#{memberId}, #{memberPw}, #{memberName},#{memberTele},#{memberAddr}, #{memberChar})
 	</insert>
 	
-	<select id="login" parameterType="member" resultType="member">
+	<select id="login" parameterType="hashmap" resultType="member">
 		SELECT MEMBER_ID, MEMBER_PW FROM MEMBER
 		WHERE MEMBER_ID=#{memberId} AND MEMBER_PW=#{memberPw}
 	</select>
@@ -21,24 +21,24 @@
 	</update>
 	
 	<select id="findAllTransaction" parameterType="String" resultType="transaction">
-		SELECT T.TRANSACTION_TIME, T.TRANSACTION_STORE, T.TRANSACTION_AMT
-		FROM TRANSACTION T, ACCOUNT A
-		WHERE  A.ACCOUNT_NUMBER = #{accountNumber}
+		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT
+		FROM TRANSACTION
+		WHERE ACCOUNT_NUMBER = #{VALUE}
 	</select>
 	
-	<select id="findTransactionBySpecificPeriod" parameterType="String" resultType="transaction">
-		SELECT T.TRANSACTION_TIME, T.TRANSACTION_STORE, T.TRANSACTION_AMT
-		FROM TRANSACTION T, ACCOUNT A 
-		WHERE A.ACCOUNT_NUMBER  = #{accountNumber}
-		AND T.TRANSACTION_TIME BETWEEN #{firstDate} AND #{lastDate}
+	<select id="findTransactionBySpecificPeriod" parameterType="hashmap" resultType="transaction">
+		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT
+		FROM TRANSACTION
+		WHERE ACCOUNT_NUMBER = #{accountNumber}
+		AND TRANSACTION_TIME BETWEEN #{startDay} AND #{finishDay}
 	</select>
 	
 	<select id="findTransactionByMonthPeriod" resultType="transaction">
 		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{accountNumber}
-		AND TRANSACTION_TIME BETWEEN (select to_char(add_months(sysdate,-#{month}),'yyyy-mm-dd') from dual) AND SYSDATE
-		ORDER BY TRANSACTION_TIME DESC;
+		AND TRANSACTION_TIME BETWEEN (SELECT TO_CHAR(ADD_MONTHS(SYSDATE,-#{month}),'YYYY-MM-DD') FROM DUAL) AND SYSDATE
+		ORDER BY TRANSACTION_TIME DESC
 	</select>
 
 	<insert id="addExternalTrasaction" >
