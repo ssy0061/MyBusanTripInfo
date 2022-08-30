@@ -44,7 +44,7 @@
 		WHERE DIARYTRANSACTIONID = #{diaryTransactionId}
 	</select>
 	
-	<insert id="addDiaryTransaction" >
+	<insert id="addDiaryTransaction" parameterType="diaryTransactionReqDTO">
 		INSERT INTO
 		DIARYTRANSACTION(DIARYTRASNACTION_ID, DIARY_ID, MEMBER_NAME, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
 		VALUES(DIARYTRANSACTION_SEQ.nextval, #{diaryId}, #{memberName}, #{storeId}, #{transactionTime}, #{transactionAmt}, #{transactionMemo))

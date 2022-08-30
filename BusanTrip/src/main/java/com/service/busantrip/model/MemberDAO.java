@@ -19,11 +19,11 @@ public interface MemberDAO {
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay); //사용자 지정기간 거래내역 조회
 	public List<Transaction> findTransactionByMonthPeriod(String accountNumber, int month);// 사용자 지정기간 거래내역 조회
 	
-	public void addExternalTransaction(TransactionReqDTO dto);//외부계좌 거래내역 불러오기
+	public void addExternalTransaction(Transaction transaction, String accountNumber);//외부계좌 거래내역 불러오기
 	
 	//Service에서 두개 같이 불러야함
 	public void pay(String accountNumber, int balance); //결제 ==> 거래내역도 같이 반영시킴...
-	public void addTransaction(TransactionReqDTO dto);//거래내역 생성(결제시)
+	public void addTransaction(Transaction transaction, String accountNumber);//거래내역 생성(결제시)
 	
 	public void updateTransactionMemo(Transaction transaction); //거래내역 메모 수정
 	

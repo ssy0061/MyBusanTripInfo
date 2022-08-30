@@ -57,8 +57,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void addExternalTransaction(TransactionReqDTO dto) {
-		memberDAO.addExternalTransaction(dto);
+	public void addExternalTransaction(Transaction transaction, String accountNumber) {
+		memberDAO.addExternalTransaction(transaction, accountNumber);
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void addTransaction(TransactionReqDTO dto) {
-		memberDAO.addTransaction(dto);
+	public void addTransaction(Transaction transaction, String accountNumber) {
+		memberDAO.addTransaction(transaction, accountNumber);
 	}
 
 	@Override

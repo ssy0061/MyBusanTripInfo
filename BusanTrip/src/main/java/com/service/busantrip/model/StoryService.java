@@ -3,6 +3,7 @@ package com.service.busantrip.model;
 import java.util.List;
 
 import com.service.busantrip.domain.Member;
+import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.DiaryTransaction;
 import com.service.busantrip.domain.story.Photo;
@@ -17,7 +18,7 @@ public interface StoryService { // 쿼리문이나 메소드 결정해서 인자
 	public List<Diary> findDiaryList(Diary diary);
 	public List<DiaryTransaction> findDiaryTransaction(DiaryTransaction diaryTransaction); 
 	public List<Photo> findDiaryPhoto(String transactionId); 
-	public void addDiaryTransaction(DiaryTransactionReqDTO dto);
+	public void addDiaryTransaction(Transaction transaction, String diaryId, String memberName);
 	public void addPhotoToDiaryTransaction(String diaryTransactionId, String photoUrl);
 	public void deletePhotoToDiaryTransaction(String photoId);
 }
