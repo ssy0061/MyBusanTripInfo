@@ -90,31 +90,31 @@
 				<div class="card-body">
 					<h5 class="card-text">통영에서의 추억</h5>
 				</div>
-				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
 			</div>
 			<div class="card col-sm-6 col-md-4">
 				<div class="card-body">
 					<h5 class="card-title">부산 당일치기</h5>
 				</div>
-				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
 			</div>
 			<div class="card col-sm-6 col-md-4">
 				<div class="card-body">
 					<h5 class="card-title">앨범003</h5>
 				</div>
-				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
 			</div>
 			<div class="card col-sm-6 col-md-4">
 				<div class="card-body">
 					<h5 class="card-text">통영에서의 추억</h5>
 				</div>
-				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
 			</div>
 			<div class="card col-sm-6 col-md-4">
 				<div class="card-body">
 					<h5 class="card-title">부산 당일치기</h5>
 				</div>
-				<img class="card-img-bottom" src="https://archive.org/download/no-photo-available/no-photo-available.png" style="width:100%">
+				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
 			</div>
 		</div>
 	</div>
