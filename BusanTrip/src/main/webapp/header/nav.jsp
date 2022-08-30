@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>nav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <style type="text/css">
 	.nav{
 		width: 100%;
@@ -56,6 +59,7 @@
 		#navTitle{
 			padding-left: 20px;
 			margin-top: 20px;
+			font-family: 'Do Hyeon', sans-serif;
 		}
 		#navSubTitle{
 			padding-left: 80px;
