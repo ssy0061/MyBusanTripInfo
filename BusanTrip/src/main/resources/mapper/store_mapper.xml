@@ -41,7 +41,7 @@
 	</select>
 	
 	<select id="findStorePopularByPersonal" parameterType="String" resultType="Map">
-		SELECT *
+		SELECT TRANSACTION_STORE, CNT
         FROM (SELECT TRANSACTION_STORE, COUNT(TRANSACTION_STORE) AS CNT
             FROM TRANSACTION
             WHERE ACCOUNT_NUMBER = #{accountNumber}

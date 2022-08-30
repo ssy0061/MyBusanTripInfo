@@ -19,8 +19,8 @@ public class StoryServiceImpl implements StoryService{
 	private StoryDAO storyDAO;
 		
 	@Override
-	public void addStory(String storyName, String storyId, String memberId) {
-		storyDAO.addStory(storyName, storyId, memberId);
+	public void addStory(String storyName, String memberId) {
+		storyDAO.addStory(storyName, memberId);
 		
 	}
 
@@ -46,8 +46,8 @@ public class StoryServiceImpl implements StoryService{
 	}
 
 	@Override
-	public List<Diary> findDiaryList(Diary diary) {
-		return storyDAO.findDiaryList(diary);
+	public List<Diary> findDiaryList(String storyId) {
+		return storyDAO.findDiaryList(storyId);
 	}
 
 	@Override

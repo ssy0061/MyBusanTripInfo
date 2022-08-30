@@ -1,6 +1,7 @@
 package com.service.busantrip.model.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,8 +42,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public List<Store> findStorePopularByPersonal(Transaction transaction) {
-		return storeDAO.findStorePopularByPersonal(transaction);
+	public List<Map<String, Object>> findStorePopularByPersonal(String accountNumber) {
+		return storeDAO.findStorePopularByPersonal(accountNumber);
 	}
 
 	@Override
@@ -52,8 +53,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public List<Store> findWishlistInfo(String storeId) {
-		return storeDAO.findWishlistInfo(storeId);
+	public List<Store> findAllWishlist(String memberId) {
+		return storeDAO.findAllWishlist(memberId);
 	}
 
 }
