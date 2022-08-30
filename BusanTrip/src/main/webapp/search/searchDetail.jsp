@@ -220,6 +220,7 @@
 <script>
 
 	$(function() {
+		
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		
 		let nowDay = new Date();
@@ -229,6 +230,7 @@
 		let now = nowYear + '-' + ('00' + nowMonth).slice(-2)
 					+ '-' + ('00' + nowDate).slice(-2);
 		// initial method
+		
 		
 		$('.periodBox').click(function(){
 			if ($(this).attr('class') != 'periodBox-choiced') {
@@ -256,19 +258,35 @@
 			}  // if
 		});  // div click
 		
+		
 		$('.searchBox').click(function(){
 			let start = $('#startDate').val()
 			let end = $('#endDate').val()
 			
-			alert(start + ' ~ ' + end);
+			let startDay = new Date(start);
+			let endDay = new Date(end);
 			
-			if ($(this).attr('class') != 'periodBox-choiced') {
+			if (startDay <= endDay) {
 				// 비동기 방식으로 정보 전달...
 				//
 				
 				$('.periodBox-choiced').attr('class', 'periodBox');
-			}  // if
+			} else {
+				// 날짜 관계가 역전된 경우.
+				alert('날짜의 입력이 잘못되었습니다.');
+			} // if-else
 		});  // div click
+		
+		
+		$('.searchBtn').click(function(){
+			alert('search!');
+		});  // img click
+		
+		
+		$('.memoBtn').click(function(){
+			alert('memo!');
+		});  // img click
+		
 		
 		// 맨 처음 페이지 들어왔을 시 1개월을 기본으로 조회하도록 자동 호출.
 		$('.periodBox:eq(0)').click();
