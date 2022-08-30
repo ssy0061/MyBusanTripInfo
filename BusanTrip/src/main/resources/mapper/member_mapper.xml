@@ -21,20 +21,20 @@
 	</update>
 	
 	<select id="findAllTransaction" parameterType="String" resultType="transaction">
-		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT
+		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, STORE_ID
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{VALUE}
 	</select>
 	
 	<select id="findTransactionBySpecificPeriod" parameterType="hashmap" resultType="transaction">
-		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT
+		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, STORE_ID
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{accountNumber}
 		AND TRANSACTION_TIME BETWEEN #{startDay} AND #{finishDay}
 	</select>
 	
-	<select id="findTransactionByMonthPeriod" resultType="transaction">
-		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT
+	<select id="findTransactionByMonthPeriod" parameterType="hashmap" resultType="transaction">
+		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, STORE_ID
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{accountNumber}
 		AND TRANSACTION_TIME BETWEEN (SELECT TO_CHAR(ADD_MONTHS(SYSDATE,-#{month}),'YYYY-MM-DD') FROM DUAL) AND SYSDATE
@@ -47,10 +47,10 @@
 		VALUES(#{transactionId}, #{accountNumber}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt}, #{transactionMemo})
 	</insert>
 	
-	<update id="pay">
+	<update id="pay" parameterType="hashmap">
 		UPDATE ACCOUNT
 		SET account_balance=#{new_balance}
-		WHERE ACCOUNT_NUMBER=#{accountNumber};
+		WHERE ACCOUNT_NUMBER=#{accountNumber}
 	</update>
 	
 	<insert id="addTransaction" parameterType="transactionReqDTO">
@@ -70,19 +70,19 @@
 	<select id="findAccount" parameterType="String" resultType="account">
 		SELECT *
 		FROM ACCOUNT
-		WHERE MEMBER_ID=#{memberId};
+		WHERE MEMBER_ID=#{memberId}
 	</select>
 	
 	<select id="getBalance" parameterType="String" resultType="int">
 		SELECT account_balance
 		FROM ACCOUNT
-		WHERE ACCOUNT_NUMBER=#{accountNumber};
+		WHERE ACCOUNT_NUMBER=#{accountNumber}
 	</select>
 	
-	<update id="charge">
+	<update id="charge" parameterType="hashmap">
 		UPDATE ACCOUNT
 		SET account_balance=#{new_balance}
-		WHERE ACCOUNT_NUMBER=#{accountNumber};
+		WHERE ACCOUNT_NUMBER=#{accountNumber}
 	</update>	
 	
 </mapper>

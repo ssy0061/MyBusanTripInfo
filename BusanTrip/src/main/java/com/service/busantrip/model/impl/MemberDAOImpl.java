@@ -71,9 +71,11 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void pay(@Param("accountNumber") String accountNumber, 
-					@Param("balance") int balance) {
-		sqlSession.update(NS+"pay");
+	public void pay(String accountNumber, int balance) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("accountNumber", accountNumber);
+		map.put("balance", balance);
+		sqlSession.update(NS+"pay", map);
 	}
 
 	@Override
@@ -98,8 +100,10 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public int charge(@Param("accountNumber") String accountNumber, 
-					  @Param("balance") int balance) {
+	public int charge(String accountNumber, int balance) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("accountNumber", accountNumber);
+		map.put("balance", balance);
 		return sqlSession.update(NS+"charge");
 	}
 }
