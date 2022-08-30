@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.service.busantrip.domain.Member;
+import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.DiaryTransaction;
 import com.service.busantrip.domain.story.Photo;
@@ -75,8 +76,8 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 
 	@Override
-	public void addDiaryTransaction(DiaryTransactionReqDTO dto) {
-		
+	public void addDiaryTransaction(Transaction transaction, String diaryId, String memberName) {
+		DiaryTransactionReqDTO dto = new DiaryTransactionReqDTO(transaction, diaryId, memberName);
 		sqlSession.insert(NS+"addDiaryTransaction", dto);
 	}
 

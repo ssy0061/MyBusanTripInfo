@@ -65,7 +65,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void addExternalTransaction(TransactionReqDTO dto) {
+	public void addExternalTransaction(Transaction transaction, String accountNumber) {
+		TransactionReqDTO dto = new TransactionReqDTO(transaction, accountNumber);
 		sqlSession.insert(NS+"addExternalTransaction", dto);
 	}
 
@@ -76,7 +77,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void addTransaction(TransactionReqDTO dto) {
+	public void addTransaction(Transaction transaction, String accountNumber) {
+		TransactionReqDTO dto = new TransactionReqDTO(transaction, accountNumber);
 		sqlSession.insert(NS+"addTransaction", dto);
 	}
 
