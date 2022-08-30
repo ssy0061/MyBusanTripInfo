@@ -45,8 +45,6 @@
 	}
 	.card>img{
 		margin:0 0 10px 0;
-		border-style:solid;
-		border-color:#53565A;
 		border-radius:5px;
 	}
 	/* modal */
