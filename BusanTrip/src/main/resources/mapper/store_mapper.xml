@@ -4,10 +4,10 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sql.store.mapper">
-	<select id="findStoreTransaction" parameterType="hashmap" resultType="store">
+	<select id="findStoreTransaction" parameterType="hashmap" resultType="transaction">
 		SELECT TRANSACTION_TIME, TRANSACTION_AMT
 		FROM TRANSACTION
-		WHERE STORE_ID={storeId} AND ACCOUNT_NUMBER=#{accountNumber}
+		WHERE ACCOUNT_NUMBER=#{accountNumber} AND STORE_ID=#{storeId}
 	</select>
 	
 	<select id="findStoreInfo" parameterType="String" resultType="store">
@@ -32,7 +32,7 @@
 		ORDER BY S.STORE_TOTALVISIT DESC
 	</select>
 	
-	<select id="findStorePopularByCategory" parameterType="String">
+	<select id="findStorePopularByCategory" parameterType="String" resultType="store">
 		SELECT STORE_NAME, STORE_ADDR, STORE_CATEGORY, STORE_TOTALVISIT
 		FROM(SELECT * FROM STORE
 		WHERE STORE_CATEGORY = #{VALUE} <!-- Value = category -->
@@ -40,12 +40,14 @@
 		WHERE ROWNUM <![CDATA[<=]]> 10
 	</select>
 	
-	<select id="findStorePopularByPersonal" parameterType="transaction">
-		SELECT TRANSACTION_STORE, COUNT(TRANSACTION_STORE) AS CNT
-		FROM TRANSACTION
-		WHERE ACCOUNT_NUMBER = #{accountNumber} AND ROWNUM <![CDATA[<=]]> 3
-		GROUP BY TRANSACTION_STORE
-		ORDER BY CNT DESC
+	<select id="findStorePopularByPersonal" parameterType="String" resultType="Map">
+		SELECT *
+        FROM (SELECT TRANSACTION_STORE, COUNT(TRANSACTION_STORE) AS CNT
+            FROM TRANSACTION
+            WHERE ACCOUNT_NUMBER = #{accountNumber}
+            GROUP BY TRANSACTION_STORE
+            ORDER BY CNT DESC)
+        WHERE ROWNUM <![CDATA[<=]]> 3
 	</select>
 	
 	<insert id="addWishlist" parameterType="hashmap">
@@ -53,10 +55,10 @@
 		VALUES(WISHLIST_SEQ.NEXTVAL, #{memberId}, #{storeId})
 	</insert>
 	
-	<select id="findWishlistInfo" parameterType="String" resultType="Store">
+	<select id="findAllWishlist" parameterType="String" resultType="Store">
 		SELECT DISTINCT S.STORE_NAME
 		FROM WISHLIST W, STORE S
-		WHERE W.STORE_ID = S.STORE_ID AND W.MEMBER_ID = #{VALUE}
+		WHERE W.STORE_ID = S.STORE_ID AND W.MEMBER_ID = #{memberId}
 	</select>
 </mapper>
 

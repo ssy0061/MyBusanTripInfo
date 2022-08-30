@@ -34,8 +34,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void updateCharacter(Member member) {
-		memberDAO.updateCharacter(member);
+	public void updateCharacter(String memberChar, String memberId) {
+		memberDAO.updateCharacter(memberChar, memberId);
 	}
 
 	@Override

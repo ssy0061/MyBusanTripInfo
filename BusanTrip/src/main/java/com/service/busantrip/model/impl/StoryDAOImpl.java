@@ -18,19 +18,22 @@ import com.service.busantrip.model.StoryDAO;
 @Repository
 public class StoryDAOImpl implements StoryDAO{
 	
-	private final String NS = "sql.member.mapper.";
+	private final String NS = "sql.story.mapper.";
 	
 	@Autowired
 	private SqlSession sqlSession;
 	
 	
 	@Override
-	public void addStory(String storyName, String storyId, String memberId) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("storyName", storyName);
-		map.put("storyId", storyId);
-		map.put("memberId", memberId);
-		sqlSession.insert(NS+"addStory", map);
+	public void addStory(String storyName, String memberId) {
+		
+		sqlSession.insert(NS+"addStory", storyName);
+		String storyId = sqlSession.selectOne(NS+"getStoryId", storyName);
+		
+		HashMap<String, Object> learderMap = new HashMap<String, Object>();
+		learderMap.put("storyId", storyId);
+		learderMap.put("memberId", memberId);
+		sqlSession.insert(NS+"addStoryMemberLeader",learderMap);
 	}
 
 	@Override
@@ -61,8 +64,8 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 
 	@Override
-	public List<Diary> findDiaryList(Diary diary) {
-		return sqlSession.selectList(NS+"findDiaryList", diary);
+	public List<Diary> findDiaryList(String storyId) {
+		return sqlSession.selectList(NS+"findDiaryList", storyId);
 	}
 
 	@Override
@@ -71,6 +74,9 @@ public class StoryDAOImpl implements StoryDAO{
 		return sqlSession.selectList(NS+"findDiaryTransaction", diaryTransaction);
 	}
 
+	
+	
+	// 이밑으로 테스트 안되어있음
 	@Override
 	public List<Photo> findDiaryPhoto(String transactionId) {
 		return sqlSession.selectList(NS+"findDiaryPhoto", transactionId);

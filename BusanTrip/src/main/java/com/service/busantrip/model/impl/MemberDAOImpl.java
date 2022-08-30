@@ -38,8 +38,11 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void updateCharacter(Member member) {	// hashmap으로 변경해야함
-		sqlSession.update(NS+"updateCharacter", member);
+	public void updateCharacter(String memberChar, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberChar", memberChar);
+		map.put("memberId", memberId);
+		sqlSession.update(NS+"updateCharacter", map);
 	}
 
 	@Override
@@ -78,15 +81,16 @@ public class MemberDAOImpl implements MemberDAO{
 		sqlSession.update(NS+"pay", map);
 	}
 
-//	@Override
-//	public void addTransaction(Transaction transaction, String accountNumber) {
-//		TransactionReqDTO dto = new TransactionReqDTO(transaction, accountNumber);
-//		sqlSession.insert(NS+"addTransaction", dto);
-//	}
-
 	@Override
 	public void addTransaction(Transaction transaction) {
 		sqlSession.insert(NS+"addTransaction", transaction);
+		int totalVisit = sqlSession.selectOne(NS+"getTotalVisit", transaction);
+		System.out.println(totalVisit);
+		totalVisit += 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storeId", transaction.getStoreId());
+		map.put("totalVisit", totalVisit);
+		sqlSession.update(NS+"updateTotalVisit",map);
 	}
 	
 	@Override
@@ -109,6 +113,6 @@ public class MemberDAOImpl implements MemberDAO{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("accountNumber", accountNumber);
 		map.put("balance", balance);
-		return sqlSession.update(NS+"charge");
+		return sqlSession.update(NS+"charge",map);
 	}
 }

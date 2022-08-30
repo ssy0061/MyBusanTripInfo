@@ -4,24 +4,32 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sql.story.mapper">
-	<insert id="addStory" parameterType="hashmap">
+	
+	<insert id="addStory" parameterType="String">
 		INSERT INTO STORY(STORY_ID, STORY_NAME)
 		VALUES(STORY_SEQ.NEXTVAL, #{storyName})
+	</insert>
+	<select id="getStoryId" resultType="String">
+		SELECT STORY_ID FROM STORY WHERE STORY_NAME= #{storyName}
+	</select>
+	<insert id="addStoryMemberLeader">
 		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID, STORYMEMBER_AUTH) 
-		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId},Y)
+		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId},'Y')
 	</insert>
 	
-	<select id="findStoryMember" parameterType="String">
-		SELECT MEMBER_ID FROM STORYMEMBER WHERE STORY_ID = #{storyId}
+	
+	
+	<select id="findStoryMember" parameterType="String" resultType="storyMember">
+		SELECT MEMBER_ID, STORYMEMBER_AUTH FROM STORYMEMBER WHERE STORY_ID = #{storyId}
 	</select>
 	
 	<insert id="addStoryMember" parameterType="hashmap">
-		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID, STORYMEMBER_AUTH) 
-		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId},N)
+		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID) 
+		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId})
 	</insert>
 	
-	<select id="findStoryInviteMember" parameterType="String">
-		SELECT MEMBER_NAME FROM MEMBER WHERE MEMBER_ID=${memberId}
+	<select id="findStoryInviteMember" parameterType="String" resultType="member">
+		SELECT MEMBER_NAME FROM MEMBER WHERE MEMBER_ID=#{memberId}
 	</select>
 	
 	<insert id="addDiary" parameterType="hashmap">
@@ -29,7 +37,7 @@
 		VALUES(DIARY_SEQ.NEXTVAL, #{storyId}, #{diaryName}, SYSDATE)
 	</insert>
 	
-	<select id="findDiaryList" parameterType="diary" resultType="diary">
+	<select id="findDiaryList" parameterType="String" resultType="diary">
 		SELECT DIARY_NAME, DIARY_MAKEDATE FROM DIARY WHERE STORY_ID = #{storyId}
 	</select>
 	
@@ -38,16 +46,13 @@
 		FROM DIARYTRANSACTION
 		WHERE DIARY_ID = #{diaryId}
 	</select>
-	<select id="findDiaryPhoto" parameterType="String" resultType="photo">
-		SELECT PHOTO_URL
-		FROM PHOTO
-		WHERE DIARYTRANSACTIONID = #{diaryTransactionId}
-	</select>
+
 	
-	<insert id="addDiaryTransaction" parameterType="diaryTransactionReqDTO">
-		INSERT INTO
-		DIARYTRANSACTION(DIARYTRASNACTION_ID, DIARY_ID, MEMBER_NAME, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
-		VALUES(DIARYTRANSACTION_SEQ.nextval, #{diaryId}, #{memberName}, #{storeId}, #{transactionTime}, #{transactionAmt}, #{transactionMemo))
+	<insert id="addDiaryTransaction" parameterType="List">
+		<foreach item="transactionId" collection="List">
+			INSERT INTO DIARYTRANSACTION(DIARYTRASNACTION_ID, DIARY_ID, MEMBER_NAME, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
+			VALUES(DIARYTRANSACTION_SEQ.nextval, #{diaryId}, #{memberName}, #{storeId}, #{transactionTime}, #{transactionAmt}, #{transactionMemo))	
+		</foreach>
 	</insert>
 	
 	<insert id="addPhotoToDiaryTransaction" parameterType="hashmap">
@@ -58,6 +63,12 @@
 	<delete id="deletePhotoToDiaryTransaction" parameterType="String">
 		DELETE * FROM PHOTO WHERE PHOTO_ID = #{photoId}
 	</delete>
+	
+	<select id="findDiaryPhoto" parameterType="String" resultType="photo">
+		SELECT PHOTO_URL
+		FROM PHOTO
+		WHERE DIARYTRANSACTIONID = #{diaryTransactionId}
+	</select>
 </mapper>
 
 
