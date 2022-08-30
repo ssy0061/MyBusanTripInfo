@@ -68,7 +68,6 @@
 		position:fixed;
 	}
 	.custom-button{
-		border-radius:30px;
 		border-width:2px;
 		border-color:#cb333b;
 		background-color:white;
