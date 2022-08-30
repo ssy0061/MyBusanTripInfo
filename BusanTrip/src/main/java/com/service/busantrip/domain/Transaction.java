@@ -4,21 +4,23 @@ import java.util.Date;
 
 public class Transaction {
 	private int transactionId;
-	private Date transactionTime;
-	private int transactionAmt;
-	private String transactionMemo;
-	private String transactionStore;
-	
+
 	private String accountNumber;
 	private String storeId;
 
+	private Date transactionTime;
+	private String transactionStore;
+	private int transactionAmt;
+	private String transactionMemo;
+
 	private Account account;
 	private Store store;
-	
-	public Transaction() {}
 
-	public Transaction(int transactionId, Date transactionTime, int transactionAmt, String transactionMemo,
-			String accountNumber, String storeId, String transactionStore) {
+	public Transaction() {
+	}
+
+	public Transaction(int transactionId, String accountNumber, String storeId, Date transactionTime,
+			String transactionStore, int transactionAmt, String transactionMemo) {
 		super();
 		this.transactionId = transactionId;
 		this.transactionTime = transactionTime;
@@ -29,8 +31,8 @@ public class Transaction {
 		this.transactionStore = transactionStore;
 	}
 
-	public Transaction(Date transactionTime, int transactionAmt,
-			String accountNumber, String storeId, String transactionStore) {
+	public Transaction(String accountNumber, String storeId, Date transactionTime,  
+			String transactionStore, int transactionAmt) {
 		super();
 		this.transactionTime = transactionTime;
 		this.transactionAmt = transactionAmt;
@@ -40,6 +42,12 @@ public class Transaction {
 	}
 	
 	
+
+	public Transaction(int transactionId, String transactionMemo) {
+		super();
+		this.transactionId = transactionId;
+		this.transactionMemo = transactionMemo;
+	}
 
 	public String getAccountNumber() {
 		return accountNumber;
@@ -105,8 +113,6 @@ public class Transaction {
 		this.store = store;
 	}
 
-	
-	
 	public String getTransactionStore() {
 		return transactionStore;
 	}
@@ -122,5 +128,4 @@ public class Transaction {
 				+ transactionStore + ", accountNumber=" + accountNumber + ", storeId=" + storeId + "]";
 	}
 
-	
 }

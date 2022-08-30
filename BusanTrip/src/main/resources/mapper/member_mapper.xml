@@ -53,22 +53,28 @@
 		WHERE ACCOUNT_NUMBER=#{accountNumber}
 	</update>
 	
+	
 	<insert id="addTransaction" parameterType="transaction">
 		INSERT INTO 
 		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT)
 		VALUES(TRANSACTION_SEQ.NEXTVAL, #{accountNumber}, #{storeId}, #{transactionTime}, #{transactionStore}, #{transactionAmt})
 	</insert>
-	
+	<select id="getTotalVisit" parameterType="String" resultType="int">
+		SELECT STORE_TOTALVISIT FROM STORE WHERE STORE_ID=#{storeId}
+	</select>
+	<update id="updateTotalVisit" parameterType="hashmap">
+		UPDATE STORE SET STORE_TOTALVISIT=#{totalVisit} WHERE STORE_ID=#{storeId} 
+	</update>
 	
 	
 	<update id="updateTransactionMemo" parameterType="transaction">
 		UPDATE TRANSACTION 
 		SET TRANSACTION_MEMO = #{transactionMemo} 
-		WHERE TRANSACTION_ID=#{transactionId} AND ACCOUNT_NUMBER = #{accountNumber}
+		WHERE TRANSACTION_ID=#{transactionId}
 	</update>
 	
 	<select id="findAccount" parameterType="String" resultType="account">
-		SELECT *
+		SELECT ACCOUNT_NUMBER, MEMBER_ID, ACCOUNT_BALANCE, ACCOUNT_INNER
 		FROM ACCOUNT
 		WHERE MEMBER_ID=#{memberId}
 	</select>
@@ -81,8 +87,8 @@
 	
 	<update id="charge" parameterType="hashmap">
 		UPDATE ACCOUNT
-		SET account_balance=#{new_balance}
-		WHERE ACCOUNT_NUMBER=#{accountNumber}
+		SET ACCOUNT_BALANCE = #{balance}
+		WHERE ACCOUNT_NUMBER = #{accountNumber}
 	</update>	
 	
 </mapper>

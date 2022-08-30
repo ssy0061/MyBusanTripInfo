@@ -2,6 +2,7 @@ package com.service.busantrip.model.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
@@ -14,7 +15,7 @@ import com.service.busantrip.model.StoreDAO;
 
 @Repository
 public class StoreDAOImpl implements StoreDAO{
-	private final String NS = "sql.member.mapper.";
+	private final String NS = "sql.store.mapper.";
 	
 	@Autowired
 	private SqlSession sqlsession;
@@ -24,6 +25,7 @@ public class StoreDAOImpl implements StoreDAO{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("accountNumber", accountNumber);
 		map.put("storeId", storeId);
+		System.out.println(accountNumber + " " +storeId);
 		return sqlsession.selectList(NS+"findStoreTransaction", map);
 	}
 
@@ -52,9 +54,9 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
-	public List<Store> findStorePopularByPersonal(Transaction transaction) {
+	public List<Map<String, Object>> findStorePopularByPersonal(String accountNumber) {
 	
-		return sqlsession.selectList(NS+"findStorePopularByPersonal", transaction);
+		return sqlsession.selectList(NS+"findStorePopularByPersonal", accountNumber);
 	}
 
 	@Override
@@ -66,8 +68,8 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
-	public List<Store> findWishlistInfo(String storeId) {
-		return sqlsession.selectList(NS+"findWishlistInfo", storeId);
+	public List<Store> findAllWishlist(String memberId) {
+		return sqlsession.selectList(NS+"findAllWishlist", memberId);
 	}
 
 }
