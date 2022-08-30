@@ -260,12 +260,13 @@
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
 				
-				// 이미지랑 버튼 연결용 코드  (차후 JS로 함수 뽑아서 처리 예정)
+				// 이미지랑 버튼 연결용 코드
 				$('.searchBtn').click(function(){
 					alert('search!  ' + $(this).parent().parent().text());
 				});  // img click
 				$('.memoBtn').click(function(){
-					alert('memo!  ' + $(this).parent().parent().text());
+					// alert('memo!  ' + $(this).parent().parent().text());
+					$('#memo-text').val('');  // 내용 초기화
 				});  // img click
 				
 			}  // if
@@ -287,12 +288,13 @@
 				loadData(4);  // 임시코드
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				
-				// 이미지랑 버튼 연결용 코드  (차후 JS로 함수 뽑아서 처리 예정)
+				// 이미지랑 버튼 연결용 코드 
 				$('.searchBtn').click(function(){
 					alert('search!  ' + $(this).parent().parent().text());
 				});  // img click
 				$('.memoBtn').click(function(){
-					alert('memo!  ' + $(this).parent().parent().text());
+					// alert('memo!  ' + $(this).parent().parent().text());
+					$('#memo-text').val('');  // 내용 초기화
 				});  // img click
 				
 			} else {
@@ -300,6 +302,17 @@
 				alert('날짜의 입력이 잘못되었습니다.');
 			} // if-else
 		});  // div click
+		
+		
+		$('#memoSubmit').click( function() {
+			let memoText = $('#memo-text').val();  // 내용 추출
+			alert(memoText);
+			// memoText의 정보를 해당 요소에 적절히 담는 과정 need
+			// 별도의 파라미터 need.
+			
+			$('#memoModal').trigger({ type: "click" });  // modal 종료
+			// .modal('hide'); 가 적용되지 않아서 코드 수정.
+		});  // button click
 		
 		
 		// 맨 처음 페이지 들어왔을 시 1개월을 기본으로 조회하도록 자동 호출.
@@ -330,7 +343,8 @@
 					<span class="payDate">2022-02-22</span>
 					<div class="image-box">
 						<img class="searchBtn" src="./img/search.png" width=20px>
-						<img class="memoBtn" src="./img/memo.png" width=20px>
+						<img class="memoBtn" src="./img/memo.png" width=20px
+									data-toggle="modal" data-target="#memoModal">
 					</div>
 				</div>
 				
@@ -361,6 +375,8 @@
 			let imgMemoBtn = document.createElement('img');
 			imgMemoBtn.setAttribute('class', 'memoBtn');
 			imgMemoBtn.setAttribute('src', './img/memo.png');
+			imgMemoBtn.setAttribute('data-toggle', "modal");
+			imgMemoBtn.setAttribute('data-target', "#memoModal");
 			
 			let divImageBox = document.createElement('div');
 			divImageBox.setAttribute('class', 'image-box');
@@ -453,7 +469,8 @@
 						<span class="payDate">2022-02-22</span>
 						<div class="image-box">
 							<img class="searchBtn" src="./img/search.png" width=20px>
-							<img class="memoBtn" src="./img/memo.png" width=20px>
+							<img class="memoBtn" src="./img/memo.png" width=20px
+										data-toggle="modal" data-target="#memoModal">
 						</div>
 					</div>
 					
@@ -473,6 +490,29 @@
 		</div>
 		
 		<c:import url="../footer/footer.jsp" />
+		
+		<%-- Modal --%>
+		<div class="modal fade" id="memoModal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h6 class="modal-title">Memo</h6>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<label for="memo-text" class="col-form-label">[💌] 메모를 기입해주세요</label>
+							<textarea class="form-control" id="memo-text"></textarea>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="memoSubmit">수정</button>
+						<button type="button" id="memoClose" data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 </body>
 </body>
