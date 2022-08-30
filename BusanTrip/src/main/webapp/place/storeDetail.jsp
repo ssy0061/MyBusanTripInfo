@@ -118,9 +118,51 @@
 		border-bottom-style: solid;
 	}
 	
-	
-	
 </style>
+
+<script>
+
+	$(function() {
+		
+		var dateArr = ["2022-08-30", "2022-07-24", "2022-06-14", "2022-05-05", "2022-03-08"];
+		var moneyArr = ["7000", "3400", "12500", "9900", "11000"];
+		
+		for (var i=0; i<5; i++) {
+			let date = dateArr[i];
+			let money = moneyArr[i];
+			
+			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			
+			// html tag 생성 form
+			<%-- 
+			<div class="storeDetail-box-bottom-inner">
+				<span class="visitDate">2022-06-23</span>
+				<span class="payAmount">9,000</span>
+			</div>
+			--%>
+			
+			let spanVisitDate = document.createElement('span');
+			spanVisitDate.setAttribute('class', 'visitDate');
+			spanVisitDate.append(date);
+			
+			let spanPayAmount = document.createElement('span');
+			spanPayAmount.setAttribute('class', 'payAmount');
+			spanPayAmount.append(money);
+			
+			let divDetailBoxBottomInner = document.createElement('div');
+			divDetailBoxBottomInner.setAttribute('class', 'storeDetail-box-bottom-inner');
+			divDetailBoxBottomInner.append(spanVisitDate);
+			divDetailBoxBottomInner.append(spanPayAmount);
+			
+			$('#detailBox').append(divDetailBoxBottomInner);
+			
+		}  // for
+		
+	});  // JQuery
+
+</script>
+
+
 <body>
 	<c:import url="../header/nav.jsp">
 		<c:param name="navTitle" value="상세정보"/>
@@ -155,28 +197,14 @@
 				<img src="/img/map.png" width="100%">
 			</div>
 			
-			<div class="rounded-lg storeDetail-box-bottom">
+			<div id="detailBox" class="rounded-lg storeDetail-box-bottom">
 				<span class="title-box">최근 나의 방문 기록</span>
+				<%-- 
 				<div class="storeDetail-box-bottom-inner">
 					<span class="visitDate">2022-06-23</span>
 					<span class="payAmount">9,000</span>
 				</div>
-				<div class="storeDetail-box-bottom-inner">
-					<span class="visitDate">2022-05-21</span>
-					<span class="payAmount">4,500</span>
-				</div>
-				<div class="storeDetail-box-bottom-inner">
-					<span class="visitDate">2022-04-18</span>
-					<span class="payAmount">13,500</span>
-				</div>
-				<div class="storeDetail-box-bottom-inner">
-					<span class="visitDate">2022-03-02</span>
-					<span class="payAmount">7,000</span>
-				</div>
-				<div class="storeDetail-box-bottom-inner">
-					<span class="visitDate">2022-01-23</span>
-					<span class="payAmount">3,400</span>
-				</div>
+				--%>
 			</div>
 			
 		</div>
