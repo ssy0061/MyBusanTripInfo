@@ -36,8 +36,8 @@ public class StoryServiceImpl implements StoryService{
 	}
 
 	@Override
-	public Member findStoryInviteMember() {
-		return storyDAO.findStoryInviteMember();
+	public Member findStoryInviteMember(String memberId) {
+		return storyDAO.findStoryInviteMember(memberId);
 	}
 
 	@Override

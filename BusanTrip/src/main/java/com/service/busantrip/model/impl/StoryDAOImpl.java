@@ -1,5 +1,6 @@
 package com.service.busantrip.model.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -24,11 +25,12 @@ public class StoryDAOImpl implements StoryDAO{
 	
 	
 	@Override
-	public void addStory(@Param("storyName") String storyName, 
-			 			 @Param("storyId") String storyId, 
-			 			 @Param("memberId") String memberId) {
-		
-		sqlSession.insert(NS+"addStory");
+	public void addStory(String storyName, String storyId, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storyName", storyName);
+		map.put("storyId", storyId);
+		map.put("memberId", memberId);
+		sqlSession.insert(NS+"addStory", map);
 	}
 
 	@Override
@@ -38,28 +40,28 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 
 	@Override
-	public void addStoryMember( @Param("storyId") String storyId,  
-								@Param("memberId") String memberId) {
-
-		sqlSession.insert(NS+"addStoryMember");
+	public void addStoryMember(String storyId, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storyId", storyId);
+		map.put("memberId", memberId);
+		sqlSession.insert(NS+"addStoryMember", map);
 	}
 
 	@Override
-	public Member findStoryInviteMember() {
-	
-		return sqlSession.selectOne(NS+"findStoryInviteMember", null);
+	public Member findStoryInviteMember(String memberId) {
+		return sqlSession.selectOne(NS+"findStoryInviteMember", memberId);
 	}
 
 	@Override
-	public void addDiary(@Param("storyId") String storyId, 
-			 			 @Param("diaryName") String diaryName) {
-		
-		sqlSession.insert(NS+"addDiary");
+	public void addDiary(String storyId, String diaryName) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storyId", storyId);
+		map.put("diaryName", diaryName);
+		sqlSession.insert(NS+"addDiary", map);
 	}
 
 	@Override
 	public List<Diary> findDiaryList(Diary diary) {
-		
 		return sqlSession.selectList(NS+"findDiaryList", diary);
 	}
 
@@ -71,7 +73,6 @@ public class StoryDAOImpl implements StoryDAO{
 
 	@Override
 	public List<Photo> findDiaryPhoto(String transactionId) {
-		
 		return sqlSession.selectList(NS+"findDiaryPhoto", transactionId);
 	}
 
@@ -82,10 +83,11 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 
 	@Override
-	public void addPhotoToDiaryTransaction(@Param("diaryTransactionId") String diaryTransactionId, 
-										   @Param("photoUrl") String photoUrl) {
-		
-		sqlSession.insert(NS+"addPhotoToDiaryTransaction");
+	public void addPhotoToDiaryTransaction(String diaryTransactionId, String photoUrl) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("diaryTransactionId", diaryTransactionId);
+		map.put("photoUrl", photoUrl);
+		sqlSession.insert(NS+"addPhotoToDiaryTransaction", map);
 	}
 
 	@Override

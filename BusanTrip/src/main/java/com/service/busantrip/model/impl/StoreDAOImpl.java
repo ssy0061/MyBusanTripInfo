@@ -1,5 +1,6 @@
 package com.service.busantrip.model.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -19,10 +20,11 @@ public class StoreDAOImpl implements StoreDAO{
 	private SqlSession sqlsession;
 	
 	@Override
-	public List<Store> findStoreTransaction(@Param("accountNumber") String accountNumber, 
-											@Param("storeId") String storeId) {
-	
-		return sqlsession.selectList(NS+"findStoreTransaction");
+	public List<Store> findStoreTransaction(String accountNumber, String storeId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("accountNumber", accountNumber);
+		map.put("storeId", storeId);
+		return sqlsession.selectList(NS+"findStoreTransaction", map);
 	}
 
 	@Override
@@ -56,15 +58,15 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
-	public void addWishlist(@Param("storeId") String storeId, 
-							@Param("memberId") String memberId) {
-
-		sqlsession.insert(NS+"addWishlist");
+	public void addWishlist(String storeId, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storeId", storeId);
+		map.put("memberId", memberId);
+		sqlsession.insert(NS+"addWishlist", map);
 	}
 
 	@Override
 	public List<Store> findWishlistInfo(String storeId) {
-
 		return sqlsession.selectList(NS+"findWishlistInfo", storeId);
 	}
 
