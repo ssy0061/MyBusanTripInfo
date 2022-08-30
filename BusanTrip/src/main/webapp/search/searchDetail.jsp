@@ -153,7 +153,7 @@
 		margin: 2px 0;
 	}
 	
-	.payTime { 
+	.payDate { 
 		width: 220px;
 		text-align: left;
 		margin: 0 0 0 5px;
@@ -171,6 +171,7 @@
 		position: relative;
 		bottom: 4px;
 		margin: 0 2px;
+		width: 20px;
 	}
 	
 	.storeName {
@@ -193,7 +194,7 @@
 		border: 1px solid burlywood;
 		background-color: beige;
 		width: 280px;
-		margin: 0 5px;
+		margin: 3px 5px;
 		font-size: 10px;
 		text-align: left;
 		padding: 1px 2px;
@@ -229,6 +230,7 @@
 		let nowDate = nowDay.getDate();
 		let now = nowYear + '-' + ('00' + nowMonth).slice(-2)
 					+ '-' + ('00' + nowDate).slice(-2);
+		
 		// initial method
 		
 		
@@ -277,6 +279,8 @@
 			} // if-else
 		});  // div click
 		
+		loadData();
+		
 		
 		$('.searchBtn').click(function(){
 			alert('search!');
@@ -292,6 +296,109 @@
 		$('.periodBox:eq(0)').click();
 		
 	});  // JQuery
+	
+	function loadData() {
+		var dateArr = ["2022-08-30", "2022-08-30", "2022-08-14", "2022-07-15", "2022-06-08"];
+		var nameArr = ["해달별다방 기장점", "BNK치킨 부산본점", "온점반점 일광점", "JAVA카페 서면점", "충전"];
+		var moneyArr = ["-9000", "-23700", "-21000", "-4000", "500000"];
+		var idArr = ["A", "B", "", "D", ""];
+		var memoArr = ["", "메모가 다음과 같이 기재되어 있는 경우 이처럼 결과가 나오게 될 예정", "", "", "메모가 기재되어 있는 경우"];
+		
+		for (var i=0; i<5; i++) {
+			let date = dateArr[i];
+			let name = nameArr[i];
+			let money = moneyArr[i];
+			let id = idArr[i];
+			let memo = memoArr[i];
+			
+			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			
+			// html tag 생성 form
+			<%-- 
+			<div class="searchDetail-lower-box">
+				<div class="searchDetail-lower-box-inner">
+					<span class="payDate">2022-02-22</span>
+					<div class="image-box">
+						<img class="searchBtn" src="./img/search.png" width=20px>
+						<img class="memoBtn" src="./img/memo.png" width=20px>
+					</div>
+				</div>
+				
+				<div class="searchDetail-lower-box-inner">
+					<span class="storeName">부산은행 기장연수원</span>
+					<span class="payAmount">2,000,000</span>
+				</div>
+				
+				<div class="searchDetail-lower-box-inner">
+					<span class="memo">메모용 내용</span>
+				</div>
+			</div>
+			--%>
+			
+			let hasId = (id != "");
+			let hasMemo = (memo != "");
+			
+			let spanPayDate = document.createElement('span');
+			spanPayDate.setAttribute('class', 'payDate');
+			spanPayDate.append(date);
+			
+			if (hasId) {
+				var imgSearchBtn = document.createElement('img');
+				imgSearchBtn.setAttribute('class', 'searchBtn');
+				imgSearchBtn.setAttribute('src', './img/search.png');
+			}
+			
+			let imgMemoBtn = document.createElement('img');
+			imgMemoBtn.setAttribute('class', 'memoBtn');
+			imgMemoBtn.setAttribute('src', './img/memo.png');
+			
+			let divImageBox = document.createElement('div');
+			divImageBox.setAttribute('class', 'image-box');
+			if (hasId) divImageBox.append(imgSearchBtn);
+			divImageBox.append(imgMemoBtn);
+			
+			let divSearchDetailLowerBoxInner1 = document.createElement('div');
+			divSearchDetailLowerBoxInner1.setAttribute('class', 'searchDetail-lower-box-inner');
+			divSearchDetailLowerBoxInner1.append(spanPayDate);
+			divSearchDetailLowerBoxInner1.append(divImageBox);
+			
+			
+			let spanStoreName = document.createElement('span');
+			spanStoreName.setAttribute('class', 'storeName');
+			spanStoreName.append(name);
+			
+			let spanPayAmount = document.createElement('span');
+			spanPayAmount.setAttribute('class', 'payAmount');
+			spanPayAmount.append(money);
+			
+			let divSearchDetailLowerBoxInner2 = document.createElement('div');
+			divSearchDetailLowerBoxInner2.setAttribute('class', 'searchDetail-lower-box-inner');
+			divSearchDetailLowerBoxInner2.append(spanStoreName);
+			divSearchDetailLowerBoxInner2.append(spanPayAmount);
+			
+		
+			if (hasMemo) {
+				let spanMemo = document.createElement('span');
+				spanMemo.setAttribute('class', 'memo');
+				spanMemo.append(memo);
+			
+				var divSearchDetailLowerBoxInner3 = document.createElement('div');
+				divSearchDetailLowerBoxInner3.setAttribute('class', 'searchDetail-lower-box-inner');
+				divSearchDetailLowerBoxInner3.append(spanMemo);
+			}
+			
+			
+			let divSearchDetailLowerBox = document.createElement('div');
+			divSearchDetailLowerBox.setAttribute('class', 'searchDetail-lower-box');
+			divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner1);
+			divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner2);
+			if (hasMemo) divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner3);
+			
+			
+			$('#detailBox').append(divSearchDetailLowerBox);
+			
+		}  // for
+	}  // loadData
 	
 </script>
 
@@ -328,11 +435,12 @@
 				</div>
 			</div>
 			
-			<div class="rounded-lg border border-danger searchDetail-lower">
+			<div id="detailBox" class="rounded-lg border border-danger searchDetail-lower">
 				
+				<%-- 
 				<div class="searchDetail-lower-box">
 					<div class="searchDetail-lower-box-inner">
-						<span class="payTime">2022-02-22</span>
+						<span class="payDate">2022-02-22</span>
 						<div class="image-box">
 							<img class="searchBtn" src="./img/search.png" width=20px>
 							<img class="memoBtn" src="./img/memo.png" width=20px>
@@ -348,25 +456,7 @@
 						<span class="memo">메모용 내용</span>
 					</div>
 				</div>
-				
-				<div class="searchDetail-lower-box">
-					<div class="searchDetail-lower-box-inner">
-						<span class="payTime">2022-02-22</span>
-						<div class="image-box">
-							<img class="searchBtn" src="./img/search.png" width=20px>
-							<img class="memoBtn" src="./img/memo.png" width=20px>
-						</div>
-					</div>
-					
-					<div class="searchDetail-lower-box-inner">
-						<span class="storeName">부산은행 기장연수원</span>
-						<span class="payAmount">2,000,000</span>
-					</div>
-					
-					<div class="searchDetail-lower-box-inner">
-						<span class="memo">메모용 내용</span>
-					</div>
-				</div>
+				--%>
 				
 			</div>
 
