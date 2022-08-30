@@ -21,6 +21,20 @@
         border-color:#cb333b;
         z-index: 99;
 	}
+	#nvaHomeMobileLogo{
+		height: 60px;
+	}
+	#navHomeWebLogo{
+		height: 60px;
+	}
+	.navMenusButton{
+		display: inline;
+		cursor: pointer;
+	}
+	.navMenusButtonClose{
+		display: none;
+		cursor: pointer;
+	}
 	@media screen and (max-width: 575px) {
 		.nav{
 			height: 80px;
@@ -54,6 +68,7 @@
 			position: fixed;
 			left: 10px;
 			top: 15px;
+			cursor: pointer;
 		}
 		
 	}
@@ -77,6 +92,10 @@
 		}
 		.navMenusButton{
 			display: inline;
+			cursor: pointer;
+		}
+		.navMenusButtonClose{
+			display: none;
 			cursor: pointer;
 		}
 		#collpaseBtn{
@@ -116,6 +135,9 @@
 		.navMenusButton{
 			display: none;
 		}
+		.navMenusButtonClose{
+			display: none;
+		}
 		.nav-web{
 			display: flex;
 			justify-content: space-between;
@@ -136,12 +158,6 @@
 			color: black;
 		}
 	}
-	#nvaHomeMobileLogo{
-		height: 60px;
-	}
-	#navHomeWebLogo{
-		height: 60px;
-	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -149,10 +165,24 @@
 			window.history.back();
 		})
 		$('.navMenusButton').click(function(){
-			$('#navCollpase').slideToggle();
+			$('#navCollpase').attr("class","collapse show");
+			$('.navMenusButton').hide()
+			$('.navMenusButtonClose').show()
+		})
+		$('.navMenusButtonClose').click(function(){
+			$('#navCollpase').attr("class","collapse");
+			$('.navMenusButtonClose').hide()
+			$('.navMenusButton').show()
 		})
 		$(window).resize(function() {
-			$('#navCollpase').attr("class", "collapse");
+			$('#navCollpase').attr("class","collapse");
+			if(matchMedia("screen and (min-width: 575.1px) and (max-width: 719.9px)").matches){
+				$('.navMenusButtonClose').hide()
+				$('.navMenusButton').show()
+			}else{
+				$('.navMenusButtonClose').hide()
+				$('.navMenusButton').hide()
+			}
 		});
 	});
 </script>
@@ -160,25 +190,26 @@
 <body>
 	<nav class="nav">
 		<div class="nav-web">
-			<a href="/"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
+			<a href="/bnk/home"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
 			<div class="navMenus">
-				<div><a href="#">조회</a></div>
-				<div><a href="#">여행스토리</a></div>
-				<div><a href="#">핫플</a></div>
+				<div><a href="/bnk/search">조회</a></div>
+				<div><a href="/bnk/trip">여행스토리</a></div>
+				<div><a href="/bnk/place">핫플</a></div>
 				<div><a href="#">MyPage</a></div>
 			</div>
 			<div class="navMenusButton">
-				<a id="collpaseBtn" data-toggle="collapse" href="#navCollpase" role="button" aria-expanded="false" aria-controls="navCollpase">
-			    	<i class="bi bi-list" style="font-size: 2.5rem;"></i>
-			  	</a>
+			    <i class="bi bi-list" style="font-size: 2.5rem;"></i>
+			</div>
+			<div class="navMenusButtonClose">
+			    <i class="bi bi-x" style="font-size: 2.5rem;"></i>
 			</div>
 		</div>
 		
 		<div class="collpaseWrap">
 			<div class="collapse" id="navCollpase">
-				<div><a href="#">조회</a></div>
-				<div><a href="#">여행스토리</a></div>
-				<div><a href="#">핫플</a></div>
+				<div><a href="/bnk/search">조회</a></div>
+				<div><a href="/bnk/trip">여행스토리</a></div>
+				<div><a href="/bnk/place">핫플</a></div>
 				<div><a href="#">MyPage</a></div>
 			</div>
 		</div>
@@ -198,7 +229,7 @@
 				</c:when>
 				<c:otherwise>
 					<div id="navHomeImgWrap">
-						<img src="img/mbti.png" id="nvaHomeMobileLogo">
+						<a href="/bnk/home"><img src="/img/mbti.png" id="nvaHomeMobileLogo"></a>
 					</div>
 				</c:otherwise>
 			</c:choose>

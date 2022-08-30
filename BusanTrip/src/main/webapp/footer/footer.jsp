@@ -36,11 +36,22 @@
 	}
 	.icon{
 		margin:0 auto;
+		width: 70px;
+		height: 80px;
+		/*
+		border: 3px solid lightGray;
+		border-radius: 15px;
+		*/
+		display: flex;
+		justify-content: center;
+		cursor: pointer;
 	}
 	.icon-wrapper{
-		padding-left: 10px;
-		padding-right: 10px;
-		justify-content: center;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.bi{
+		height: 32px;
 	}
 </style>
 <script type="text/javascript">
@@ -69,23 +80,63 @@
 				$('.footer-mobile').css("display", "none");
 			}
 		});
-	})
+		const path = window.location.pathname.split('/').pop(1);
+		/* console.log(path); */
+		if(path==='home'){
+			$('.bi-house-door').css({"display":"none"});
+			$('.bi-house-door-fill').css("display","block");
+			$('.icon-home div').css("color", "black");
+		}else if(path==='search'){
+			$('.bi-piggy-bank').css("display","none");
+			$('.bi-piggy-bank-fill').css("display","block");
+			$('.icon-search div').css("color", "black");
+		}else if(path==='trip'){
+			$('.bi-image').css("display","none");
+			$('.bi-image-fill').css("display","block");
+			$('.icon-trip div').css("color", "black");
+		}else if(path==='place'){
+			$('.bi-geo-alt').css("display","none");
+			$('.bi-geo-alt-fill').css("display","block");
+			$('.icon-place div').css("color", "black");
+		}
+		
+		$('.icon-home').click(function(){
+			location.href='/bnk/home';
+		})
+		$('.icon-search').click(function(){
+			location.href='/bnk/search';
+		})
+		$('.icon-trip').click(function(){
+			location.href='/bnk/trip';
+		})
+		$('.icon-place').click(function(){
+			location.href='/bnk/place';
+		})	
+	});
 </script>
 </head>
 <body>
 	<footer class="footer-mobile">
 		<div class="row icon-wrapper">
-			<div class="icon">
-				<a href="/"><img src="img/icon_home.png" width="80px" height="80px"></a>
+			<div class="row icon icon-home">
+				<i class="bi bi-house-door" style="font-size: 2rem; color: #646464"></i>
+				<i class="bi bi-house-door-fill" style="font-size: 2rem; display: none;"></i>
+				<div class="col-12" align="center" style="color: #646464"><b>홈</b></div>
 			</div>
-			<div class="icon">
-				<a href="/search"><img src="img/icon_search.png" width="80px" height="80px"></a>
+			<div class="row icon icon-search">
+				<i class="bi bi-piggy-bank" style="font-size: 2rem; color: #646464""></i>
+				<i class="bi bi-piggy-bank-fill" style="font-size: 2rem; display: none;"></i>
+				<div class="col-12" align="center" style="color: #646464"><b>조회</b></div>
 			</div>
-			<div class="icon">
-				<a href="/trip"><img src="img/icon_trip.png" width="80px" height="80px"></a>
+			<div class="row icon icon-trip">
+				<i class="bi bi-image" style="font-size: 2rem; color: #646464""></i>
+				<i class="bi bi-image-fill" style="font-size: 2rem; display: none;"></i>
+				<div class="col-12" align="center" style="color: #646464"><b>여행</b></div>
 			</div>
-			<div class="icon">
-				<a href="/place"><img src="img/icon_place.png" width="80px" height="80px"></a>
+			<div class="row icon icon-place">
+				<i class="bi bi-geo-alt" style="font-size: 2rem; color: #646464""></i>
+				<i class="bi bi-geo-alt-fill" style="font-size: 2rem; display: none;"></i>
+				<div class="col-12" align="center" style="color: #646464"><b>핫플</b></div>
 			</div>
 		</div>
 	</footer>
