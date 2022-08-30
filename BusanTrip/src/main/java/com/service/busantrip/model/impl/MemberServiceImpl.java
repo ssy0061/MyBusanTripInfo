@@ -44,16 +44,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<Transaction> findTransactionByPeriod(String accountNumber, 
+	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, 
 													 String startDay, 
 													 String finishDay) {
-		return memberDAO.findTransactionByPeriod(accountNumber, startDay, finishDay);
+		return memberDAO.findTransactionBySpecificPeriod(accountNumber, startDay, finishDay);
 	}
 
 	@Override
-	public List<Transaction> findTransactionByPeriod(String accountNumber, 
+	public List<Transaction> findTransactionByMonthPeriod(String accountNumber, 
 													 int month) {
-		return memberDAO.findTransactionByPeriod(accountNumber, month);
+		return memberDAO.findTransactionByMonthPeriod(accountNumber, month);
 	}
 
 	@Override
