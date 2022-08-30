@@ -1,6 +1,9 @@
 package com.service.busantrip.model;
 
+import java.util.HashMap;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
@@ -9,7 +12,7 @@ import com.service.busantrip.dto.req.TransactionReqDTO;
 
 public interface MemberDAO {
 	public void join(Member member); //회원가입
-	public void login(Member member); //로그인
+	public Member login(Member member); //로그인
 	public void logout(); //로그아웃
 	public void updateCharacter(Member member); //캐릭터 교체 
 	public List<Transaction> findAllTransaction(String accountNumber); //사용자 전체 거래내역 조회
