@@ -28,7 +28,7 @@
 		height: 60px;
 	}
 	.navMenusButton{
-		display: none;
+		display: inline;
 		cursor: pointer;
 	}
 	.navMenusButtonClose{
@@ -68,6 +68,7 @@
 			position: fixed;
 			left: 10px;
 			top: 15px;
+			cursor: pointer;
 		}
 		
 	}
@@ -189,11 +190,11 @@
 <body>
 	<nav class="nav">
 		<div class="nav-web">
-			<a href="/"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
+			<a href="/bnk/home"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
 			<div class="navMenus">
-				<div><a href="#">조회</a></div>
-				<div><a href="#">여행스토리</a></div>
-				<div><a href="#">핫플</a></div>
+				<div><a href="/bnk/search">조회</a></div>
+				<div><a href="/bnk/trip">여행스토리</a></div>
+				<div><a href="/bnk/place">핫플</a></div>
 				<div><a href="#">MyPage</a></div>
 			</div>
 			<div class="navMenusButton">
@@ -206,9 +207,9 @@
 		
 		<div class="collpaseWrap">
 			<div class="collapse" id="navCollpase">
-				<div><a href="#">조회</a></div>
-				<div><a href="#">여행스토리</a></div>
-				<div><a href="#">핫플</a></div>
+				<div><a href="/bnk/search">조회</a></div>
+				<div><a href="/bnk/trip">여행스토리</a></div>
+				<div><a href="/bnk/place">핫플</a></div>
 				<div><a href="#">MyPage</a></div>
 			</div>
 		</div>
@@ -228,7 +229,7 @@
 				</c:when>
 				<c:otherwise>
 					<div id="navHomeImgWrap">
-						<img src="img/mbti.png" id="nvaHomeMobileLogo">
+						<a href="/bnk/home"><img src="/img/mbti.png" id="nvaHomeMobileLogo"></a>
 					</div>
 				</c:otherwise>
 			</c:choose>
