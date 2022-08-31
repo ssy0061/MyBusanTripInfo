@@ -25,12 +25,61 @@
 	}
 	
 	.content{
-		border: 5px dotted red;
 		min-height: 60vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
 	    padding-top: 10px;
 	    padding-bottom: 10px;
+	    position: relative;
+	}
+	
+	.register-box {
+		max-width: 400px;
+		margin: 0 auto;
+		text-align: center;
+		height: 200px;
+		position: relative;
+		border-radius: 10px;
+		border: 2px solid var(--bnk-gray);
+	}
+	
+	.register-box-inner {
+		max-width: 300px;
+		margin: 5px auto;
+		text-align: center;
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	.inner-text {
+		font-size: 15px;
+		margin: 0 5px;
+		width: 140px;
+	}
+	
+	.form-box {
+		width: 160px;
+		margin: 0 5px;
+		font-size: 13px;
+	}
+	
+	#checkDuple {
+		width: 100%;
+		text-align: right;
+		font-size: 12px;
+	}
+	
+	.form-register {
+		width: 100%;
+		margin: 0 5px;
+		font-weight: bold;
+	}
+	
+	.ud-center {
+		width: 100%;
+		position: absolute;
+		left: 50%; top: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 </style>
@@ -50,8 +99,46 @@
 		</c:import>
 		
 		<div class="content container">
-			<h2 align="center">홈</h2>
 			
+			<div class="ud-center">
+				<div class="register-box">
+					<div class="ud-center">
+						<form method="post" name="registerData" action="register.do">
+						<%-- register.do로 요청. registerData라는 이름으로 요청 --%>
+						
+							<div class="register-box-inner">
+								<div class="inner-text">아이디: </div>
+								<input type="text" name="id" class="form-box" required="required">
+							</div>
+							
+							<div class="register-box-inner">
+								<div id="checkDuple" class="inner-text">아이디를 입력해주세요</div>
+							</div>
+							
+							<div class="register-box-inner">
+								<div class="inner-text">비밀번호: </div>
+								<input type="password" name="pw" class="form-box" required="required">
+							</div>
+							
+							<div class="register-box-inner">
+								<div class="inner-text">전화번호: </div>
+								<input type="text" name="tel" class="form-box" required="required">
+							</div>
+							
+							<div class="register-box-inner">
+								<div class="inner-text">주소: </div>
+								<input type="text" name="addr" class="form-box" required="required">
+							</div>
+							
+							<div class="register-box-inner">
+								<input type="submit" class="form-register" value="회원가입">
+							</div>
+							
+						</form>
+					</div>
+				</div>
+			</div>
+
 		</div>
 		
 		<c:import url="/footer/footer.jsp" />
