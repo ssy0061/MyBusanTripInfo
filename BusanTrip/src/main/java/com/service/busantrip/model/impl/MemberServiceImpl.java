@@ -98,7 +98,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<Account> findAllAccount(String memberId) {
 		return memberDAO.findAllAccount(memberId);
-	}
+
 
 	@Override
 	public int getBalance(String accountNumber) {
