@@ -40,6 +40,9 @@
 		margin: 0 auto;
 		text-align: center;
 		position: relative;
+	}
+	
+	.home-top, .home-bottom {
 		border-radius: 5px;
 		border: 1px solid var(--bnk-gray);
 	}
@@ -53,9 +56,9 @@
 	}
 	
 	.home-middle {
-		overflow: auto;
-		max-height: 270px;
-		padding: 5px 0;
+		max-height: 250px;
+		overflow: hidden;
+		border-radius: 10px;
 	}
 	
 	.home-bottom {
@@ -280,8 +283,7 @@
 				</div>
 				
 				<div class="home-middle slideUp2">
-					<span style="font-size: 25px; font-weight: bold;">[ 이벤트 ]</span>
-					<div class="home-middle-inner">
+
 						
 						<%-- <img src="/img/event1.png" style="width: 100%; height: auto;">  --%>
 						<div id="eventSlide" class="carousel slide" data-ride="carousel">
@@ -309,11 +311,10 @@
 								<span class="carousel-control-next-icon"></span>
 							</a>
 						</div>
-						
-					</div>
 				</div>
 				
 				<div class="home-bottom slideUp3">
+					<div style="font-size: 18px; font-weight: bold; margin: 10px 0;">[ 공지사항 ]</div>
 					<%-- <div class="notice">※ 공지사항 ※</div> --%>
 				</div>
 				
