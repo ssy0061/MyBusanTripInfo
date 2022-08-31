@@ -1,19 +1,20 @@
 package com.service.busantrip.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.model.MemberService;
 
-@Controller
+@RestController
 @RequestMapping("member")
 public class MemberController {
 	
@@ -54,7 +55,11 @@ public class MemberController {
 			System.out.println(e);
 			return "Error";	
 		}	
-
 	}
 	
+	@PostMapping("findAllAccount")
+	public List<Account> findAllAccount(String memberId, Model model, HttpSession session) {
+		List<Account> accountList = memberService.findAllAccount(memberId);
+		return accountList;
+	}
 }
