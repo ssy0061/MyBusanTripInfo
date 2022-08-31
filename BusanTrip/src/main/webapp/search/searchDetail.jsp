@@ -373,12 +373,12 @@
 			if (hasId) {  // hasId
 				var imgSearchBtn = document.createElement('img');
 				imgSearchBtn.setAttribute('class', 'searchBtn');
-				imgSearchBtn.setAttribute('src', './img/search.png');
+				imgSearchBtn.setAttribute('src', '/img/search.png');
 			}
 			
 			let imgMemoBtn = document.createElement('img');
 			imgMemoBtn.setAttribute('class', 'memoBtn');
-			imgMemoBtn.setAttribute('src', './img/memo.png');
+			imgMemoBtn.setAttribute('src', '/img/memo.png');
 			imgMemoBtn.setAttribute('data-toggle', "modal");
 			imgMemoBtn.setAttribute('data-target', "#memoModal");
 			
