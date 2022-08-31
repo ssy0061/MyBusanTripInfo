@@ -39,7 +39,7 @@
 	
 	.searchDetail-upper {
 		max-width: 400px;
-		margin: 0 auto;
+		margin: 15px auto;
 		text-align: center;
 		height: 140px;
 		position: relative;
@@ -452,7 +452,7 @@
 							<input type="text" class="datepicker" id="startDate" readonly="readonly">
 							<span width="15px"><b>~</b></span>
 							<input type="text" class="datepicker" id="endDate" readonly="readonly">
-							<span class="searchBox"><img src="./img/search.png" width=20px></span>
+							<span class="searchBox"><img src="/img/search.png" width=20px></span>
 						</div>
 						
 						<div class="searchDetail-upper-bottom-inner">

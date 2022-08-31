@@ -26,7 +26,6 @@
 	}
 	
 	.content{
-		border: 5px dotted red;
 		min-height: 60vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
