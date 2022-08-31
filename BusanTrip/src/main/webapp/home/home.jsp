@@ -8,7 +8,7 @@
 <title>Home page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/animations.css">
+<link rel="stylesheet" type="text/css" href="/css/animations.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -98,6 +98,8 @@
 		margin: 5px auto;
 		overflow: hidden;
 		height: auto;
+		border-radius: 5px;
+		border: 1px solid var(--bnk-gray);
 	}
 	
 	
@@ -228,8 +230,8 @@
 				
 				<div class="home-middle slideUp2">
 					<span style="font-size:25px;">= 이벤트 =</span>
-					<div class="rounded-lg border border-danger home-middle-inner">
-						<img src="./image/event1.png" style="width: 100%; height: auto;">
+					<div class="home-middle-inner">
+						<img src="/img/event1.png" style="width: 100%; height: auto;">
 					</div>
 				</div>
 				
