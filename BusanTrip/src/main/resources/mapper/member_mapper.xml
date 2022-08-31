@@ -57,8 +57,8 @@
 
 	<insert id="addExternalTrasaction" parameterType="transactionReqDTO">
 		INSERT INTO 
-		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
-		VALUES(#{transactionId}, #{accountNumber}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt}, #{transactionMemo})
+		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, ACCOUNT_BANK, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
+		VALUES(#{transactionId}, #{accountNumber}, #{accountBank}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt}, #{transactionMemo})
 	</insert>
 	
 	<update id="pay" parameterType="hashmap">
