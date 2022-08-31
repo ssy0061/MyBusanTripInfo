@@ -121,8 +121,25 @@
 	
 	.place-lower-box-info {
 		margin: 5px 10px 10px;
+		display: flex;
+		justify-content: space-around;
 		border: 2px solid var(--bnk-gray);
 		border-radius: 5px;
+	}
+	
+	.info-left {
+		width: 80px;
+	}
+	
+	.info-right {
+		width: 220px;
+	}
+	
+	.searchBtn {
+		position: relative;
+		bottom: 3px;
+		margin: 0 2px;
+		width: 20px;
 	}
 	
 </style>
@@ -169,7 +186,18 @@
 				</div>
 				<div class="place-lower-box-lower">
 					<div class="place-lower-box-info">
-						정보 블록 하나
+						<div class="info-left">
+							<span class="category">관광지</span>
+						</div>
+						<div class="info-right">
+							<div class="info-right-upper">
+								<span class="placeName">오륙도 스카이워크</span>
+							</div>
+							<div class="info-right-lower">
+								<span class="location">부산 남구</span>
+								<img class="searchBtn" src="/img/search.png">
+							</div>
+						</div>
 					</div>
 					<div class="place-lower-box-info">
 						정보 블록 하나
