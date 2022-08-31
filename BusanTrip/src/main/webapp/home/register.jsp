@@ -156,7 +156,7 @@
 			<div class="ud-center">
 				<div class="register-box">
 					<div class="ud-center">
-						<form method="post" name="registerData" action="/member/join">
+						<form method="post" name="registerData" action="/member/register">
 						<%-- register.do로 요청. registerData라는 이름으로 요청 --%>
 						
 							<div class="register-box-inner">
