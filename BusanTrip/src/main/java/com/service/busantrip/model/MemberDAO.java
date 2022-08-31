@@ -28,6 +28,7 @@ public interface MemberDAO {
 	public void updateTransactionMemo(Transaction transaction); //거래내역 메모 수정
 	
 	public List<Account> findAllAccount(String memberId); //내 계좌 조회
+	
 	public int getBalance(String accountNumber); //계좌(포인트지갑) 잔액 조회
 	public int charge(String accountNumber, int balance); //계좌(포인트지갑) 잔액 충전
 }

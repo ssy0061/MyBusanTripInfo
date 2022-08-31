@@ -63,4 +63,5 @@ public class MemberController {
 		List<Account> accountList = memberService.findAllAccount(memberId);
 		return accountList;
 	}
+	
 }
