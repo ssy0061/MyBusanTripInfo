@@ -36,10 +36,12 @@
 	
 	.place-upper, .place-lower {
 		max-width: 400px;
-		margin: 0 auto;
+		margin: 20px auto;
 		text-align: center;
 		min-height: 10vh;
 		padding: 10px;
+		border-radius: 5px;
+		border: 1px solid var(--bnk-gray);
 	}
 	
 	.place-upper-inner {
@@ -292,7 +294,7 @@
 	
 	<div class="content container">
 		
-		<div class="rounded-lg border border-danger place-upper">
+		<div class="place-upper">
 			<div class="place-upper-inner">
 				<div class="place-upper-inner-title">
 					<span id="nowMonth">8월</span>의 My핫플
@@ -320,7 +322,7 @@
 			</div>
 		</div>
 		
-		<div class="rounded-lg border border-danger place-lower">
+		<div class="place-lower">
 			<div class="place-lower-box">
 				<div class="place-lower-box-title">
 					* <span class="regionName">부산</span>의 인기 장소
