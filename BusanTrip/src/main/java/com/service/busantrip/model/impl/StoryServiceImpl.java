@@ -10,7 +10,7 @@ import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.DiaryTransaction;
 import com.service.busantrip.domain.story.Photo;
-import com.service.busantrip.dto.req.DiaryTransactionReqDTO;
+import com.service.busantrip.domain.story.Story;
 import com.service.busantrip.model.StoryDAO;
 import com.service.busantrip.model.StoryService;
 @Service
@@ -34,6 +34,11 @@ public class StoryServiceImpl implements StoryService{
 		storyDAO.addStoryMember(storyId, memberId);
 		
 	}
+	
+	@Override
+	public List<Story> findAllStoryList(String memberId) {
+		return storyDAO.findAllStoryList(memberId);
+	}
 
 	@Override
 	public Member findStoryInviteMember(String memberId) {
@@ -46,8 +51,8 @@ public class StoryServiceImpl implements StoryService{
 	}
 
 	@Override
-	public List<Diary> findDiaryList(String storyId) {
-		return storyDAO.findDiaryList(storyId);
+	public List<Diary> findAllDiaryList(String storyId) {
+		return storyDAO.findAllDiaryList(storyId);
 	}
 
 	@Override

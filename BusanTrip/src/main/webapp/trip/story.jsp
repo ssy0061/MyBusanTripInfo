@@ -61,6 +61,13 @@
 		}
 	}
 </style>
+
+<script>
+
+	
+
+</script>
+
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
