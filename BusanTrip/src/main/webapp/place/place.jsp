@@ -34,7 +34,7 @@
 	    padding-bottom: 10px;
 	}
 	
-	.home-upper, .home-lower {
+	.place-upper, .place-lower {
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
@@ -42,25 +42,70 @@
 		padding: 10px;
 	}
 	
-	.home-upper {
-		position: relative;
-		height: 160px;
-	}
-	
-	.home-upper-inner {
-		height: 130px;
+	.place-upper-inner {
+		min-height: 150px;
 		max-width: 300px;
 		margin: 0 auto;
+		position: relative;
+		border: 1px solid var(--bnk-gray);
+		border-radius: 5px;
+	}
+	
+	.place-upper-inner-title {
+		font-weight: bold;
+		font-size: 20px;
+		text-align: left;
+		padding: 0 0 0 10px;
+		margin: 5px 0 0;
+	}
+	
+	#nowMonth {
+		color: var(--bnk-red);
+	}
+	
+	.place-upper-inner-contents {
+		position: relative;
+		min-height: 100px;
 	}
 	
 	.ranking {
-		border: 1px solid green;
+		border: 2px solid var(--bnk-gray);
+		border-radius: 5px;
+		margin: 8px 10px;
+		display: flex;
+		justify-content: space-around;
+		padding: 1px 0;
 	}
 	
-	.home-lower-region, .home-lower-period, .home-lower-type {
+	.medal {
+		height: 25px;
+		margin: 0 0 0 5px;
+		padding: 0 2px;
+	}
+	
+	.storeName {
+		width: 200px;
+		text-align: left;
+		padding: 0 0 0 5px;
+		font-size: 15px;
+		
+	}
+	
+	.visitCount {
+		width: 80px;
+		margin: 0 5px 0 0;
+		text-align: right;
+		padding: 0 5px 0 0;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	
+	.place-lower-region, .place-lower-period, .place-lower-type {
 		min-height: 50px;
 		max-width: 300px;
 		margin: 10px auto;
+		border: 1px solid var(--bnk-gray);
+		border-radius: 5px;
 	}
 	
 	.ud-center {
@@ -79,51 +124,56 @@
 	
 	<div class="content container">
 		
-		<div class="rounded-lg border border-danger home-upper">
-			<div class="ud-center">
-				<div class="rounded-lg border border-danger home-upper-inner">
-					<span>8월의 My핫플</span>
+		<div class="rounded-lg border border-danger place-upper">
+			<div class="place-upper-inner">
+				<div class="place-upper-inner-title">
+					<span id="nowMonth">8월</span>의 My핫플
+				</div>
+				<div class="place-upper-inner-contents">
+
 					<div id="first" class="ranking">
-						<img src="/img/medal.png" height="20px">
-						<span class="storeName">든킨드나쓰</span>
+						<img class="medal" src="/img/medal.png">
+						<span class="storeName">든킨드나쓰 든킨드나쓰점</span>
 						<span class="visitCount">7회</span>
 					</div>
+					
 					<div id="second" class="ranking">
-						<img src="/img/medal.png" height="20px">
+						<img class="medal" src="/img/medal.png">
 						<span class="storeName">든킨드나쓰</span>
 						<span class="visitCount">7회</span>
 					</div>
+					
 					<div id="third" class="ranking">
-						<img src="/img/medal.png" height="20px">
-						<span class="storeName">든킨드나쓰</span>
-						<span class="visitCount">7회</span>
+						<img class="medal" src="/img/medal.png">
+						<span class="storeName">-</span>
+						<span class="visitCount"></span>
 					</div>
 				</div>
 			</div>
 		</div>
 		
-		<div class="rounded-lg border border-danger home-lower">
-			<div class="rounded-lg border border-danger home-lower-region">
+		<div class="rounded-lg border border-danger place-lower">
+			<div class="place-lower-region">
 				지역 추천 A
 			</div>
 			
-			<div class="rounded-lg border border-danger home-lower-region">
+			<div class="place-lower-region">
 				지역 추천 B
 			</div>
 			
-			<div class="rounded-lg border border-danger home-lower-period">
+			<div class="place-lower-period">
 				기간 추천 A
 			</div>
 			
-			<div class="rounded-lg border border-danger home-lower-period">
+			<div class="place-lower-period">
 				기간 추천 B
 			</div>
 			
-			<div class="rounded-lg border border-danger home-lower-type">
+			<div class="place-lower-type">
 				범주 추천 A
 			</div>
 			
-			<div class="rounded-lg border border-danger home-lower-type">
+			<div class="place-lower-type">
 				범주 추천 B
 			</div>
 		</div>
