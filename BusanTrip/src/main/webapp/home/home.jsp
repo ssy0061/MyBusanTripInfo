@@ -179,27 +179,27 @@
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
 		
 		if (memberId != null) {
+			$.ajax({
+				type: 'post',
+				url: '/member/getMemberName',
+				data: {'memberId': memberId},
+				success: function(result) {
+					$('#userName').text(result);
+				},
+				error: function(e){ console.log(e); }
+			})
 			
-			<%--
 			$.ajax({
 				type: 'post',
 				url: '/member/getBalance',
 				data: {'memberId': memberId},
-				
-				success:function(result) {
-					console.log(result)
+				success: function(result) {
+					result = result.toString();
+					result = result.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					$('#userMoney').text(result);
 				},
-				error: function(e){
-					console.log(e);
-				}
-			})--%>
-			
-			var name = memberId;
-			var money = "300000";  // 문자열로 받으면 동작.
-			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			
-			$('#userName').text(name);
-			$('#userMoney').text(money);
+				error: function(e){ console.log(e); }
+			})
 		} else {
 			console.log("login User NULL");
 		}
