@@ -1,5 +1,7 @@
 package com.service.busantrip.model.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.Transaction;
-import com.service.busantrip.dto.req.TransactionReqDTO;
 import com.service.busantrip.model.MemberDAO;
 import com.service.busantrip.model.MemberService;
 
@@ -19,13 +20,30 @@ public class MemberServiceImpl implements MemberService{
 	private MemberDAO memberDAO;
 	
 	@Override
-	public void join(Member member) {
-		memberDAO.join(member);
+	public Boolean findIdExist(String memberId) {
+		
+		if(memberDAO.findIdExist(memberId) == null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
-
+	
 	@Override
-	public void login(Member member) {
-		memberDAO.login(member);
+	public int join(Member member) {
+		Date now = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+		String nowDate = simpleDateFormat.format(now); 
+//		System.out.println(nowDate);
+		String memberId = member.getMemberId();
+		memberDAO.join(member);
+		memberDAO.addAccount(memberId, memberId+nowDate);
+		return 1;
+	}
+	
+	@Override
+	public Member login(Member member) {
+		return memberDAO.login(member);
 	}
 
 	@Override
@@ -92,4 +110,6 @@ public class MemberServiceImpl implements MemberService{
 					  int balance) {
 		return memberDAO.charge(accountNumber, balance);
 	}
+
+
 }

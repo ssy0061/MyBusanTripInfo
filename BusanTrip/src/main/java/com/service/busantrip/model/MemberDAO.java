@@ -1,17 +1,17 @@
 package com.service.busantrip.model;
 
-import java.util.HashMap;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
 
 import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.Transaction;
-import com.service.busantrip.dto.req.TransactionReqDTO;
 
 public interface MemberDAO {
-	public void join(Member member); //회원가입
+	public int join(Member member); //회원가입
+	public List<Member> findIdExist(String memberId); //아이디 중복 확인용 아이디 리스트..
+	public void addAccount(String memberId, String accountNumber); //회원가입시 자동생성계좌..
+	
+	
 	public Member login(Member member); //로그인
 	public void logout(); //로그아웃
 	public void updateCharacter(String memberChar, String memberId); //캐릭터 교체 
