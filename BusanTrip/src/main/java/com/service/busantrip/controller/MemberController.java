@@ -3,39 +3,33 @@ package com.service.busantrip.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.model.MemberService;
 
-@RestController
+@Controller
+@RequestMapping("member")
 public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
-//	@GetMapping("/")
-//	public String index() {
-//		
-//		return "home/home";
-//	}
 	
-	@GetMapping("login.do")
-	public String getLoginForm() {
-		return "./login";
-	}
-	
-	@PostMapping("login.do")
+	@PostMapping("login")
 	public String login(Member member, Model model, HttpSession session) {
 		try {
-			Member selected = memberService.login(member);
+			//Member selected = memberService.login(member);
+			String selected = "hello";
 			if(selected != null) {
 				session.setAttribute("loginUser", selected);
-				return "redirect:home";
-			}else {
-				return "./login";
+				return "redirect:/bnk/home";
+			} else {
+				return "redirect:/bnk/login";
 			}
 		} catch (Exception e) {
 			System.out.println(e);
