@@ -126,20 +126,55 @@
 		border: 2px solid var(--bnk-gray);
 		border-radius: 5px;
 	}
-	
+
 	.info-left {
 		width: 80px;
+		font-weight: bold;
+		position: relative;
+		border-right: 1px solid var(--bnk-gray);
+		font-size: 15px;
+		background-color: #FFFFD4;
 	}
 	
 	.info-right {
 		width: 220px;
 	}
 	
-	.searchBtn {
+	.info-right-upper {
+		text-align: left;
+		margin: 0 0 0 5px;
+		font-size: 15px;
+		font-weight: bold;
 		position: relative;
-		bottom: 3px;
-		margin: 0 2px;
+		top: 1px;
+	}
+	
+	.info-right-lower {
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	.location {
+		width: 100%;
+		text-align: left;
+		margin: 0 0 0 5px;
+		font-size: 13px;
+		position: relative;
+		bottom: 1px;
+	}
+	
+	.searchBtn {
+		margin: 0 3px;
 		width: 20px;
+		position: relative;
+		bottom: 2px;
+	}
+	
+	.ud-center {
+		width: 100%;
+		position: absolute;
+		left: 50%; top: 50%;
+		transform: translate(-50%, -50%);
 	}
 	
 </style>
@@ -185,13 +220,16 @@
 					* <span class="regionName">부산</span>의 인기 장소
 				</div>
 				<div class="place-lower-box-lower">
+				
 					<div class="place-lower-box-info">
 						<div class="info-left">
-							<span class="category">관광지</span>
+							<div class="ud-center">
+								<span class="category">관광지</span>
+							</div>
 						</div>
 						<div class="info-right">
 							<div class="info-right-upper">
-								<span class="placeName">오륙도 스카이워크</span>
+								<div class="placeName">오륙도 스카이워크</div>
 							</div>
 							<div class="info-right-lower">
 								<span class="location">부산 남구</span>
@@ -199,12 +237,41 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="place-lower-box-info">
-						정보 블록 하나
+						<div class="info-left">
+							<div class="ud-center">
+								<span class="category">관광지</span>
+							</div>
+						</div>
+						<div class="info-right">
+							<div class="info-right-upper">
+								<div class="placeName">오륙도 스카이워크</div>
+							</div>
+							<div class="info-right-lower">
+								<span class="location">부산 남구</span>
+								<img class="searchBtn" src="/img/search.png">
+							</div>
+						</div>
 					</div>
+					
 					<div class="place-lower-box-info">
-						정보 블록 하나
+						<div class="info-left">
+							<div class="ud-center">
+								<span class="category">관광지</span>
+							</div>
+						</div>
+						<div class="info-right">
+							<div class="info-right-upper">
+								<div class="placeName">오륙도 스카이워크</div>
+							</div>
+							<div class="info-right-lower">
+								<span class="location">부산 남구</span>
+								<img class="searchBtn" src="/img/search.png">
+							</div>
+						</div>
 					</div>
+					
 				</div>
 			</div>
 			
@@ -213,9 +280,24 @@
 					* 최근 <span class="periodName">일주일</span> 인기 장소
 				</div>
 				<div class="place-lower-box-lower">
+					
 					<div class="place-lower-box-info">
-						정보 블록 하나
+						<div class="info-left">
+							<div class="ud-center">
+								<span class="category">관광지</span>
+							</div>
+						</div>
+						<div class="info-right">
+							<div class="info-right-upper">
+								<div class="placeName">오륙도 스카이워크</div>
+							</div>
+							<div class="info-right-lower">
+								<span class="location">부산 남구</span>
+								<img class="searchBtn" src="/img/search.png">
+							</div>
+						</div>
 					</div>
+					
 				</div>
 			</div>
 
@@ -224,12 +306,41 @@
 					* 인기 <span class="typeName">카페</span>
 				</div>
 				<div class="place-lower-box-lower">
+				
 					<div class="place-lower-box-info">
-						정보 블록 하나
+						<div class="info-left">
+							<div class="ud-center">
+								<span class="category">관광지</span>
+							</div>
+						</div>
+						<div class="info-right">
+							<div class="info-right-upper">
+								<div class="placeName">오륙도 스카이워크</div>
+							</div>
+							<div class="info-right-lower">
+								<span class="location">부산 남구</span>
+								<img class="searchBtn" src="/img/search.png">
+							</div>
+						</div>
 					</div>
+					
 					<div class="place-lower-box-info">
-						정보 블록 하나
+						<div class="info-left">
+							<div class="ud-center">
+								<span class="category">관광지</span>
+							</div>
+						</div>
+						<div class="info-right">
+							<div class="info-right-upper">
+								<div class="placeName">오륙도 스카이워크</div>
+							</div>
+							<div class="info-right-lower">
+								<span class="location">부산 남구</span>
+								<img class="searchBtn" src="/img/search.png">
+							</div>
+						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
