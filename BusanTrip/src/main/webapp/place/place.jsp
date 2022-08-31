@@ -100,19 +100,29 @@
 		font-weight: bold;
 	}
 	
-	.place-lower-region, .place-lower-period, .place-lower-type {
+	.place-lower-box {
 		min-height: 50px;
 		max-width: 300px;
-		margin: 10px auto;
+		margin: 15px auto;
 		border: 1px solid var(--bnk-gray);
 		border-radius: 5px;
 	}
 	
-	.ud-center {
-		width: 100%;
-		position: absolute;
-		left: 50%; top: 50%;
-		transform: translate(-50%, -50%);
+	.place-lower-box-title {
+		text-align: left;
+		margin: 3px 5px 0;
+		font-size: 17px;
+		font-weight: bold;
+	}
+	
+	.regionName, .periodName, .typeName {
+		color: var(--bnk-red);
+	}
+	
+	.place-lower-box-info {
+		margin: 5px 10px 10px;
+		border: 2px solid var(--bnk-gray);
+		border-radius: 5px;
 	}
 	
 </style>
@@ -153,28 +163,46 @@
 		</div>
 		
 		<div class="rounded-lg border border-danger place-lower">
-			<div class="place-lower-region">
-				지역 추천 A
+			<div class="place-lower-box">
+				<div class="place-lower-box-title">
+					* <span class="regionName">부산</span>의 인기 장소
+				</div>
+				<div class="place-lower-box-lower">
+					<div class="place-lower-box-info">
+						정보 블록 하나
+					</div>
+					<div class="place-lower-box-info">
+						정보 블록 하나
+					</div>
+					<div class="place-lower-box-info">
+						정보 블록 하나
+					</div>
+				</div>
 			</div>
 			
-			<div class="place-lower-region">
-				지역 추천 B
+			<div class="place-lower-box">
+				<div class="place-lower-box-title">
+					* 최근 <span class="periodName">일주일</span> 인기 장소
+				</div>
+				<div class="place-lower-box-lower">
+					<div class="place-lower-box-info">
+						정보 블록 하나
+					</div>
+				</div>
 			</div>
-			
-			<div class="place-lower-period">
-				기간 추천 A
-			</div>
-			
-			<div class="place-lower-period">
-				기간 추천 B
-			</div>
-			
-			<div class="place-lower-type">
-				범주 추천 A
-			</div>
-			
-			<div class="place-lower-type">
-				범주 추천 B
+
+			<div class="place-lower-box">
+				<div class="place-lower-box-title">
+					* 인기 <span class="typeName">카페</span>
+				</div>
+				<div class="place-lower-box-lower">
+					<div class="place-lower-box-info">
+						정보 블록 하나
+					</div>
+					<div class="place-lower-box-info">
+						정보 블록 하나
+					</div>
+				</div>
 			</div>
 		</div>
 		
