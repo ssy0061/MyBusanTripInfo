@@ -24,8 +24,7 @@
 	  --button-active: #EEEEEE;
 	}
 	
-	.index{
-		border: 5px dotted red;
+	.content{
 		min-height: 20vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
@@ -38,6 +37,8 @@
 		margin: 0 auto;
 		text-align: center;
 		min-height: 10vh;
+		border-radius: 5px;
+		border: 1px solid var(--bnk-gray);
 	}
 	
 	.search-box-inner {
@@ -127,7 +128,7 @@
 		var idArr = ["BNKBNK", "Q12345", "TEMP", "IDVALUE", "S0M31D"];
 		
 		for (var i=0; i<5; i++) {
-			let icon = "./img/bank_icon.png";
+			let icon = "/img/bank_icon.png";
 			let name = nameArr[i];
 			let account = accountArr[i];
 			let money = moneyArr[i];
@@ -217,9 +218,9 @@
 			<c:param name="navTitle" value="조회"/>
 		</c:import>
 		
-		<div class="index container">
+		<div class="content container">
 			
-			<div id="searchBox" class="rounded-lg border border-danger search-box">
+			<div id="searchBox" class="search-box">
 			
 				<%--
 				<div id="고유id값" class="rounded-lg shadow bg-white search-box-inner">

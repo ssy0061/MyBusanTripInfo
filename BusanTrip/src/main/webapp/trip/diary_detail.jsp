@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<srcipt src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></srcipt>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <title>Insert title here</title>
 <style>
@@ -77,10 +78,28 @@
 		background-color:#cb333b;
 		border-color:#cb333b;
 	}
-	/* modal */
+	/* modal - member */
 	.mem-id, .mem-name{
-		width:50%;
+		float:left;
 		text-align:justify;
+	}
+	/* modal - pic */
+	.image-area {
+	    position: relative;
+	}
+	.image-area::before {
+	    color: #fff;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    z-index: 1;
+	}
+	.each-image {
+	    width:50%;
+	    height:auto;
+	    z-index: 2;
+	    position: relative;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -366,7 +385,7 @@ $(document).ready(function () {
 					</svg>
 				</button>
 				</a>
-				<a href="#" data-toggle="tooltip" data-placement="left" title="멤버 조회">
+				<a data-toggle="tooltip" data-placement="left" title="멤버 조회">
 				<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
 					  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
@@ -375,6 +394,7 @@ $(document).ready(function () {
 				</a>
 			</div>
 		</div>
+		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
 	<!-- The Modal -->
@@ -387,9 +407,13 @@ $(document).ready(function () {
 	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
 	     	</div>
 	     	<div class="modal-body" align="center">
-				거래내역 추가하기 <input type="text"></input>
-				다음 페이지로 넘어가고?
-				사진 추가하기 <input type="file" accept="image/png, image/jpeg" multiple>
+				<p>거래내역 추가하기 <input type="text"></input></p>
+				<div class="row py-2">
+				  <div class="mx-auto">
+				    <input id="upload" type="file" accept="image/*" multiple>
+				    <div id="multiContainer" class="image-area mt-4">
+				    </div>
+				</div>
 	     	</div>
 	        <div class="modal-footer">
 	        	<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
@@ -427,5 +451,40 @@ $(document).ready(function () {
 	      </div>
 	    </div>
 	  </div>
+	<script type="text/javascript">
+		/* multi file upload */
+		
+		function readMultiImage(input) {
+			const multiContainer = document.getElementById('multiContainer')
+			
+			if(input.files) {
+				const fileArr = Array.from(input.files)
+				const $colDiv = document.createElement('div')
+				$colDiv.classList.add('column')
+				fileArr.forEach((file, index) => {
+					const reader = new FileReader()
+		            const $imgDiv = document.createElement('div')
+		            const $img = document.createElement('img')
+		            $img.classList.add('each-image')
+		            const $label = document.createElement('label')
+		            $label.classList.add('image-label')
+		            $label.textContent = file.name
+		            $imgDiv.appendChild($img)
+		            $imgDiv.appendChild($label)
+		            reader.onload = e => {
+		            	$img.src = e.target.result
+		            }
+		            console.log(file.name)
+					$colDiv.appendChild($imgDiv)
+					
+					reader.readAsDataURL(file)
+				})
+				multiContainer.appendChild($colDiv)
+			}
+		}
+		document.getElementById('upload').addEventListener('change', (e) => {
+			readMultiImage(e.target);
+		})
+	</script>
 </body>
 </html>
