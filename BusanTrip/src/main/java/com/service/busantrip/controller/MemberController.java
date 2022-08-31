@@ -50,6 +50,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("getMemberName")
+	@ResponseBody
 	public String getMemberName(String memberId, Model model, HttpSession session) {
 		String memberName = memberService.getMemberName(memberId);
 		return memberName;
@@ -57,8 +58,8 @@ public class MemberController {
 	
 	@PostMapping("getBalance")
 	@ResponseBody
-	public int getBalance(String accountNumber, Model model, HttpSession session) {
-		int balance = memberService.getBalance(accountNumber);
+	public int getBalance(String memberId, Model model, HttpSession session) {
+		int balance = memberService.getBalance(memberId);
 		return balance;
 	}
 	
