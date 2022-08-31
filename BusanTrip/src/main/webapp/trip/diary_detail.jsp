@@ -63,6 +63,9 @@
 		float:left;
 		text-align:justify;
 	}
+	.modal-footer>input{
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
 	/* modal - pic */
 	.image-area {
 	    position: relative;
@@ -78,8 +81,34 @@
 	.each-image {
 	    width:50%;
 	    height:auto;
+	    padding:2px 5px;
+	    margin:5px 2px;
 	    z-index: 2;
 	    position: relative;
+	}
+	.picture-btn-re>input[type="file"]{
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip:rect(0,0,0,0);
+		border: 0;
+	}
+	.picture-btn-re>label, #resetUpload, .deleteBtn{
+		display:inline-block;
+		padding:4px 10px;
+		margin:0 5px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#F08080;
+		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -285,6 +314,76 @@ $(document).ready(function () {
     		
     	}
     }
+    var fileArr = "";
+    /* multi file upload */
+	function readMultiImage(input) {
+		const multiContainer = document.getElementById('multiContainer');
+		
+		if(input.files) { // 인풋 태그에 파일들이 있는 경우
+			// 이미지 파일 검사 생략
+			console.log(input.files)
+			console.log(input.files.length)
+			fileArr = Array.from(input.files) // forEach문으로 처리하기 위해 유사배열을 배열로 변환
+			const $colDiv = document.createElement('div')
+			fileArr.forEach((file, index) => {
+				const reader = new FileReader()
+				
+	            const $imgDiv = document.createElement('div')
+	            const $img = document.createElement('img')
+	            $img.classList.add('each-image')
+	            const $label = document.createElement('label')
+	            $label.classList.add('image-label')
+	            $label.textContent = file.name
+	            //var str="<button type='button' id='delete_"+(index)+"'>삭제</button>"
+	            
+	            var $str = document.createElement('button');
+	            $str.setAttribute('type', 'button');
+	            $str.setAttribute('id', 'delete_'+index);
+	            $str.setAttribute('class', 'deleteBtn');
+	            $str.append('삭제');
+	            
+	            $imgDiv.appendChild($img);
+	            $imgDiv.appendChild($label);
+	            reader.onload = e => {
+	            	$img.src = e.target.result;
+	            };
+	            console.log(file.name);
+				$colDiv.appendChild($imgDiv);
+				$imgDiv.append($str);
+				
+				reader.readAsDataURL(file)
+				
+				})
+				multiContainer.appendChild($colDiv)
+			}
+			
+		}
+	const inputMultiImage = document.getElementById("upload")
+		inputMultiImage.addEventListener('change', (e) => {
+			readMultiImage(e.target)
+	});
+		
+	function deleteFile(obj){
+		obj.parent().remove();
+	}
+	$('#resetUpload').hide();
+	$('#resetUpload').click(function(){
+		$('#multiContainer').children().remove();
+		$('#input-label').show();
+		$('#resetUpload').hide();
+	})
+	$('#upload').change(function(){
+		$(this).hide();
+		$('#input-label').hide();
+		$(this).val("");
+		$('#resetUpload').show();
+	})
+	$('#multiContainer').on("click", ".deleteBtn", function(e) {
+		console.log($(this).attr("id").substring(7));
+		fileArr.splice($(this).attr("id").substring(7),1);
+		console.log(fileArr)
+		$(this).parent().remove();
+	});
 });
 </script>
 </head>
@@ -405,8 +504,10 @@ $(document).ready(function () {
 	     	<div class="modal-body" align="center">
 				<p>거래내역 추가하기 <input type="text"></input></p>
 				<div class="row py-2">
-				  <div class="mx-auto">
+				  <div class="mx-auto picture-btn-re">
+				  	<label id="input-label" for="upload">사진 추가</label>
 				    <input id="upload" type="file" accept="image/*" multiple>
+				    <input type="button" id="resetUpload" value="초기화">
 				    <div id="multiContainer" class="image-area mt-4">
 				    </div>
 				</div>
@@ -447,64 +548,5 @@ $(document).ready(function () {
 	      </div>
 	    </div>
 	  </div>
-	<script>
-		/* multi file upload */
-		function readMultiImage(input) {
-			const multiContainer = document.getElementById('multiContainer');
-			
-			if(input.files) { // 인풋 태그에 파일들이 있는 경우
-				// 이미지 파일 검사 생략
-				console.log(input.files)
-				console.log(input.files.length)
-				const fileArr = Array.from(input.files) // forEach문으로 처리하기 위해 유사배열을 배열로 변환
-				const $colDiv = document.createElement('div')
-				fileArr.forEach((file, index) => {
-					const reader = new FileReader()
-					
-		            const $imgDiv = document.createElement('div')
-		            const $img = document.createElement('img')
-		            $img.classList.add('each-image')
-		            const $label = document.createElement('label')
-		            $label.classList.add('image-label')
-		            $label.textContent = file.name
-		            //var str="<button type='button' id='delete_"+(index)+"'>삭제</button>"
-		            
-		            var $str = document.createElement('button');
-		            $str.setAttribute('type', 'button');
-		            $str.setAttribute('class', 'deleteBtn');
-		            $str.append('삭제');
-		            
-		            $imgDiv.appendChild($img);
-		            $imgDiv.appendChild($label);
-		            reader.onload = e => {
-		            	$img.src = e.target.result;
-		            };
-		            console.log(file.name);
-					$colDiv.appendChild($imgDiv);
-					$imgDiv.append($str);
-					
-					reader.readAsDataURL(file)
-					
-					})
-					multiContainer.appendChild($colDiv)
-				}
-				
-			}
-			const inputMultiImage = document.getElementById("upload")
-			inputMultiImage.addEventListener('change', (e) => {
-				readMultiImage(e.target)
-		});
-			
-		function deleteFile(obj){
-			obj.parent().remove();
-		}
-		
-		console.log('??')
-		$('.deleteBtn').on("click", function(e) {
-			console.log("button click")
-		});
-	
-
-	</script>
 </body>
 </html>
