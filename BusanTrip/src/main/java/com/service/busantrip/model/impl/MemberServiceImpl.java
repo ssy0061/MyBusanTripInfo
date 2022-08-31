@@ -50,7 +50,12 @@ public class MemberServiceImpl implements MemberService{
 	public void logout() {
 		//
 	}
-
+	
+	@Override
+	public String getMemberName(String memberId) {
+		return memberDAO.getMemberName(memberId);
+	}
+	
 	@Override
 	public void updateCharacter(String memberChar, String memberId) {
 		memberDAO.updateCharacter(memberChar, memberId);
@@ -101,8 +106,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int getBalance(String accountNumber) {
-		return memberDAO.getBalance(accountNumber);
+	public int getBalance(String memberId) {
+		return memberDAO.getBalance(memberId);
 	}
 
 	@Override
@@ -110,6 +115,5 @@ public class MemberServiceImpl implements MemberService{
 					  int balance) {
 		return memberDAO.charge(accountNumber, balance);
 	}
-
 
 }
