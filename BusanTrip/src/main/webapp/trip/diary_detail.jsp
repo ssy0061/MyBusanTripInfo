@@ -451,40 +451,64 @@ $(document).ready(function () {
 	      </div>
 	    </div>
 	  </div>
-	<script type="text/javascript">
+	<script>
 		/* multi file upload */
-		
 		function readMultiImage(input) {
-			const multiContainer = document.getElementById('multiContainer')
+			const multiContainer = document.getElementById('multiContainer');
 			
-			if(input.files) {
-				const fileArr = Array.from(input.files)
+			if(input.files) { // 인풋 태그에 파일들이 있는 경우
+				// 이미지 파일 검사 생략
+				console.log(input.files)
+				console.log(input.files.length)
+				const fileArr = Array.from(input.files) // forEach문으로 처리하기 위해 유사배열을 배열로 변환
 				const $colDiv = document.createElement('div')
-				$colDiv.classList.add('column')
 				fileArr.forEach((file, index) => {
 					const reader = new FileReader()
+					
 		            const $imgDiv = document.createElement('div')
 		            const $img = document.createElement('img')
 		            $img.classList.add('each-image')
 		            const $label = document.createElement('label')
 		            $label.classList.add('image-label')
 		            $label.textContent = file.name
-		            $imgDiv.appendChild($img)
-		            $imgDiv.appendChild($label)
+		            //var str="<button type='button' id='delete_"+(index)+"'>삭제</button>"
+		            
+		            var $str = document.createElement('button');
+		            $str.setAttribute('type', 'button');
+		            $str.setAttribute('class', 'deleteBtn');
+		            $str.append('삭제');
+		            
+		            $imgDiv.appendChild($img);
+		            $imgDiv.appendChild($label);
 		            reader.onload = e => {
-		            	$img.src = e.target.result
-		            }
-		            console.log(file.name)
-					$colDiv.appendChild($imgDiv)
+		            	$img.src = e.target.result;
+		            };
+		            console.log(file.name);
+					$colDiv.appendChild($imgDiv);
+					$imgDiv.append($str);
 					
 					reader.readAsDataURL(file)
-				})
-				multiContainer.appendChild($colDiv)
+					
+					})
+					multiContainer.appendChild($colDiv)
+				}
+				
 			}
+			const inputMultiImage = document.getElementById("upload")
+			inputMultiImage.addEventListener('change', (e) => {
+				readMultiImage(e.target)
+		});
+			
+		function deleteFile(obj){
+			obj.parent().remove();
 		}
-		document.getElementById('upload').addEventListener('change', (e) => {
-			readMultiImage(e.target);
-		})
+		
+		console.log('??')
+		$('.deleteBtn').on("click", function(e) {
+			console.log("button click")
+		});
+	
+
 	</script>
 </body>
 </html>
