@@ -37,7 +37,7 @@
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
-		height: 200px;
+		height: 230px;
 		position: relative;
 		border-radius: 10px;
 		border: 2px solid var(--bnk-gray);
@@ -57,13 +57,18 @@
 		width: 140px;
 	}
 	
+	.inner-text-black { color: black; }
+	.inner-text-red { color: red; font-weight: bold; }
+	.inner-text-yellow { color: gold; font-weight: bold; }
+	.inner-text-green { color: green; font-weight: bold; }
+	
 	.form-box {
 		width: 160px;
 		margin: 0 5px;
 		font-size: 13px;
 	}
 	
-	#checkDuple {
+	#checkDuple, #checkPassword {
 		width: 100%;
 		text-align: right;
 		font-size: 12px;
@@ -85,6 +90,54 @@
 </style>
 
 <script>
+
+	$(function(){
+		var isValidId = false;
+		var isValidPw = false;
+		
+		$('#idForm').on('keyup', function() {
+			let idVal = $(this).val();
+			isValidId = false;
+			
+			if (idVal == "") {  // 공백 시
+				$('#checkDuple').text('아이디를 입력해주세요.');
+				$('#checkDuple').attr('class', 'inner-text inner-text-black');
+			} else if ((idVal.length < 5) || (idVal.length > 30)) {  // 글자 위반
+				$('#checkDuple').text('5자 ~ 30자로 아이디를 입력해주세요.');
+				$('#checkDuple').attr('class', 'inner-text inner-text-yellow');
+			} else if (false) {  // 중복 시
+				$('#checkDuple').text('다른 아이디를 사용해주세요.');
+				$('#checkDuple').attr('class', 'inner-text inner-text-red');
+			} else {  // ok
+				$('#checkDuple').text('아이디로 사용가능합니다!');
+				$('#checkDuple').attr('class', 'inner-text inner-text-green');
+				isValidId = true;
+			}
+		});  // id on-keyup
+		
+		$('#pwForm').on('keyup', function() {
+			let pwVal = $(this).val();
+			isValidPw = false;
+			
+			if (pwVal == "") {  // 공백 시
+				$('#checkPassword').text('아이디를 입력해주세요.');
+				$('#checkPassword').attr('class', 'inner-text inner-text-black');
+			} else if ((pwVal.length < 7) || (pwVal.length > 30)) {  // 글자 위반
+				$('#checkPassword').text('7자 ~ 30자로 비밀번호를 입력해주세요.');
+				$('#checkPassword').attr('class', 'inner-text inner-text-yellow');
+			} else {  // ok
+				$('#checkPassword').text('비밀번호로 사용가능합니다!');
+				$('#checkPassword').attr('class', 'inner-text inner-text-green');
+				isValidPw = true;
+			}
+		});  // pw on-keyup
+		
+		
+		$(':submit').click(function() {
+			if (!isValidId || !isValidPw) return false;
+		});  // submit button
+		
+	});  // JQuery
 	
 </script>
 
@@ -108,16 +161,20 @@
 						
 							<div class="register-box-inner">
 								<div class="inner-text">아이디: </div>
-								<input type="text" name="id" class="form-box" required="required">
+								<input id="idForm" type="text" name="id" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
-								<div id="checkDuple" class="inner-text">아이디를 입력해주세요</div>
+								<div id="checkDuple" class="inner-text inner-text-black">아이디를 입력해주세요.</div>
 							</div>
 							
 							<div class="register-box-inner">
 								<div class="inner-text">비밀번호: </div>
-								<input type="password" name="pw" class="form-box" required="required">
+								<input id="pwForm" type="password" name="pw" class="form-box" required="required">
+							</div>
+							
+							<div class="register-box-inner">
+								<div id="checkPassword" class="inner-text inner-text-black">비밀번호를 입력해주세요.</div>
 							</div>
 							
 							<div class="register-box-inner">
