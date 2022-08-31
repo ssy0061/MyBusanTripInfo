@@ -42,8 +42,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public List<Map<String, Object>> findStorePopularByPersonal(String accountNumber) {
-		return storeDAO.findStorePopularByPersonal(accountNumber);
+	public List<Map<String, Object>> findStorePopularByPersonal(String memberId) {
+		return storeDAO.findStorePopularByPersonal(memberId);
 	}
 
 	@Override
