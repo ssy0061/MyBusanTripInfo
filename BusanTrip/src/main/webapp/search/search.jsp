@@ -207,6 +207,20 @@
 		    tempForm.submit();
 		});  // div click
 		
+		var memberId = '<%=(String)session.getAttribute("memberId")%>';
+		console.log(memberId)
+		$.ajax({
+			type: 'post',
+			url: '/member/findAllAccount',
+			data: {'memberId': memberId},
+			
+			success:function(result) {
+				console.log(result)
+			},
+			error: function(e){
+				console.log(e);
+			}
+		})
 	});  // JQuery
 	
 </script>
