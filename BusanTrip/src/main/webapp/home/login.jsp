@@ -59,6 +59,10 @@
 		margin: 0 5px;
 	}
 	
+	.form-box {
+		width: 130px;
+	}
+	
 	.form-login {
 		padding: 0 50px;
 	}
@@ -88,7 +92,7 @@
 							
 							<div class="login-box-inner">
 								<span class="inner-text">비밀번호: </span>
-								<input type="text" name="pw" class="form-box" required="required">
+								<input type="password" name="pw" class="form-box" required="required">
 							</div>
 							
 							<div class="login-box-inner">
