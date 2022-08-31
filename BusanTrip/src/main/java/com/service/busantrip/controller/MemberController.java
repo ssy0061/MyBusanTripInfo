@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.model.MemberService;
@@ -39,7 +38,8 @@ public class MemberController {
 			return "Error";	
 		}	
 	}
-	@PostMapping("register")
+	
+	@PostMapping("join")
 	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, Model model, HttpSession session) {
 		try {
 			Member member = new Member(memberId, memberPw, memberName, memberTele, memberAddr);
