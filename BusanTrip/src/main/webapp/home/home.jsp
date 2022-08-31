@@ -97,7 +97,7 @@
 	
 	.home-middle-inner {
 		max-width: 300px;
-		margin: 5px auto;
+		margin: 10px auto;
 		overflow: hidden;
 		height: auto;
 		border-radius: 5px;
@@ -155,6 +155,20 @@
 	.login span{
 		font-size: 2rem;
 	}
+	
+	/* event slide 모양 처리 */
+	.carousel-indicators {
+	    bottom: -15px;
+	}
+	
+	.carousel-indicators li {
+		width: 10px;
+		height: 10px;
+		border-radius: 100%;
+	}
+	
+	.carousel-control-prev { left: -7px; }
+	.carousel-control-next { right: -7px; }
 
 </style>
 
@@ -246,7 +260,34 @@
 				<div class="home-middle slideUp2">
 					<span style="font-size: 25px; font-weight: bold;">[ 이벤트 ]</span>
 					<div class="home-middle-inner">
-						<img src="/img/event1.png" style="width: 100%; height: auto;">
+						
+						<%-- <img src="/img/event1.png" style="width: 100%; height: auto;">  --%>
+						<div id="eventSlide" class="carousel slide" data-ride="carousel">
+							<!-- Indicators -->
+							<ul class="carousel-indicators">
+								<li data-target="#eventSlide" data-slide-to="0" class="active"></li>
+								<li data-target="#eventSlide" data-slide-to="1"></li>
+								<li data-target="#eventSlide" data-slide-to="2"></li>
+								<li data-target="#eventSlide" data-slide-to="3"></li>
+							</ul>
+	
+							<!-- The slideshow -->
+							<div class="carousel-inner">
+								<div class="carousel-item active"><img src="/img/event1.png" width="100%"></div>
+								<div class="carousel-item"><img src="/img/event2.png" width="100%"></div>
+								<div class="carousel-item"><img src="/img/event3.png" width="100%"></div>
+								<div class="carousel-item"><img src="/img/event4.png" width="100%"></div>
+							</div>
+	
+							<!-- Left and right controls -->
+							<a class="carousel-control-prev" href="#eventSlide" data-slide="prev">
+								<span class="carousel-control-prev-icon"></span>
+							</a>
+							<a class="carousel-control-next" href="#eventSlide" data-slide="next">
+								<span class="carousel-control-next-icon"></span>
+							</a>
+						</div>
+						
 					</div>
 				</div>
 				
