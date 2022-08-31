@@ -24,8 +24,7 @@
 	}
 	
 	.index{
-		border: 5px dotted red;
-		height: 50vh;
+		height: 60vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
 	    padding-top: 10px;
@@ -39,6 +38,8 @@
 		text-align: center;
 		height: 150px;
 		position: relative;
+		border-radius: 10px;
+		border: 2px solid var(--bnk-gray);
 	}
 	
 	.ud-center {
@@ -52,21 +53,26 @@
 		max-width: 300px;
 		margin: 10px auto;
 		text-align: center;
+		display: flex;
+		justify-content: space-around;
 	}
 	
 	.inner-text {
 		font-size: 20px;
 		margin: 0 5px;
+		width: 140px;
 	}
 	
 	.form-box {
-		width: 130px;
+		width: 160px;
+		margin: 0 5px;
 	}
 	
 	.form-login {
-		padding: 0 50px;
+		width: 100%;
+		margin: 0 5px;
+		font-weight: bold;
 	}
-	
 	
 
 </style>
@@ -80,23 +86,24 @@
 		<div class="index container">
 			
 			<div class="ud-center">
-				<div class="rounded-lg border border-danger login-box">
+				<div class="login-box">
 					<div class="ud-center">
 						<form method="post" name="loginData" action="login.do">
 						<%-- 일단, login.do로 요청을 보내고 loginData라는 이름으로 요청 --%>
 						
 							<div class="login-box-inner">
-								<span class="inner-text">아이디: </span>
+								<div class="inner-text">아이디: </div>
 								<input type="text" name="id" class="form-box" required="required">
 							</div>
 							
 							<div class="login-box-inner">
-								<span class="inner-text">비밀번호: </span>
+								<div class="inner-text">비밀번호: </div>
 								<input type="password" name="pw" class="form-box" required="required">
 							</div>
 							
 							<div class="login-box-inner">
 								<input type="submit" class="form-login" value="로그인">
+								<input type="button" class="form-login" value="회원가입">
 							</div>
 							
 						</form>
