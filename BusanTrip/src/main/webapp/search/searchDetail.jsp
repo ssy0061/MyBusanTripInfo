@@ -29,8 +29,7 @@
 	  --button-active: #EEEEEE;
 	}
 	
-	.index{
-		border: 5px dotted red;
+	.content{
 		min-height: 100vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
@@ -42,8 +41,10 @@
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
-		height: 130px;
+		height: 140px;
 		position: relative;
+		border-radius: 5px;
+		border: 1px solid var(--bnk-gray);
 	}
 	
 	.searchDetail-upper-top, .searchDetail-upper-bottom {
@@ -88,6 +89,7 @@
 		text-align: center;
 		display: flex;
 		justify-content: space-around;
+		margin: 2px 2px;
 	}
 	
 	.periodBox, .searchBox {
@@ -133,6 +135,8 @@
 		margin: 0 auto;
 		text-align: center;
 		min-height: 5vh;
+		border-radius: 5px;
+		border: 1px solid var(--bnk-gray);
 	}
 	
 	.searchDetail-lower-box {
@@ -435,9 +439,9 @@
 			<c:param name="navSubTitle" value="조회222"/>
 		</c:import>
 		
-		<div class="index container">
+		<div class="content container">
 			
-			<div class="rounded-lg border border-danger searchDetail-upper">
+			<div class="searchDetail-upper">
 				<div class="ud-center">
 					<div class="rounded-lg searchDetail-upper-top">
 						<span class="accountNumber">XXX-XXXXXX-XX-XXX</span>
@@ -461,7 +465,7 @@
 				</div>
 			</div>
 			
-			<div id="detailBox" class="rounded-lg border border-danger searchDetail-lower">
+			<div id="detailBox" class="searchDetail-lower">
 				
 				<%-- 
 				<div class="searchDetail-lower-box">
