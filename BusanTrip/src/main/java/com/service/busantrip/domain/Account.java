@@ -11,13 +11,12 @@ public class Account {
 	public Account() {}
 
 
-	public Account(String accountNumber, int accountBalance, String accountInner, String memberId, Member member) {
+	public Account(String accountNumber, int accountBalance, String accountInner, String memberId) {
 		super();
 		this.accountNumber = accountNumber;
 		this.accountBalance = accountBalance;
 		this.accountInner = accountInner;
 		this.memberId = memberId;
-		this.member = member;
 	}
 
 	public String getMemberId() {
