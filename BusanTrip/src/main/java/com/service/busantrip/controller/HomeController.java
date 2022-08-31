@@ -11,23 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/bnk")
 public class HomeController {
 	
-	@RequestMapping("{page}")
-	public String goTo(@PathVariable("page") String page) {
-		String goPage = "";
-		if(page.equals("search")) {
-			goPage="search/search";
-		}else if(page.equals("trip")) {
-			goPage="trip/story";
-		}else if(page.equals("place")) {
-			goPage="place/place";
-		}else if(page.equals("login")) {
-			goPage="home/login";
-		}else if(page.equals("register")) {
-			goPage="home/register";
-		}
-		else {
-			goPage="home/home";
-		}
-		return goPage;
+	@RequestMapping("home")
+	public String home() {
+		return "home/home";
 	}
+	@RequestMapping("search")
+	public String search() {
+		return "search/search";
+	}
+	
+	@RequestMapping("trip")
+	public String trip() {
+		return "trip/story";
+	}
+	@RequestMapping("place")
+	public String place() {
+		return "place/place";
+	}
+	@RequestMapping("login")
+	public String login() {
+		return "home/login";
+	}
+	@RequestMapping("register")
+	public String register() {
+		return "home/register";
+	}
+	@RequestMapping("trip/{storyId}")
+	public String diaryDetail(@PathVariable("storyId") String storyId) {
+		return "trip/diary_main";
+	}
+		
 }

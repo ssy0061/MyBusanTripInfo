@@ -64,6 +64,23 @@
 		}
 	}
 </style>
+<script type="text/javascript">
+	$(function(){
+		var storyId = location.pathname.substring(10)
+		$.ajax({
+			type: "post",
+			url: "/story/findAllDiaryList",
+			data: {'storyId': storyId},
+			
+			success:function(result) {
+				console.log(result)
+			},
+			error: function(e){
+				console.log(e);
+			}
+		})
+	});
+</script>
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
