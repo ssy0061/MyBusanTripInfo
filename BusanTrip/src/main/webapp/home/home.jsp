@@ -160,18 +160,27 @@
 <script>
 
 	$(function() {
-		var loginUser;  // 나중에 값 받아오는 코드 작성.
+		var loginUser = sessionStorage.getItem("loginUser");  // 나중에 값 받아오는 코드 작성.
+		//alert(loginUser);
+		//alert(loginUser != null);
 		
 		if (loginUser != null) {
-			<%-- loginUser로 일단 객체 값 받기. --%>
+			<%-- loginUser로 일단 객체 값 받기. 
+			<%--
 			var name = "염미정";
-			var money = "123456";
+			var money = "123456";--%>
 			
-			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			console.log(money);
+			var name = loginUser.memberId;
+			var money = 300000;
+			
+			
+			//money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			//console.log(money);
 			
 			$('#userName').text(name);
 			$('#userMoney').text(money);
+		} else {
+			console.log("login User NULL");
 		}
 		
 		
@@ -179,8 +188,6 @@
 			location.href = "./login";
 			// 로그인 페이지로 이동
 		});
-		
-		
 	});
 
 </script>
@@ -198,7 +205,9 @@
 			<div class="content container">
 			
 				<div class="home-top slideUp1">
+        
 					<div class="ud-center">
+						<span>${!empty loginUser}test</span>
 						<c:choose>
 							<c:when test="${!empty loginUser}">
 							<%-- loginUser로 일단 객체 값 받기. --%>

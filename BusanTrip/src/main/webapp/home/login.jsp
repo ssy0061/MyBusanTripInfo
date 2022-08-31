@@ -100,7 +100,7 @@
 			<div class="ud-center">
 				<div class="login-box">
 					<div class="ud-center">
-						<form method="post" name="loginData" action="login.do">
+						<form method="post" name="loginData" action="/member/login">
 						<%-- 일단, login.do로 요청을 보내고 loginData라는 이름으로 요청 --%>
 						
 							<div class="login-box-inner">

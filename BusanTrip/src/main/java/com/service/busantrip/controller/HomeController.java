@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/bnk")
 public class HomeController {
 	
-	@GetMapping("{page}")
+	@RequestMapping("{page}")
 	public String goTo(@PathVariable("page") String page) {
-		String goPage = "home/home";
+		String goPage = "";
 		if(page.equals("search")) {
 			goPage="search/search";
 		}else if(page.equals("trip")) {
@@ -22,6 +22,9 @@ public class HomeController {
 			goPage="place/place";
 		}else if(page.equals("login")) {
 			goPage="home/login";
+		}
+		else {
+			goPage="home/home";
 		}
 		return goPage;
 	}
