@@ -6,16 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MemberController {
+	
 //	@GetMapping("/")
 //	public String index() {
 //		
 //		return "home/home";
 //	}
 	
-	@GetMapping("/")
-	public String search() {
+	@RequestMapping("login.do")
+	public String login() {
 		
-		return "search/search";
+		return "/login.jsp";
 	}
 	
 	

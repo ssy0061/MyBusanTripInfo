@@ -20,6 +20,8 @@ public class HomeController {
 			goPage="trip/story";
 		}else if(page.equals("place")) {
 			goPage="place/place";
+		}else if(page.equals("login")) {
+			goPage="home/login";
 		}
 		return goPage;
 	}
