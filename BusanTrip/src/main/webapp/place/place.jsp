@@ -46,6 +46,7 @@
 		min-height: 150px;
 		max-width: 300px;
 		margin: 0 auto;
+		padding: 3px 0;
 		position: relative;
 		border: 1px solid var(--bnk-gray);
 		border-radius: 5px;
@@ -104,13 +105,14 @@
 		min-height: 50px;
 		max-width: 300px;
 		margin: 15px auto;
+		padding: 3px 0;
 		border: 1px solid var(--bnk-gray);
 		border-radius: 5px;
 	}
 	
 	.place-lower-box-title {
 		text-align: left;
-		margin: 3px 5px 0;
+		margin: 3px 8px 0;
 		font-size: 17px;
 		font-weight: bold;
 	}
@@ -179,6 +181,110 @@
 	
 </style>
 
+<script>
+	
+	$(function() {
+		
+		var idArr = ["A", "", "C"];
+		var categoryArr = ["관광지", "음식점", "카페"];
+		var placeNameArr = ["오륙도 스카이워크", "강서반점", "서귀포 제주 감귤 카페"];
+		var locationArr = ["부산 남구", "부산 강서구", "제주 서귀포시"];
+		
+		for (var i=0; i<3; i++) {
+			let id = idArr[i];
+			let category = categoryArr[i];
+			let placeName = placeNameArr[i];
+			let location = locationArr[i];
+			
+			// html tag 생성 form
+			<%--
+			<div class="place-lower-box-info">
+				<div class="info-left">
+					<div class="ud-center">
+						<span class="category">관광지</span>
+					</div>
+				</div>
+				<div class="info-right">
+					<div class="info-right-upper">
+						<div class="placeName">오륙도 스카이워크</div>
+					</div>
+					<div class="info-right-lower">
+						<span class="location">부산 남구</span>
+						<img class="searchBtn" src="/img/search.png">
+					</div>
+				</div>
+			</div>
+			--%>
+			
+			let hasId = (id != "");
+			
+			let spanCategory = document.createElement('span');
+			spanCategory.setAttribute('class', 'category');
+			spanCategory.append(category);
+			
+			let divUdCenter = document.createElement('div');
+			divUdCenter.setAttribute('class', 'ud-center');
+			divUdCenter.append(spanCategory);
+			
+			let divInfoLeft = document.createElement('div');
+			divInfoLeft.setAttribute('class', 'info-left');
+			divInfoLeft.append(divUdCenter);
+			
+			
+			let divPlaceName = document.createElement('div');
+			divPlaceName.setAttribute('class', 'placeName');
+			divPlaceName.append(placeName);
+			
+			let divInfoRightUpper = document.createElement('div');
+			divInfoRightUpper.setAttribute('class', 'info-right-upper');
+			divInfoRightUpper.append(divPlaceName);
+			
+			
+			let spanLocation = document.createElement('span');
+			spanLocation.setAttribute('class', 'location');
+			spanLocation.append(location);
+			
+			if (hasId) {  // hasId
+				var imgSearchBtn = document.createElement('img');
+				imgSearchBtn.setAttribute('class', 'searchBtn');
+				imgSearchBtn.setAttribute('src', '/img/search.png');
+			}
+			
+			let divInfoRightLower = document.createElement('div');
+			divInfoRightLower.setAttribute('class', 'info-right-lower');
+			divInfoRightLower.append(spanLocation);
+			if (hasId) divInfoRightLower.append(imgSearchBtn);
+			
+			
+			let divInfoRight = document.createElement('div');
+			divInfoRight.setAttribute('class', 'info-right');
+			divInfoRight.append(divInfoRightUpper);
+			divInfoRight.append(divInfoRightLower);
+
+			let divPlaceLowerBoxInfo = document.createElement('div');
+			divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
+			divPlaceLowerBoxInfo.append(divInfoLeft);
+			divPlaceLowerBoxInfo.append(divInfoRight);
+			
+			
+			// 일단 전체 요소에 동일하게 적용. 타이틀까지 다르게 하는 건 차후 코딩 예정.
+			let divPlaceLowerBoxLower = $('.place-lower-box-lower');
+			divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
+			
+			
+		}  // for
+		
+		// initial method
+		
+		// 이미지랑 버튼 연결용 코드
+		$('.searchBtn').click(function(){
+			alert('search!');
+		});  // img click
+		
+	});  // JQuery
+	
+</script>
+
 <body>
 	<c:import url="../header/nav.jsp">
 		<c:param name="navTitle" value="핫플"/>
@@ -221,6 +327,7 @@
 				</div>
 				<div class="place-lower-box-lower">
 				
+					<%--
 					<div class="place-lower-box-info">
 						<div class="info-left">
 							<div class="ud-center">
@@ -237,40 +344,7 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<img class="searchBtn" src="/img/search.png">
-							</div>
-						</div>
-					</div>
-					
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<img class="searchBtn" src="/img/search.png">
-							</div>
-						</div>
-					</div>
+					--%>
 					
 				</div>
 			</div>
@@ -281,6 +355,7 @@
 				</div>
 				<div class="place-lower-box-lower">
 					
+					<%--
 					<div class="place-lower-box-info">
 						<div class="info-left">
 							<div class="ud-center">
@@ -297,6 +372,7 @@
 							</div>
 						</div>
 					</div>
+					--%>
 					
 				</div>
 			</div>
@@ -307,6 +383,7 @@
 				</div>
 				<div class="place-lower-box-lower">
 				
+					<%--
 					<div class="place-lower-box-info">
 						<div class="info-left">
 							<div class="ud-center">
@@ -323,23 +400,7 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<img class="searchBtn" src="/img/search.png">
-							</div>
-						</div>
-					</div>
+					--%>
 					
 				</div>
 			</div>
