@@ -93,7 +93,7 @@ public class MemberController {
 //	TRANSACTION_ID, ACCOUNT_NUMBER, ACCOUNT_BANK, MEMBER_ID, 
 //	STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO
 	
-	@PostMapping("updateCharacter")
+	@PostMapping("addExternalTransaction")
 	@ResponseBody
 	public void addExternalTransaction(String accountNumber, String accountBank, String memberId, String storeId, Date transactionTime,
 									String transactionStore, int transactionAmt, String transactionMemo) {
