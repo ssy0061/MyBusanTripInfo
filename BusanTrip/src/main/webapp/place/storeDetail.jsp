@@ -26,7 +26,6 @@
 	}
 	
 	.content{
-		border: 5px dotted red;
 		min-height: 60vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
@@ -40,6 +39,8 @@
 		text-align: center;
 		min-height: 10vh;
 		padding: 10px;
+		border-radius: 5px;
+		border: 1px solid var(--bnk-gray);
 	}
 	
 	.storeDetail-box-top, .storeDetail-box-middle, .storeDetail-box-bottom {
@@ -174,7 +175,7 @@
 	
 	<div class="content container">
 	
-		<div class="rounded-lg border border-danger storeDetail-box">
+		<div class="storeDetail-box">
 		
 			<span id="storeName">아삭토스트 범내골점</span>
 			
