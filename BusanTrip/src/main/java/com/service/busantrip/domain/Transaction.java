@@ -3,11 +3,13 @@ package com.service.busantrip.domain;
 import java.util.Date;
 
 public class Transaction {
+	
 	private int transactionId;
 
 	private String accountNumber;
 	private String storeId;
-
+	private String memberId;
+	
 	private Date transactionTime;
 	private String transactionStore;
 	private int transactionAmt;
@@ -19,17 +21,20 @@ public class Transaction {
 	public Transaction() {
 	}
 
-	public Transaction(int transactionId, String accountNumber, String storeId, Date transactionTime,
+
+	public Transaction(int transactionId, String accountNumber, String storeId, String memberId, Date transactionTime,
 			String transactionStore, int transactionAmt, String transactionMemo) {
 		super();
 		this.transactionId = transactionId;
-		this.transactionTime = transactionTime;
-		this.transactionAmt = transactionAmt;
-		this.transactionMemo = transactionMemo;
 		this.accountNumber = accountNumber;
 		this.storeId = storeId;
+		this.memberId = memberId;
+		this.transactionTime = transactionTime;
 		this.transactionStore = transactionStore;
+		this.transactionAmt = transactionAmt;
+		this.transactionMemo = transactionMemo;
 	}
+
 
 	public Transaction(String accountNumber, String storeId, Date transactionTime,  
 			String transactionStore, int transactionAmt) {

@@ -54,9 +54,9 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> findStorePopularByPersonal(String accountNumber) {
+	public List<Map<String, Object>> findStorePopularByPersonal(String memberId) {
 	
-		return sqlsession.selectList(NS+"findStorePopularByPersonal", accountNumber);
+		return sqlsession.selectList(NS+"findStorePopularByPersonal", memberId);
 	}
 
 	@Override
