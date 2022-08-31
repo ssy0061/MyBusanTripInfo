@@ -2,12 +2,15 @@ package com.service.busantrip.domain.story;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Diary {
 	private int	diaryId;
 	private String diaryName;
 	private Date diaryMakedate;
 	private int storyId;
 	
+	@JsonIgnore
 	private Story story;
 	
 	public Diary() { }

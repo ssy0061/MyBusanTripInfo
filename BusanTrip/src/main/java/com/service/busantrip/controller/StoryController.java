@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.Story;
 import com.service.busantrip.model.StoryService;
 
@@ -31,5 +32,14 @@ public class StoryController {
 		return list;
 	}
 	
-	
+	@PostMapping("findAllDiaryList")
+	@ResponseBody
+	public List<Diary> findAllDiaryList(String storyId, Model model, HttpSession session) {
+		//String memberId = (String) session.getAttribute("memberId");
+		List<Diary> list = storyService.findAllDiaryList(storyId);
+		
+		System.out.println("storyId:: " + storyId);
+		
+		return list;
+	}
 }

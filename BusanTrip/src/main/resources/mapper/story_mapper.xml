@@ -42,7 +42,7 @@
 	</insert>
 	
 	<select id="findAllDiaryList" parameterType="String" resultType="diary">
-		SELECT DIARY_NAME, DIARY_MAKEDATE FROM DIARY WHERE STORY_ID = #{storyId}
+		SELECT DIARY_ID, STORY_ID, DIARY_NAME, DIARY_MAKEDATE FROM DIARY WHERE STORY_ID = #{storyId}
 	</select>
 	
 	<select id="findDiaryTransaction" parameterType="diaryTransaction" resultType="diaryTransaction">

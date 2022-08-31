@@ -64,7 +64,22 @@
 
 <script>
 
-	
+$(function() {
+	var memberId = '<%=(String)session.getAttribute("memberId")%>';
+	console.log(memberId)
+	$.ajax({
+		type: 'post',
+		url: '/story/findAllStory',
+		data: {'memberId': memberId},
+		
+		success:function(result) {
+			console.log(result)
+		},
+		error: function(e){
+			console.log(e);
+		}
+	})
+});
 
 </script>
 
@@ -88,13 +103,13 @@
 			</div>
 			<div class="col-12">
 				<div class="card">
-					<div class="card-body" onclick="location.href='#'">
+					<div class="card-body" onclick="location.href='/bnk/trip/1'">
 						<h5 class="card-title">First Story</h5>
 						<p class="card-text">My Story</p>
 					</div>
 				</div>
 				<div class="card bg-light">
-					<div class="card-body" onclick="location.href='test_diary_main.html'">
+					<div class="card-body" onclick="location.href='/bnk/trip/2'">
 						<h5 class="card-title">Second Story</h5>
 						<p class="card-text">Story with xxx</p>
 					</div>
