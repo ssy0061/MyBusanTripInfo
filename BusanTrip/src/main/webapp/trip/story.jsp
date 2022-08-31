@@ -103,13 +103,13 @@ $(function() {
 			</div>
 			<div class="col-12">
 				<div class="card">
-					<div class="card-body" onclick="location.href='/bnk/trip/1'">
+					<div class="card-body" onclick="location.href='/bnk/trip/3'">
 						<h5 class="card-title">First Story</h5>
 						<p class="card-text">My Story</p>
 					</div>
 				</div>
 				<div class="card bg-light">
-					<div class="card-body" onclick="location.href='/bnk/trip/2'">
+					<div class="card-body" onclick="location.href='/bnk/trip/3'">
 						<h5 class="card-title">Second Story</h5>
 						<p class="card-text">Story with xxx</p>
 					</div>

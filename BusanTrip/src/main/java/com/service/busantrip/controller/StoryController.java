@@ -21,13 +21,22 @@ public class StoryController {
 	@Autowired
 	StoryService storyService;
 	
+	@PostMapping("addDiary")
+	@ResponseBody
+	public void addDiary(String storyId, String diaryName, Model model, HttpSession session) {
+		System.out.println("storyId:: " + storyId + " diaryName:: " + diaryName);
+		
+		storyService.addStory(storyId, diaryName);
+		
+		
+	}
+	
 	@PostMapping("findAllStory")
 	@ResponseBody
 	public List<Story> findAllStoryList(String memberId, Model model, HttpSession session) {
 		//String memberId = (String) session.getAttribute("memberId");
 		List<Story> list = storyService.findAllStoryList(memberId);
-		
-		System.out.println("memberId:: " + memberId);
+		//System.out.println("memberId:: " + memberId);
 		
 		return list;
 	}
@@ -37,8 +46,7 @@ public class StoryController {
 	public List<Diary> findAllDiaryList(String storyId, Model model, HttpSession session) {
 		//String memberId = (String) session.getAttribute("memberId");
 		List<Diary> list = storyService.findAllDiaryList(storyId);
-		
-		System.out.println("storyId:: " + storyId);
+		//System.out.println("storyId:: " + storyId);
 		
 		return list;
 	}
