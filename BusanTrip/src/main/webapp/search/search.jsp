@@ -128,7 +128,7 @@
 		var idArr = ["BNKBNK", "Q12345", "TEMP", "IDVALUE", "S0M31D"];
 		
 		for (var i=0; i<5; i++) {
-			let icon = "./img/bank_icon.png";
+			let icon = "/img/bank_icon.png";
 			let name = nameArr[i];
 			let account = accountArr[i];
 			let money = moneyArr[i];
