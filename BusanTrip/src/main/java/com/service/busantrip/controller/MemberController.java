@@ -57,4 +57,10 @@ public class MemberController {
 
 	}
 	
+
+	@PostMapping("findAllAccount")
+	public List<Account> findAllAccount(String memberId, Model model, HttpSession session) {
+		List<Account> accountList = memberService.findAllAccount(memberId);
+		return accountList;
+	}
 }
