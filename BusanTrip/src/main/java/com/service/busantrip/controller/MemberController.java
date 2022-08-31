@@ -1,5 +1,6 @@
 package com.service.busantrip.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -79,6 +80,27 @@ public class MemberController {
 			return "Error";	
 		}	
 
+	}
+	
+	@PostMapping("updateCharacter")
+	@ResponseBody
+	public String updateCharacter(String memberChar, String memberId, Model model, HttpSession session) {
+		memberService.updateCharacter(memberChar, memberId);
+		model.addAttribute("memberChar",memberChar);
+		return "redirect: /bnk/home/mypage"; //마이페이지 링크 추후 수정 필요..
+	}
+	
+//	TRANSACTION_ID, ACCOUNT_NUMBER, ACCOUNT_BANK, MEMBER_ID, 
+//	STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO
+	
+	@PostMapping("updateCharacter")
+	@ResponseBody
+	public void addExternalTransaction(String accountNumber, String accountBank, String memberId, String storeId, Date transactionTime,
+									String transactionStore, int transactionAmt, String transactionMemo) {
+		Transaction transaction = new Transaction(accountNumber, storeId, memberId, transactionTime,
+				transactionStore, transactionAmt, transactionMemo);
+		memberService.addExternalTransaction(transaction, accountNumber);
+//		return return 페이지 필요?...
 	}
 	
 	@PostMapping("findAllAccount")

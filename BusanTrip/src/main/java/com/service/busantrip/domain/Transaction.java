@@ -36,6 +36,19 @@ public class Transaction {
 	}
 
 
+	public Transaction(String accountNumber, String storeId, String memberId, Date transactionTime,
+			String transactionStore, int transactionAmt, String transactionMemo) {
+		super();
+		this.accountNumber = accountNumber;
+		this.storeId = storeId;
+		this.memberId = memberId;
+		this.transactionTime = transactionTime;
+		this.transactionStore = transactionStore;
+		this.transactionAmt = transactionAmt;
+		this.transactionMemo = transactionMemo;
+	}
+
+
 	public Transaction(String accountNumber, String storeId, Date transactionTime,  
 			String transactionStore, int transactionAmt) {
 		super();
@@ -125,6 +138,16 @@ public class Transaction {
 	public void setTransactionStore(String transactionStore) {
 		this.transactionStore = transactionStore;
 	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 
 	@Override
 	public String toString() {
