@@ -2,6 +2,7 @@ package com.service.busantrip.domain;
 
 public class Account {
 	private String accountNumber;
+	private String accountBank;
 	private int accountBalance;
 	private String accountInner;
 	private String memberId;
@@ -10,13 +11,23 @@ public class Account {
 	
 	public Account() {}
 
-
-	public Account(String accountNumber, int accountBalance, String accountInner, String memberId) {
+	public Account(String accountNumber, String accountBank, int accountBalance, String accountInner, String memberId,
+			Member member) {
 		super();
 		this.accountNumber = accountNumber;
+		this.accountBank = accountBank;
 		this.accountBalance = accountBalance;
 		this.accountInner = accountInner;
 		this.memberId = memberId;
+		this.member = member;
+	}
+
+	public String getAccountBank() {
+		return accountBank;
+	}
+
+	public void setAccountBank(String accountBank) {
+		this.accountBank = accountBank;
 	}
 
 	public String getMemberId() {
