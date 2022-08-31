@@ -83,7 +83,7 @@
 		text-align: left;
 		font-size: 20px;
 		position: relative;
-		left: 20px;
+		padding: 0 0 0 20px;
 		top: 5px;
 	}
 	
@@ -91,7 +91,7 @@
 		text-align: right;
 		font-size: 40px;
 		position: relative;
-		right: 20px;
+		padding: 0 20px 0 0;
 		bottom: 5px;
 	}
 	
@@ -172,7 +172,6 @@
 	.carousel-control-next { right: -7px; }
 
 </style>
-
 
 <script>
 
