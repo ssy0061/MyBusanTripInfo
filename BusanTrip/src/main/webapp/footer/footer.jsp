@@ -31,6 +31,7 @@
 		padding: 7px 10px 5px 10px;
 		align-items: center;
 		box-shadow: 0 -3px 10px 2px lightgray;
+		z-index: 99;
 	}
 	@media screen and (min-width: 576px) {
 		.footer-mobile{
