@@ -63,6 +63,9 @@
 		float:left;
 		text-align:justify;
 	}
+	.modal-footer>input{
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
 	/* modal - pic */
 	.image-area {
 	    position: relative;
@@ -78,8 +81,34 @@
 	.each-image {
 	    width:50%;
 	    height:auto;
+	    padding:2px 5px;
+	    margin:5px 2px;
 	    z-index: 2;
 	    position: relative;
+	}
+	.picture-btn-re>input[type="file"]{
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip:rect(0,0,0,0);
+		border: 0;
+	}
+	.picture-btn-re>label, #resetUpload, .deleteBtn{
+		display:inline-block;
+		padding:4px 10px;
+		margin:0 5px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#F08080;
+		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -340,11 +369,12 @@ $(document).ready(function () {
 	$('#resetUpload').hide();
 	$('#resetUpload').click(function(){
 		$('#multiContainer').children().remove();
-		$('#upload').show();
+		$('#input-label').show();
 		$('#resetUpload').hide();
 	})
 	$('#upload').change(function(){
 		$(this).hide();
+		$('#input-label').hide();
 		$(this).val("");
 		$('#resetUpload').show();
 	})
@@ -474,7 +504,8 @@ $(document).ready(function () {
 	     	<div class="modal-body" align="center">
 				<p>거래내역 추가하기 <input type="text"></input></p>
 				<div class="row py-2">
-				  <div class="mx-auto">
+				  <div class="mx-auto picture-btn-re">
+				  	<label id="input-label" for="upload">사진 추가</label>
 				    <input id="upload" type="file" accept="image/*" multiple>
 				    <input type="button" id="resetUpload" value="초기화">
 				    <div id="multiContainer" class="image-area mt-4">
@@ -517,10 +548,5 @@ $(document).ready(function () {
 	      </div>
 	    </div>
 	  </div>
-	<script>
-		
-	
-
-	</script>
 </body>
 </html>
