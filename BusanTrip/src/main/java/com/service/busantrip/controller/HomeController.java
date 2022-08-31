@@ -22,6 +22,8 @@ public class HomeController {
 			goPage="place/place";
 		}else if(page.equals("login")) {
 			goPage="home/login";
+		}else if(page.equals("register")) {
+			goPage="home/register";
 		}
 		else {
 			goPage="home/home";

@@ -156,12 +156,12 @@
 			<div class="ud-center">
 				<div class="register-box">
 					<div class="ud-center">
-						<form method="post" name="registerData" action="register.do">
+						<form method="post" name="registerData" action="/member/register">
 						<%-- register.do로 요청. registerData라는 이름으로 요청 --%>
 						
 							<div class="register-box-inner">
 								<div class="inner-text">아이디: </div>
-								<input id="idForm" type="text" name="id" class="form-box" required="required">
+								<input id="idForm" type="text" name="memberId" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
@@ -170,7 +170,7 @@
 							
 							<div class="register-box-inner">
 								<div class="inner-text">비밀번호: </div>
-								<input id="pwForm" type="password" name="pw" class="form-box" required="required">
+								<input id="pwForm" type="password" name="memberPw" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
@@ -178,13 +178,18 @@
 							</div>
 							
 							<div class="register-box-inner">
+								<div class="inner-text">이름: </div>
+								<input type="text" name="memberName" class="form-box" required="required">
+							</div>
+							
+							<div class="register-box-inner">
 								<div class="inner-text">전화번호: </div>
-								<input type="text" name="tel" class="form-box" required="required">
+								<input type="text" name="memberTele" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
 								<div class="inner-text">주소: </div>
-								<input type="text" name="addr" class="form-box" required="required">
+								<input type="text" name="memberAddr" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">

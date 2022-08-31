@@ -214,7 +214,7 @@
 								<div>
 									<div class="rounded-lg border border-danger home-top-upper">
 										<div class="ud-center">
-											<div class="home-top-inner-left"><span id="userName"></span>님의 잔액</div>
+											<div class="home-top-inner-left"><span id="userName">${memberId}</span> 님의 잔액</div>
 											<div class="home-top-inner-right"><span id="userMoney"></span>원</div>
 										</div>
 									</div>
