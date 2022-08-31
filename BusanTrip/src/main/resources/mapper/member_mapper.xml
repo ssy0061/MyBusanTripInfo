@@ -19,6 +19,11 @@
 		VALUES(#{accountNumber}, #{memberId})
 	</insert>
 	
+	<select id="getMemberName" parameterType="String" resultType="String">
+		SELECT MEMBER_NAME
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+	</select>
 	
 	<select id="login" parameterType="hashmap" resultType="member">
 		SELECT MEMBER_ID, MEMBER_PW FROM MEMBER
@@ -52,8 +57,8 @@
 
 	<insert id="addExternalTrasaction" parameterType="transactionReqDTO">
 		INSERT INTO 
-		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
-		VALUES(#{transactionId}, #{accountNumber}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt}, #{transactionMemo})
+		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, ACCOUNT_BANK, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
+		VALUES(#{transactionId}, #{accountNumber}, #{accountBank}, #{storeId}, #{transactionTime}. #{transactionStore}, #{transactionAmt}, #{transactionMemo})
 	</insert>
 	
 	<update id="pay" parameterType="hashmap">
@@ -91,7 +96,7 @@
 	<select id="getBalance" parameterType="String" resultType="int">
 		SELECT account_balance
 		FROM ACCOUNT
-		WHERE ACCOUNT_NUMBER=#{accountNumber}
+		WHERE MEMBER_ID=#{memberId} AND ACCOUNT_INNER='Y'
 	</select>
 	
 	<update id="charge" parameterType="hashmap">

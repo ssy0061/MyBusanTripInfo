@@ -11,6 +11,8 @@ public interface MemberService {
 	public int join(Member member); //회원가입
 	public Boolean findIdExist(String memberId); //아이디 중복 확인용 아이디 리스트..
 	
+	public String getMemberName(String memberId);
+	
 	public Member login(Member member); //로그인
 	public void logout(); //로그아웃
 	public void updateCharacter(String memberChar, String memberId); //캐릭터 교체 
@@ -28,6 +30,6 @@ public interface MemberService {
 	
 
 	public List<Account> findAllAccount(String memberId); //내 계좌 조회
-	public int getBalance(String accountNumber); //계좌(포인트지갑) 잔액 조회
+	public int getBalance(String memberId); //계좌(포인트지갑) 잔액 조회
 	public int charge(String accountNumber, int balance); //계좌(포인트지갑) 잔액 충전
 }

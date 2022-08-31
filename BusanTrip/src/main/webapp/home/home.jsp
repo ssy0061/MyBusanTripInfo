@@ -67,6 +67,8 @@
 		max-width: 300px;
 		margin: 0 auto;
 		position: relative;
+		border-radius: 5px;
+		border: 1px solid var(--bnk-gray);
 	}
 	
 	.home-top-lower {
@@ -95,7 +97,7 @@
 	
 	.home-middle-inner {
 		max-width: 300px;
-		margin: 5px auto;
+		margin: 10px auto;
 		overflow: hidden;
 		height: auto;
 		border-radius: 5px;
@@ -112,7 +114,7 @@
 	    color: #fff;
 	    text-shadow: 1px 1px 1px #000;
 	    border-radius: 5px;
-	    background-color: rgba(200, 0, 0, 1);
+	    background-color: var(--bnk-lightgray);
 	    /*background-image: linear-gradient(to top left,
 	                                      rgba(0, 0, 0, .2),
 	                                      rgba(0, 0, 0, .2) 30%,
@@ -122,7 +124,7 @@
 	}
 	
 	.button-style:hover {
-	    background-color: rgba(255, 0, 0, 1);*/
+	    background-color: var(--bnk-red);
 	}
 	
 	.button-style:active {
@@ -153,6 +155,20 @@
 	.login span{
 		font-size: 2rem;
 	}
+	
+	/* event slide 모양 처리 */
+	.carousel-indicators {
+	    bottom: -15px;
+	}
+	
+	.carousel-indicators li {
+		width: 10px;
+		height: 10px;
+		border-radius: 100%;
+	}
+	
+	.carousel-control-prev { left: -7px; }
+	.carousel-control-next { right: -7px; }
 
 </style>
 
@@ -160,22 +176,27 @@
 <script>
 
 	$(function() {
-		var loginUser = sessionStorage.getItem("loginUser");  // 나중에 값 받아오는 코드 작성.
-		//alert(loginUser);
-		//alert(loginUser != null);
+		var memberId = '<%= (String)session.getAttribute("memberId") %>';
 		
-		if (loginUser != null) {
-			<%-- loginUser로 일단 객체 값 받기. 
+		if (memberId != null) {
+			
 			<%--
-			var name = "염미정";
-			var money = "123456";--%>
+			$.ajax({
+				type: 'post',
+				url: '/member/getBalance',
+				data: {'memberId': memberId},
+				
+				success:function(result) {
+					console.log(result)
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})--%>
 			
-			var name = loginUser.memberId;
-			var money = 300000;
-			
-			
-			//money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			//console.log(money);
+			var name = memberId;
+			var money = "300000";  // 문자열로 받으면 동작.
+			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			
 			$('#userName').text(name);
 			$('#userMoney').text(money);
@@ -207,20 +228,19 @@
 				<div class="home-top slideUp1">
         
 					<div class="ud-center">
-						<span>${!empty loginUser}test</span>
 						<c:choose>
 							<c:when test="${!empty loginUser}">
 							<%-- loginUser로 일단 객체 값 받기. --%>
 								<div>
-									<div class="rounded-lg border border-danger home-top-upper">
+									<div class="home-top-upper">
 										<div class="ud-center">
-											<div class="home-top-inner-left"><span id="userName">${memberId}</span> 님의 잔액</div>
+											<div class="home-top-inner-left"><span id="userName"></span> 님의 잔액</div>
 											<div class="home-top-inner-right"><span id="userMoney"></span>원</div>
 										</div>
 									</div>
 								</div>
 								<div>
-									<div class="rounded-lg border border-danger home-top-lower">
+									<div class="home-top-lower">
 										<button class="button-style" type="button">충전</button>
 										<button class="button-style" type="button">결제</button>
 									</div>
@@ -238,9 +258,36 @@
 				</div>
 				
 				<div class="home-middle slideUp2">
-					<span style="font-size:25px;">= 이벤트 =</span>
+					<span style="font-size: 25px; font-weight: bold;">[ 이벤트 ]</span>
 					<div class="home-middle-inner">
-						<img src="/img/event1.png" style="width: 100%; height: auto;">
+						
+						<%-- <img src="/img/event1.png" style="width: 100%; height: auto;">  --%>
+						<div id="eventSlide" class="carousel slide" data-ride="carousel">
+							<!-- Indicators -->
+							<ul class="carousel-indicators">
+								<li data-target="#eventSlide" data-slide-to="0" class="active"></li>
+								<li data-target="#eventSlide" data-slide-to="1"></li>
+								<li data-target="#eventSlide" data-slide-to="2"></li>
+								<li data-target="#eventSlide" data-slide-to="3"></li>
+							</ul>
+	
+							<!-- The slideshow -->
+							<div class="carousel-inner">
+								<div class="carousel-item active"><img src="/img/event1.png" width="100%"></div>
+								<div class="carousel-item"><img src="/img/event2.png" width="100%"></div>
+								<div class="carousel-item"><img src="/img/event3.png" width="100%"></div>
+								<div class="carousel-item"><img src="/img/event4.png" width="100%"></div>
+							</div>
+	
+							<!-- Left and right controls -->
+							<a class="carousel-control-prev" href="#eventSlide" data-slide="prev">
+								<span class="carousel-control-prev-icon"></span>
+							</a>
+							<a class="carousel-control-next" href="#eventSlide" data-slide="next">
+								<span class="carousel-control-next-icon"></span>
+							</a>
+						</div>
+						
 					</div>
 				</div>
 				
