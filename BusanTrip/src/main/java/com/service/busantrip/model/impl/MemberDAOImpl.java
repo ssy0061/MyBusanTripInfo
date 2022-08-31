@@ -39,6 +39,10 @@ public class MemberDAOImpl implements MemberDAO{
 		sqlSession.insert(NS+"addAccount", map);
 	}
 	
+	@Override
+	public String getMemberName(String memberId) {
+		return sqlSession.selectOne(NS+"getMemberName",memberId);
+	}
 	
 	@Override
 	public Member login(Member member) {
@@ -117,8 +121,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
-	public int getBalance(String accountNumber) {
-		return sqlSession.selectOne(NS+"getBalance", accountNumber);
+	public int getBalance(String memberId) {
+		return sqlSession.selectOne(NS+"getBalance", memberId);
 	}
 
 	@Override
@@ -128,6 +132,5 @@ public class MemberDAOImpl implements MemberDAO{
 		map.put("balance", balance);
 		return sqlSession.update(NS+"charge",map);
 	}
-
 
 }

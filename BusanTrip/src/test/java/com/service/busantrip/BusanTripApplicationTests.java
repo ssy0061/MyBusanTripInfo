@@ -47,6 +47,10 @@ class BusanTripApplicationTests {
 //		System.out.println("login \n" + memberDAO.login(member));
 //	}
 	
+	@Test	
+	void getMemberName() {
+		System.out.println(memberService.getMemberName("member666"));
+	}
 	
 //	@Test	
 //	void updateCharacter() {
@@ -102,7 +106,7 @@ class BusanTripApplicationTests {
 	
 //	@Test
 //	void getBalance() { 
-//		System.out.println(memberDAO.getBalance("acc222"));
+//		System.out.println(memberDAO.getBalance("gwak222"));
 //	}
 	
 //	@Test

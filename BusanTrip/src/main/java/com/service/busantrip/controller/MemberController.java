@@ -43,6 +43,25 @@ public class MemberController {
 		}	
 	}
 	
+	@PostMapping("logout")
+	public String logout(Model model, HttpSession session) {
+			session.invalidate();
+			return "redirect:/bnk/home";
+	}
+	
+	@PostMapping("getMemberName")
+	public String getMemberName(String memberId, Model model, HttpSession session) {
+		String memberName = memberService.getMemberName(memberId);
+		return memberName;
+	}
+	
+	@PostMapping("getBalance")
+	@ResponseBody
+	public int getBalance(String accountNumber, Model model, HttpSession session) {
+		int balance = memberService.getBalance(accountNumber);
+		return balance;
+	}
+	
 	@PostMapping("join")
 	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, Model model, HttpSession session) {
 		try {
@@ -61,11 +80,12 @@ public class MemberController {
 
 	}
 	
-
 	@PostMapping("findAllAccount")
 	@ResponseBody
 	public List<Account> findAllAccount(String memberId, Model model, HttpSession session) {
 		List<Account> accountList = memberService.findAllAccount(memberId);
 		return accountList;
 	}
+	
+	
 }

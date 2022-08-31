@@ -11,6 +11,7 @@ public interface MemberDAO {
 	public List<Member> findIdExist(String memberId); //아이디 중복 확인용 아이디 리스트..
 	public void addAccount(String memberId, String accountNumber); //회원가입시 자동생성계좌..
 	
+	public String getMemberName(String memberId);
 	
 	public Member login(Member member); //로그인
 	public void logout(); //로그아웃
@@ -29,6 +30,6 @@ public interface MemberDAO {
 	
 
 	public List<Account> findAllAccount(String memberId); //내 계좌 조회
-	public int getBalance(String accountNumber); //계좌(포인트지갑) 잔액 조회
+	public int getBalance(String memberId); //계좌(포인트지갑) 잔액 조회
 	public int charge(String accountNumber, int balance); //계좌(포인트지갑) 잔액 충전
 }
