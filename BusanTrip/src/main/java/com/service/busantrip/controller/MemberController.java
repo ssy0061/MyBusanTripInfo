@@ -21,24 +21,40 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@PostMapping("login")
-	public String login(Member member, Model model, HttpSession session) {
+	public String login(String id, String pw, Model model, HttpSession session) {
 		try {
-			//Member selected = memberService.login(member);
-			String selected = "hello";
-			if(selected != null) {
-				session.setAttribute("loginUser", selected);
+			Member member = new Member(id, pw);
+			System.out.println(member);
+			Member loginData = memberService.login(member);
+			//String loginData = "hello";
+			if(loginData != null) {
+				session.setAttribute("loginUser", loginData);
+				session.setAttribute("memberId", id);
 				return "redirect:/bnk/home";
 			} else {
 				return "redirect:/bnk/login";
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-			model.addAttribute("title", "유저 관리 - 로그인 에러");			
-			model.addAttribute("message", "문제 내용 - 로그인 중 에러 발생");
+			return "Error";	
+		}	
+	}
+	@PostMapping("register")
+	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, Model model, HttpSession session) {
+		try {
+			Member member = new Member(memberId, memberPw, memberName, memberTele, memberAddr);
+			int registerData = memberService.join(member);
+			if(registerData == 1) {
+				model.addAttribute("registerData", member.getMemberId());
+				return "redirect:/bnk/login";
+			}else {
+				return "redirect:/bnk/register";
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 			return "Error";	
 		}	
 
 	}
-	
 	
 }
