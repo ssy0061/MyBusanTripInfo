@@ -30,7 +30,7 @@
 	.content{
 		min-height: 100vh;
 	    width: 100%;
-	    margin: 100px auto;
+	    margin: 100px auto 10px;
 	    padding-top: 10px;
 	    padding-bottom: 10px;
 	}
@@ -68,7 +68,7 @@
 		margin: 0 auto;
 		position: relative;
 		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
+		border: 2px solid var(--bnk-gray);
 	}
 	
 	.home-top-lower {
@@ -140,12 +140,13 @@
 	}
 	
 	.notice {
-		margin: 10px auto;
+		margin: 15px auto;
 		max-width: 300px;
-		height: 40px;
-		position: relative;
+		padding: 3px 0;
+		font-size: 15px;
 		border-radius: 5px;
 		border: 2px solid var(--bnk-gray);
+		background-color: #FFFFD4;
 	}
 	
 	.login {
@@ -204,11 +205,33 @@
 			console.log("login User NULL");
 		}
 		
-		
 		$('.login').click(function(){
 			location.href = "./login";
 			// 로그인 페이지로 이동
 		});
+		
+		// 공지사항 생성
+		var noticeArr = [
+			"8월의 여행가실부은 이벤트 당첨자 안내",
+			"8월 신규 등록 업체 안내",
+			"🌺 동백전과 함께하는 동백 이벤트 🌺",
+			"여행가실부은 신규 가입 이벤트!",
+			"2030 부산월드엑스포 부산에 유치해~"
+		];
+		
+		for (var i=0; i<5; i++) {
+			let notice = noticeArr[i];
+			
+			// html tag 생성 form
+			<%-- <div class="notice">※ 공지사항 ※</div> --%>
+			
+			let divNotice = document.createElement('div');
+			divNotice.setAttribute('class', 'notice');
+			divNotice.append(notice);
+			
+			$('.home-bottom').append(divNotice);
+		}
+		
 	});
 
 </script>
@@ -292,35 +315,7 @@
 				</div>
 				
 				<div class="home-bottom slideUp3">
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
-					
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
-					
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
-					
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
-					
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
+					<%-- <div class="notice">※ 공지사항 ※</div> --%>
 				</div>
 				
 			</div>
