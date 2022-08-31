@@ -112,8 +112,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public List<Account> findAllAccount(String memberId) {
-		return sqlSession.selectList(NS+"findAllAccount", memberId);
+	public List<Account> findAccount(String memberId) {
+		return sqlSession.selectList(NS+"findAccount", memberId);
 	}
 
 	@Override
