@@ -8,8 +8,10 @@ import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.dto.req.TransactionReqDTO;
 
 public interface MemberService {
-	public void join(Member member); //회원가입
-	public void login(Member member); //로그인
+	public int join(Member member); //회원가입
+	public Boolean findIdExist(String memberId); //아이디 중복 확인용 아이디 리스트..
+	
+	public Member login(Member member); //로그인
 	public void logout(); //로그아웃
 	public void updateCharacter(String memberChar, String memberId); //캐릭터 교체 
 	public List<Transaction> findAllTransaction(String accountNumber); //사용자 전체 거래내역 조회

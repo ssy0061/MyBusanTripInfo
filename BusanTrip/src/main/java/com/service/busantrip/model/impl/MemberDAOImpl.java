@@ -3,7 +3,6 @@ package com.service.busantrip.model.impl;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,10 +22,24 @@ public class MemberDAOImpl implements MemberDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public void join(Member member) {
-		sqlSession.insert(NS+"join", member);
+	public List<Member> findIdExist(String memberId) {
+		return sqlSession.selectList(NS+"findIdExist", memberId);
 	}
-
+	
+	@Override
+	public int join(Member member) {
+		return sqlSession.insert(NS+"join", member);
+	}
+	
+	@Override
+	public void addAccount(String memberId, String accountNumber) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("accountNumber", accountNumber);
+		sqlSession.insert(NS+"addAccount", map);
+	}
+	
+	
 	@Override
 	public Member login(Member member) {
 		return sqlSession.selectOne(NS+"login", member);
@@ -115,4 +128,6 @@ public class MemberDAOImpl implements MemberDAO{
 		map.put("balance", balance);
 		return sqlSession.update(NS+"charge",map);
 	}
+
+
 }

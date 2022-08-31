@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.service.busantrip.domain.Member;
 import com.service.busantrip.model.MemberDAO;
+import com.service.busantrip.model.MemberService;
 import com.service.busantrip.model.StoreDAO;
 import com.service.busantrip.model.StoryDAO;
 
@@ -13,18 +15,30 @@ class BusanTripApplicationTests {
 	
 	@Autowired
 	private MemberDAO memberDAO;
-	
 	@Autowired
 	private StoreDAO storeDAO;
-	
 	@Autowired
 	private StoryDAO storyDAO;
-	
+	@Autowired
+	private MemberService memberService;
 	/***** MemberDAOImpl Unit test ******/
+
+	
 //	@Test
-//	void join() {
+//	void joinService() {
 //		Member member = new Member("member666", "pass666", "여섯", "010-6666-6666", "부산시 기장군");
-//		memberDAO.join(member);
+//		memberService.join(member);
+//	}
+	
+	
+//	@Test
+//	void findIdExist() {
+//		System.out.println(memberDAO.findIdExist("member666"));
+//	}
+	
+//	@Test
+//	void findAllId() {
+//		System.out.println(memberDAO.findAllId());
 //	}
 	
 //	@Test

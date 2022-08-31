@@ -10,6 +10,15 @@
 		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR)
 		VALUES(#{memberId}, #{memberPw}, #{memberName},#{memberTele},#{memberAddr})
 	</insert>
+	<select id="findIdExist" parameterType="String" resultType="member">
+		SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_ID = #{memberId}
+	</select>
+	<insert id="addAccount" parameterType="hashmap">
+		INSERT INTO
+		ACCOUNT(ACCOUNT_NUMBER, MEMBER_ID)
+		VALUES(#{accountNumber}, #{memberId})
+	</insert>
+	
 	
 	<select id="login" parameterType="hashmap" resultType="member">
 		SELECT MEMBER_ID, MEMBER_PW FROM MEMBER
