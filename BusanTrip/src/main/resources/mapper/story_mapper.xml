@@ -17,7 +17,11 @@
 		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId},'Y')
 	</insert>
 	
-	
+	<select id="findAllStoryList" parameterType="String" resultType="story">
+		SELECT ST.STORY_ID, ST.STORY_NAME
+		FROM STORY ST, STORYMEMBER SM
+		WHERE ST.STORY_ID=SM.STORY_ID AND SM.MEMBER_ID = #{memberId}
+	</select>
 	
 	<select id="findStoryMember" parameterType="String" resultType="storyMember">
 		SELECT MEMBER_ID, STORYMEMBER_AUTH FROM STORYMEMBER WHERE STORY_ID = #{storyId}
@@ -37,7 +41,7 @@
 		VALUES(DIARY_SEQ.NEXTVAL, #{storyId}, #{diaryName}, SYSDATE)
 	</insert>
 	
-	<select id="findDiaryList" parameterType="String" resultType="diary">
+	<select id="findAllDiaryList" parameterType="String" resultType="diary">
 		SELECT DIARY_NAME, DIARY_MAKEDATE FROM DIARY WHERE STORY_ID = #{storyId}
 	</select>
 	
