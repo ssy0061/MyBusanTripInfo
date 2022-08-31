@@ -7,13 +7,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
+import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.model.MemberService;
 
 @Controller
@@ -87,5 +87,16 @@ public class MemberController {
 		return accountList;
 	}
 	
-	
+	@PostMapping("findAllTransaction")
+	@ResponseBody
+	public List<Transaction> findAllTransaction(String accountNumber, Model model, HttpSession session) {
+		List<Transaction> allTransactionList = memberService.findAllTransaction(accountNumber);
+		return allTransactionList;
+	}
+	@PostMapping("findTransactionBySpecificPeriod")
+	@ResponseBody
+	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay, Model model, HttpSession session) {
+		List<Transaction> allTransactionListByPeriod = memberService.findTransactionBySpecificPeriod(accountNumber, startDay, finishDay);
+		return allTransactionListByPeriod;
+	}
 }
