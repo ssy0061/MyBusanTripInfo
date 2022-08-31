@@ -74,8 +74,20 @@
 		font-weight: bold;
 	}
 	
-
 </style>
+
+<script>
+	
+	$(function() {
+		
+		$(':button').click(function() {
+			location.href = "./register";
+		});  // register click
+		
+	});  // JQuery
+	
+</script>
+
 </head>
 <body>
 	<div>
