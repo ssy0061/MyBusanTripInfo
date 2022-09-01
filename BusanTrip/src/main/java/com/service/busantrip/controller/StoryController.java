@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.Story;
 import com.service.busantrip.model.StoryService;
@@ -21,16 +22,42 @@ public class StoryController {
 	@Autowired
 	StoryService storyService;
 	
+	@PostMapping("addStory")
+	@ResponseBody
+	public String addStory(String storyName, String memberId, Model model, HttpSession session) {
+		String storyId = storyService.addStory(storyName, memberId);
+		
+		return storyId;
+	}
+	
+	@PostMapping("addStoryMember")
+	@ResponseBody
+	public void addStoryMember(String storyId, String memberId, Model model, HttpSession session) {
+		storyService.addStoryMember(storyId, memberId);
+	}
+	
+	
+	/////////////////////////////////////////////////////////////
+	
+	@PostMapping("findStoryMember")
+	@ResponseBody
+	public List<Member> findStoryMember(String storyId, Model model, HttpSession session){
+		//System.out.println("storyId:: " + storyId);
+		List<Member> list = storyService.findStoryMember(storyId);
+		
+		System.out.println(list);
+		
+		return list;
+	}
+	
 	@PostMapping("addDiary")
 	@ResponseBody
 	public void addDiary(String storyId, String diaryName, Model model, HttpSession session) {
-		System.out.println("storyId:: " + storyId + " diaryName:: " + diaryName);
+		//System.out.println("storyId:: " + storyId + " diaryName:: " + diaryName);
 		
-		storyService.addStory(storyId, diaryName);
-		
-		
+		storyService.addDiary(storyId, diaryName);
 	}
-	
+
 	@PostMapping("findAllStory")
 	@ResponseBody
 	public List<Story> findAllStoryList(String memberId, Model model, HttpSession session) {

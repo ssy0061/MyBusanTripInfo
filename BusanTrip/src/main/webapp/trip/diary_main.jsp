@@ -67,6 +67,20 @@
 <script type="text/javascript">
 	$(function(){
 		var storyId = location.pathname.substring(10)
+		
+		$.ajax({
+			type: "post",
+			url: "/story/findStoryMember",
+			data: {'storyId': storyId},
+			
+			success:function(result) {
+				console.log(result)
+			},
+			error: function(e){
+				console.log(e);
+			}
+		})
+		
 		$.ajax({
 			type: "post",
 			url: "/story/findAllDiaryList",
