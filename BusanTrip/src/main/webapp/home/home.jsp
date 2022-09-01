@@ -207,7 +207,7 @@
 					$('#userName').text(result);
 				},
 				error: function(e){ console.log(e); }
-			})
+			});  // getMemberName end
 			
 			$.ajax({
 				type: 'post',
@@ -219,12 +219,25 @@
 					$('#userMoney').text(result);
 				},
 				error: function(e){ console.log(e); }
-			})
+			});  // getBalance end
+			
 		} else {
 			console.log("login User NULL");
 		}
 		
-		$('.login').click(function(){
+		$('#logoutBox').click(function() {
+			$.ajax({
+				type: 'post',
+				url: '/member/logout',
+				success: function(result) {
+					location.href = result;
+				},
+				error: function(e){ console.log(e); }
+			});
+			// 로그아웃 기능 수행.
+		})
+		
+		$('.login').click(function() {
 			location.href = "./login";
 			// 로그인 페이지로 이동
 		});
