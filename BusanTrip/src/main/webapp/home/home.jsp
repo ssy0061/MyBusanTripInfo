@@ -86,8 +86,26 @@
 		text-align: left;
 		font-size: 20px;
 		position: relative;
-		padding: 0 0 0 20px;
+		padding: 0 20px;
 		top: 5px;
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	#titleBox {
+		width: 260px;
+		text-align: left;
+	}
+	
+	#logoutBox {
+		width: 40px;
+		text-align: center;
+		font-weight: bold;
+		position: relative;
+		bottom: 5px;
+		left: 18px;
+		font-size: 22px;
+		color: var(--bnk-dark-red);
 	}
 	
 	.home-top-inner-right {
@@ -106,7 +124,6 @@
 		border-radius: 5px;
 		border: 1px solid var(--bnk-gray);
 	}
-	
 	
 	.button-style {
 	    border: 0;
@@ -259,7 +276,10 @@
 								<div>
 									<div class="home-top-upper">
 										<div class="ud-center">
-											<div class="home-top-inner-left"><span id="userName"></span> 님의 잔액</div>
+											<div class="home-top-inner-left">
+												<div id="titleBox"><span id="userName"></span> 님의 잔액</div>
+												<div id="logoutBox">&#215;</div>
+											</div>
 											<div class="home-top-inner-right"><span id="userMoney"></span>원</div>
 										</div>
 									</div>
