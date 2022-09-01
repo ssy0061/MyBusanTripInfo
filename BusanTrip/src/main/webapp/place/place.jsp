@@ -35,7 +35,7 @@
 	
 	.place-upper, .place-lower {
 		max-width: 400px;
-		margin: 0 auto 20px;
+		margin: 20px auto;
 		text-align: center;
 		min-height: 10vh;
 		padding: 10px;
@@ -46,7 +46,7 @@
 	.place-upper-inner {
 		min-height: 150px;
 		max-width: 300px;
-		margin: 15px auto;
+		margin: 0 auto;
 		padding: 3px 0;
 		position: relative;
 		border: 1px solid var(--bnk-gray);
@@ -113,8 +113,8 @@
 	
 	.place-lower-box-title {
 		text-align: left;
-		margin: 5px 0 0 10px;
-		font-size: 16px;
+		margin: 3px 8px 0;
+		font-size: 17px;
 		font-weight: bold;
 	}
 	
