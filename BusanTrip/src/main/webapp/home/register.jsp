@@ -37,7 +37,7 @@
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
-		height: 230px;
+		height: 260px;
 		position: relative;
 		border-radius: 10px;
 		border: 2px solid var(--bnk-gray);
