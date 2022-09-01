@@ -493,59 +493,63 @@ $(document).ready(function () {
 	<c:import url="/footer/footer.jsp" />
 	<!-- The Modal -->
 	  <!-- 거래 내역 추가 modal -->
-	  <div class="modal fade" id="transactionModal">
-	   <div class="modal-dialog modal-dialog-centered">
-	     <div class="modal-content">
-	     	<div class="modal-header">
-	     		<h4 class="modal-title">거래내역 추가하기</h4>
-	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	     	</div>
-	     	<div class="modal-body" align="center">
-				<p>거래내역 추가하기 <input type="text"></input></p>
-				<div class="row py-2">
-				  <div class="mx-auto picture-btn-re">
-				  	<label id="input-label" for="upload">사진 추가</label>
-				    <input id="upload" type="file" accept="image/*" multiple>
-				    <input type="button" id="resetUpload" value="초기화">
-				    <div id="multiContainer" class="image-area mt-4">
-				    </div>
+	<div class="modal fade" id="transactionModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">거래내역 추가하기</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-	     	</div>
-	        <div class="modal-footer">
-	        	<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
-	     	</div>
-	      </div>
-	    </div>
-	  </div>
-	  <!-- 멤버 조회 modal -->
-	  <div class="modal fade" id="memberModal">
-	   <div class="modal-dialog modal-dialog-centered">
-	     <div class="modal-content">
-	     	<div class="modal-header">
-	     		<h4 class="modal-title">멤버 조회하기</h4>
-	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	     	</div>
-	     	<div class="modal-body">
-	     		<div class="col-6 mem-id">
-					<p align="center">아이디</p>
-					<p align="center">aaaaa</p>
-					<p align="center">bbbbb</p>
-					<p align="center">ccccc</p>
-					<p align="center">ddddd</p>
+				<div class="modal-body" align="center">
+					<p>
+						거래내역 추가하기 <input type="text"></input>
+					</p>
+					<div class="row py-2">
+						<div class="mx-auto picture-btn-re">
+							<label id="input-label" for="upload">사진 추가</label> <input
+								id="upload" type="file" accept="image/*" multiple> <input
+								type="button" id="resetUpload" value="초기화">
+							<div id="multiContainer" class="image-area mt-4"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" value="확인" class="btn btn-secondary"
+							data-dismiss="modal"></input>
+					</div>
 				</div>
-				<div class="col-6 mem-name">
-					<p align="center">이름</p>
-					<p align="center">에이에이</p>
-					<p align="center">비비비</p>
-					<p align="center">씨씨씨</p>
-					<p align="center">디디디</p>
-				</div> 
-	     	</div>
-	        <div class="modal-footer">
-	        	<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
-	     	</div>
-	      </div>
-	    </div>
-	  </div>
+			</div>
+		</div>
+	</div>
+	<!-- 멤버 조회 modal -->
+	<div class="modal fade" id="memberModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">멤버 조회하기</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="col-6 mem-id">
+						<p align="center">아이디</p>
+						<p align="center">aaaaa</p>
+						<p align="center">bbbbb</p>
+						<p align="center">ccccc</p>
+						<p align="center">ddddd</p>
+					</div>
+					<div class="col-6 mem-name">
+						<p align="center">이름</p>
+						<p align="center">에이에이</p>
+						<p align="center">비비비</p>
+						<p align="center">씨씨씨</p>
+						<p align="center">디디디</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="확인" class="btn btn-secondary"
+						data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -18,32 +18,143 @@
 	*{
 		box-sizing:border-box;
 	}
-	div{
-        justify-content: center;
-        align-items: center;
-	}
 	.space100 {
 		height:100px;
 	}
 	.container{
 		width:80%;
 		max-width:800px;
+		margin: 20px auto;
 	}
-	#accountPlace, #charPlace, #whichPlace, #myPlace{
+	/* == first row == */
+	#accountPlace{
+		width:100%;
+		height:140px;
+		padding:20px 20px;
+		border-style:solid;
+		border-color:gray;
+		border-radius:5px;
+	}
+	#bnkIcon{
+		width:35px;
+		height:35px;
+		border-radius:10px;
+		border-style:solid;
+		border-color:#CB333B;
+		border-width:2px;
+	}
+	#accountPrice{
+		width:100%;
+	    font-size: 22px;
+	    text-align: right;
+	    font-weight:bold;
+	}
+	.charPlace{
+		display: flex;
+        justify-content: center;
+        align-items: center;
+	}
+	.charPlace.large{
+		width:80%;
+		height:140px;
+	}
+	.charPlace.small{
+		height:130px;
+		width:auto;
+		padding-top:10px;
+	}
+	.charIamge{
+		width:auto;
+		height:100%;
+		border-style:solid;
+		border-color:#CB333B;
+		border-width:4px;
+		border-radius:4px;
+		box-shadow:2px 3px 5px 0 #53565A;
+	}
+	.charIamge:hover{
+		cursor:pointer;
+	}
+	/* == other row == */
+	#first-row, #third-row, #fourth-row{
 		margin-top:20px;
+	}
+	#second-row{
+		margin:20px 1px 0 1px;
+		display:flex;
+		justify-content:space-around;
+	}
+	.button1, .button2{
+		width:28%;
+		padding:6px 0;
+		color:#4CAF50;
+		font-weight:600;
+		background-color:white;
+		border: 3px solid #4CAF50;
+		border-radius:2px;
+	}
+	.button3{
+		width:40%;
+		padding:6px 0;
+		color:#4CAF50;
+		font-weight:600;
+		background-color:white;
+		border: 3px solid #4CAF50;
+		border-radius:2px;
+	}
+	.button1:hover, .button2:hover, .button3:hover{
+		background-color:#4CAF50;
+		color:white;
+	}
+	#whichPlace, #myPlace{
 		width:100%;
 		height:150px;
-		background-color:gray;
+		padding:10px 10px;
+		border-style:solid;
+		border-color:gray;
 		border-radius:5px;
 	}
-	#chargePlace, #payPlace, #sendPlace, #editPlace{
-		margin-top:20px;
-		width:100%;
-		height:50px;
-		background-color:gray;
-		border-radius:5px;
+	/* modal */
+	.modal-header{
+		width:95%;
+	}
+	 .each-pic{
+	 	margin:5px 0;
+	 	width:80%;
+	 	max-width:150px;
+	 	height:auto;
+	 	border-style:solid;
+		border-color:#CB333B;
+		border-width:4px;
+		border-radius:4px;
+		box-shadow:2px 3px 5px 0 #53565A;
+		filter: brightness(80%);
+	 }
+	 .each-pic:hover{
+	 	cursor:pointer;
+		filter: brightness(100%);
+	 }
+	/* responsive web */
+	@media screen and (max-width: 575px) {
+		.large, .large>* {
+		  display:none;
+		}
+	}
+	@media screen and (min-width: 576px) {
+		.small, .small>* {
+		  display: none;
+		}
 	}
 </style>
+<script>
+$(document).ready(function() {
+	$('.each-pic').on("click", function(e){
+		var src = $(this).attr("src");
+		console.log(src)
+	});
+})
+	
+</script>
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
@@ -51,49 +162,35 @@
 	</c:import>
 	<div class="container">
 		<div class="space100"></div>
-		<div class="row">
+		<div class="row" id="fisrt-row">
 			<div class="col-8">
 				<div id="accountPlace">
-					<p>부산은행 계좌번호</p>
-					<p>금액</p>
+					<p><img id="bnkIcon" src="/img/bank_icon.png"> 부산은행 계좌번호</p>
+					<p id="accountPrice">9,999,999원</p>
 				</div>
 			</div>
 			<div class="col-4">
-				<div id="charPlace">
-					<p>캐릭터 선택</p>
+				<div id="charPlace" class="charPlace small">
+					<img class="charIamge" src="/img/char.png" data-toggle="modal" data-target="#editModal">
+				</div>
+				<div id="charPlace" class="charPlace large">
+					<img class="charIamge" src="/img/char.png" data-toggle="modal" data-target="#editModal">
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-3">
-				<div id="chargePlace">
-					<p>충전</p>
-				</div>
-			</div>
-			<div class="col-3">
-				<div id="payPlace">
-					<p>결제</p>
-				</div>
-			</div>
-			<div class="col-3">
-				<div id="sendPlace">
-					<p>송금</p>
-				</div>
-			</div>
-			<div class="col-3">
-				<div id="editPlace">
-					<p>정보 수정</p>
-				</div>
-			</div>
+		<div class="row" id="second-row">
+			<button type="button" class="button1">충전</button>
+			<button type="button" class="button2">결제</button>
+			<button type="button" class="button3">정보 수정</button>
 		</div>
-		<div class="row">
+		<div class="row" id="third-row">
 			<div class="col-12">
 				<div id="whichPlace">
 					<p>무엇을 넣을지...?</p>
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" id="fourth-row">
 			<div class="col-12">
 				<div id="myPlace">
 					<p>나의 플레이스 (찜 목록)</p>
@@ -103,5 +200,47 @@
 		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
+	<!-- Modal -->
+	<div class="modal fade" id="editModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">캐릭터 선택하기</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" align="center">
+					<div class="row">
+						<div class="col-6 mx-auto">
+							<img class="each-pic" src="/img/character_01.png">
+							<p>미스터 비</p>
+						</div>
+						<div class="col-6 mx-auto">
+							<img class="each-pic" src="/img/character_02.png">
+							<p>엔젤케이</p>
+						</div>
+						<div class="col-6 mx-autoc">
+							<img class="each-pic" src="/img/character_03.png">
+							<p>바우 와우</p>
+						</div>
+						<div class="col-6 mx-auto">
+							<img class="each-pic" src="/img/character_04.png">
+							<p>엔젤 엔</p>
+						</div>
+						<div class="col-6 mx-auto">
+							<img class="each-pic" src="/img/character_05.png">
+							<p>G방울</p>
+						</div>
+						<div class="col-6 mx-auto">
+							<img class="each-pic" src="/img/character_06.png">
+							<p>토리</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" value="변경" class="btn btn-secondary" data-dismiss="modal"></input>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
