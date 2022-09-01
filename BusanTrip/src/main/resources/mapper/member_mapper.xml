@@ -109,6 +109,15 @@
 		UPDATE ACCOUNT
 		SET ACCOUNT_BALANCE = #{balance}
 		WHERE ACCOUNT_NUMBER = #{accountNumber}
-	</update>	
+	</update>
+
+	<select id="findMemberVisitStats" parameterType="String" resultType="Map">
+		SELECT STORE_CATEGORY AS CATEGORY, CNT AS COUNT
+		FROM(SELECT S.STORE_CATEGORY, COUNT(S.STORE_CATEGORY) CNT
+			FROM STORE S, TRANSACTION T
+			WHERE S.STORE_ID = T.STORE_ID AND T.MEMBER_ID = 'gwak222'
+			GROUP BY S.STORE_CATEGORY
+			ORDER BY CNT DESC)
+	</select>
 	
 </mapper>

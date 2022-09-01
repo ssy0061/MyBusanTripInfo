@@ -1,11 +1,11 @@
 package com.service.busantrip.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.Transaction;
-import com.service.busantrip.dto.req.TransactionReqDTO;
 
 public interface MemberService {
 	public int join(Member member); //회원가입
@@ -34,4 +34,6 @@ public interface MemberService {
 	public int getBalance(String accountNumber); //계좌 잔액 조회
 	public int getPointBalance(String memberId); //계좌(포인트지갑) 잔액 조회
 	public void charge(String accountNumber, int balance, String memberId); //계좌(포인트지갑) 잔액 충전
+	
+	public List<Map<String, Object>> findMemberVisitStats(String memberId);
 }

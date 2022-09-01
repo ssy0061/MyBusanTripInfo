@@ -117,8 +117,14 @@ class BusanTripApplicationTests {
 //		System.out.println(memberDAO.charge("acc222", 50000));
 //	}
 	
-	
-	
+	/*
+	 * @Override public Map<String, String> findMemberVisitStats(String memberId) {
+	 * return sqlSession.selectMap("memberId", memberId); }
+	 */
+	@Test
+	void findMemberVisitStats() { 
+		System.out.println(memberDAO.findMemberVisitStats("gwak222"));
+	}
 	
 	
 	

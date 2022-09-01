@@ -3,6 +3,7 @@ package com.service.busantrip.model.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,6 +123,11 @@ public class MemberServiceImpl implements MemberService{
 		int pBalance = memberDAO.getBalance(memberId);
 		int balance = pBalance+amt;
 		memberDAO.charge(accountNumber, balance);
+	}
+
+	@Override
+	public List<Map<String, Object>> findMemberVisitStats(String memberId) {
+		return memberDAO.findMemberVisitStats(memberId);
 	}
 
 }

@@ -2,6 +2,7 @@ package com.service.busantrip.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -161,5 +162,12 @@ public class MemberController {
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay, Model model, HttpSession session) {
 		List<Transaction> allTransactionListByPeriod = memberService.findTransactionBySpecificPeriod(accountNumber, startDay, finishDay);
 		return allTransactionListByPeriod;
+	}
+	
+	@PostMapping("findMemberVisitStats")
+	@ResponseBody
+	public List<Map<String, Object>> findMemberVisitStats(String memberId, Model model, HttpSession session) {
+		List<Map<String, Object>> memberVisitStats = memberService.findMemberVisitStats(memberId);
+		return memberVisitStats;
 	}
 }
