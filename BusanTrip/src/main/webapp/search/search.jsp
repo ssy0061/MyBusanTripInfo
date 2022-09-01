@@ -235,7 +235,7 @@
 </head>
 <body>
 	<c:import url="../header/nav.jsp">
-		<c:param name="navTitle" value="계좌 조회"/>
+		<c:param name="navTitle" value="계좌"/>
 	</c:import>
 		
 	<div class="content container">

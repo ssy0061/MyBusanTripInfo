@@ -122,6 +122,7 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	@Override
 	public int getBalance(String accountNumber) {
+		System.out.println(accountNumber);
 		return sqlSession.selectOne(NS+"getBalance", accountNumber);
 	}
 	

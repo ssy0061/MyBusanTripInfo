@@ -482,7 +482,7 @@
 <body>
 	<div>
 		<c:import url="/header/nav.jsp">
-			<c:param name="navSubTitle" value="거래내역조회"/>
+			<c:param name="navSubTitle" value="결제내역"/>
 		</c:import>
 		
 		<div class="content container">
