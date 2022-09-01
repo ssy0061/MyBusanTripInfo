@@ -245,7 +245,7 @@
 					* <span class="regionName">부산</span>의 인기 장소
 				</div>
 				<div class="title-right">
-					<button type="button" class="moreBtn" data-toggle="collapse" data-target="#랜덤시드값">▼</button>
+					<button type="button" class="moreBtn" data-target="#랜덤시드값">▼</button>
 				</div>
 			</div>
 			<div class="place-lower-box-lower" id="랜덤시드값">
@@ -298,7 +298,6 @@
 					let moreBtn = document.createElement('button');
 					moreBtn.setAttribute('type', 'button');
 					moreBtn.setAttribute('class', 'moreBtn');
-					moreBtn.setAttribute('data-toggle', 'collapse');
 					moreBtn.setAttribute('data-target', '#' + contentsId);
 					moreBtn.append("▼");
 					// 부트스트랩 버튼 쓰니까 ajax랑 순서 안 맞아서 에러나는 경우 있는 듯.
@@ -397,6 +396,12 @@
 					$('.searchBtn').off('click').click(function(){
 						alert('search!');
 					});  // img click
+					
+					// collapse 버튼 연결용 코드
+					$('.moreBtn').off('click').click(function(){
+						let targetId = $(this).attr('data-target');
+						$(targetId).collapse('toggle');
+					});  // button click
 					
 				},  // ajax success end
 				error: function(e){ console.log(e); }
