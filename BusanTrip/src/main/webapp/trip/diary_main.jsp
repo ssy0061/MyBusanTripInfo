@@ -15,7 +15,6 @@
 <style>
 	/* all */
 	*{
-		font-family: 'Trebuchet MS', sans-serif;
 		box-sizing:border-box;
 	}
 	/* container */
@@ -67,6 +66,20 @@
 <script type="text/javascript">
 	$(function(){
 		var storyId = location.pathname.substring(10)
+		
+		$.ajax({
+			type: "post",
+			url: "/story/findStoryMember",
+			data: {'storyId': storyId},
+			
+			success:function(result) {
+				console.log(result)
+			},
+			error: function(e){
+				console.log(e);
+			}
+		})
+		
 		$.ajax({
 			type: "post",
 			url: "/story/findAllDiaryList",
@@ -79,6 +92,26 @@
 				console.log(e);
 			}
 		})
+
+		$('.modal-button').on("click", addDiary)
+		function addDiary() {
+			var diaryName = $('#newDiaryName').val();
+			$.ajax({
+				type: "post",
+				url: "/story/addDiary",
+				data: {'storyId': storyId, 'diaryName': diaryName},
+				
+				success:function(result) {
+					alert(diaryName + " 다이어리 추가 완료");
+					console.log(result);
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		}
+		
+		
 	});
 </script>
 </head>
@@ -102,7 +135,7 @@
 		</div>
 		<div class="row d-flex justify-content-center diary-in-story">
 			<div class="card col-sm-6 col-md-4">
-				<div class="card-body">
+				<div class="card-body" onclick="location.href='/bnk/trip/diary_detail'">
 					<h5 class="card-text">통영에서의 추억</h5>
 				</div>
 				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
@@ -143,10 +176,10 @@
 	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
 	     	</div>
 	     	<div class="modal-body" align="center">
-	     		<p>다이어리 이름 : <input type="text" size="18"></p>
+	     		<p>다이어리 이름 : <input type="text" id="newDiaryName" size="18"></p>
 	     	</div>
 	        <div class="modal-footer">
-	        	<input type="submit" value="추가" class="btn btn-secondary" data-dismiss="modal"></input>
+	        	<input type="submit" value="추가" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
 	     	</div>
 	      </div>
 	    </div>

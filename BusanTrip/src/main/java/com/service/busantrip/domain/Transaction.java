@@ -3,11 +3,14 @@ package com.service.busantrip.domain;
 import java.util.Date;
 
 public class Transaction {
+	
 	private int transactionId;
 
 	private String accountNumber;
+	private String accountBank;
 	private String storeId;
-
+	private String memberId;
+	
 	private Date transactionTime;
 	private String transactionStore;
 	private int transactionAmt;
@@ -19,16 +22,44 @@ public class Transaction {
 	public Transaction() {
 	}
 
-	public Transaction(int transactionId, String accountNumber, String storeId, Date transactionTime,
+	public Transaction(String accountNumber, String accountBank, String storeId, String memberId, Date transactionTime,
 			String transactionStore, int transactionAmt, String transactionMemo) {
 		super();
-		this.transactionId = transactionId;
+		this.accountNumber = accountNumber;
+		this.accountBank = accountBank;
+		this.storeId = storeId;
+		this.memberId = memberId;
 		this.transactionTime = transactionTime;
+		this.transactionStore = transactionStore;
 		this.transactionAmt = transactionAmt;
 		this.transactionMemo = transactionMemo;
+	}
+
+	
+	
+	public Transaction(String accountNumber, String accountBank, String storeId, String memberId, Date transactionTime,
+			String transactionStore, int transactionAmt) {
+		super();
+		this.accountNumber = accountNumber;
+		this.accountBank = accountBank;
+		this.storeId = storeId;
+		this.memberId = memberId;
+		this.transactionTime = transactionTime;
+		this.transactionStore = transactionStore;
+		this.transactionAmt = transactionAmt;
+	}
+	
+	
+	public Transaction(String accountNumber, String storeId, String memberId, Date transactionTime,
+			String transactionStore, int transactionAmt, String transactionMemo) {
+		super();
 		this.accountNumber = accountNumber;
 		this.storeId = storeId;
+		this.memberId = memberId;
+		this.transactionTime = transactionTime;
 		this.transactionStore = transactionStore;
+		this.transactionAmt = transactionAmt;
+		this.transactionMemo = transactionMemo;
 	}
 
 	public Transaction(String accountNumber, String storeId, Date transactionTime,  
@@ -121,11 +152,33 @@ public class Transaction {
 		this.transactionStore = transactionStore;
 	}
 
+	public String getMemberId() {
+		return memberId;
+	}
+
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	
+	
+	public String getAccountBank() {
+		return accountBank;
+	}
+
+	public void setAccountBank(String accountBank) {
+		this.accountBank = accountBank;
+	}
+
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", transactionTime=" + transactionTime
-				+ ", transactionAmt=" + transactionAmt + ", transactionMemo=" + transactionMemo + ", transactionStore="
-				+ transactionStore + ", accountNumber=" + accountNumber + ", storeId=" + storeId + "]";
+		return "Transaction [transactionId=" + transactionId + ", accountNumber=" + accountNumber + ", accountBank="
+				+ accountBank + ", storeId=" + storeId + ", memberId=" + memberId + ", transactionTime="
+				+ transactionTime + ", transactionStore=" + transactionStore + ", transactionAmt=" + transactionAmt
+				+ ", transactionMemo=" + transactionMemo + "]";
 	}
+
+
 
 }

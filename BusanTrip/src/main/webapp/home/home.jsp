@@ -30,7 +30,7 @@
 	.content{
 		min-height: 100vh;
 	    width: 100%;
-	    margin: 100px auto;
+	    margin: 100px auto 10px;
 	    padding-top: 10px;
 	    padding-bottom: 10px;
 	}
@@ -40,6 +40,9 @@
 		margin: 0 auto;
 		text-align: center;
 		position: relative;
+	}
+	
+	.home-top, .home-bottom {
 		border-radius: 5px;
 		border: 1px solid var(--bnk-gray);
 	}
@@ -53,9 +56,9 @@
 	}
 	
 	.home-middle {
-		overflow: auto;
-		max-height: 270px;
-		padding: 5px 0;
+		max-height: 250px;
+		overflow: hidden;
+		border-radius: 10px;
 	}
 	
 	.home-bottom {
@@ -68,7 +71,7 @@
 		margin: 0 auto;
 		position: relative;
 		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
+		border: 2px solid var(--bnk-gray);
 	}
 	
 	.home-top-lower {
@@ -83,15 +86,33 @@
 		text-align: left;
 		font-size: 20px;
 		position: relative;
-		left: 20px;
+		padding: 0 20px;
 		top: 5px;
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	#titleBox {
+		width: 260px;
+		text-align: left;
+	}
+	
+	#logoutBox {
+		width: 40px;
+		text-align: center;
+		font-weight: bold;
+		position: relative;
+		bottom: 5px;
+		left: 18px;
+		font-size: 22px;
+		color: var(--bnk-dark-red);
 	}
 	
 	.home-top-inner-right {
 		text-align: right;
 		font-size: 40px;
 		position: relative;
-		right: 20px;
+		padding: 0 20px 0 0;
 		bottom: 5px;
 	}
 	
@@ -103,7 +124,6 @@
 		border-radius: 5px;
 		border: 1px solid var(--bnk-gray);
 	}
-	
 	
 	.button-style {
 	    border: 0;
@@ -140,12 +160,13 @@
 	}
 	
 	.notice {
-		margin: 10px auto;
+		margin: 15px auto;
 		max-width: 300px;
-		height: 40px;
-		position: relative;
+		padding: 3px 0;
+		font-size: 15px;
 		border-radius: 5px;
 		border: 2px solid var(--bnk-gray);
+		background-color: #FFFFD4;
 	}
 	
 	.login {
@@ -172,43 +193,77 @@
 
 </style>
 
-
 <script>
 
 	$(function() {
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
 		
-		if (memberId != null) {
+		if (memberId != 'null') {
+			$.ajax({
+				type: 'post',
+				url: '/member/getMemberName',
+				data: {'memberId': memberId},
+				success: function(result) {
+					$('#userName').text(result);
+				},
+				error: function(e){ console.log(e); }
+			});  // getMemberName end
 			
-			<%--
 			$.ajax({
 				type: 'post',
 				url: '/member/getBalance',
 				data: {'memberId': memberId},
-				
-				success:function(result) {
-					console.log(result)
+				success: function(result) {
+					result = result.toString();
+					result = result.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					$('#userMoney').text(result);
 				},
-				error: function(e){
-					console.log(e);
-				}
-			})--%>
+				error: function(e){ console.log(e); }
+			});  // getBalance end
 			
-			var name = memberId;
-			var money = "300000";  // 문자열로 받으면 동작.
-			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			
-			$('#userName').text(name);
-			$('#userMoney').text(money);
 		} else {
 			console.log("login User NULL");
 		}
 		
+		$('#logoutBox').click(function() {
+			$.ajax({
+				type: 'post',
+				url: '/member/logout',
+				success: function(result) {
+					location.href = result;
+				},
+				error: function(e){ console.log(e); }
+			});
+			// 로그아웃 기능 수행.
+		})
 		
-		$('.login').click(function(){
+		$('.login').click(function() {
 			location.href = "./login";
 			// 로그인 페이지로 이동
 		});
+		
+		// 공지사항 생성
+		var noticeArr = [
+			"8월의 여행가실부은 이벤트 당첨자 안내",
+			"8월 신규 등록 업체 안내",
+			"🌺 동백전과 함께하는 동백 이벤트 🌺",
+			"여행가실부은 신규 가입 이벤트!",
+			"2030 부산월드엑스포 부산에 유치해~"
+		];
+		
+		for (var i=0; i<5; i++) {
+			let notice = noticeArr[i];
+			
+			// html tag 생성 form
+			<%-- <div class="notice">※ 공지사항 ※</div> --%>
+			
+			let divNotice = document.createElement('div');
+			divNotice.setAttribute('class', 'notice');
+			divNotice.append(notice);
+			
+			$('.home-bottom').append(divNotice);
+		}
+		
 	});
 
 </script>
@@ -234,7 +289,10 @@
 								<div>
 									<div class="home-top-upper">
 										<div class="ud-center">
-											<div class="home-top-inner-left"><span id="userName"></span> 님의 잔액</div>
+											<div class="home-top-inner-left">
+												<div id="titleBox"><span id="userName"></span> 님의 잔액</div>
+												<div id="logoutBox">&#215;</div>
+											</div>
 											<div class="home-top-inner-right"><span id="userMoney"></span>원</div>
 										</div>
 									</div>
@@ -258,8 +316,7 @@
 				</div>
 				
 				<div class="home-middle slideUp2">
-					<span style="font-size: 25px; font-weight: bold;">[ 이벤트 ]</span>
-					<div class="home-middle-inner">
+
 						
 						<%-- <img src="/img/event1.png" style="width: 100%; height: auto;">  --%>
 						<div id="eventSlide" class="carousel slide" data-ride="carousel">
@@ -287,40 +344,11 @@
 								<span class="carousel-control-next-icon"></span>
 							</a>
 						</div>
-						
-					</div>
 				</div>
 				
 				<div class="home-bottom slideUp3">
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
-					
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
-					
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
-					
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
-					
-					<div class="notice">
-						<div class="ud-center">
-							※ 공지사항 ※
-						</div>
-					</div>
+					<div style="font-size: 18px; font-weight: bold; margin: 10px 0;">[ 공지사항 ]</div>
+					<%-- <div class="notice">※ 공지사항 ※</div> --%>
 				</div>
 				
 			</div>

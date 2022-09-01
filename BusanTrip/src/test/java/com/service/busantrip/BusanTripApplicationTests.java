@@ -1,5 +1,8 @@
 package com.service.busantrip;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,10 +50,10 @@ class BusanTripApplicationTests {
 //		System.out.println("login \n" + memberDAO.login(member));
 //	}
 	
-	@Test	
-	void getMemberName() {
-		System.out.println(memberService.getMemberName("member666"));
-	}
+//	@Test	
+//	void getMemberName() {
+//		System.out.println(memberService.getMemberName("member666"));
+//	}
 	
 //	@Test	
 //	void updateCharacter() {
@@ -158,14 +161,14 @@ class BusanTripApplicationTests {
 	
 //	@Test
 //	void findStorePopularByPersonal() {
-//		List<Map<String, Object>> list = storeDAO.findStorePopularByPersonal("acc222");
+//		List<Map<String, Object>> list = storeDAO.findStorePopularByPersonal("gwak222");
 //		for(Map<String, Object> st: list) {
 //			for(String key : st.keySet()) {
 //				System.out.println(key);
 //				System.out.println(st.get(key));
 //			}
 //		}
-//		System.out.println(storeDAO.findStorePopularByPersonal("acc222"));
+//		System.out.println(storeDAO.findStorePopularByPersonal("gwak222"));
 //	}
 	
 //	@Test

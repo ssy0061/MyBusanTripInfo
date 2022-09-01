@@ -1,5 +1,6 @@
 package com.service.busantrip.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -39,17 +40,19 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-			return "Error";	
+			return "redirect:/error";	
 		}	
 	}
 	
 	@PostMapping("logout")
+	@ResponseBody
 	public String logout(Model model, HttpSession session) {
 			session.invalidate();
-			return "redirect:/bnk/home";
+			return "/bnk/home";
 	}
 	
 	@PostMapping("getMemberName")
+	@ResponseBody
 	public String getMemberName(String memberId, Model model, HttpSession session) {
 		String memberName = memberService.getMemberName(memberId);
 		return memberName;
@@ -57,8 +60,8 @@ public class MemberController {
 	
 	@PostMapping("getBalance")
 	@ResponseBody
-	public int getBalance(String accountNumber, Model model, HttpSession session) {
-		int balance = memberService.getBalance(accountNumber);
+	public int getBalance(String memberId, Model model, HttpSession session) {
+		int balance = memberService.getBalance(memberId);
 		return balance;
 	}
 	
@@ -67,6 +70,11 @@ public class MemberController {
 	public int getPointBalance(String memberId, Model model, HttpSession session) {
 		int balance = memberService.getPointBalance(memberId);
 		return balance;
+    
+	@PostMapping("findIdExist")
+	@ResponseBody
+	public Boolean findIdExist(String memberId, Model model, HttpSession session) {
+		return memberService.findIdExist(memberId);
 	}
 	
 	@PostMapping("join")
@@ -82,9 +90,56 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-			return "Error";	
+			return "/bnk/error";	
 		}	
 
+	}
+	
+	@PostMapping("updateCharacter")
+	@ResponseBody
+	public String updateCharacter(String memberChar, String memberId, Model model, HttpSession session) {
+		memberService.updateCharacter(memberChar, memberId);
+		model.addAttribute("memberChar",memberChar);
+		return "redirect: /bnk/home/mypage"; //마이페이지 링크 추후 수정 필요..
+	}
+	
+	@PostMapping("addExternalTransaction")
+	@ResponseBody
+	public void addExternalTransaction(String accountNumber, String accountBank, String memberId, String storeId, Date transactionTime,
+									String transactionStore, int transactionAmt, String transactionMemo) {
+		Transaction transaction = new Transaction(accountNumber, storeId, memberId, transactionTime,
+				transactionStore, transactionAmt, transactionMemo);
+		memberService.addExternalTransaction(transaction, accountNumber);
+//		return return 페이지 필요?...
+	}
+	
+	@PostMapping("pay")
+	@ResponseBody
+	public void pay(String accountNumber, int amt, String memberId, Model model, HttpSession session) {
+		memberService.pay(accountNumber, amt, memberId);
+	}
+	
+	@PostMapping("addTransaction")
+	@ResponseBody
+	public void addTransaction(String accountNumber, String accountBank, String memberId, 
+			String storeId, Date transactionTime, String transactionStore, 
+			int transactionAmt, Model model, HttpSession session) {
+		
+		Transaction transaction = new Transaction(accountNumber,accountBank,memberId,storeId,transactionTime,transactionStore,transactionAmt);
+		memberService.addTransaction(transaction);
+	}
+	
+	@PostMapping("charge")
+	@ResponseBody
+	public void charge(String accountNumber, int amt, String memberId, Model model, HttpSession session) {
+		memberService.charge(accountNumber, amt, memberId);
+	}
+	
+	@PostMapping("updateTransactionMemo")
+	@ResponseBody
+	public void updateTransactionMemo(int transactionId, String transactionMemo, Model model, HttpSession session) {
+		Transaction transaction = new Transaction(transactionId, transactionMemo);
+		memberService.updateTransactionMemo(transaction);
 	}
 	
 	@PostMapping("findAllAccount")
