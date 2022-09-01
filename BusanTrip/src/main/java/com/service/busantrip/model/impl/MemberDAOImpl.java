@@ -2,6 +2,7 @@ package com.service.busantrip.model.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,6 +137,11 @@ public class MemberDAOImpl implements MemberDAO{
 		map.put("accountNumber", accountNumber);
 		map.put("balance", balance);
 		return sqlSession.update(NS+"charge",map);
+	}
+
+	@Override
+	public List<Map<String, Object>> findMemberVisitStats(String memberId) {
+		return sqlSession.selectList(NS+"findMemberVisitStats", memberId);
 	}
 
 }

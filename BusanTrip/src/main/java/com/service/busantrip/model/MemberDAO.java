@@ -1,9 +1,12 @@
 package com.service.busantrip.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
+import com.service.busantrip.domain.Store;
 import com.service.busantrip.domain.Transaction;
 
 public interface MemberDAO {
@@ -33,4 +36,6 @@ public interface MemberDAO {
 	public int getBalance(String accountNumber); //계좌 잔액 조회
 	public int getPointBalance(String memberId); //계좌(포인트지갑) 잔액 조회
 	public int charge(String accountNumber, int balance); //계좌(포인트지갑) 잔액 충전
+	
+	public List<Map<String, Object>> findMemberVisitStats(String memberId);
 }
