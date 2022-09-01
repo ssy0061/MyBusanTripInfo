@@ -64,6 +64,7 @@
 		#navSubTitle{
 			padding-left: 80px;
 			margin-top: 25px;
+			font-family: 'Do Hyeon', sans-serif;
 		}
 		#navSubTitle>h3{
 			display: inline;

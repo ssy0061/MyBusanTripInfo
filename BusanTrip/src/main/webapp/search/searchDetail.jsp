@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <%-- jquery ui 전용 import --%>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<%-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> --%>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style type="text/css">
 
@@ -29,13 +29,33 @@
 	  --button-active: #EEEEEE;
 	}
 	
+	/* 상하단 바를 위한 필수 css */
 	.content{
+	    margin-top: 90px;
+	    padding: 20px 0;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 80px; /* 상단바 80*/
+			padding-bottom: 80px;
+			min-height: calc(100vh - 80px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 190px);
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
+	
+	
+/* 	.content{
 		min-height: 100vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
 	    padding-top: 10px;
 	    padding-bottom: 10px;
-	}
+	} */
 	
 	.searchDetail-upper {
 		max-width: 400px;
@@ -43,8 +63,10 @@
 		text-align: center;
 		height: 140px;
 		position: relative;
-		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
+		/* border-radius: 5px;
+		border: 1px solid var(--bnk-gray); */
+		background-color: white;
+		
 	}
 	
 	.searchDetail-upper-top, .searchDetail-upper-bottom {
@@ -225,6 +247,30 @@
 <script>
 
 	$(function() {
+		const accountNumber = '${accountNumber}'
+		$.ajax({
+			type: 'post',
+			url: '/member/getBalance',
+			data: {'accountNumber': accountNumber},
+			success: function(res){
+				console.log(res)
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		})
+		$.ajax({
+			type: 'post',
+			url: '/member/findAllTransaction',
+			data: {'accountNumber': accountNumber},
+			
+			success: function(res){
+				console.log(res)
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		})
 		
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		
@@ -435,12 +481,11 @@
 </head>
 <body>
 	<div>
-		<c:import url="../header/nav.jsp">
-			<c:param name="navSubTitle" value="조회222"/>
+		<c:import url="/header/nav.jsp">
+			<c:param name="navSubTitle" value="거래내역조회"/>
 		</c:import>
 		
 		<div class="content container">
-			
 			<div class="searchDetail-upper">
 				<div class="ud-center">
 					<div class="rounded-lg searchDetail-upper-top">

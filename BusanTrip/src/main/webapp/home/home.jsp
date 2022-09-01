@@ -211,7 +211,7 @@
 			
 			$.ajax({
 				type: 'post',
-				url: '/member/getBalance',
+				url: '/member/getPointBalance',
 				data: {'memberId': memberId},
 				success: function(result) {
 					result = result.toString();

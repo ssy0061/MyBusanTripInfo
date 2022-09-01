@@ -28,7 +28,7 @@
 		bottom: 0;
 		background-color: white;
 		transition: 0.3s;
-		padding: 7px 10px 5px 10px;
+		padding: 7px 10px 3px 10px;
 		align-items: center;
 		box-shadow: 0 -3px 10px 2px lightgray;
 		z-index: 99;
@@ -41,7 +41,7 @@
 	.icon{
 		margin:0 auto;
 		width: 70px;
-		height: 80px;
+		height: 70px;
 		/*
 		border: 3px solid lightGray;
 		border-radius: 15px;
