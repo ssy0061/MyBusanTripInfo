@@ -1,16 +1,13 @@
 package com.service.busantrip;
 
-import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.service.busantrip.domain.Member;
 import com.service.busantrip.model.MemberDAO;
 import com.service.busantrip.model.MemberService;
 import com.service.busantrip.model.StoreDAO;
+import com.service.busantrip.model.StoreService;
 import com.service.busantrip.model.StoryDAO;
 
 @SpringBootTest
@@ -24,6 +21,9 @@ class BusanTripApplicationTests {
 	private StoryDAO storyDAO;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private StoreService storeService;
+	
 	/***** MemberDAOImpl Unit test ******/
 
 	
@@ -92,7 +92,7 @@ class BusanTripApplicationTests {
 //	void addTransaction() { 
 //		Date date = new Date();
 //
-//		Transaction transaction = new Transaction("acc222", date, 21000,  "306", "커피구루마");
+//		Transaction transaction = new Transaction("acc222",  "306", date, "커피구루마", 21000);
 //		memberDAO.addTransaction(transaction);
 //	}
 	
@@ -117,18 +117,20 @@ class BusanTripApplicationTests {
 //		System.out.println(memberDAO.charge("acc222", 50000));
 //	}
 	
-	/*
-	 * @Override public Map<String, String> findMemberVisitStats(String memberId) {
-	 * return sqlSession.selectMap("memberId", memberId); }
-	 */
-	@Test
-	void findMemberVisitStats() { 
-		System.out.println(memberDAO.findMemberVisitStats("gwak222"));
-	}
+//	@Test
+//	void findMemberVisitStats() { 
+//		System.out.println(memberDAO.findMemberVisitStats("gwak222"));
+//	}
 	
+//	@Test
+//	void charge() { 
+//		memberService.charge("gwak222", 10000);
+//	}
 	
-	
-	
+//	@Test
+//	void pay() { 
+//		memberService.pay("gwak222", 100, "커피구루마");
+//	}
 	
 	/***** StoreDAOImpl Unit test ******/
 	
@@ -143,6 +145,11 @@ class BusanTripApplicationTests {
 //	void findStoreInfo() { 
 //		System.out.println(storeDAO.findStoreTransaction("acc222", "1"));
 //	}
+	
+	@Test
+	void findStoreId() { 
+		System.out.println(storeService.findStoreId("커피구루마"));
+	}
 	
 //	@Test
 //	void findStorePopularByRegion() {

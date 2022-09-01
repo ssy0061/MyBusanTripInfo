@@ -13,6 +13,9 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;900&display=swap" rel="stylesheet">
 <%-- scroll 고정. --%>
 <script>history.scrollRestoration = "manual"</script>
 <style type="text/css">
@@ -264,8 +267,52 @@
 			$('.home-bottom').append(divNotice);
 		}
 		
+		
+		$('chargemodal').on('click', chargepoint)
+		$('paymodal').on('click', paypoint)
 	});
 
+	
+	
+	function chargepoint(){
+		var chargepoint = $('#chargepoint').val();
+		var memberId = '<%= (String)session.getAttribute("memberId") %>';
+		console.log("chargepoint:: " + chargepoint + ", memberId:: " + memberId);
+		
+		$.ajax({
+			type: 'post',
+			url: '/member/charge',
+			data: {'memberId':memberId, 'amt': chargepoint},
+			
+			success:function(result) {
+				location.href = '/bnk/home';
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	function paypoint(){
+		var paypoint = $('#paypoint').val();
+		var paystore = $('#paystore').val();
+		var memberId = '<%= (String)session.getAttribute("memberId") %>';
+		console.log("paypoint:: " + paypoint + ", paystore" + paystore + ", memberId:: " + memberId);
+		
+		$.ajax({
+			type: 'post',
+			url: '/member/pay',
+			data: {'memberId':memberId, 'amt': paypoint, 'storeName':paystore},
+			
+			success:function(result) {
+				location.href = '/bnk/home';
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+	
 </script>
 
 
@@ -299,8 +346,8 @@
 								</div>
 								<div>
 									<div class="home-top-lower">
-										<button class="button-style" type="button">충전</button>
-										<button class="button-style" type="button">결제</button>
+										<button class="button-style" type="button" data-toggle="modal" data-target="#chargeModal">충전</button>
+										<button class="button-style" type="button" data-toggle="modal" data-target="#payModal">결제</button>
 									</div>
 								</div>
 							</c:when>
@@ -355,6 +402,41 @@
 			
 		<c:import url="../footer/footer.jsp" />
 	</div>
-	
+
+	<div class="modal fade" id="chargeModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">포인트 충전</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" align="center">
+					<p>
+						충전 할 포인트 : <input type="text" id="chargepoint" size="18"> 원
+					</p>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="충전" id="chargemodal" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="payModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">포인트 결제</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" align="center">
+					<p>결제 할 포인트 : <input type="text" id="paypoint" size="18"> 원</p>
+					<p>결제 할 가게명 : <input type="text" id="paystore" size="18"></p>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="결제" id="paymodal" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>	
 </body>
 </html>

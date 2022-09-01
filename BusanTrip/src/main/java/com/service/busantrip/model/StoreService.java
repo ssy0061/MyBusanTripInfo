@@ -10,6 +10,8 @@ public interface StoreService {
 
 	public List<Store> findStoreTransaction(String accountNumber, String storeId);
 	public List<Store> findStoreInfo(String storeId);
+	public String findStoreId(String storeName);
+	
 	public List<Store> findStorePopularByRegion(String region); // 인기가게 지역별
 	public List<Store> findStorePopularByPeriod();
 	public List<Store> findStorePopularByCategory(String category); // 인기가게 카테고리별
