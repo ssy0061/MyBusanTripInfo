@@ -25,9 +25,6 @@
 	.space100 {
 		height:100px;
 	}
-	.container{
-	}
-
 	.pay-store{
 		width:50%;
 		float:left;
@@ -41,21 +38,16 @@
 		float:left;
 	}
 	/* customizebutton */
-	#customizeButton{
-		right:20px;
-		bottom:100px;
-		position:fixed;
-		z-index: 98;
-	}
 	.custom-button{
+		background-color:transparent;
+		border-style:solid;
 		border-width:2px;
-		border-color:#cb333b;
-		background-color:white;
-		margin:2px 0;
+		border-color:#53565A;
+		border-radius:5px;
 	}
 	.custom-button:hover{
-		background-color:#cb333b;
-		border-color:#cb333b;
+		color:white;
+		background-color:#53565A;
 	}
 	/* modal - member */
 	.mem-id, .mem-name{
@@ -406,14 +398,26 @@ $(document).ready(function () {
 	</c:import>
 	<div class="container">
 		<div class="space100"></div>
-		<div class="row">
-			<div class="col-12">
-				<h4 align="center">ㅇㅇ여행</h4>
-				<h6 align="center">2022.08.13 ~ 2022.08.15</h6>
+		<div class="row mt-4 mb-4">
+			<div class="col-6">
+				<h4>ㅇㅇ여행</h4>
+				<h6>2022.08.13 ~ 2022.08.15</h6>
 			</div>
-		</div>
-		<div class="content">
-		
+			<div class="col-6" id="customizeButton" align="right">
+				<a data-toggle="tooltip" data-placement="left" title="거래내역 추가하기">
+				<button type="button" class="btn btn-outline-secondary custom-button" data-toggle="modal" data-target="#transactionModal">
+					<i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
+				</button>
+				</a>
+				<a data-toggle="tooltip" data-placement="left" title="멤버 조회">
+				<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
+					<i class="bi bi-people-fill" style="font-size: 1.2rem;"></i>
+					<!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+					  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+					</svg> -->
+				</button>
+				</a>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-12">
@@ -484,7 +488,7 @@ $(document).ready(function () {
 			</div>
 		</div>
 		
-		<div id="customizeButton">
+		<!-- <div id="customizeButton">
 			<div class="btn-group-vertical">
 				<a data-toggle="tooltip" data-placement="left" title="거래내역 추가하기">
 				<button type="button" class="btn btn-outline-secondary custom-button" data-toggle="modal" data-target="#transactionModal">
@@ -501,7 +505,7 @@ $(document).ready(function () {
 				</button>
 				</a>
 			</div>
-		</div>
+		</div>-->
 		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
