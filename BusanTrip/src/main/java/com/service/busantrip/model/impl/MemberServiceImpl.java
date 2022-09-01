@@ -85,18 +85,19 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void pay(String accountNumber, 
-					int balance) {
+	public void pay(String accountNumber, int amt, String memberId) {	//
+		int pBalance = memberDAO.getBalance(memberId);
+		int balance = pBalance-amt;
 		memberDAO.pay(accountNumber, balance);
 	}
 
 	@Override
-	public void addTransaction(Transaction transaction) {
+	public void addTransaction(Transaction transaction) { //
 		memberDAO.addTransaction(transaction);
 	}
 
 	@Override
-	public void updateTransactionMemo(Transaction transaction) {
+	public void updateTransactionMemo(Transaction transaction) {	//
 		memberDAO.updateTransactionMemo(transaction);
 	}
 
@@ -111,9 +112,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int charge(String accountNumber, 
-					  int balance) {
-		return memberDAO.charge(accountNumber, balance);
+	public void charge(String accountNumber, 
+					  int amt, String memberId) {	//
+		int pBalance = memberDAO.getBalance(memberId);
+		int balance = pBalance+amt;
+		memberDAO.charge(accountNumber, balance);
 	}
 
 }
