@@ -26,7 +26,7 @@ public class StoryDAOImpl implements StoryDAO{
 	
 	
 	@Override
-	public void addStory(String storyName, String memberId) {
+	public String addStory(String storyName, String memberId) {
 		
 		sqlSession.insert(NS+"addStory", storyName);
 		String storyId = sqlSession.selectOne(NS+"getStoryId", storyName);
@@ -35,6 +35,8 @@ public class StoryDAOImpl implements StoryDAO{
 		learderMap.put("storyId", storyId);
 		learderMap.put("memberId", memberId);
 		sqlSession.insert(NS+"addStoryMemberLeader",learderMap);
+		
+		return storyId;
 	}
 
 	@Override

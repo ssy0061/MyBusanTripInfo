@@ -72,20 +72,49 @@
 <script>
 
 $(function() {
-	var memberId = '<%=(String)session.getAttribute("memberId")%>';
-	console.log(memberId)
-	$.ajax({
-		type: 'post',
-		url: '/story/findAllStory',
-		data: {'memberId': memberId},
-		
-		success:function(result) {
-			console.log(result)
-		},
-		error: function(e){
-			console.log(e);
+	$('.modal-button').on('click', addStory)
+	function addStory(){
+		if(confirm("DB랑 연결해놔서 막 추가하면 안되는데도 스토리를 추가하시겠습니까?")) {
+			var storyName = $('#storyname').val();
+			var leaderId = '<%= (String)session.getAttribute("memberId") %>';
+			// 지금은 한명만 받아오는데 프론트 구현되고 여러명 받아도록 바꿔야 함
+			var memberId = $('#newmember').val();
+			console.log("storyName:: " + storyName + ", leaderId:: " + leaderId + ", memberId:: " + memberId);
+			
+			$.ajax({
+				type: 'post',
+				url: '/story/addStory',
+				data: {'storyName':storyName, 'memberId': leaderId},
+				
+				success:function(result) {
+					console.log(result);
+					
+					$.ajax({
+						type: 'post',
+						url: '/story/addStoryMember',
+						data: {'storyId':result, 'memberId': memberId},
+						
+						success:function(result) {
+							alert("스토리 추가 성공!")
+							$('#storyname').val("")
+							$('#newmember').val("");
+							console.log(result)
+						},
+						error: function(e){
+							console.log(e);
+						}
+					})
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});
 		}
-	})
+		
+		
+
+	}
+
 });
 
 </script>
@@ -115,13 +144,13 @@ $(function() {
 			</div>
 			<div class="col-12">
 				<div class="card">
-					<div class="card-body" onclick="location.href='/bnk/trip/1'">
+					<div class="card-body" onclick="location.href='/bnk/trip/3'">
 						<h5 class="card-title">First Story</h5>
 						<p class="card-text">My Story</p>
 					</div>
 				</div>
 				<div class="card bg-light">
-					<div class="card-body" onclick="location.href='/bnk/trip/2'">
+					<div class="card-body" onclick="location.href='/bnk/trip/3'">
 						<h5 class="card-title">Second Story</h5>
 						<p class="card-text">Story with xxx</p>
 					</div>
@@ -139,13 +168,13 @@ $(function() {
 	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
 	     	</div>
 	     	<div class="modal-body" align="center">
-	       		<p>스토리 이름 : <input type="text" size="18"></p>
+	       		<p>스토리 이름 : <input type="text" id="storyname" size="18"></p>
 	       		<p>
 	       			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#53565A" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
 					  <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
 					  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 					</svg>
-	       			<input type="text" placeholder="추가할 멤버 아이디 검색하기" size="23">
+	       			<input type="text" id="newmember" placeholder="추가할 멤버 아이디 검색하기" size="23">
 	       			<button type="button" class="button btn-primary" id="membersearch" data-toggle="collapse" data-target="#memberresult">
 		       			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
 						  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -163,7 +192,7 @@ $(function() {
 	       		</p>
 	     	</div>
 	        <div class="modal-footer">
-	        	<input type="submit" value="추가" class="btn btn-secondary" data-dismiss="modal"></input>
+	        	<input type="submit" value="추가" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
 	     	</div>
 	      </div>
 	    </div>
