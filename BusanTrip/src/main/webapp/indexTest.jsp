@@ -26,7 +26,7 @@
 <meta http-equiv="refresh" content="2;url=/bnk/home">
 <body>
 	<p>
-		<img class="loadingImage" src="./img/loadingPage2sec.gif">
+		<img class="loadingImage" src="./img/loadingPage5sec.gif">
 	</p>
 </body>
 </html>
