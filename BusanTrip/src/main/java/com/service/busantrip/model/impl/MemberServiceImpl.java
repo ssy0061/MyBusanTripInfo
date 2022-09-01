@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Boolean findIdExist(String memberId) { //
 		
-		if(memberDAO.findIdExist(memberId) == null) {
+		if(memberDAO.findIdExist(memberId).size() >= 1) {
 			return true;
 		}else {
 			return false;
