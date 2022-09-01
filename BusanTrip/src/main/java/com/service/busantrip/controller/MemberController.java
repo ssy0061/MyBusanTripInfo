@@ -90,9 +90,6 @@ public class MemberController {
 		return "redirect: /bnk/home/mypage"; //마이페이지 링크 추후 수정 필요..
 	}
 	
-//	TRANSACTION_ID, ACCOUNT_NUMBER, ACCOUNT_BANK, MEMBER_ID, 
-//	STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO
-	
 	@PostMapping("addExternalTransaction")
 	@ResponseBody
 	public void addExternalTransaction(String accountNumber, String accountBank, String memberId, String storeId, Date transactionTime,
@@ -101,6 +98,35 @@ public class MemberController {
 				transactionStore, transactionAmt, transactionMemo);
 		memberService.addExternalTransaction(transaction, accountNumber);
 //		return return 페이지 필요?...
+	}
+	
+	@PostMapping("pay")
+	@ResponseBody
+	public void pay(String accountNumber, int amt, String memberId, Model model, HttpSession session) {
+		memberService.pay(accountNumber, amt, memberId);
+	}
+	
+	@PostMapping("addTransaction")
+	@ResponseBody
+	public void addTransaction(String accountNumber, String accountBank, String memberId, 
+			String storeId, Date transactionTime, String transactionStore, 
+			int transactionAmt, Model model, HttpSession session) {
+		
+		Transaction transaction = new Transaction(accountNumber,accountBank,memberId,storeId,transactionTime,transactionStore,transactionAmt);
+		memberService.addTransaction(transaction);
+	}
+	
+	@PostMapping("charge")
+	@ResponseBody
+	public void charge(String accountNumber, int amt, String memberId, Model model, HttpSession session) {
+		memberService.charge(accountNumber, amt, memberId);
+	}
+	
+	@PostMapping("updateTransactionMemo")
+	@ResponseBody
+	public void updateTransactionMemo(int transactionId, String transactionMemo, Model model, HttpSession session) {
+		Transaction transaction = new Transaction(transactionId, transactionMemo);
+		memberService.updateTransactionMemo(transaction);
 	}
 	
 	@PostMapping("findAllAccount")
