@@ -67,13 +67,30 @@
 	$(function(){
 		var storyId = location.pathname.substring(10)
 		
+		
 		$.ajax({
 			type: "post",
-			url: "/story/findStoryMember",
+			url: "/story/findAllDiaryList",
 			data: {'storyId': storyId},
 			
 			success:function(result) {
 				console.log(result)
+				
+				var diaryName;
+				var imageUrl = "/img/noimg.png";
+				for(var i=0; i<result.length; i++) {
+					diaryName = result[i].diaryName;
+					
+					$('.diary-in-story').append(
+							'<div class="card col-sm-6 col-md-4">'
+								+'<div class="card-body" onclick='+'\"location.href='+"\'/bnk/trip/diary_detail\'\">"
+									+'<h5 class="card-title">'+ diaryName +'</h5>'
+								+'</div>'
+								+'<img class="card-img-bottom" src='+ imageUrl +' style="width:100%">'
+							+'</div>'
+					) 
+				}
+
 			},
 			error: function(e){
 				console.log(e);
@@ -82,7 +99,7 @@
 		
 		$.ajax({
 			type: "post",
-			url: "/story/findAllDiaryList",
+			url: "/story/findStoryMember",
 			data: {'storyId': storyId},
 			
 			success:function(result) {
@@ -104,6 +121,7 @@
 				success:function(result) {
 					alert(diaryName + " 다이어리 추가 완료");
 					console.log(result);
+					document.location.reload();	// 생성된 다이어리 반영하기 위해 새로고침
 				},
 				error: function(e){
 					console.log(e);
@@ -136,34 +154,11 @@
 		<div class="row d-flex justify-content-center diary-in-story">
 			<div class="card col-sm-6 col-md-4">
 				<div class="card-body" onclick="location.href='/bnk/trip/diary_detail'">
-					<h5 class="card-text">통영에서의 추억</h5>
+					<h5 class="card-text">직접 입력한 추억</h5>
 				</div>
 				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
 			</div>
-			<div class="card col-sm-6 col-md-4">
-				<div class="card-body">
-					<h5 class="card-title">부산 당일치기</h5>
-				</div>
-				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
-			</div>
-			<div class="card col-sm-6 col-md-4">
-				<div class="card-body">
-					<h5 class="card-title">앨범003</h5>
-				</div>
-				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
-			</div>
-			<div class="card col-sm-6 col-md-4">
-				<div class="card-body">
-					<h5 class="card-text">통영에서의 추억</h5>
-				</div>
-				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
-			</div>
-			<div class="card col-sm-6 col-md-4">
-				<div class="card-body">
-					<h5 class="card-title">부산 당일치기</h5>
-				</div>
-				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
-			</div>
+			
 		</div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
