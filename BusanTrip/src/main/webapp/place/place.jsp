@@ -232,8 +232,8 @@
 			<div class="place-lower-box-title">
 				* <span class="regionName">부산</span>의 인기 장소
 			</div>
-			<div class="place-lower-box-lower">
-				<div class="place-lower-box-info">
+			<div class="place-lower-box-lower" id="랜덤시드값">
+				<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
 					<div class="info-left">
 						<div class="ud-center">
 							<span class="category">관광지</span>
@@ -256,10 +256,12 @@
 		--%>
 		
 		<%-- 지역별 컨텐츠 --%>
-		var regionArr = ["부산"];
+		var regionArr = ["해운대", "부산"];
 		
 		for (var j=0; j<regionArr.length; j++) {
 			let region = regionArr[j];
+			
+			let contentsId = generateId();
 			
 			$.ajax({
 				type: 'post',
@@ -276,10 +278,9 @@
 					divPlaceLowerBoxTitle.append(spanRegionName);
 					divPlaceLowerBoxTitle.append("의 인기 장소");
 					
-					
-					let divPlaceLowerBox = document.createElement('div');
-					divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-					divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+					let divPlaceLowerBoxLower = document.createElement('div');
+					divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower');
+					divPlaceLowerBoxLower.setAttribute('id', contentsId);
 					
 					for (var i=0; i<result.length; i++) {
 						let store = result[i];
@@ -342,12 +343,14 @@
 						divPlaceLowerBoxInfo.append(divInfoLeft);
 						divPlaceLowerBoxInfo.append(divInfoRight);
 						
-						let divPlaceLowerBoxLower = document.createElement('div');
-						divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower');
 						divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
 						
-						divPlaceLowerBox.append(divPlaceLowerBoxLower);
 					}  // for
+					
+					let divPlaceLowerBox = document.createElement('div');
+					divPlaceLowerBox.setAttribute('class', 'place-lower-box');
+					divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+					divPlaceLowerBox.append(divPlaceLowerBoxLower);
 					
 					let divPlaceLower = $('.place-lower');
 					divPlaceLower.append(divPlaceLowerBox);
@@ -374,6 +377,16 @@
 		// initial method
 		
 	});  // JQuery
+	
+function generateId() {
+	let id = '', randInt;
+	for (let i = 0; i < 32; i++) {
+		randInt = parseInt(Math.random()*36)
+		if (randInt < 10) id += randInt;
+		else id +=String.fromCharCode(randInt+87);
+	}
+	return id;
+}
 	
 </script>
 
@@ -413,6 +426,8 @@
 				</div>
 			</div>
 		</c:if>
+		
+		<button type="button" class="btn btn-primary" data-toggle="collapse" data-target=".place-lower-box-lower">Simple collapsible</button>
 		
 		<div class="place-lower">
 			<%--
