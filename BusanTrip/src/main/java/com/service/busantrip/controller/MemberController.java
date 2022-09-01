@@ -45,9 +45,10 @@ public class MemberController {
 	}
 	
 	@PostMapping("logout")
+	@ResponseBody
 	public String logout(Model model, HttpSession session) {
 			session.invalidate();
-			return "redirect:/bnk/home";
+			return "/bnk/home";
 	}
 	
 	@PostMapping("getMemberName")
