@@ -44,7 +44,7 @@ public class HomeController {
 	@RequestMapping("error")
 	public String error() {
 		return "error";
-
+	}
 	@RequestMapping("trip/diary_detail")
 	public String diaryDetail2() {
 		return "trip/diary_detail";
