@@ -116,6 +116,17 @@
 		margin: 5px 0 0 10px;
 		font-size: 16px;
 		font-weight: bold;
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	.title-left { width: 100%; }
+	.title-right { width: 40px; }
+	
+	.moreBtn {
+		border: 0;
+	    background-color: white;
+		color: var(--bnk-dark-red);
 	}
 	
 	.regionName, .periodName, .typeName {
@@ -230,7 +241,12 @@
 		<%--
 		<div class="place-lower-box">
 			<div class="place-lower-box-title">
-				* <span class="regionName">부산</span>의 인기 장소
+				<div class="title-left">
+					* <span class="regionName">부산</span>의 인기 장소
+				</div>
+				<div class="title-right">
+					<button type="button" class="moreBtn" data-toggle="collapse" data-target="#랜덤시드값">▼</button>
+				</div>
 			</div>
 			<div class="place-lower-box-lower" id="랜덤시드값">
 				<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
@@ -256,30 +272,51 @@
 		--%>
 		
 		<%-- 지역별 컨텐츠 --%>
-		var regionArr = ["해운대", "부산"];
+		var regionArr = ["부산", "해운대", "기장"];
 		
 		for (var j=0; j<regionArr.length; j++) {
 			let region = regionArr[j];
-			
-			let contentsId = generateId();
 			
 			$.ajax({
 				type: 'post',
 				url: '/store/findStorePopularByRegion',
 				data: {'region': region},
 				success: function(result) {
+					let contentsId = generateId();
+					
 					let spanRegionName = document.createElement('span');
 					spanRegionName.setAttribute('class', 'regionName');
 					spanRegionName.append(region);
 					
+					let divTitleLeft = document.createElement('div');
+					divTitleLeft.setAttribute('class', 'title-left');
+					divTitleLeft.append("* ");
+					divTitleLeft.append(spanRegionName);
+					divTitleLeft.append("의 인기 장소");
+					
+					
+					let moreBtn = document.createElement('button');
+					moreBtn.setAttribute('type', 'button');
+					moreBtn.setAttribute('class', 'moreBtn');
+					moreBtn.setAttribute('data-toggle', 'collapse');
+					moreBtn.setAttribute('data-target', '#' + contentsId);
+					moreBtn.append("▼");
+					// 부트스트랩 버튼 쓰니까 ajax랑 순서 안 맞아서 에러나는 경우 있는 듯.
+					// 이는 향후 수정할 예정 (자체적으로 click 함수를 정제하던가 해서)
+					
+					let divTitleRight = document.createElement('div');
+					divTitleRight.setAttribute('class', 'title-right');
+					divTitleRight.append(moreBtn);
+					
+					
 					let divPlaceLowerBoxTitle = document.createElement('div');
 					divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-					divPlaceLowerBoxTitle.append("* ");
-					divPlaceLowerBoxTitle.append(spanRegionName);
-					divPlaceLowerBoxTitle.append("의 인기 장소");
+					divPlaceLowerBoxTitle.append(divTitleLeft);
+					divPlaceLowerBoxTitle.append(divTitleRight);
+					
 					
 					let divPlaceLowerBoxLower = document.createElement('div');
-					divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower');
+					divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
 					divPlaceLowerBoxLower.setAttribute('id', contentsId);
 					
 					for (var i=0; i<result.length; i++) {
@@ -355,8 +392,9 @@
 					let divPlaceLower = $('.place-lower');
 					divPlaceLower.append(divPlaceLowerBox);
 					
+					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
 					// 이미지랑 버튼 연결용 코드
-					$('.searchBtn').click(function(){
+					$('.searchBtn').off('click').click(function(){
 						alert('search!');
 					});  // img click
 					
@@ -426,8 +464,6 @@ function generateId() {
 				</div>
 			</div>
 		</c:if>
-		
-		<button type="button" class="btn btn-primary" data-toggle="collapse" data-target=".place-lower-box-lower">Simple collapsible</button>
 		
 		<div class="place-lower">
 			<%--
