@@ -1,5 +1,6 @@
 package com.service.busantrip.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -9,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.Story;
+import com.service.busantrip.model.MemberService;
 import com.service.busantrip.model.StoryService;
 
 @Controller
@@ -21,6 +24,14 @@ import com.service.busantrip.model.StoryService;
 public class StoryController {
 	@Autowired
 	StoryService storyService;
+	@Autowired
+	MemberService memberService;
+	
+	@PostMapping("findIdExist")
+	@ResponseBody
+	public Boolean findIdExist(String memberId, Model model, HttpSession session) {
+		return memberService.findIdExist(memberId);
+	}
 	
 	@PostMapping("addStory")
 	@ResponseBody
@@ -32,8 +43,15 @@ public class StoryController {
 	
 	@PostMapping("addStoryMember")
 	@ResponseBody
-	public void addStoryMember(String storyId, String memberId, Model model, HttpSession session) {
-		storyService.addStoryMember(storyId, memberId);
+	public int addStoryMember(String storyId, @RequestParam(value="memberList[]") List<String> memberList, Model model, HttpSession session) {
+		int count = 0;
+		System.out.println("count:: " + count);
+		
+		for(String memberId: memberList) {
+			storyService.addStoryMember(storyId, memberId);
+			count+=1;
+		}
+		return count;
 	}
 	
 	

@@ -30,6 +30,7 @@ public class StoryDAOImpl implements StoryDAO{
 		
 		sqlSession.insert(NS+"addStory", storyName);
 		String storyId = sqlSession.selectOne(NS+"getStoryId", storyName);
+		System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
 		
 		HashMap<String, Object> learderMap = new HashMap<String, Object>();
 		learderMap.put("storyId", storyId);
