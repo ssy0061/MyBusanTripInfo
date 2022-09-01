@@ -292,33 +292,36 @@
 	
 	<div class="content container">
 		
-		<div class="place-upper">
-			<div class="place-upper-inner">
-				<div class="place-upper-inner-title">
-					<span id="nowMonth">8월</span>의 My핫플
-				</div>
-				<div class="place-upper-inner-contents">
-
-					<div id="first" class="ranking">
-						<img class="medal" src="/img/medal.png">
-						<span class="storeName">든킨드나쓰 든킨드나쓰점</span>
-						<span class="visitCount">7회</span>
+		<%-- 로그인되어 있는 경우에만 My핫플 정보를 출력 --%>
+		<c:if test="${!empty loginUser}">
+			<div class="place-upper">
+				<div class="place-upper-inner">
+					<div class="place-upper-inner-title">
+						<span id="nowMonth">8월</span>의 My핫플
 					</div>
-					
-					<div id="second" class="ranking">
-						<img class="medal" src="/img/medal.png">
-						<span class="storeName">든킨드나쓰</span>
-						<span class="visitCount">7회</span>
-					</div>
-					
-					<div id="third" class="ranking">
-						<img class="medal" src="/img/medal.png">
-						<span class="storeName">-</span>
-						<span class="visitCount"></span>
+					<div class="place-upper-inner-contents">
+	
+						<div id="first" class="ranking">
+							<img class="medal" src="/img/medal.png">
+							<span class="storeName">든킨드나쓰 든킨드나쓰점</span>
+							<span class="visitCount">7회</span>
+						</div>
+						
+						<div id="second" class="ranking">
+							<img class="medal" src="/img/medal.png">
+							<span class="storeName">든킨드나쓰</span>
+							<span class="visitCount">7회</span>
+						</div>
+						
+						<div id="third" class="ranking">
+							<img class="medal" src="/img/medal.png">
+							<span class="storeName">-</span>
+							<span class="visitCount"></span>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</c:if>
 		
 		<div class="place-lower">
 			<div class="place-lower-box">
