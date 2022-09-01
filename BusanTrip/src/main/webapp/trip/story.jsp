@@ -71,10 +71,19 @@
 
 <script>
 
-$(function() {
+$(document).ready(function() {
 	var memberList = [];
 	
-	$('#membersearch').on('click', addMember)
+	$('#membersearch').click(function(){
+		addMember();
+	});
+	$('#closebutton').click(function(){
+		$('#statusmember').text("");
+		//$('#newmember').setAttribute('value','');
+		var searchmember = document.getElementById('newmember');
+		searchmember.value="";
+		$('#newmember').setAttribute('placeholder','추가할 멤버 아이디 검색하기');
+	})
 	function addMember() {
 		var memberId = $('#newmember').val();
 		
@@ -92,13 +101,12 @@ $(function() {
 							flag = 1;
 							break;
 						} 
-
 					}
 					if(flag == 0) {
 						memberList.push(memberId);
-						$('#memberresult li').append(memberId+'   ');
+						$('#statusmember').append('<p class="mb-0">'+memberId+'</p>');
+						$('#statusmessage').text("");
 					}
-
 				}
 				else {
 					if(memberId != ""){
@@ -106,6 +114,7 @@ $(function() {
 					}
 						
 				}
+				$("#membersearch").slideDown();
 				console.log(result);
 			},
 			error:function(e) {
@@ -203,7 +212,7 @@ $(function() {
 	     <div class="modal-content">
 	     	<div class="modal-header">
 	     		<h4 class="modal-title">스토리 생성하기</h4>
-	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	     		<button type="button" id="closebutton" class="close" data-dismiss="modal">&times;</button>
 	     	</div>
 	     	<div class="modal-body" align="center">
 	       		<p>스토리 이름 : <input type="text" id="storyname" size="18"></p>
@@ -213,20 +222,19 @@ $(function() {
 					  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 					</svg>
 	       			<input type="text" id="newmember" placeholder="추가할 멤버 아이디 검색하기" size="23">
-	       			<button type="button" class="button btn-primary" id="membersearch" data-toggle="collapse" data-target="#memberresult">
+	       			<button type="button" class="button btn-primary" id="membersearch">
 		       			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
 						  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 						</svg>
 					</button>
 	       		</p>
 	       		<p>
-	       			<div id="memberresult" class="collapse">
+	       			<div id="memberresult">
 	       				<div id="statusmessage" style="color:red">
 		       				함께할 친구의 ID를 입력하세요.
 		       			</div>
-	       				<ul>
-	       					<li>추가된 멤버:  </li>
-	       				</ul>
+	       				<div id="statusmember">
+	       				</div>
 	       			</div>
 	       		</p>
 	     	</div>
