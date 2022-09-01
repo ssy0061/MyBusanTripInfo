@@ -24,34 +24,55 @@
 	  --button-active: #EEEEEE;
 	}
 	
+	/* 상하단 바를 위한 필수 css */
 	.content{
-		min-height: 20vh;
-	    width: 100%;
-	    margin: 100px auto 10px;
-	    padding-top: 10px;
-	    padding-bottom: 10px;
+	    margin-top: 90px;
+	    padding: 20px 0;
 	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 80px; /* 상단바 80*/
+			padding-bottom: 80px;
+			background-color: #fef0f0;
+			min-height: calc(100vh - 80px);
+		}
+		.search-box{
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 190px);
+		}
+		.search-box{
+			padding-top: 50px;
+			padding-bottom: 50px;
+			min-height: calc(100vh - 190px);
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 	
 	.search-box {
-		max-width: 400px;
+		max-width: 720px;
 		margin: 0 auto;
 		text-align: center;
-		min-height: 10vh;
-		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
+		background-color: #fef0f0;
+		border-radius: 10px;
 	}
 	
 	.search-box-inner {
-		max-width: 300px;
-		margin: 30px auto;
-		height: 80px;
-		position: relative;
-		border: 4px outset var(--bnk-lightgray);
+		max-width: 500px;
+		width: 80%;
+		margin: 0 auto 30px;
+		height: 100px;
+		/* position: relative; */
 		background-color: white;
+		padding-top: 10px;
 	}
-	
 	.search-box-inner:hover {
 	    background-color: var(--button-hover);
+	    cursor: pointer;
 	}
 	
 	.search-box-inner:active {
@@ -62,46 +83,38 @@
 		height: auto;
 		text-align: left;
 	}
+	.upper-title{
+		display: inline-flex;
+		text-align: left;
+		flex-direction: column;
+		padding-left: 10px;
+	}
 	
 	.search-box-inner-lower {
 		display: flex;
-		justify-content: space-around;
+		justify-content: flex-end;
 	}
 	
 	.ud-center {
 		width: 100%;
-		position: absolute;
+		/* position: absolute;
 		left: 50%; top: 50%;
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%); */
+		padding: 20px auto;
 	}
 	
-	.bankIcon, .bankName {
+	.bankIcon{
 		position: relative;
 		left: 10px;
-	}
-	
-	.bankIcon {
-		width: 25px;
-		height: 25px;
-		border-radius: 10px;
-		border: 1px solid var(--bnk-dark-red);
+		width: 32px;
+		height: 32px;
 		margin: 0 10px 0 0;
 	}
 	
 	.bankName {
-		position: relative;
-		top: 2px;
 	}
 	
 	.accountNumber {
-		max-width: 90px;
-		width: 100%;
-		font-size: 10px;
-		text-align: left;
-		position: relative;
-		left: 10px;
-		vertical-align: bottom;
-		margin: 15px 0 0;
 		color: gray;
 	}
 	
@@ -122,100 +135,94 @@
 <script>
 
 	$(function() {
-		var nameArr = ["부산은행", "이런은행", "저런은행", "샘플링은행", "임시이름은행"];
-		var accountArr = ["777-7777-7777-77", "888-88-888888", "9876-543-210000", "010-10-101010-1", "123-456789-01-234"];
-		var moneyArr = ["9999999", "150000", "770000", "63500", "150"];
-		var idArr = ["BNKBNK", "Q12345", "TEMP", "IDVALUE", "S0M31D"];
+		/* var result = [
+			{
+				'account_bank': '부산은행',
+				'account': '777-7777-7777-77',
+				'money': '9999999',
+				'id': 'id01'
+			},
+			{
+				'account_bank': '부산은행',
+				'account': '888-88-888888',
+				'money': '150000',
+				'id': 'id02'
+			},
+			{
+				'account_bank': '경남은행',
+				'account': '8238-24-466111',
+				'money': '150000',
+				'id': 'id03'
+			},
+			{
+				'account_bank': '부산은행',
+				'account': '010-10-101010-1',
+				'money': '63500',
+				'id': 'id04'
+			},
+			{
+				'account_bank': '경남은행',
+				'account': '123-456789-01-234',
+				'money': '150',
+				'id': 'id05'
+			}
+		] */
 		
-		for (var i=0; i<5; i++) {
-			let icon = "/img/bank_icon.png";
-			let name = nameArr[i];
-			let account = accountArr[i];
-			let money = moneyArr[i];
-			let id = idArr[i];
-			
-			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",")  + "원";
-			
-			// html tag 생성 form
-			<%--
-			<div id="고유id값" class="rounded-lg shadow bg-white search-box-inner">
-				<div class="ud-center">
-					<div class="search-box-inner-upper">
-						<img class="bankIcon" src="./img/bank_icon.png">
-						<span class="bankName">은행명칭</span>
-					</div>
-					<div class="search-box-inner-lower">
-						<span class="accountNumber">XXX-XXXXXX-XX-XXX</span>
-						<span class="amount">0,000,000원</span>
-					</div>
-				</div>
-			</div>
-			--%>	
-			let spanAccountNumber = document.createElement('span');
-			spanAccountNumber.setAttribute('class', 'accountNumber');
-			spanAccountNumber.append(account);
-			
-			let spanAmount = document.createElement('span');
-			spanAmount.setAttribute('class', 'amount');
-			spanAmount.append(money);
-			
-			let divSearchBoxInnerLower = document.createElement('div');
-			divSearchBoxInnerLower.setAttribute('class', 'search-box-inner-lower');
-			divSearchBoxInnerLower.append(spanAccountNumber);
-			divSearchBoxInnerLower.append(spanAmount);
-			
-			
-			let imgBankIcon = document.createElement('img');
-			imgBankIcon.setAttribute('class', 'bankIcon');
-			imgBankIcon.setAttribute('src', icon);
-			
-			let spanBankName = document.createElement('span');
-			spanBankName.setAttribute('class', 'bankName');
-			spanBankName.append(name);
-			
-			let divSearchBoxInnerUpper = document.createElement('div');
-			divSearchBoxInnerUpper.setAttribute('class', 'search-box-inner-upper');
-			divSearchBoxInnerUpper.append(imgBankIcon);
-			divSearchBoxInnerUpper.append(spanBankName);
-			
-			
-			let divUdCenter = document.createElement('div');
-			divUdCenter.setAttribute('class', 'ud-center');
-			divUdCenter.append(divSearchBoxInnerUpper);
-			divUdCenter.append(divSearchBoxInnerLower);
-			
-			let divFinal = document.createElement('div');
-			divFinal.setAttribute('class', 'rounded-lg shadow search-box-inner');
-			divFinal.setAttribute('id', id);
-			divFinal.append(divUdCenter);
-			
-			
-			$('#searchBox').append(divFinal);
-		}  // Initial
 
 		
-		$('.search-box-inner').click(function(){
-			let id = $(this).attr('id');
-
+		$('#searchBox').on('click', '.search-box-inner', function(){
+			let accountNumber = $(this).attr('id');
 			// id값을 이용해서 페이지 이동. Post 방식.
 			let tempForm = document.createElement('form');
 		    tempForm.setAttribute('method', 'post');
-		    tempForm.setAttribute('action', 'somethingAction.do');
-			tempForm.setAttribute('id', id);
+		    tempForm.setAttribute('action', '/bnk/search');
 		
+			var data = document.createElement('input');
+			data.setAttribute('type', 'text');
+			data.setAttribute('name', 'accountNumber');
+			data.setAttribute('value', accountNumber);
+			
+			tempForm.appendChild(data);
+			tempForm.setAttribute('accountNumber', accountNumber);
 		    document.body.appendChild(tempForm);
 		    tempForm.submit();
 		});  // div click
 		
-		var memberId = '<%=(String)session.getAttribute("memberId")%>';
-		console.log(memberId)
+		var memberId = '<%= (String)session.getAttribute("memberId")%>';
+		/* console.log(memberId) */
 		$.ajax({
 			type: 'post',
 			url: '/member/findAllAccount',
 			data: {'memberId': memberId},
 			
 			success:function(result) {
-				console.log(result)
+				/* console.log(result) */
+				for (var i=0; i<result.length; i++) {
+					let accountBank = result[i].accountBank;
+					let icon = "/img/char.png";
+					if(accountBank==='부산은행' || accountBank==='경남은행') icon = "/img/bank_bnk.png"
+					let accountNumber = result[i].accountNumber;
+					let accountBalance = result[i].accountBalance;
+					let id = result[i].id;
+					
+					accountBalance = accountBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  + " 원"
+					
+					$('#searchBox').append(
+						'<div id="'+accountNumber+'" class="rounded-lg shadow bg-white search-box-inner">'+
+						'<div class="ud-center">'+
+						
+						'<div class="search-box-inner-upper">'+
+						'<img class="bankIcon" src="'+icon+'">'+
+						'<div class="upper-title">'+
+						'<div class="bankName">'+accountBank+'</div>'+
+						'<div class="accountNumber"><b>'+accountNumber+'</b></div></div></div>'+
+						
+						'<div class="search-box-inner-lower">'+
+						'<span class="amount">'+accountBalance+'</span>'+
+						'</div></div></div>'
+					);
+					
+				}  // Initial
 			},
 			error: function(e){
 				console.log(e);
@@ -227,36 +234,16 @@
 
 </head>
 <body>
-	<div>
-		<c:import url="../header/nav.jsp">
-			<c:param name="navTitle" value="조회"/>
-		</c:import>
+	<c:import url="../header/nav.jsp">
+		<c:param name="navTitle" value="계좌 조회"/>
+	</c:import>
 		
-		<div class="content container">
-			
-			<div id="searchBox" class="search-box">
-			
-				<%--
-				<div id="고유id값" class="rounded-lg shadow bg-white search-box-inner">
-					<div class="ud-center">
-						<div class="search-box-inner-upper">
-							<img class="bankIcon" src="./img/bank_icon.png">
-							<span class="bankName">은행명칭</span>
-						</div>
-						<div class="search-box-inner-lower">
-							<span class="accountNumber">XXX-XXXXXX-XX-XXX</span>
-							<span class="amount">0,000,000원</span>
-						</div>
-					</div>
-				</div>
-				--%>
-				
-			</div>
-			
+	<div class="content container">
+		<div id="searchBox" class="search-box">
+		
 		</div>
-		
-		<c:import url="../footer/footer.jsp" />
 	</div>
-</body>
+	
+	<c:import url="../footer/footer.jsp" />
 </body>
 </html>

@@ -62,6 +62,13 @@ public class MemberController {
 		return balance;
 	}
 	
+	@PostMapping("getPointBalance")
+	@ResponseBody
+	public int getPointBalance(String memberId, Model model, HttpSession session) {
+		int balance = memberService.getPointBalance(memberId);
+		return balance;
+	}
+	
 	@PostMapping("join")
 	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, Model model, HttpSession session) {
 		try {

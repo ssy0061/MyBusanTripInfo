@@ -88,12 +88,18 @@
 	</update>
 
 	<select id="findAllAccount" parameterType="String" resultType="account">
-		SELECT ACCOUNT_NUMBER, MEMBER_ID, ACCOUNT_BALANCE, ACCOUNT_INNER
+		SELECT ACCOUNT_NUMBER, MEMBER_ID, ACCOUNT_BALANCE, ACCOUNT_INNER, ACCOUNT_BANK
 		FROM ACCOUNT
 		WHERE MEMBER_ID=#{memberId}
 	</select>
 	
 	<select id="getBalance" parameterType="String" resultType="int">
+		SELECT account_balance
+		FROM ACCOUNT
+		WHERE ACCOUNT_NUMBER=#{accountNumber}
+	</select>
+	
+	<select id="getPointBalance" parameterType="String" resultType="int">
 		SELECT account_balance
 		FROM ACCOUNT
 		WHERE MEMBER_ID=#{memberId} AND ACCOUNT_INNER='Y'

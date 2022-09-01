@@ -106,8 +106,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int getBalance(String memberId) {
-		return memberDAO.getBalance(memberId);
+	public int getBalance(String accountNumber) {
+		return memberDAO.getBalance(accountNumber);
+	}
+	
+	@Override
+	public int getPointBalance(String memberId) {
+		return memberDAO.getPointBalance(memberId);
 	}
 
 	@Override

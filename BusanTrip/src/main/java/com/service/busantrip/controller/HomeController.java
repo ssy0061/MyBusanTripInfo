@@ -16,8 +16,17 @@ public class HomeController {
 		return "home/home";
 	}
 	@RequestMapping("search")
-	public String search() {
+	public String search(String accountNumber, HttpServletRequest request) {
+		if(accountNumber!=null)  {
+			request.setAttribute("accountNumber", accountNumber);
+			return "search/searchDetail";
+		}
 		return "search/search";
+	}
+	@RequestMapping("transaction")
+	public String transaction(String id, HttpServletRequest request) {
+		request.setAttribute("id", id);
+		return "redirect:/search/searchDetail.jsp";
 	}
 	
 	@RequestMapping("trip")
