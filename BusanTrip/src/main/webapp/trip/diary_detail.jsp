@@ -18,7 +18,6 @@
 <style>
 	/* all */
 	*{
-		font-family: 'Trebuchet MS', sans-serif;
 		box-sizing:border-box;
 	}
 	/* container */
