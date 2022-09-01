@@ -157,20 +157,30 @@
 		justify-content: space-around;
 	}
 	
-	.location {
-		width: 100%;
-		text-align: left;
-		margin: 0 0 0 5px;
-		font-size: 13px;
+	.location, .searchBtnDiv {
 		position: relative;
 		bottom: 1px;
 	}
 	
+	.location {
+		width: 100%;
+		text-align: left;
+		margin: 4px 0 0 5px;
+		font-size: 13px;
+		line-height: 130%
+	}
+	
+	.searchBtnDiv {
+		margin: 0 3px 0 0;
+		width: 25px;
+	}
+	
 	.searchBtn {
-		margin: 0 3px;
 		width: 20px;
-		position: relative;
+		height: 20px;
+		position: absolute;
 		bottom: 2px;
+		right: 0;
 	}
 	
 	.ud-center {
@@ -207,14 +217,13 @@
 						}
 					}  // 두 곳 이하 방문한 경우 여기를 돌아서 빈 값을 채운다
 					
+					let nowDay = new Date();
+					let nowMonth = nowDay.getMonth() + 1;
+					$('#nowMonth').append(nowMonth+'월');
 				},
 				error: function(e){ console.log(e); }
 			});  // findStorePopularByPersonal end
 		};  // if
-		
-		let nowDay = new Date();
-		let nowMonth = nowDay.getMonth() + 1;
-		$('#nowMonth').append(nowMonth+'월');
 		
 		
 		// html tag 생성 form
@@ -236,109 +245,133 @@
 						</div>
 						<div class="info-right-lower">
 							<span class="location">부산 남구</span>
-							<img class="searchBtn" src="/img/search.png">
+							<div class="searchBtnDiv">
+								<img class="searchBtn" src="/img/search.png">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		--%>
-		for (var k=0; k<5; k++) {
-			let spanRegionName = document.createElement('span');
-			spanRegionName.setAttribute('class', 'regionName');
-			spanRegionName.append("부산");
+		
+		<%-- 지역별 컨텐츠 --%>
+		var regionArr = ["부산"];
+		
+		for (var j=0; j<regionArr.length; j++) {
+			let region = regionArr[j];
 			
-			let divPlaceLowerBoxTitle = document.createElement('div');
-			divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-			divPlaceLowerBoxTitle.append("* ");
-			divPlaceLowerBoxTitle.append(spanRegionName);
-			divPlaceLowerBoxTitle.append("의 인기 장소");
-			
-			
-			let divPlaceLowerBox = document.createElement('div');
-			divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-			divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-			
-			var idArr = ["A", "", "C"];
-			var categoryArr = ["관광지", "음식점", "카페"];
-			var placeNameArr = ["오륙도 스카이워크", "강서반점", "서귀포 제주 감귤 카페"];
-			var locationArr = ["부산 남구", "부산 강서구", "제주 서귀포시"];
-			
-			for (var i=0; i<3; i++) {
-				let id = idArr[i];
-				let category = categoryArr[i];
-				let placeName = placeNameArr[i];
-				let location = locationArr[i];
-				
-				
-				let hasId = (id != "");
-				
-				let spanCategory = document.createElement('span');
-				spanCategory.setAttribute('class', 'category');
-				spanCategory.append(category);
-				
-				let divUdCenter = document.createElement('div');
-				divUdCenter.setAttribute('class', 'ud-center');
-				divUdCenter.append(spanCategory);
-				
-				let divInfoLeft = document.createElement('div');
-				divInfoLeft.setAttribute('class', 'info-left');
-				divInfoLeft.append(divUdCenter);
-				
-				
-				let divPlaceName = document.createElement('div');
-				divPlaceName.setAttribute('class', 'placeName');
-				divPlaceName.append(placeName);
-				
-				let divInfoRightUpper = document.createElement('div');
-				divInfoRightUpper.setAttribute('class', 'info-right-upper');
-				divInfoRightUpper.append(divPlaceName);
-				
-				
-				let spanLocation = document.createElement('span');
-				spanLocation.setAttribute('class', 'location');
-				spanLocation.append(location);
-				
-				if (hasId) {  // hasId
-					var imgSearchBtn = document.createElement('img');
-					imgSearchBtn.setAttribute('class', 'searchBtn');
-					imgSearchBtn.setAttribute('src', '/img/search.png');
-				}
-				
-				let divInfoRightLower = document.createElement('div');
-				divInfoRightLower.setAttribute('class', 'info-right-lower');
-				divInfoRightLower.append(spanLocation);
-				if (hasId) divInfoRightLower.append(imgSearchBtn);
-				
-				
-				let divInfoRight = document.createElement('div');
-				divInfoRight.setAttribute('class', 'info-right');
-				divInfoRight.append(divInfoRightUpper);
-				divInfoRight.append(divInfoRightLower);
+			$.ajax({
+				type: 'post',
+				url: '/store/findStorePopularByRegion',
+				data: {'region': region},
+				success: function(result) {
+					let spanRegionName = document.createElement('span');
+					spanRegionName.setAttribute('class', 'regionName');
+					spanRegionName.append(region);
+					
+					let divPlaceLowerBoxTitle = document.createElement('div');
+					divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
+					divPlaceLowerBoxTitle.append("* ");
+					divPlaceLowerBoxTitle.append(spanRegionName);
+					divPlaceLowerBoxTitle.append("의 인기 장소");
+					
+					
+					let divPlaceLowerBox = document.createElement('div');
+					divPlaceLowerBox.setAttribute('class', 'place-lower-box');
+					divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+					
+					for (var i=0; i<result.length; i++) {
+						let store = result[i];
+						let id = store.storeId;
+						let category = store.storeCategory;
+						let placeName = store.storeName;
+						let location = store.storeAddr;
+						let hasId = (id == null);
+						
+						let spanCategory = document.createElement('span');
+						spanCategory.setAttribute('class', 'category');
+						spanCategory.append(category);
+						
+						let divUdCenter = document.createElement('div');
+						divUdCenter.setAttribute('class', 'ud-center');
+						divUdCenter.append(spanCategory);
+						
+						let divInfoLeft = document.createElement('div');
+						divInfoLeft.setAttribute('class', 'info-left');
+						divInfoLeft.append(divUdCenter);
+						
+						
+						let divPlaceName = document.createElement('div');
+						divPlaceName.setAttribute('class', 'placeName');
+						divPlaceName.append(placeName);
+						
+						let divInfoRightUpper = document.createElement('div');
+						divInfoRightUpper.setAttribute('class', 'info-right-upper');
+						divInfoRightUpper.append(divPlaceName);
+						
+						
+						let spanLocation = document.createElement('span');
+						spanLocation.setAttribute('class', 'location');
+						spanLocation.append(location);
+						
+						let divSearchBtnDiv;
+						if (hasId) {  // hasId
+							var imgSearchBtn = document.createElement('img');
+							imgSearchBtn.setAttribute('class', 'searchBtn');
+							imgSearchBtn.setAttribute('src', '/img/search.png');
+							
+							divSearchBtnDiv = document.createElement('div');
+							divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
+							divSearchBtnDiv.append(imgSearchBtn);
+						}
+						
+						let divInfoRightLower = document.createElement('div');
+						divInfoRightLower.setAttribute('class', 'info-right-lower');
+						divInfoRightLower.append(spanLocation);
+						if (hasId) divInfoRightLower.append(divSearchBtnDiv);
+						
+						
+						let divInfoRight = document.createElement('div');
+						divInfoRight.setAttribute('class', 'info-right');
+						divInfoRight.append(divInfoRightUpper);
+						divInfoRight.append(divInfoRightLower);
 
-				let divPlaceLowerBoxInfo = document.createElement('div');
-				divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-				divPlaceLowerBoxInfo.append(divInfoLeft);
-				divPlaceLowerBoxInfo.append(divInfoRight);
-				
-				let divPlaceLowerBoxLower = document.createElement('div');
-				divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower');
-				divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-				
-				divPlaceLowerBox.append(divPlaceLowerBoxLower);
-			}  // for
-			
-			let divPlaceLower = $('.place-lower');
-			divPlaceLower.append(divPlaceLowerBox);
-		}  // for
+						let divPlaceLowerBoxInfo = document.createElement('div');
+						divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
+						divPlaceLowerBoxInfo.append(divInfoLeft);
+						divPlaceLowerBoxInfo.append(divInfoRight);
+						
+						let divPlaceLowerBoxLower = document.createElement('div');
+						divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower');
+						divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
+						
+						divPlaceLowerBox.append(divPlaceLowerBoxLower);
+					}  // for
+					
+					let divPlaceLower = $('.place-lower');
+					divPlaceLower.append(divPlaceLowerBox);
+					
+					// 이미지랑 버튼 연결용 코드
+					$('.searchBtn').click(function(){
+						alert('search!');
+					});  // img click
+					
+				},  // ajax success end
+				error: function(e){ console.log(e); }
+			});  // findStorePopularByRegion end
+		}  // for - 지역별 컨텐츠
+		
+		
+		<%-- 기간별 컨텐츠 --%>
+		
+		
+		<%-- 범주별 컨텐츠 --%>
+		
+		
 		
 		
 		// initial method
-		
-		// 이미지랑 버튼 연결용 코드
-		$('.searchBtn').click(function(){
-			alert('search!');
-		});  // img click
 		
 	});  // JQuery
 	
@@ -400,7 +433,9 @@
 							</div>
 							<div class="info-right-lower">
 								<span class="location">부산 남구</span>
-								<img class="searchBtn" src="/img/search.png">
+								<div class="searchBtnDiv">
+									<img class="searchBtn" src="/img/search.png">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -424,7 +459,9 @@
 							</div>
 							<div class="info-right-lower">
 								<span class="location">부산 남구</span>
-								<img class="searchBtn" src="/img/search.png">
+								<div class="searchBtnDiv">
+									<img class="searchBtn" src="/img/search.png">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -448,7 +485,9 @@
 							</div>
 							<div class="info-right-lower">
 								<span class="location">부산 남구</span>
-								<img class="searchBtn" src="/img/search.png">
+								<div class="searchBtnDiv">
+									<img class="searchBtn" src="/img/search.png">
+								</div>
 							</div>
 						</div>
 					</div>
