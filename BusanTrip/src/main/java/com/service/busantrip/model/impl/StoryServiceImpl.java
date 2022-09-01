@@ -19,8 +19,8 @@ public class StoryServiceImpl implements StoryService{
 	private StoryDAO storyDAO;
 		
 	@Override
-	public void addStory(String storyName, String memberId) {
-		storyDAO.addStory(storyName, memberId);
+	public String addStory(String storyName, String memberId) {
+		return storyDAO.addStory(storyName, memberId);
 		
 	}
 
