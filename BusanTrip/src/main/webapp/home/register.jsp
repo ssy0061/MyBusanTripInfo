@@ -105,13 +105,24 @@
 			} else if ((idVal.length < 5) || (idVal.length > 30)) {  // 글자 위반
 				$('#checkDuple').text('5자 ~ 30자로 아이디를 입력해주세요.');
 				$('#checkDuple').attr('class', 'inner-text inner-text-yellow');
-			} else if (false) {  // 중복 시
-				$('#checkDuple').text('다른 아이디를 사용해주세요.');
-				$('#checkDuple').attr('class', 'inner-text inner-text-red');
-			} else {  // ok
-				$('#checkDuple').text('아이디로 사용가능합니다!');
-				$('#checkDuple').attr('class', 'inner-text inner-text-green');
-				isValidId = true;
+			} else {
+				// id 유무 check
+				$.ajax({
+					type: 'post',
+					url: '/member/findIdExist',
+					data: {'memberId': idVal},
+					success: function(result) {
+						if (result) {  // 중복 시
+							$('#checkDuple').text('다른 아이디를 사용해주세요.');
+							$('#checkDuple').attr('class', 'inner-text inner-text-red');
+						} else {  // ok
+							$('#checkDuple').text('아이디로 사용가능합니다!');
+							$('#checkDuple').attr('class', 'inner-text inner-text-green');
+							isValidId = true;
+						}
+					},
+					error: function(e){ console.log(e); }
+				});  // findIdExist end
 			}
 		});  // id on-keyup
 		
