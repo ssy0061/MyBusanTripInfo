@@ -302,19 +302,19 @@
 					<div class="place-upper-inner-contents">
 	
 						<div id="first" class="ranking">
-							<img class="medal" src="/img/medal.png">
+							<img class="medal" src="/img/medal1.png">
 							<span class="storeName">든킨드나쓰 든킨드나쓰점</span>
 							<span class="visitCount">7회</span>
 						</div>
 						
 						<div id="second" class="ranking">
-							<img class="medal" src="/img/medal.png">
+							<img class="medal" src="/img/medal2.png">
 							<span class="storeName">든킨드나쓰</span>
 							<span class="visitCount">7회</span>
 						</div>
 						
 						<div id="third" class="ranking">
-							<img class="medal" src="/img/medal.png">
+							<img class="medal" src="/img/medal3.png">
 							<span class="storeName">-</span>
 							<span class="visitCount"></span>
 						</div>
