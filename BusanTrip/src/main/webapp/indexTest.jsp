@@ -6,11 +6,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	body{
-		background-color: #5ce1e6;
+ 	body{
+		background-image: url("./img/indexBackground.jpg");
 	}
-	p{
+	p {
 		text-align: center;
+		width: 100%;
+		position: absolute;
+		left: 50%; top: 48%;
+		transform: translate(-50%, -50%);
 	}
 	.loadingImage{
 		
@@ -22,7 +26,7 @@
 <meta http-equiv="refresh" content="2;url=/bnk/home">
 <body>
 	<p>
-		<img class="loadingImage" src="./img/loadingPage.gif">
+		<img class="loadingImage" src="./img/loadingPage5sec.gif">
 	</p>
 </body>
 </html>
