@@ -95,7 +95,7 @@
 		clip:rect(0,0,0,0);
 		border: 0;
 	}
-	.picture-btn-re>label, #resetUpload, .deleteBtn{
+	.picture-btn-re>label, .deleteBtn{
 		display:inline-block;
 		padding:4px 10px;
 		margin:0 5px;
@@ -107,6 +107,20 @@
 		border-radius:10px;
 		border-color:transparent;
 		background-color:#F08080;
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
+	#resetUpload{
+		display:inline-block;
+		padding:4px 10px;
+		margin:0 5px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#6c9dc6;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
