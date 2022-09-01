@@ -129,7 +129,7 @@
 		color: var(--bnk-dark-red);
 	}
 	
-	.regionName, .periodName, .typeName {
+	.regionName, .periodName, .categoryName {
 		color: var(--bnk-red);
 	}
 	
@@ -272,7 +272,7 @@
 		--%>
 		
 		<%-- 지역별 컨텐츠 --%>
-		var regionArr = ["부산", "해운대", "기장"];
+		var regionArr = ["해운대", "기장"];
 		
 		for (var j=0; j<regionArr.length; j++) {
 			let region = regionArr[j];
@@ -300,8 +300,6 @@
 					moreBtn.setAttribute('class', 'moreBtn');
 					moreBtn.setAttribute('data-target', '#' + contentsId);
 					moreBtn.append("▼");
-					// 부트스트랩 버튼 쓰니까 ajax랑 순서 안 맞아서 에러나는 경우 있는 듯.
-					// 이는 향후 수정할 예정 (자체적으로 click 함수를 정제하던가 해서)
 					
 					let divTitleRight = document.createElement('div');
 					divTitleRight.setAttribute('class', 'title-right');
@@ -324,7 +322,7 @@
 						let category = store.storeCategory;
 						let placeName = store.storeName;
 						let location = store.storeAddr;
-						let hasId = (id == null);
+						let hasId = (id == null);  // 이거 수정해야 함
 						
 						let spanCategory = document.createElement('span');
 						spanCategory.setAttribute('class', 'category');
@@ -410,12 +408,271 @@
 		
 		
 		<%-- 기간별 컨텐츠 --%>
+		let period = "일년";
+		
+		$.ajax({
+			type: 'post',
+			url: '/store/findStorePopularByPeriod',
+			success: function(result) {
+				let contentsId = generateId();
+				
+				// * 최근 <span class="periodName">일주일</span> 인기 장소
+				let spanPeriodName = document.createElement('span');
+				spanPeriodName.setAttribute('class', 'periodName');
+				spanPeriodName.append(period);
+				
+				let divTitleLeft = document.createElement('div');
+				divTitleLeft.setAttribute('class', 'title-left');
+				divTitleLeft.append("* 최근 ");
+				divTitleLeft.append(spanPeriodName);
+				divTitleLeft.append(" 인기 장소");
+				
+				
+				let moreBtn = document.createElement('button');
+				moreBtn.setAttribute('type', 'button');
+				moreBtn.setAttribute('class', 'moreBtn');
+				moreBtn.setAttribute('data-target', '#' + contentsId);
+				moreBtn.append("▼");
+				
+				let divTitleRight = document.createElement('div');
+				divTitleRight.setAttribute('class', 'title-right');
+				divTitleRight.append(moreBtn);
+				
+				
+				let divPlaceLowerBoxTitle = document.createElement('div');
+				divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
+				divPlaceLowerBoxTitle.append(divTitleLeft);
+				divPlaceLowerBoxTitle.append(divTitleRight);
+				
+				
+				let divPlaceLowerBoxLower = document.createElement('div');
+				divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
+				divPlaceLowerBoxLower.setAttribute('id', contentsId);
+				
+				for (var i=0; i<result.length; i++) {
+					let store = result[i];
+					let id = store.storeId;
+					let category = store.storeCategory;
+					let placeName = store.storeName;
+					let location = store.storeAddr;
+					let hasId = (id == null);  // 이거 수정해야 함
+					
+					let spanCategory = document.createElement('span');
+					spanCategory.setAttribute('class', 'category');
+					spanCategory.append(category);
+					
+					let divUdCenter = document.createElement('div');
+					divUdCenter.setAttribute('class', 'ud-center');
+					divUdCenter.append(spanCategory);
+					
+					let divInfoLeft = document.createElement('div');
+					divInfoLeft.setAttribute('class', 'info-left');
+					divInfoLeft.append(divUdCenter);
+					
+					
+					let divPlaceName = document.createElement('div');
+					divPlaceName.setAttribute('class', 'placeName');
+					divPlaceName.append(placeName);
+					
+					let divInfoRightUpper = document.createElement('div');
+					divInfoRightUpper.setAttribute('class', 'info-right-upper');
+					divInfoRightUpper.append(divPlaceName);
+					
+					
+					let spanLocation = document.createElement('span');
+					spanLocation.setAttribute('class', 'location');
+					spanLocation.append(location);
+					
+					let divSearchBtnDiv;
+					if (hasId) {  // hasId
+						var imgSearchBtn = document.createElement('img');
+						imgSearchBtn.setAttribute('class', 'searchBtn');
+						imgSearchBtn.setAttribute('src', '/img/search.png');
+						
+						divSearchBtnDiv = document.createElement('div');
+						divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
+						divSearchBtnDiv.append(imgSearchBtn);
+					}
+					
+					let divInfoRightLower = document.createElement('div');
+					divInfoRightLower.setAttribute('class', 'info-right-lower');
+					divInfoRightLower.append(spanLocation);
+					if (hasId) divInfoRightLower.append(divSearchBtnDiv);
+					
+					
+					let divInfoRight = document.createElement('div');
+					divInfoRight.setAttribute('class', 'info-right');
+					divInfoRight.append(divInfoRightUpper);
+					divInfoRight.append(divInfoRightLower);
+
+					let divPlaceLowerBoxInfo = document.createElement('div');
+					divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
+					divPlaceLowerBoxInfo.append(divInfoLeft);
+					divPlaceLowerBoxInfo.append(divInfoRight);
+					
+					divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
+					
+				}  // for
+				
+				let divPlaceLowerBox = document.createElement('div');
+				divPlaceLowerBox.setAttribute('class', 'place-lower-box');
+				divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+				divPlaceLowerBox.append(divPlaceLowerBoxLower);
+				
+				let divPlaceLower = $('.place-lower');
+				divPlaceLower.append(divPlaceLowerBox);
+				
+				<%-- .off()를 써서 기존 중복 설정을 제거. --%>
+				// 이미지랑 버튼 연결용 코드
+				$('.searchBtn').off('click').click(function(){
+					alert('search!');
+				});  // img click
+				
+				// collapse 버튼 연결용 코드
+				$('.moreBtn').off('click').click(function(){
+					let targetId = $(this).attr('data-target');
+					$(targetId).collapse('toggle');
+				});  // button click
+				
+			},  // ajax success end
+			error: function(e){ console.log(e); }
+		});  // findStorePopularByRegion end - period
 		
 		
 		<%-- 범주별 컨텐츠 --%>
+		var categoryArr = ["카페", "음식점", "관광지"];
 		
-		
-		
+		for (var j=0; j<categoryArr.length; j++) {
+			let category = categoryArr[j];
+			
+			$.ajax({
+				type: 'post',
+				url: '/store/findStorePopularByCategory',
+				data: {'category': category},
+				success: function(result) {
+					let contentsId = generateId();
+					
+					// * 인기 <span class="categoryName">카페</span>
+					let spanCategoryName = document.createElement('span');
+					spanCategoryName.setAttribute('class', 'categoryName');
+					spanCategoryName.append(category);
+					
+					let divTitleLeft = document.createElement('div');
+					divTitleLeft.setAttribute('class', 'title-left');
+					divTitleLeft.append("* 인기 ");
+					divTitleLeft.append(spanCategoryName);
+					
+					
+					let moreBtn = document.createElement('button');
+					moreBtn.setAttribute('type', 'button');
+					moreBtn.setAttribute('class', 'moreBtn');
+					moreBtn.setAttribute('data-target', '#' + contentsId);
+					moreBtn.append("▼");
+					
+					let divTitleRight = document.createElement('div');
+					divTitleRight.setAttribute('class', 'title-right');
+					divTitleRight.append(moreBtn);
+					
+					
+					let divPlaceLowerBoxTitle = document.createElement('div');
+					divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
+					divPlaceLowerBoxTitle.append(divTitleLeft);
+					divPlaceLowerBoxTitle.append(divTitleRight);
+					
+					
+					let divPlaceLowerBoxLower = document.createElement('div');
+					divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
+					divPlaceLowerBoxLower.setAttribute('id', contentsId);
+					
+					for (var i=0; i<result.length; i++) {
+						let store = result[i];
+						let id = store.storeId;
+						let category = store.storeCategory;
+						let placeName = store.storeName;
+						let location = store.storeAddr;
+						let hasId = (id == null);  // 이거 수정해야 함
+						
+						let spanCategory = document.createElement('span');
+						spanCategory.setAttribute('class', 'category');
+						spanCategory.append(category);
+						
+						let divUdCenter = document.createElement('div');
+						divUdCenter.setAttribute('class', 'ud-center');
+						divUdCenter.append(spanCategory);
+						
+						let divInfoLeft = document.createElement('div');
+						divInfoLeft.setAttribute('class', 'info-left');
+						divInfoLeft.append(divUdCenter);
+						
+						
+						let divPlaceName = document.createElement('div');
+						divPlaceName.setAttribute('class', 'placeName');
+						divPlaceName.append(placeName);
+						
+						let divInfoRightUpper = document.createElement('div');
+						divInfoRightUpper.setAttribute('class', 'info-right-upper');
+						divInfoRightUpper.append(divPlaceName);
+						
+						
+						let spanLocation = document.createElement('span');
+						spanLocation.setAttribute('class', 'location');
+						spanLocation.append(location);
+						
+						let divSearchBtnDiv;
+						if (hasId) {  // hasId
+							var imgSearchBtn = document.createElement('img');
+							imgSearchBtn.setAttribute('class', 'searchBtn');
+							imgSearchBtn.setAttribute('src', '/img/search.png');
+							
+							divSearchBtnDiv = document.createElement('div');
+							divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
+							divSearchBtnDiv.append(imgSearchBtn);
+						}
+						
+						let divInfoRightLower = document.createElement('div');
+						divInfoRightLower.setAttribute('class', 'info-right-lower');
+						divInfoRightLower.append(spanLocation);
+						if (hasId) divInfoRightLower.append(divSearchBtnDiv);
+						
+						
+						let divInfoRight = document.createElement('div');
+						divInfoRight.setAttribute('class', 'info-right');
+						divInfoRight.append(divInfoRightUpper);
+						divInfoRight.append(divInfoRightLower);
+
+						let divPlaceLowerBoxInfo = document.createElement('div');
+						divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
+						divPlaceLowerBoxInfo.append(divInfoLeft);
+						divPlaceLowerBoxInfo.append(divInfoRight);
+						
+						divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
+						
+					}  // for
+					
+					let divPlaceLowerBox = document.createElement('div');
+					divPlaceLowerBox.setAttribute('class', 'place-lower-box');
+					divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+					divPlaceLowerBox.append(divPlaceLowerBoxLower);
+					
+					let divPlaceLower = $('.place-lower');
+					divPlaceLower.append(divPlaceLowerBox);
+					
+					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
+					// 이미지랑 버튼 연결용 코드
+					$('.searchBtn').off('click').click(function(){
+						alert('search!');
+					});  // img click
+					
+					// collapse 버튼 연결용 코드
+					$('.moreBtn').off('click').click(function(){
+						let targetId = $(this).attr('data-target');
+						$(targetId).collapse('toggle');
+					});  // button click
+					
+				},  // ajax success end
+				error: function(e){ console.log(e); }
+			});  // findStorePopularByCategory end
+		}  // for - 범주별 컨텐츠
 		
 		// initial method
 		
@@ -471,6 +728,7 @@ function generateId() {
 		</c:if>
 		
 		<div class="place-lower">
+			<%-- 참고용, 살짝 다름! 저 위에 있는 주석 참고. --%>
 			<%--
 			<div class="place-lower-box">
 				<div class="place-lower-box-title">
@@ -526,7 +784,7 @@ function generateId() {
 
 			<div class="place-lower-box">
 				<div class="place-lower-box-title">
-					* 인기 <span class="typeName">카페</span>
+					* 인기 <span class="categoryName">카페</span>
 				</div>
 				<div class="place-lower-box-lower">
 					<div class="place-lower-box-info">
