@@ -72,14 +72,55 @@
 <script>
 
 $(function() {
+	var memberList = [];
+	
+	$('#membersearch').on('click', addMember)
+	function addMember() {
+		var memberId = $('#newmember').val();
+		
+		$.ajax({
+			type: 'post',
+			url: '/story/findIdExist',
+			data: {'memberId':memberId},
+			
+			success:function(result) {
+				if(result){
+					var flag = 0;
+					for(var i=0; i<memberList.length; i++) {
+						if(memberList[i] == memberId){
+							$('#statusmessage').text("이미 추가된 사용자");
+							flag = 1;
+							break;
+						} 
+
+					}
+					if(flag == 0) {
+						memberList.push(memberId);
+						$('#memberresult li').append(memberId+'   ');
+					}
+
+				}
+				else {
+					if(memberId != ""){
+						$('#statusmessage').text("존재하지 않는 사용자"); 
+					}
+						
+				}
+				console.log(result);
+			},
+			error:function(e) {
+				console.log(e);
+			}
+		});
+		
+	}
+	
 	$('.modal-button').on('click', addStory)
 	function addStory(){
 		if(confirm("DB랑 연결해놔서 막 추가하면 안되는데도 스토리를 추가하시겠습니까?")) {
 			var storyName = $('#storyname').val();
 			var leaderId = '<%= (String)session.getAttribute("memberId") %>';
-			// 지금은 한명만 받아오는데 프론트 구현되고 여러명 받아도록 바꿔야 함
-			var memberId = $('#newmember').val();
-			console.log("storyName:: " + storyName + ", leaderId:: " + leaderId + ", memberId:: " + memberId);
+			console.log("storyName:: " + storyName + ", leaderId:: " + leaderId + ", memberList:: " + memberList);
 			
 			$.ajax({
 				type: 'post',
@@ -87,18 +128,18 @@ $(function() {
 				data: {'storyName':storyName, 'memberId': leaderId},
 				
 				success:function(result) {
-					console.log(result);
+					console.log("result:: " + result+", memberList::" + memberList);
 					
 					$.ajax({
 						type: 'post',
 						url: '/story/addStoryMember',
-						data: {'storyId':result, 'memberId': memberId},
+						data: {'storyId':result, 'memberList': memberList},
 						
-						success:function(result) {
-							alert("스토리 추가 성공!")
+						success:function(result2) {
+							alert(result2+"명과 함께하는 스토리가 생성되었습니다.");
 							$('#storyname').val("")
 							$('#newmember').val("");
-							console.log(result)
+							console.log(result2)
 						},
 						error: function(e){
 							console.log(e);
@@ -180,10 +221,11 @@ $(function() {
 	       		</p>
 	       		<p>
 	       			<div id="memberresult" class="collapse">
-	       				일치하지 않는 경우 : 일치하는 아이디가 존재하지 않습니다.
-	       				일치하는 경우 : 일치하는 아이디 (이름)
+	       				<div id="statusmessage" style="color:red">
+		       				함께할 친구의 ID를 입력하세요.
+		       			</div>
 	       				<ul>
-	       					<li>아이디 비번</li>
+	       					<li>추가된 멤버:  </li>
 	       				</ul>
 	       			</div>
 	       		</p>
