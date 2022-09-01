@@ -65,6 +65,12 @@ public class MemberController {
 		return balance;
 	}
 	
+	@PostMapping("findIdExist")
+	@ResponseBody
+	public Boolean findIdExist(String memberId, Model model, HttpSession session) {
+		return memberService.findIdExist(memberId);
+	}
+	
 	@PostMapping("join")
 	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, Model model, HttpSession session) {
 		try {
