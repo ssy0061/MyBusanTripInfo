@@ -117,24 +117,14 @@ public class MemberController {
 	
 	@PostMapping("pay")
 	@ResponseBody
-	public void pay(String accountNumber, int amt, String memberId, Model model, HttpSession session) {
-		memberService.pay(accountNumber, amt, memberId);
-	}
-	
-	@PostMapping("addTransaction")
-	@ResponseBody
-	public void addTransaction(String accountNumber, String accountBank, String memberId, 
-			String storeId, Date transactionTime, String transactionStore, 
-			int transactionAmt, Model model, HttpSession session) {
-		
-		Transaction transaction = new Transaction(accountNumber,accountBank,memberId,storeId,transactionTime,transactionStore,transactionAmt);
-		memberService.addTransaction(transaction);
-	}
+	public void pay(String memberId, int amt, String storeName, Model model, HttpSession session) {
+		memberService.pay(memberId, amt, storeName);
+	} // 여기서 addTransaction도 같이 시행..
 	
 	@PostMapping("charge")
 	@ResponseBody
-	public void charge(String accountNumber, int amt, String memberId, Model model, HttpSession session) {
-		memberService.charge(accountNumber, amt, memberId);
+	public void charge(String memberId, int amt, Model model, HttpSession session) {
+		memberService.charge(memberId, amt);
 	}
 	
 	@PostMapping("updateTransactionMemo")

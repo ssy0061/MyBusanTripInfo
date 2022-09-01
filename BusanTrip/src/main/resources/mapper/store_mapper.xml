@@ -16,6 +16,12 @@
 		WHERE STORE_ID=#{VALUE} <!-- Value값에 storeId값 -->
 	</select>
 	
+	<select id="findStoreId" parameterType="String" resultType="string">
+		SELECT STORE_ID
+		FROM STORE
+		WHERE STORE_NAME = #{storeName}
+	</select>
+	
 	<select id="findStorePopularByRegion" parameterType="String" resultType="store">
 		SELECT STORE_NAME, STORE_ADDR, STORE_CATEGORY, STORE_TOTALVISIT
 		FROM(SELECT * FROM STORE

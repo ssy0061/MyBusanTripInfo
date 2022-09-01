@@ -23,8 +23,7 @@ public interface MemberService {
 	public void addExternalTransaction(Transaction transaction, String accountNumber);//외부계좌 거래내역 불러오기
 	
 	//Service에서 두개 같이 불러야함
-	public void pay(String accountNumber, int balance, String memberId); //결제 ==> 거래내역도 같이 반영시킴...
-	public void addTransaction(Transaction transaction);//거래내역 생성(결제시)
+	public void pay(String memberId, int amt, String storeName); //결제 ==> 거래내역도 같이 반영시킴...
 	
 	public void updateTransactionMemo(Transaction transaction); //거래내역 메모 수정
 	
@@ -33,7 +32,7 @@ public interface MemberService {
   
 	public int getBalance(String accountNumber); //계좌 잔액 조회
 	public int getPointBalance(String memberId); //계좌(포인트지갑) 잔액 조회
-	public void charge(String accountNumber, int balance, String memberId); //계좌(포인트지갑) 잔액 충전
+	public void charge(String memberId, int amt); //계좌(포인트지갑) 잔액 충전
 	
 	public List<Map<String, Object>> findMemberVisitStats(String memberId);
 }

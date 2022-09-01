@@ -35,6 +35,7 @@ public interface MemberDAO {
 	public List<Account> findAllAccount(String memberId); //내 계좌 조회
 	public int getBalance(String accountNumber); //계좌 잔액 조회
 	public int getPointBalance(String memberId); //계좌(포인트지갑) 잔액 조회
+	public String getPointAccount(String memberId); //내부 생성 계좌 번호 조회
 	public int charge(String accountNumber, int balance); //계좌(포인트지갑) 잔액 충전
 	
 	public List<Map<String, Object>> findMemberVisitStats(String memberId);

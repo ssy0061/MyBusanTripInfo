@@ -27,6 +27,11 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
+	public String findStoreId(String storeName) {
+		return storeDAO.findStoreId(storeName);
+	}
+	
+	@Override
 	public List<Store> findStorePopularByRegion(String region) {
 		return storeDAO.findStorePopularByRegion(region);
 	}

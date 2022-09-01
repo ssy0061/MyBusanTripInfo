@@ -105,6 +105,12 @@
 		WHERE MEMBER_ID=#{memberId} AND ACCOUNT_INNER='Y'
 	</select>
 	
+	<select id="getPointAccount" parameterType="String" resultType="String">
+		SELECT ACCOUNT_NUMBER
+		FROM ACCOUNT
+		WHERE MEMBER_ID=#{memberId} AND ACCOUNT_INNER='Y'
+	</select>
+	
 	<update id="charge" parameterType="hashmap">
 		UPDATE ACCOUNT
 		SET ACCOUNT_BALANCE = #{balance}

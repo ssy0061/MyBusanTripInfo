@@ -34,6 +34,12 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
+	public String findStoreId(String storeName) {
+		System.out.println(storeName + "sdds");
+		return sqlsession.selectOne(NS+"findStoreId", storeName);
+	}
+	
+	@Override
 	public List<Store> findStorePopularByRegion(String region) {
 
 		return sqlsession.selectList(NS+"findStorePopularByRegion", region);

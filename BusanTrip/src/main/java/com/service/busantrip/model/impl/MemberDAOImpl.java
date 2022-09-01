@@ -132,10 +132,15 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
+	public String getPointAccount(String memberId) {
+		return sqlSession.selectOne(NS+"getPointAccount", memberId);
+	}
+	
+	@Override
 	public int charge(String accountNumber, int balance) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("accountNumber", accountNumber);
 		map.put("balance", balance);
+		map.put("accountNumber", accountNumber);
 		return sqlSession.update(NS+"charge",map);
 	}
 

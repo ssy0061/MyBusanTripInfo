@@ -13,12 +13,15 @@ import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.model.MemberDAO;
 import com.service.busantrip.model.MemberService;
+import com.service.busantrip.model.StoreDAO;
 
 @Service
 public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	private MemberDAO memberDAO;
+	@Autowired
+	private StoreDAO storeDAO;
 	
 	@Override
 	public Boolean findIdExist(String memberId) { //
@@ -86,14 +89,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void pay(String accountNumber, int amt, String memberId) {	//
-		int pBalance = memberDAO.getBalance(memberId);
+	public void pay(String memberId, int amt, String storeName) {	//
+		Date date = new Date();
+		String accountNumber = memberDAO.getPointAccount(memberId);
+		int pBalance = memberDAO.getBalance(accountNumber);
 		int balance = pBalance-amt;
 		memberDAO.pay(accountNumber, balance);
-	}
-
-	@Override
-	public void addTransaction(Transaction transaction) { //
+		System.out.println(storeName);
+		String storeId = storeDAO.findStoreId(storeName);
+		System.out.println(storeId);
+		Transaction transaction = new Transaction(accountNumber, storeId, memberId, date, storeName, amt);
 		memberDAO.addTransaction(transaction);
 	}
 
@@ -118,9 +123,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void charge(String accountNumber, 
-					  int amt, String memberId) {	//
-		int pBalance = memberDAO.getBalance(memberId);
+	public void charge(String memberId, int amt) {	//
+		String accountNumber = memberDAO.getPointAccount(memberId);
+		int pBalance = memberDAO.getBalance(accountNumber);
 		int balance = pBalance+amt;
 		memberDAO.charge(accountNumber, balance);
 	}
