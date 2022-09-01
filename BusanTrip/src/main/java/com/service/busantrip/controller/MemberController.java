@@ -65,6 +65,12 @@ public class MemberController {
 		return balance;
 	}
 	
+	@PostMapping("getPointBalance")
+	@ResponseBody
+	public int getPointBalance(String memberId, Model model, HttpSession session) {
+		int balance = memberService.getPointBalance(memberId);
+		return balance;
+    
 	@PostMapping("findIdExist")
 	@ResponseBody
 	public Boolean findIdExist(String memberId, Model model, HttpSession session) {

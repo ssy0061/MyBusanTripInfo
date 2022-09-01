@@ -30,6 +30,8 @@ public interface MemberService {
 	
 
 	public List<Account> findAllAccount(String memberId); //내 계좌 조회
-	public int getBalance(String memberId); //계좌(포인트지갑) 잔액 조회
+  
+	public int getBalance(String accountNumber); //계좌 잔액 조회
+	public int getPointBalance(String memberId); //계좌(포인트지갑) 잔액 조회
 	public void charge(String accountNumber, int balance, String memberId); //계좌(포인트지갑) 잔액 충전
 }
