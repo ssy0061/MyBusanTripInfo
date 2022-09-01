@@ -181,7 +181,7 @@
 	$(function() {
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
 		
-		if (memberId != 'null') {
+		if (memberId != null) {
 			$.ajax({
 				type: 'post',
 				url: '/member/getMemberName',
