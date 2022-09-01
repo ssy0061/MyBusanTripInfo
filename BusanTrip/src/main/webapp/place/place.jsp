@@ -187,93 +187,6 @@
 	$(function() {
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
 		
-		var idArr = ["A", "", "C"];
-		var categoryArr = ["관광지", "음식점", "카페"];
-		var placeNameArr = ["오륙도 스카이워크", "강서반점", "서귀포 제주 감귤 카페"];
-		var locationArr = ["부산 남구", "부산 강서구", "제주 서귀포시"];
-		
-		for (var i=0; i<3; i++) {
-			let id = idArr[i];
-			let category = categoryArr[i];
-			let placeName = placeNameArr[i];
-			let location = locationArr[i];
-			
-			// html tag 생성 form
-			<%--
-			<div class="place-lower-box-info">
-				<div class="info-left">
-					<div class="ud-center">
-						<span class="category">관광지</span>
-					</div>
-				</div>
-				<div class="info-right">
-					<div class="info-right-upper">
-						<div class="placeName">오륙도 스카이워크</div>
-					</div>
-					<div class="info-right-lower">
-						<span class="location">부산 남구</span>
-						<img class="searchBtn" src="/img/search.png">
-					</div>
-				</div>
-			</div>
-			--%>
-			
-			let hasId = (id != "");
-			
-			let spanCategory = document.createElement('span');
-			spanCategory.setAttribute('class', 'category');
-			spanCategory.append(category);
-			
-			let divUdCenter = document.createElement('div');
-			divUdCenter.setAttribute('class', 'ud-center');
-			divUdCenter.append(spanCategory);
-			
-			let divInfoLeft = document.createElement('div');
-			divInfoLeft.setAttribute('class', 'info-left');
-			divInfoLeft.append(divUdCenter);
-			
-			
-			let divPlaceName = document.createElement('div');
-			divPlaceName.setAttribute('class', 'placeName');
-			divPlaceName.append(placeName);
-			
-			let divInfoRightUpper = document.createElement('div');
-			divInfoRightUpper.setAttribute('class', 'info-right-upper');
-			divInfoRightUpper.append(divPlaceName);
-			
-			
-			let spanLocation = document.createElement('span');
-			spanLocation.setAttribute('class', 'location');
-			spanLocation.append(location);
-			
-			if (hasId) {  // hasId
-				var imgSearchBtn = document.createElement('img');
-				imgSearchBtn.setAttribute('class', 'searchBtn');
-				imgSearchBtn.setAttribute('src', '/img/search.png');
-			}
-			
-			let divInfoRightLower = document.createElement('div');
-			divInfoRightLower.setAttribute('class', 'info-right-lower');
-			divInfoRightLower.append(spanLocation);
-			if (hasId) divInfoRightLower.append(imgSearchBtn);
-			
-			
-			let divInfoRight = document.createElement('div');
-			divInfoRight.setAttribute('class', 'info-right');
-			divInfoRight.append(divInfoRightUpper);
-			divInfoRight.append(divInfoRightLower);
-
-			let divPlaceLowerBoxInfo = document.createElement('div');
-			divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-			divPlaceLowerBoxInfo.append(divInfoLeft);
-			divPlaceLowerBoxInfo.append(divInfoRight);
-			
-			
-			// 일단 전체 요소에 동일하게 적용. 타이틀까지 다르게 하는 건 차후 코딩 예정.
-			let divPlaceLowerBoxLower = $('.place-lower-box-lower');
-			divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-		}  // for
-		
 		if (memberId != 'null') {
 			$.ajax({
 				type: 'post',
@@ -297,13 +210,128 @@
 				},
 				error: function(e){ console.log(e); }
 			});  // findStorePopularByPersonal end
-			
-			
 		};  // if
 		
 		let nowDay = new Date();
 		let nowMonth = nowDay.getMonth() + 1;
 		$('#nowMonth').append(nowMonth+'월');
+		
+		
+		// html tag 생성 form
+		<%--
+		<div class="place-lower-box">
+			<div class="place-lower-box-title">
+				* <span class="regionName">부산</span>의 인기 장소
+			</div>
+			<div class="place-lower-box-lower">
+				<div class="place-lower-box-info">
+					<div class="info-left">
+						<div class="ud-center">
+							<span class="category">관광지</span>
+						</div>
+					</div>
+					<div class="info-right">
+						<div class="info-right-upper">
+							<div class="placeName">오륙도 스카이워크</div>
+						</div>
+						<div class="info-right-lower">
+							<span class="location">부산 남구</span>
+							<img class="searchBtn" src="/img/search.png">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		--%>
+		for (var k=0; k<5; k++) {
+			let spanRegionName = document.createElement('span');
+			spanRegionName.setAttribute('class', 'regionName');
+			spanRegionName.append("부산");
+			
+			let divPlaceLowerBoxTitle = document.createElement('div');
+			divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
+			divPlaceLowerBoxTitle.append("* ");
+			divPlaceLowerBoxTitle.append(spanRegionName);
+			divPlaceLowerBoxTitle.append("의 인기 장소");
+			
+			
+			let divPlaceLowerBox = document.createElement('div');
+			divPlaceLowerBox.setAttribute('class', 'place-lower-box');
+			divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+			
+			var idArr = ["A", "", "C"];
+			var categoryArr = ["관광지", "음식점", "카페"];
+			var placeNameArr = ["오륙도 스카이워크", "강서반점", "서귀포 제주 감귤 카페"];
+			var locationArr = ["부산 남구", "부산 강서구", "제주 서귀포시"];
+			
+			for (var i=0; i<3; i++) {
+				let id = idArr[i];
+				let category = categoryArr[i];
+				let placeName = placeNameArr[i];
+				let location = locationArr[i];
+				
+				
+				let hasId = (id != "");
+				
+				let spanCategory = document.createElement('span');
+				spanCategory.setAttribute('class', 'category');
+				spanCategory.append(category);
+				
+				let divUdCenter = document.createElement('div');
+				divUdCenter.setAttribute('class', 'ud-center');
+				divUdCenter.append(spanCategory);
+				
+				let divInfoLeft = document.createElement('div');
+				divInfoLeft.setAttribute('class', 'info-left');
+				divInfoLeft.append(divUdCenter);
+				
+				
+				let divPlaceName = document.createElement('div');
+				divPlaceName.setAttribute('class', 'placeName');
+				divPlaceName.append(placeName);
+				
+				let divInfoRightUpper = document.createElement('div');
+				divInfoRightUpper.setAttribute('class', 'info-right-upper');
+				divInfoRightUpper.append(divPlaceName);
+				
+				
+				let spanLocation = document.createElement('span');
+				spanLocation.setAttribute('class', 'location');
+				spanLocation.append(location);
+				
+				if (hasId) {  // hasId
+					var imgSearchBtn = document.createElement('img');
+					imgSearchBtn.setAttribute('class', 'searchBtn');
+					imgSearchBtn.setAttribute('src', '/img/search.png');
+				}
+				
+				let divInfoRightLower = document.createElement('div');
+				divInfoRightLower.setAttribute('class', 'info-right-lower');
+				divInfoRightLower.append(spanLocation);
+				if (hasId) divInfoRightLower.append(imgSearchBtn);
+				
+				
+				let divInfoRight = document.createElement('div');
+				divInfoRight.setAttribute('class', 'info-right');
+				divInfoRight.append(divInfoRightUpper);
+				divInfoRight.append(divInfoRightLower);
+
+				let divPlaceLowerBoxInfo = document.createElement('div');
+				divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
+				divPlaceLowerBoxInfo.append(divInfoLeft);
+				divPlaceLowerBoxInfo.append(divInfoRight);
+				
+				let divPlaceLowerBoxLower = document.createElement('div');
+				divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower');
+				divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
+				
+				divPlaceLowerBox.append(divPlaceLowerBoxLower);
+			}  // for
+			
+			let divPlaceLower = $('.place-lower');
+			divPlaceLower.append(divPlaceLowerBox);
+		}  // for
+		
 		
 		// initial method
 		
@@ -354,13 +382,12 @@
 		</c:if>
 		
 		<div class="place-lower">
+			<%--
 			<div class="place-lower-box">
 				<div class="place-lower-box-title">
 					* <span class="regionName">부산</span>의 인기 장소
 				</div>
 				<div class="place-lower-box-lower">
-				
-					<%--
 					<div class="place-lower-box-info">
 						<div class="info-left">
 							<div class="ud-center">
@@ -377,8 +404,6 @@
 							</div>
 						</div>
 					</div>
-					--%>
-					
 				</div>
 			</div>
 			
@@ -387,8 +412,6 @@
 					* 최근 <span class="periodName">일주일</span> 인기 장소
 				</div>
 				<div class="place-lower-box-lower">
-					
-					<%--
 					<div class="place-lower-box-info">
 						<div class="info-left">
 							<div class="ud-center">
@@ -405,8 +428,6 @@
 							</div>
 						</div>
 					</div>
-					--%>
-					
 				</div>
 			</div>
 
@@ -415,8 +436,6 @@
 					* 인기 <span class="typeName">카페</span>
 				</div>
 				<div class="place-lower-box-lower">
-				
-					<%--
 					<div class="place-lower-box-info">
 						<div class="info-left">
 							<div class="ud-center">
@@ -433,10 +452,9 @@
 							</div>
 						</div>
 					</div>
-					--%>
-					
 				</div>
 			</div>
+			--%>
 		</div>
 		
 	</div>
