@@ -40,9 +40,15 @@ public class HomeController {
 	public String diaryDetail(@PathVariable("storyId") String storyId) {
 		return "trip/diary_main";
 	}
+
+	@RequestMapping("error")
+	public String error() {
+		return "error";
+
 	@RequestMapping("trip/diary_detail")
 	public String diaryDetail2() {
 		return "trip/diary_detail";
+
 	}
 	//@RequestMapping("") 마이페이지 이동.. 페이지가 현재 없음..
 }

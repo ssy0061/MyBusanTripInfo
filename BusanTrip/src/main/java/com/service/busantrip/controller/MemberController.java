@@ -40,7 +40,7 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-			return "Error";	
+			return "redirect:/error";	
 		}	
 	}
 	
@@ -84,7 +84,7 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-			return "Error";	
+			return "/bnk/error";	
 		}	
 
 	}
