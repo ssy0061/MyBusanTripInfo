@@ -72,7 +72,46 @@
 <script>
 
 $(function() {
+	var currentMemberId = '<%= (String)session.getAttribute("memberId") %>';
+	
 	var memberList = [];
+	var storyList = [];
+	var cardTitle = "cardTitle";
+	var cardText = "cardText";
+	
+	console.log("currentMemberId:: " + currentMemberId);
+	
+	$.ajax({
+		type: 'post',
+		url: '/story/findAllStory',
+		data: {'memberId': currentMemberId},
+		
+		success:function(result) {
+			console.log("storyList :: " + result);
+			
+			var storyId;
+			for(var i=0; i<result.length; i++) {
+				storyId = result[i].storyId;
+				cardTitle = result[i].storyName;
+				console.log("storyId:: " + storyId + " storyName:: " + cardTitle);
+				
+				 $('.col-12').append(
+						"<div class="+"card"+">"
+						+"<div class="+"card-body"+ " onclick="+"location.href="+"\'/bnk/trip/"+storyId +"\'>"
+						+"<h5 class="+"card-title"+">"+ cardTitle +"</h5>"
+						+"<p class="+"card-text"+">"+ cardText +"</p></div></div>"
+				) 
+			} 
+			
+		},
+		error:function(e) {
+			console.log(e);
+		}
+		
+	});
+	
+	
+
 	
 	$('#membersearch').on('click', addMember)
 	function addMember() {
@@ -119,13 +158,12 @@ $(function() {
 	function addStory(){
 		if(confirm("DB랑 연결해놔서 막 추가하면 안되는데도 스토리를 추가하시겠습니까?")) {
 			var storyName = $('#storyname').val();
-			var leaderId = '<%= (String)session.getAttribute("memberId") %>';
-			console.log("storyName:: " + storyName + ", leaderId:: " + leaderId + ", memberList:: " + memberList);
+			console.log("storyName:: " + storyName + ", currentMemberId:: " + currentMemberId + ", memberList:: " + memberList);
 			
 			$.ajax({
 				type: 'post',
 				url: '/story/addStory',
-				data: {'storyName':storyName, 'memberId': leaderId},
+				data: {'storyName':storyName, 'memberId': currentMemberId},
 				
 				success:function(result) {
 					console.log("result:: " + result+", memberList::" + memberList);
@@ -140,6 +178,7 @@ $(function() {
 							$('#storyname').val("")
 							$('#newmember').val("");
 							console.log(result2)
+							document.location.reload();	// 생성된 스토리 반영하기 위해 새로고침
 						},
 						error: function(e){
 							console.log(e);
@@ -184,13 +223,7 @@ $(function() {
 				<div class="card">
 					<div class="card-body" onclick="location.href='/bnk/trip/3'">
 						<h5 class="card-title">First Story</h5>
-						<p class="card-text">My Story</p>
-					</div>
-				</div>
-				<div class="card bg-light">
-					<div class="card-body" onclick="location.href='/bnk/trip/3'">
-						<h5 class="card-title">Second Story</h5>
-						<p class="card-text">Story with xxx</p>
+						<p class="card-text">불러온거 아니고 직접 넣은 카드</p>
 					</div>
 				</div>
 			</div>
