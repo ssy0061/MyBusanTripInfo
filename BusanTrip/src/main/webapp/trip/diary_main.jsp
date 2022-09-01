@@ -135,7 +135,7 @@
 		</div>
 		<div class="row d-flex justify-content-center diary-in-story">
 			<div class="card col-sm-6 col-md-4">
-				<div class="card-body">
+				<div class="card-body" onclick="location.href='/bnk/trip/diary_detail'">
 					<h5 class="card-text">통영에서의 추억</h5>
 				</div>
 				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
