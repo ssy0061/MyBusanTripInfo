@@ -185,6 +185,8 @@
 <script>
 	
 	$(function() {
+		var memberId = '<%= (String)session.getAttribute("memberId") %>';
+		
 		var idArr = ["A", "", "C"];
 		var categoryArr = ["관광지", "음식점", "카페"];
 		var placeNameArr = ["오륙도 스카이워크", "강서반점", "서귀포 제주 감귤 카페"];
@@ -270,9 +272,38 @@
 			// 일단 전체 요소에 동일하게 적용. 타이틀까지 다르게 하는 건 차후 코딩 예정.
 			let divPlaceLowerBoxLower = $('.place-lower-box-lower');
 			divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-			
-			
 		}  // for
+		
+		if (memberId != 'null') {
+			$.ajax({
+				type: 'post',
+				url: '/store/findStorePopularByPersonal',
+				data: {'memberId': memberId},
+				success: function(result) {
+					let storeNameList = $('.ranking .storeName');
+					let visitCountList = $('.ranking .visitCount');
+					
+					let i;
+					for (i=0; i<result.length; i++) {
+						storeNameList[i].append(result[i].TRANSACTION_STORE);
+						visitCountList[i].append(result[i].CNT + '회');
+					}  // 3곳 이상 방문한 경우 여기서 종료
+					if (i<2) {
+						for (; i<2; i++) {
+							storeNameList[i].append('-');
+						}
+					}  // 두 곳 이하 방문한 경우 여기를 돌아서 빈 값을 채운다
+					
+				},
+				error: function(e){ console.log(e); }
+			});  // findStorePopularByPersonal end
+			
+			
+		};  // if
+		
+		let nowDay = new Date();
+		let nowMonth = nowDay.getMonth() + 1;
+		$('#nowMonth').append(nowMonth+'월');
 		
 		// initial method
 		
@@ -297,25 +328,24 @@
 			<div class="place-upper">
 				<div class="place-upper-inner">
 					<div class="place-upper-inner-title">
-						<span id="nowMonth">8월</span>의 My핫플
+						<span id="nowMonth"></span>의 My핫플
 					</div>
 					<div class="place-upper-inner-contents">
-	
-						<div id="first" class="ranking">
+						<div class="ranking">
 							<img class="medal" src="/img/medal1.png">
-							<span class="storeName">든킨드나쓰 든킨드나쓰점</span>
-							<span class="visitCount">7회</span>
+							<span class="storeName"></span>
+							<span class="visitCount"></span>
 						</div>
 						
-						<div id="second" class="ranking">
+						<div class="ranking">
 							<img class="medal" src="/img/medal2.png">
-							<span class="storeName">든킨드나쓰</span>
-							<span class="visitCount">7회</span>
+							<span class="storeName"></span>
+							<span class="visitCount"></span>
 						</div>
 						
-						<div id="third" class="ranking">
+						<div class="ranking">
 							<img class="medal" src="/img/medal3.png">
-							<span class="storeName">-</span>
+							<span class="storeName"></span>
 							<span class="visitCount"></span>
 						</div>
 					</div>
