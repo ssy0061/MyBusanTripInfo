@@ -23,7 +23,15 @@
 	p{
 		margin-top: 100px;
 	}
+	.loadingImage{
+		width: 100%;
+		height: 100$;
+	}
 </style>
+
+<!-- <meta http-equiv="refresh" content="0;url=/bnk/home"> -->
+<!-- /bnk/home으로 자동 리다이렉트 되는 코드 -->
+
 </head>
 <body> 
 	<div>
@@ -44,6 +52,9 @@
 		</div>
 		<c:import url="/footer/footer.jsp" />
 	</div>
+	<p>
+	<img class="loadingImage" src="./img/loadingPage.gif">
+	</p>
 </body>
 </body>
 </html>
