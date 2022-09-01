@@ -79,7 +79,7 @@ $(function() {
 	var cardTitle = "cardTitle";
 	var cardText = "cardText";
 	
-	console.log("currentMemberId:: " + currentMemberId);
+	//console.log("currentMemberId:: " + currentMemberId);
 	
 	$.ajax({
 		type: 'post',
@@ -87,13 +87,13 @@ $(function() {
 		data: {'memberId': currentMemberId},
 		
 		success:function(result) {
-			console.log("storyList :: " + result);
+			//console.log("storyList :: " + result);
 			
 			var storyId;
 			for(var i=0; i<result.length; i++) {
 				storyId = result[i].storyId;
 				cardTitle = result[i].storyName;
-				console.log("storyId:: " + storyId + " storyName:: " + cardTitle);
+				//console.log("storyId:: " + storyId + " storyName:: " + cardTitle);
 				
 				 $('.col-12').append(
 						"<div class="+"card"+">"
@@ -158,7 +158,7 @@ $(function() {
 	function addStory(){
 		if(confirm("DB랑 연결해놔서 막 추가하면 안되는데도 스토리를 추가하시겠습니까?")) {
 			var storyName = $('#storyname').val();
-			console.log("storyName:: " + storyName + ", currentMemberId:: " + currentMemberId + ", memberList:: " + memberList);
+			//console.log("storyName:: " + storyName + ", currentMemberId:: " + currentMemberId + ", memberList:: " + memberList);
 			
 			$.ajax({
 				type: 'post',
@@ -166,7 +166,7 @@ $(function() {
 				data: {'storyName':storyName, 'memberId': currentMemberId},
 				
 				success:function(result) {
-					console.log("result:: " + result+", memberList::" + memberList);
+					//console.log("result:: " + result+", memberList::" + memberList);
 					
 					$.ajax({
 						type: 'post',
