@@ -38,6 +38,7 @@
 		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, STORE_ID
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{VALUE}
+		ORDER BY TRANSACTION_TIME DESC
 	</select>
 	
 	<select id="findTransactionBySpecificPeriod" parameterType="hashmap" resultType="transaction">

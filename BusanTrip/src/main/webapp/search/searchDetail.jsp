@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <%-- jquery ui 전용 import --%>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<%-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style type="text/css">
 
@@ -32,18 +32,27 @@
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
-	    padding: 20px 0;
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
-			margin-top: 80px; /* 상단바 80*/
+			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;
+			background-color: #fef0f0;
 			min-height: calc(100vh - 80px);
+		}
+		#toTop{
+			bottom: 100px;
+			right: 10px;
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 190px);
+			min-height: calc(100vh - 180px);
+			padding: 20px 0;
+		}
+		#toTop{
+			bottom: 130px;
+			right: 30px;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -56,21 +65,57 @@
 	    padding-top: 10px;
 	    padding-bottom: 10px;
 	} */
-	
+	#toTop{
+		position: fixed;
+		width: 32px;
+		border: 2px solid black;
+		border-radius: 10px;
+		background-color: white;
+	}
+	#toTop:hover{
+		cursor: pointer;
+	}
+	.box-1{
+		max-width: 720px;
+		margin: 0 auto;
+		text-align: center;
+		background-color: #fef0f0;
+		border-radius: 10px;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		padding-bottom: 10px;
+	}
 	.searchDetail-upper {
-		max-width: 400px;
+		width: 75%;
+		background-color: white;
+		border-radius: 10px;
+		max-width: 500px;
 		margin: 15px auto;
 		text-align: center;
 		height: 140px;
-		position: relative;
-		/* border-radius: 5px;
-		border: 1px solid var(--bnk-gray); */
-		background-color: white;
+		
 		
 	}
 	
+	.searchDetail-lower {
+		width: 75%;
+		background-color: white;
+		max-width: 500px;
+		margin: 0 auto;
+		text-align: center;
+		min-height: 5vh;
+		border-radius: 5px;
+	}
+	
+	.ud-center {
+		background-color: white;
+		/* position: absolute;
+		left: 50%; top: 50%;
+		transform: translate(-50%, -50%); */
+	}
+	
 	.searchDetail-upper-top, .searchDetail-upper-bottom {
-		max-width: 300px;
 		margin: 10px auto;
 		border: 1px solid var(--bnk-gray);
 	}
@@ -80,6 +125,8 @@
 		justify-content: space-around;
 		padding: 3px 0;
 	}
+	
+	/* */
 	
 	.accountNumber {
 		max-width: 100px;
@@ -152,24 +199,15 @@
 	    background-color: var(--button-active);
 	}
 	
-	.searchDetail-lower {
-		max-width: 400px;
-		margin: 0 auto;
-		text-align: center;
-		min-height: 5vh;
-		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
-	}
-	
 	.searchDetail-lower-box {
-		max-width: 300px;
+		max-width: 450px;
 		margin: 10px auto;
 		min-height: 60px;
 		height: auto;
 		border-bottom-color: var(--bnk-lightgray);
 		border-bottom-width: 2px;
 		border-bottom-style: solid;
-		padding: 5px 0 3px;
+		padding: 5px 10px 3px;
 	}
 	
 	.searchDetail-lower-box-inner {
@@ -201,7 +239,7 @@
 	}
 	
 	.storeName {
-		width: 200px;
+		width: 180px;
 		text-align: left;
 		margin: 0 0 0 5px;
 		font-weight: bold;
@@ -209,7 +247,7 @@
 	}
 	
 	.payAmount {
-		width: 100px;
+		width: 120px;
 		text-align: right;
 		margin: 0 5px 0 0;
 		font-weight: bold;
@@ -226,13 +264,6 @@
 		padding: 1px 2px;
 	}
 	
-	.ud-center {
-		width: 100%;
-		position: absolute;
-		left: 50%; top: 50%;
-		transform: translate(-50%, -50%);
-	}
-	
 	.datepicker {
 		margin: 1px 0 0;
 		width: 100px;
@@ -240,7 +271,7 @@
 		text-align: center;
 		font-size: 13px;
 	}
-	
+
 
 </style>
 
@@ -248,32 +279,49 @@
 
 	$(function() {
 		const accountNumber = '${accountNumber}'
+		// 잔액 조회
 		$.ajax({
 			type: 'post',
 			url: '/member/getBalance',
 			data: {'accountNumber': accountNumber},
 			success: function(res){
-				console.log(res)
+				/* console.log(res) */
+				$('.accountNumber').text(accountNumber)
+				$('.amount').text(res+"원")
 			},
 			error: function(e) {
 				console.log(e)
 			}
 		})
-		$.ajax({
-			type: 'post',
-			url: '/member/findAllTransaction',
-			data: {'accountNumber': accountNumber},
-			
-			success: function(res){
-				console.log(res)
-			},
-			error: function(e) {
-				console.log(e)
-			}
-		})
+		
+		// 
+		var list = [];
+		// 보여줄 아이템 수 10개
+		var nowPage = 1;
+		var totalPage = 1;
+		getTransaction()
+		function getTransaction() {
+			$.ajax({
+				type: 'post',
+				url: '/member/findAllTransaction',
+				data: {'accountNumber': accountNumber},
+				
+				success: function(res){
+					console.log(res)
+					list = res;
+					totalPage = Math.ceil(list.length/10);
+					loadData(1)
+				},
+				error: function(e) {
+					console.log(e)
+				}
+			})
+		}
+		
 		
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		
+		// 오늘 날짜 가져오기
 		let nowDay = new Date();
 		let nowYear = nowDay.getFullYear();
 		let nowMonth = nowDay.getMonth() + 1;
@@ -306,7 +354,7 @@
 				//
 				
 				$('#detailBox').html("");
-				loadData(parseInt(period/3)+1);  // 임시코드
+				/* loadData(parseInt(period/3)+1);  // 임시코드 */
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
 				
@@ -368,113 +416,67 @@
 		// 맨 처음 페이지 들어왔을 시 1개월을 기본으로 조회하도록 자동 호출.
 		$('.periodBox:eq(0)').click();
 		
+		var chkPage = 1;
+		// 무한 스크롤
+		$(window).scroll(function(){
+			/* console.log($(document).height(), $(window).scrollTop() + $(window).height()) */
+			if($(document).height() <= $(window).scrollTop() + $(window).height()+15) {
+				if(nowPage < totalPage && nowPage === chkPage){
+					chkPage++;
+					var loading = '<div id="scrollLoading" class="d-flex justify-content-center">'+
+								  '<div class="spinner-border text-danger" role="status">'+
+								  '<span class="sr-only">Loading...</span></div></div>'
+					$('#detailBox').append(loading)
+					setTimeout(function() {
+						nowPage+=1;
+						console.log(nowPage)
+						$('#scrollLoading').remove();
+						loadData(nowPage)
+						
+					}, 300);
+				}
+				
+				
+			}
+		})
+		
+		$('#toTop').on('click', function(){
+			window.scrollTo(0, 0);
+		})
+		function loadData(page) {
+			var start = (totalPage*10)-10;
+			var end = list.length;
+			if(page < totalPage) {
+				start = (page*10)-10
+				end = page*10;
+			}
+			console.log(start, end)
+			for (var i=start; i<end; i++) {
+				var memo = list[i].transactionMemo !== null ?
+						'<div class="searchDetail-lower-box-inner">'+
+						'<span class="memo">'+list[i].transactionMemo+'</span></div>'
+						: "";
+				$('#detailBox').append(
+						'<div class="searchDetail-lower-box" id="lowerBox-'+i+'">'+
+						'<div class="searchDetail-lower-box-inner">'+
+						'<span class="payDate">'+list[i].transactionTime.substring(0,10)+'</span>'+
+						'<div class="image-box">'+
+						'<img class="searchBtn" src="/img/search.png" width=20px>'+
+						'<img class="memoBtn" src="/img/memo.png" width=20px data-toggle="modal" data-target="#memoModal">'+
+						'</div></div>'+
+						'<div class="searchDetail-lower-box-inner">'+	
+						'<span class="storeName">'+list[i].transactionStore+'</span>'+
+						'<span class="payAmount">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
+						'</div>'+memo+'</div>'
+				);
+				
+			}// for
+			
+			
+		}  // loadData
 	});  // JQuery
 	
-	function loadData(tmp) {
-		var dateArr = ["2022-08-30", "2022-08-30", "2022-08-14", "2022-07-15", "2022-06-08"];
-		var nameArr = ["해달별다방 기장점", "BNK치킨 부산본점", "온점반점 일광점", "JAVA카페 서면점", "충전"];
-		var moneyArr = ["-9000", "-23700", "-21000", "-4000", "500000"];
-		var idArr = ["A", "B", "", "D", ""];
-		var memoArr = ["", "메모가 다음과 같이 기재되어 있는 경우 이처럼 결과가 나오게 될 예정", "", "", "메모가 기재되어 있는 경우"];
-		
-		for (var i=0; i<tmp; i++) {
-			let date = dateArr[i];
-			let name = nameArr[i];
-			let money = moneyArr[i];
-			let id = idArr[i];
-			let memo = memoArr[i];
-			
-			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			
-			// html tag 생성 form
-			<%-- 
-			<div class="searchDetail-lower-box">
-				<div class="searchDetail-lower-box-inner">
-					<span class="payDate">2022-02-22</span>
-					<div class="image-box">
-						<img class="searchBtn" src="./img/search.png" width=20px>
-						<img class="memoBtn" src="./img/memo.png" width=20px
-									data-toggle="modal" data-target="#memoModal">
-					</div>
-				</div>
-				
-				<div class="searchDetail-lower-box-inner">
-					<span class="storeName">부산은행 기장연수원</span>
-					<span class="payAmount">2,000,000</span>
-				</div>
-				
-				<div class="searchDetail-lower-box-inner">
-					<span class="memo">메모용 내용</span>
-				</div>
-			</div>
-			--%>
-			
-			let hasId = (id != "");
-			let hasMemo = (memo != "");
-			
-			let spanPayDate = document.createElement('span');
-			spanPayDate.setAttribute('class', 'payDate');
-			spanPayDate.append(date);
-			
-			if (hasId) {  // hasId
-				var imgSearchBtn = document.createElement('img');
-				imgSearchBtn.setAttribute('class', 'searchBtn');
-				imgSearchBtn.setAttribute('src', '/img/search.png');
-			}
-			
-			let imgMemoBtn = document.createElement('img');
-			imgMemoBtn.setAttribute('class', 'memoBtn');
-			imgMemoBtn.setAttribute('src', '/img/memo.png');
-			imgMemoBtn.setAttribute('data-toggle', "modal");
-			imgMemoBtn.setAttribute('data-target', "#memoModal");
-			
-			let divImageBox = document.createElement('div');
-			divImageBox.setAttribute('class', 'image-box');
-			if (hasId) divImageBox.append(imgSearchBtn);  // hasId
-			divImageBox.append(imgMemoBtn);
-			
-			let divSearchDetailLowerBoxInner1 = document.createElement('div');
-			divSearchDetailLowerBoxInner1.setAttribute('class', 'searchDetail-lower-box-inner');
-			divSearchDetailLowerBoxInner1.append(spanPayDate);
-			divSearchDetailLowerBoxInner1.append(divImageBox);
-			
-			
-			let spanStoreName = document.createElement('span');
-			spanStoreName.setAttribute('class', 'storeName');
-			spanStoreName.append(name);
-			
-			let spanPayAmount = document.createElement('span');
-			spanPayAmount.setAttribute('class', 'payAmount');
-			spanPayAmount.append(money);
-			
-			let divSearchDetailLowerBoxInner2 = document.createElement('div');
-			divSearchDetailLowerBoxInner2.setAttribute('class', 'searchDetail-lower-box-inner');
-			divSearchDetailLowerBoxInner2.append(spanStoreName);
-			divSearchDetailLowerBoxInner2.append(spanPayAmount);
-			
-		
-			if (hasMemo) {  // hasMemo
-				let spanMemo = document.createElement('span');
-				spanMemo.setAttribute('class', 'memo');
-				spanMemo.append(memo);
-			
-				var divSearchDetailLowerBoxInner3 = document.createElement('div');
-				divSearchDetailLowerBoxInner3.setAttribute('class', 'searchDetail-lower-box-inner');
-				divSearchDetailLowerBoxInner3.append(spanMemo);
-			}
-			
-			
-			let divSearchDetailLowerBox = document.createElement('div');
-			divSearchDetailLowerBox.setAttribute('class', 'searchDetail-lower-box');
-			divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner1);
-			divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner2);
-			if (hasMemo) divSearchDetailLowerBox.append(divSearchDetailLowerBoxInner3);  // hasMemo
-			
-			
-			$('#detailBox').append(divSearchDetailLowerBox);
-			
-		}  // for
-	}  // loadData
+	
 	
 </script>
 
@@ -482,62 +484,45 @@
 <body>
 	<div>
 		<c:import url="/header/nav.jsp">
-			<c:param name="navSubTitle" value="거래내역조회"/>
+			<c:param name="navSubTitle" value="소비내역"/>
 		</c:import>
-		
+
 		<div class="content container">
-			<div class="searchDetail-upper">
-				<div class="ud-center">
-					<div class="rounded-lg searchDetail-upper-top">
-						<span class="accountNumber">XXX-XXXXXX-XX-XXX</span>
-						<span class="amount">0,000,000원</span>
-					</div>
-					<div class="rounded-lg searchDetail-upper-bottom">
-						<div class="searchDetail-upper-bottom-inner">
-							<input type="text" class="datepicker" id="startDate" readonly="readonly">
-							<span width="15px"><b>~</b></span>
-							<input type="text" class="datepicker" id="endDate" readonly="readonly">
-							<span class="searchBox"><img src="/img/search.png" width=20px></span>
+			<div class="box-1">
+				<div class="searchDetail-upper shadow">
+					<div class="ud-center">
+						<div class="rounded-lg searchDetail-upper-top">
+							<span class="accountNumber">XXX-XXXXXX-XX-XXX</span> 
+							<span class="amount">9999 원</span>
 						</div>
-						
-						<div class="searchDetail-upper-bottom-inner">
-							<span class="periodBox" value="1">1개월</span>
-							<span class="periodBox" value="3">3개월</span>
-							<span class="periodBox" value="6">6개월</span>
-							<span class="periodBox" value="12">1년</span>
+						<div class="rounded-lg searchDetail-upper-bottom">
+							<div class="searchDetail-upper-bottom-inner">
+								<input type="text" class="datepicker" id="startDate"
+									readonly="readonly"> <span width="15px"><b>~</b></span>
+								<input type="text" class="datepicker" id="endDate"
+									readonly="readonly"> <span class="searchBox"><img
+									src="/img/search.png" width=20px></span>
+							</div>
+
+							<div class="searchDetail-upper-bottom-inner">
+								<span class="periodBox" value="1">1개월</span> <span
+									class="periodBox" value="3">3개월</span> <span class="periodBox"
+									value="6">6개월</span> <span class="periodBox" value="12">1년</span>
+							</div>
 						</div>
 					</div>
+				</div>
+
+				<div id="detailBox" class="searchDetail-lower shadow">
+
+				</div>
+				<div id="toTop" class="d-flex justify-content-center">
+					<i class="bi bi-caret-up-fill" style="font-size: 1.2rem;"></i>
 				</div>
 			</div>
 			
-			<div id="detailBox" class="searchDetail-lower">
-				
-				<%-- 
-				<div class="searchDetail-lower-box">
-					<div class="searchDetail-lower-box-inner">
-						<span class="payDate">2022-02-22</span>
-						<div class="image-box">
-							<img class="searchBtn" src="./img/search.png" width=20px>
-							<img class="memoBtn" src="./img/memo.png" width=20px
-										data-toggle="modal" data-target="#memoModal">
-						</div>
-					</div>
-					
-					<div class="searchDetail-lower-box-inner">
-						<span class="storeName">부산은행 기장연수원</span>
-						<span class="payAmount">2,000,000</span>
-					</div>
-					
-					<div class="searchDetail-lower-box-inner">
-						<span class="memo">메모용 내용</span>
-					</div>
-				</div>
-				--%>
-				
-			</div>
-
 		</div>
-		
+
 		<c:import url="../footer/footer.jsp" />
 		
 		<%-- Modal --%>

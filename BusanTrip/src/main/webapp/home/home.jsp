@@ -29,16 +29,34 @@
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
-
+	/* 상하단 바를 위한 필수 css */
 	.content{
-		min-height: 100vh;
+	    margin-top: 90px;
+	    padding: 20px 0;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;
+			min-height: calc(100vh - 70px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 170px);
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
+	.content{
+		/* min-height: 100vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
 	    padding-top: 10px;
-	    padding-bottom: 10px;
+	    padding-bottom: 10px; */
 	}
 	
 	.home-top, .home-middle, .home-bottom {
+		width: 80%;
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;

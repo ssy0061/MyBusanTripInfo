@@ -28,7 +28,7 @@
 		bottom: 0;
 		background-color: white;
 		transition: 0.3s;
-		padding: 7px 10px 3px 10px;
+		padding: 0 10px 10px 10px;
 		align-items: center;
 		box-shadow: 0 -3px 10px 2px lightgray;
 		z-index: 99;
@@ -47,7 +47,9 @@
 		border-radius: 15px;
 		*/
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
 		cursor: pointer;
 		font-family: 'Dongle', sans-serif;
 	}
@@ -126,22 +128,22 @@
 			<div class="row icon icon-home">
 				<i class="bi bi-house-door" style="font-size: 2rem; color: #646464"></i>
 				<i class="bi bi-house-door-fill" style="font-size: 2rem; display: none;"></i>
-				<div class="col-12" align="center" style="color: #646464"><b>홈</b></div>
+				<div class="" align="center" style="color: #646464"><b>홈</b></div>
 			</div>
 			<div class="row icon icon-search">
 				<i class="bi bi-piggy-bank" style="font-size: 2rem; color: #646464""></i>
 				<i class="bi bi-piggy-bank-fill" style="font-size: 2rem; display: none;"></i>
-				<div class="col-12" align="center" style="color: #646464"><b>조회</b></div>
+				<div class="" align="center" style="color: #646464"><b>조회</b></div>
 			</div>
 			<div class="row icon icon-trip">
 				<i class="bi bi-image" style="font-size: 2rem; color: #646464""></i>
 				<i class="bi bi-image-fill" style="font-size: 2rem; display: none;"></i>
-				<div class="col-12" align="center" style="color: #646464"><b>여행</b></div>
+				<div class="" align="center" style="color: #646464"><b>머니앨범</b></div>
 			</div>
 			<div class="row icon icon-place">
 				<i class="bi bi-geo-alt" style="font-size: 2rem; color: #646464""></i>
 				<i class="bi bi-geo-alt-fill" style="font-size: 2rem; display: none;"></i>
-				<div class="col-12" align="center" style="color: #646464"><b>핫플</b></div>
+				<div class="" align="center" style="color: #646464"><b>핫플</b></div>
 			</div>
 		</div>
 	</footer>

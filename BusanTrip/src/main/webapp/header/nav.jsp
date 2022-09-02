@@ -12,7 +12,7 @@
 <style type="text/css">
 	.nav{
 		width: 100%;
-		height: 80px;
+		height: 70px;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -25,7 +25,7 @@
         z-index: 99;
 	}
 	#nvaHomeMobileLogo{
-		height: 60px;
+		height: 55px;
 	}
 	#navHomeWebLogo{
 		height: 60px;
@@ -40,7 +40,7 @@
 	}
 	@media screen and (max-width: 575px) {
 		.nav{
-			height: 80px;
+			height: 70px;
 		}
 		.nav-web {
 			display: none;
@@ -198,7 +198,7 @@
 			<a href="/bnk/home"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
 			<div class="navMenus">
 				<div><a href="/bnk/search">조회</a></div>
-				<div><a href="/bnk/trip">여행스토리</a></div>
+				<div><a href="/bnk/trip">머니앨범</a></div>
 				<div><a href="/bnk/place">핫플</a></div>
 				<div><a href="/bnk/myPage">MyPage</a></div>
 			</div>
@@ -213,7 +213,7 @@
 		<div class="collpaseWrap">
 			<div class="collapse" id="navCollpase">
 				<div><a href="/bnk/search">조회</a></div>
-				<div><a href="/bnk/trip">여행스토리</a></div>
+				<div><a href="/bnk/trip">머니앨범</a></div>
 				<div><a href="/bnk/place">핫플</a></div>
 				<div><a href="/bnk/myPage">MyPage</a></div>
 			</div>

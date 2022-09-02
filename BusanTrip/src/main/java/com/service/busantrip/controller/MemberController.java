@@ -61,8 +61,8 @@ public class MemberController {
 	
 	@PostMapping("getBalance")
 	@ResponseBody
-	public int getBalance(String memberId, Model model, HttpSession session) {
-		int balance = memberService.getBalance(memberId);
+	public int getBalance(String accountNumber, Model model, HttpSession session) {
+		int balance = memberService.getBalance(accountNumber);
 		return balance;
 	}
 	
