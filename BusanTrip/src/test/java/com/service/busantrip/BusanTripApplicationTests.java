@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.service.busantrip.domain.Member;
 import com.service.busantrip.model.MemberDAO;
 import com.service.busantrip.model.MemberService;
 import com.service.busantrip.model.StoreDAO;
@@ -44,11 +45,11 @@ class BusanTripApplicationTests {
 //		System.out.println(memberDAO.findAllId());
 //	}
 	
-//	@Test
-//	void login() {
-//		Member member = new Member("member666", "pass666");
-//		System.out.println("login \n" + memberDAO.login(member));
-//	}
+	@Test
+	void login() {
+		Member member = new Member("gwak222", "pass222");
+		System.out.println("login \n" + memberService.login(member));
+	}
 	
 //	@Test	
 //	void getMemberName() {
@@ -199,10 +200,10 @@ class BusanTripApplicationTests {
 //		 System.out.println(storeDAO.findExistWishlist("1","gwak222"));
 //	}
 	
-	@Test
-	void findAllWishlist() {
-		 System.out.println(storeDAO.findAllWishlist("gwak222"));
-	}
+//	@Test
+//	void findAllWishlist() {
+//		 System.out.println(storeDAO.findAllWishlist("gwak222"));
+//	}
 	
 	/***** StoryDAOImpl Unit test ******/
 	

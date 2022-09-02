@@ -35,6 +35,7 @@ public class MemberController {
 			if(loginData != null) {
 				session.setAttribute("loginUser", loginData);
 				session.setAttribute("memberId", id);
+				session.setAttribute("memberChar", loginData.getMemberChar());
 				return "redirect:/bnk/home";
 			} else {
 				return "redirect:/bnk/login";
