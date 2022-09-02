@@ -68,7 +68,6 @@
 	#toTop{
 		position: fixed;
 		width: 32px;
-		border: 2px solid black;
 		border-radius: 10px;
 		background-color: white;
 	}
@@ -106,6 +105,7 @@
 		text-align: center;
 		min-height: 5vh;
 		border-radius: 5px;
+		padding-bottom: 10px;
 	}
 	
 	.ud-center {
@@ -163,7 +163,7 @@
 	
 	.periodBox, .searchBox {
 		border-radius: 10px;
-		border: 3px outset var(--bnk-gray);
+		border: 3px outset #53565A;
 		font-weight: bold;
 	}
 	
@@ -185,8 +185,8 @@
 	.periodBox-choiced {
 		width: 100px;
 		border-radius: 10px;
-		border: 3px outset var(--bnk-gray);
-		background-color: #ccd9ff;
+		border: 3px outset #53565A;
+		background-color: lightGray;
 		font-weight: bold;
 		margin: 0 1px 1px;
 	}
@@ -278,21 +278,31 @@
 <script>
 
 	$(function() {
-		// 오늘 날짜 가져오기
+		// 날짜
+		function dayToString(day){
+			let year = day.getFullYear();
+			let month = day.getMonth() + 1;
+			let date = day.getDate();
+			return year + '-' + ('00' + month).slice(-2)
+					+ '-' + ('00' + date).slice(-2);
+		}
 		function getNowDay(){
 			let nowDay = new Date();
-			let nowYear = nowDay.getFullYear();
-			let nowMonth = nowDay.getMonth() + 1;
-			let nowDate = nowDay.getDate();
-			return nowYear + '-' + ('00' + nowMonth).slice(-2)
-					+ '-' + ('00' + nowDate).slice(-2);
-			
+			return dayToString(nowDay);
 		}
+		function getPastDay(m){
+			let nowDay = new Date();
+			let nowMonth = nowDay.getMonth()
+			let nowDate = nowDay.getDate()
+			let day = new Date();
+			day.setMonth(nowMonth-m);
+			day.setDate(nowDate+1);
+			return dayToString(day);
+		}
+		
 		const accountNumber = '${accountNumber}'
+
 		
-		
-		
-		let now = getNowDay()
 		// 잔액 조회
 		$.ajax({
 			type: 'post',
@@ -308,12 +318,12 @@
 			}
 		})
 		
-		// 
+		// 거래내역 조회
 		var list = [];
 		// 보여줄 아이템 수 10개
 		var nowPage = 1;
 		var totalPage = 1;
-		getTransaction(,now)
+		/* getTransaction(,now) */
 		function getTransaction(startDay, finishDay) {
 			$.ajax({
 				type: 'post',
@@ -346,25 +356,17 @@
 			if ($(this).attr('class') != 'periodBox-choiced') {
 				let period = $(this).attr('value');
 				
-				let befDay = new Date();
-				befDay.setMonth(nowMonth-period);
-				befDay.setDate(nowDate+1);
-				
-				let befYear = befDay.getFullYear();
-				let befMonth = befDay.getMonth();
-				let befDate = befDay.getDate();
-				let bef = befYear + '-' + ('00' + befMonth).slice(-2)
-							+ '-' + ('00' + befDate).slice(-2);
-				
-				$('#startDate').val(bef)
-				$('#endDate').val(now)
+				let start = getPastDay(period)
+				let end = getNowDay()
+				$('#startDate').val(start)
+				$('#endDate').val(end)
 				
 				// period - 기간. befDay - 시작점. nowDay - 끝점(오늘).
 				// 비동기 방식으로 정보 전달...
 				//
 				
 				$('#detailBox').html("");
-				/* loadData(parseInt(period/3)+1);  // 임시코드 */
+				getTransaction(start, end)
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
 				
@@ -422,10 +424,6 @@
 			// .modal('hide'); 가 적용되지 않아서 코드 수정.
 		});  // button click
 		
-		
-		// 맨 처음 페이지 들어왔을 시 1개월을 기본으로 조회하도록 자동 호출.
-		$('.periodBox:eq(0)').click();
-		
 		var chkPage = 1;
 		// 무한 스크롤
 		$(window).scroll(function(){
@@ -460,7 +458,10 @@
 				start = (page*10)-10
 				end = page*10;
 			}
-			console.log(start, end)
+			if(list.length===0) {
+				$('#detailBox').append("<div><i class='bi bi-clipboard2-x' style='font-size: 3rem;'></i></div><b>불러올 내역이 없습니다.</b>")
+				return
+			}
 			for (var i=start; i<end; i++) {
 				var memo = list[i].transactionMemo !== null ?
 						'<div class="searchDetail-lower-box-inner">'+
@@ -502,8 +503,8 @@
 				<div class="searchDetail-upper shadow">
 					<div class="ud-center">
 						<div class="rounded-lg searchDetail-upper-top">
-							<span class="accountNumber">XXX-XXXXXX-XX-XXX</span> 
-							<span class="amount">9999 원</span>
+							<span class="accountNumber"></span> 
+							<span class="amount"></span>
 						</div>
 						<div class="rounded-lg searchDetail-upper-bottom">
 							<div class="searchDetail-upper-bottom-inner">
@@ -526,7 +527,7 @@
 				<div id="detailBox" class="searchDetail-lower shadow">
 
 				</div>
-				<div id="toTop" class="d-flex justify-content-center">
+				<div id="toTop" class="d-flex justify-content-center shadow">
 					<i class="bi bi-caret-up-fill" style="font-size: 1.2rem;"></i>
 				</div>
 			</div>
