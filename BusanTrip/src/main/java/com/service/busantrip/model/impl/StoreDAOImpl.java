@@ -19,11 +19,11 @@ public class StoreDAOImpl implements StoreDAO{
 	private SqlSession sqlsession;
 	
 	@Override
-	public List<Store> findStoreTransaction(String memberID, String storeId) {
+	public List<Store> findStoreTransaction(String memberId, String storeId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("memberID", memberID);
+		map.put("memberId", memberId);
 		map.put("storeId", storeId);
-		System.out.println(memberID + " " +storeId);
+		System.out.println(memberId + " " +storeId);
 		return sqlsession.selectList(NS+"findStoreTransaction", map);
 	}
 
@@ -72,8 +72,27 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
+	public void deleteWishlist(String storeId, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storeId", storeId);
+		map.put("memberId", memberId);
+		sqlsession.delete(NS+"deleteWishlist", map);
+	}
+
+	@Override
+	public int findExistWishlist(String storeId, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storeId", storeId);
+		map.put("memberId", memberId);
+		return sqlsession.selectOne(NS+"findExistWishlist", map);
+		
+	}
+	
+	@Override
 	public List<Store> findAllWishlist(String memberId) {
 		return sqlsession.selectList(NS+"findAllWishlist", memberId);
 	}
+
+
 
 }

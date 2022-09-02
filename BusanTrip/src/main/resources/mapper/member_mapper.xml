@@ -26,7 +26,7 @@
 	</select>
 	
 	<select id="login" parameterType="hashmap" resultType="member">
-		SELECT MEMBER_ID, MEMBER_PW FROM MEMBER
+		SELECT MEMBER_ID, MEMBER_PW, MEMBER_CHAR FROM MEMBER
 		WHERE MEMBER_ID=#{memberId} AND MEMBER_PW=#{memberPw}
 	</select>
 	
@@ -38,6 +38,7 @@
 		SELECT TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, STORE_ID
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{VALUE}
+		ORDER BY TRANSACTION_TIME DESC
 	</select>
 	
 	<select id="findTransactionBySpecificPeriod" parameterType="hashmap" resultType="transaction">
@@ -45,6 +46,7 @@
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{accountNumber}
 		AND TRANSACTION_TIME BETWEEN #{startDay} AND #{finishDay}
+		ORDER BY TRANSACTION_TIME DESC
 	</select>
 	
 	<select id="findTransactionByMonthPeriod" parameterType="hashmap" resultType="transaction">

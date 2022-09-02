@@ -17,8 +17,8 @@ public class StoreServiceImpl implements StoreService{
 	private StoreDAO storeDAO;
 	
 	@Override
-	public List<Store> findStoreTransaction(String memberID, String storeId) {
-		return storeDAO.findStoreTransaction(memberID, storeId);
+	public List<Store> findStoreTransaction(String memberId, String storeId) {
+		return storeDAO.findStoreTransaction(memberId, storeId);
 	}
 
 	@Override
@@ -58,8 +58,20 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
+	public void deleteWishlist(String storeId, String memberId) {
+		storeDAO.deleteWishlist(storeId, memberId);
+	}
+
+	@Override
+	public int findExistWishlist(String storeId, String memberId) {
+		return storeDAO.findExistWishlist(storeId, memberId);
+	}
+	
+	@Override
 	public List<Store> findAllWishlist(String memberId) {
 		return storeDAO.findAllWishlist(memberId);
 	}
+
+
 
 }

@@ -31,10 +31,10 @@
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
-			margin-top: 80px; /* 상단바 80*/
+			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;
 			background-color: #fef0f0;
-			min-height: calc(100vh - 80px);
+			min-height: calc(100vh - 70px);
 		}
 		.search-box{
 			padding-top: 10px;
@@ -43,12 +43,12 @@
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 190px);
+			min-height: calc(100vh - 170px);
 		}
 		.search-box{
 			padding-top: 50px;
 			padding-bottom: 50px;
-			min-height: calc(100vh - 190px);
+			min-height: calc(100vh - 170px);
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -135,41 +135,6 @@
 <script>
 
 	$(function() {
-		/* var result = [
-			{
-				'account_bank': '부산은행',
-				'account': '777-7777-7777-77',
-				'money': '9999999',
-				'id': 'id01'
-			},
-			{
-				'account_bank': '부산은행',
-				'account': '888-88-888888',
-				'money': '150000',
-				'id': 'id02'
-			},
-			{
-				'account_bank': '경남은행',
-				'account': '8238-24-466111',
-				'money': '150000',
-				'id': 'id03'
-			},
-			{
-				'account_bank': '부산은행',
-				'account': '010-10-101010-1',
-				'money': '63500',
-				'id': 'id04'
-			},
-			{
-				'account_bank': '경남은행',
-				'account': '123-456789-01-234',
-				'money': '150',
-				'id': 'id05'
-			}
-		] */
-		
-
-		
 		$('#searchBox').on('click', '.search-box-inner', function(){
 			let accountNumber = $(this).attr('id');
 			// id값을 이용해서 페이지 이동. Post 방식.
@@ -234,8 +199,8 @@
 
 </head>
 <body>
-	<c:import url="../header/nav.jsp">
-		<c:param name="navTitle" value="계좌 조회"/>
+	<c:import url="/header/nav.jsp">
+		<c:param name="navTitle" value="계좌"/>
 	</c:import>
 		
 	<div class="content container">
@@ -244,6 +209,6 @@
 		</div>
 	</div>
 	
-	<c:import url="../footer/footer.jsp" />
+	<c:import url="/footer/footer.jsp" />
 </body>
 </html>

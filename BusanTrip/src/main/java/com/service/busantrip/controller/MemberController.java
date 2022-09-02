@@ -38,6 +38,7 @@ public class MemberController {
 			if(loginData != null) {
 				session.setAttribute("loginUser", loginData);
 				session.setAttribute("memberId", id);
+				session.setAttribute("memberChar", loginData.getMemberChar());
 				return "redirect:/bnk/home";
 			} else {
 				return "redirect:/bnk/login";
@@ -64,8 +65,8 @@ public class MemberController {
 	
 	@PostMapping("getBalance")
 	@ResponseBody
-	public int getBalance(String memberId, Model model, HttpSession session) {
-		int balance = memberService.getBalance(memberId);
+	public int getBalance(String accountNumber, Model model, HttpSession session) {
+		int balance = memberService.getBalance(accountNumber);
 		return balance;
 	}
 	

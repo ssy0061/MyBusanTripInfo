@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.service.busantrip.domain.Member;
 import com.service.busantrip.model.MemberDAO;
 import com.service.busantrip.model.MemberService;
 import com.service.busantrip.model.StoreDAO;
@@ -44,11 +45,11 @@ class BusanTripApplicationTests {
 //		System.out.println(memberDAO.findAllId());
 //	}
 	
-//	@Test
-//	void login() {
-//		Member member = new Member("member666", "pass666");
-//		System.out.println("login \n" + memberDAO.login(member));
-//	}
+	@Test
+	void login() {
+		Member member = new Member("gwak222", "pass222");
+		System.out.println("login \n" + memberService.login(member));
+	}
 	
 //	@Test	
 //	void getMemberName() {
@@ -143,7 +144,7 @@ class BusanTripApplicationTests {
 	
 //	@Test
 //	void findStoreInfo() { 
-//		System.out.println(storeDAO.findStoreTransaction("acc222", "1"));
+//		System.out.println(storeDAO.findStoreInfo("165"));
 //	}
 	
 //	@Test
@@ -190,6 +191,16 @@ class BusanTripApplicationTests {
 //	}
 	
 //	@Test
+//	void deleteWishlist() {
+//		 storeDAO.deleteWishlist("1","gwak222");
+//	}
+	
+//	@Test
+//	void findExistWishlist() {
+//		 System.out.println(storeDAO.findExistWishlist("1","gwak222"));
+//	}
+	
+//	@Test
 //	void findAllWishlist() {
 //		 System.out.println(storeDAO.findAllWishlist("gwak222"));
 //	}
@@ -211,6 +222,7 @@ class BusanTripApplicationTests {
 //		String memberList = "cho555 gwak222";
 //		int storyId = 41;
 //		storyDAO.updateStory(memberList, storyId);
+//		 storyDAO.deleteStory(24);
 //	}
 	
 //	@Test

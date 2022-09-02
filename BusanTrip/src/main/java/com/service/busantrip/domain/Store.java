@@ -5,7 +5,7 @@ public class Store {
 	private String storeName;
 	private String storeTele;
 	private String storeAddr;
-	private String storeWorkshop;
+	private String storeWorkhour;
 	private String storeHoliday;
 	private Double storeLatitude;
 	private Double storeLongitude;
@@ -15,7 +15,7 @@ public class Store {
 	
 	public Store() {}
 	
-	public Store(String storeId, String storeName, String storeTele, String storeAddr, String storeWorkshop,
+	public Store(String storeId, String storeName, String storeTele, String storeAddr, String storeWorkhour,
 			String storeHoliday, Double storeLatitude, Double storeLongitude, String storeCategory,
 			int storeTotalvisit, String storeThumbnail) {
 		super();
@@ -23,7 +23,7 @@ public class Store {
 		this.storeName = storeName;
 		this.storeTele = storeTele;
 		this.storeAddr = storeAddr;
-		this.storeWorkshop = storeWorkshop;
+		this.storeWorkhour = storeWorkhour;
 		this.storeHoliday = storeHoliday;
 		this.storeLatitude = storeLatitude;
 		this.storeLongitude = storeLongitude;
@@ -64,12 +64,12 @@ public class Store {
 		this.storeAddr = storeAddr;
 	}
 
-	public String getStoreWorkshop() {
-		return storeWorkshop;
+	public String getStoreWorkhour() {
+		return storeWorkhour;
 	}
 
-	public void setStoreWorkshop(String storeWorkshop) {
-		this.storeWorkshop = storeWorkshop;
+	public void setStoreWorkhour(String storeWorkhour) {
+		this.storeWorkhour = storeWorkhour;
 	}
 
 	public String getStoreHoliday() {
@@ -123,7 +123,7 @@ public class Store {
 	@Override
 	public String toString() {
 		return "Store [storeId=" + storeId + ", storeName=" + storeName + ", storeTele=" + storeTele + ", storeAddr="
-				+ storeAddr + ", storeWorkshop=" + storeWorkshop + ", storeHoliday=" + storeHoliday + ", storeLatitude="
+				+ storeAddr + ", storeWorkhour=" + storeWorkhour + ", storeHoliday=" + storeHoliday + ", storeLatitude="
 				+ storeLatitude + ", storeLongitude=" + storeLongitude + ", storeCategory=" + storeCategory
 				+ ", storeTotalvisit=" + storeTotalvisit + ", storeThumbnail=" + storeThumbnail + "]";
 	}
