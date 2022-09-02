@@ -104,7 +104,7 @@
 		background-color:#F08080;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	#resetUpload{
+	#input-label{
 		display:inline-block;
 		padding:4px 10px;
 		margin:0 5px;
@@ -116,6 +116,19 @@
 		border-radius:10px;
 		border-color:transparent;
 		background-color:#6c9dc6;
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
+	#resetUpload, .addTransYes, .memberSearchOk, .playListOk{
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
@@ -517,7 +530,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
+						<input type="submit" value="확인" class="btn addTransYes" data-dismiss="modal"></input>
 					</div>
 				</div>
 			</div>
@@ -548,7 +561,7 @@ $(document).ready(function () {
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
+					<input type="submit" value="확인" class="btn memberSearchOk" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>
@@ -564,7 +577,7 @@ $(document).ready(function () {
 					
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
+					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>

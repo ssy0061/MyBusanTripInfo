@@ -47,7 +47,7 @@
 	}
 	.card:hover{
 		cursor:pointer;
-		background-color:#f0c2c4;
+		background-color:#fef0f0;
 	}
 	.card>img{
 		margin:0 0 10px 0;
@@ -57,6 +57,19 @@
 	#membersearch{
 		border-color:transparent;
 		border-radius:2px;
+	}
+	.addDiaryYes{
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#6c9dc6;
+		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -117,7 +130,7 @@
 			}
 		})
 
-		$('.modal-button').on("click", addDiary)
+		$('.addDiaryYes').on("click", addDiary)
 		function addDiary() {
 			var diaryName = $('#newDiaryName').val();
 			$.ajax({
@@ -179,7 +192,7 @@
 	     		<p>다이어리 이름 : <input type="text" id="newDiaryName" size="18"></p>
 	     	</div>
 	        <div class="modal-footer">
-	        	<input type="submit" value="추가" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+	        	<input type="submit" value="추가" class="btn btn-secondary addDiaryYes" data-dismiss="modal"></input>
 	     	</div>
 	      </div>
 	    </div>

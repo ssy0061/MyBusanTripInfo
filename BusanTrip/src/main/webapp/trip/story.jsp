@@ -49,7 +49,7 @@
 	}
 	.card-body:hover{
 		cursor:pointer;
-		background-color:#f0c2c4;
+		background-color:#fef0f0;
 	}
 	.deleteStory{
 		background-color:transparent;
@@ -58,7 +58,21 @@
 	/* modal */
 	#membersearch{
 		border-color:transparent;
-		border-radius:2px;
+		border-radius:10px;
+		background-color:#6c9dc6;
+	}
+	.addStoryYes{
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#6c9dc6;
+		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	.deleteStoryYes{
 		display:inline-block;
@@ -84,7 +98,7 @@
 		vertical-align:middle;
 		border-radius:10px;
 		border-color:transparent;
-		background-color:#6c9dc6;
+		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
@@ -144,6 +158,7 @@ $(function() {
 	});
 	$('#closebutton').click(function(){
 		$('#statusmember').text("");
+		$('#statusmessage').text("");
 		$('#statusmessage').append("함께할 친구의 ID를 입력하세요.");
 		//$('#newmember').setAttribute('value','');
 		var searchmember = document.getElementById('newmember');
@@ -190,7 +205,7 @@ $(function() {
 		
 	}
 	
-	$('.modal-button').on('click', addStory)
+	$('.addStoryYes').on('click', addStory)
 	function addStory(){
 		if(confirm("DB랑 연결해놔서 막 추가하면 안되는데도 스토리를 추가하시겠습니까?")) {
 			var storyName = $('#storyname').val();
@@ -289,15 +304,10 @@ $(function() {
 	     	<div class="modal-body" align="center">
 	       		<p>머니앨범 이름 : <input type="text" id="storyname" size="18"></p>
 	       		<p>
-	       			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#53565A" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
-					  <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
-					  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-					</svg>
+					<i class="bi bi-person-bounding-box" style="font-size: 1.2rem;"></i>&nbsp;
 	       			<input type="text" id="newmember" placeholder="추가할 멤버 아이디 검색하기" size="23">
 	       			<button type="button" class="button btn-primary" id="membersearch">
-		       			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
-						  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-						</svg>
+	       				<i class="bi bi-search" style="font-size: 1.2rem;"></i>
 					</button>
 	       		</p>
 	       		<p>
@@ -311,7 +321,7 @@ $(function() {
 	       		</p>
 	     	</div>
 	        <div class="modal-footer">
-	        	<input type="submit" value="추가" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+	        	<input type="submit" value="추가" class="btn btn-secondary addStoryYes" data-dismiss="modal"></input>
 	     	</div>
 	      </div>
 	    </div>
