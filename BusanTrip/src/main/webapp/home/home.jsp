@@ -217,8 +217,8 @@
 <script>
 
 	$(function() {
+		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
-		
 		if (memberId != 'null') {
 			$.ajax({
 				type: 'post',
@@ -369,13 +369,13 @@
 									</div>
 								</div>
 							</c:when>
-							<c:otherwise>
+							<c:when test="${empty loginUser}">
 								<div class="login">
 									<div class="ud-center">
 										<span>로그인 하기</span>
 									</div>
 								</div>
-							</c:otherwise>
+							</c:when>
 						</c:choose>
 					</div>
 				</div>

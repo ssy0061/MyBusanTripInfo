@@ -63,8 +63,11 @@
 </style>
 <script type="text/javascript">
 	$(function() {
-		var isLogin = false;
-		if('<%= (String)session.getAttribute("memberId") %>' !== 'null') isLogin = true
+		function isLogin() {
+			if('<%= (String)session.getAttribute("memberId") %>' !== 'null') return true
+			else return false
+		}
+		
 		
 		
 		let scrollNum = 0;
@@ -115,11 +118,11 @@
 			location.href='/bnk/home';
 		})
 		$('.icon-search').click(function(){
-			if(!isLogin) location.href='/bnk/login'
+			if(!isLogin()) location.href='/bnk/login'
 			else location.href='/bnk/search';
 		})
 		$('.icon-trip').click(function(){
-			if(!isLogin) location.href='/bnk/login'
+			if(!isLogin()) location.href='/bnk/login'
 			else location.href='/bnk/trip';
 		})
 		$('.icon-place').click(function(){

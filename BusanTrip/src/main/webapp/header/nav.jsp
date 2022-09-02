@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style type="text/css">
 	.nav{
 		width: 100%;
@@ -38,7 +39,7 @@
 		display: none;
 		cursor: pointer;
 	}
-	@media screen and (max-width: 575px) {
+	@media screen and (max-width: 575px) { /* moblie  */
 		.nav{
 			height: 70px;
 		}
@@ -63,7 +64,7 @@
 		}
 		#navSubTitle{
 			padding-left: 80px;
-			margin-top: 25px;
+			margin-top: 20px;
 			font-family: 'Do Hyeon', sans-serif;
 		}
 		#navSubTitle>h3{
@@ -72,12 +73,32 @@
 		#navSubTitle>.back{
 			position: fixed;
 			left: 10px;
-			top: 15px;
+			top: 20px;
 			cursor: pointer;
 		}
-		
+		.arrow_back_ios_new {
+			font-size: 1.75rem;
+			font-variation-settings:
+			'FILL' 1,
+			'wght' 600,
+			'GRAD' 0,
+			'opsz' 24
+		}
+		#navUserImgWrap{
+			position: fixed;
+			top: 10px;
+			right: 15px;
+			border: 2px solid #CB333B;
+			box-shadow:1px 2px 3px 0 #53565A;
+		}
+		#navUserImgWrap:hover{
+			cursor: pointer;
+		}
+		#navUserImg{
+			width: 45px;
+		}
 	}
-	@media screen and (min-width: 575.1px) {
+	@media screen and (min-width: 575.1px) { /* mini web  */
 		.nav{
 			height: 90px;
 		}
@@ -166,7 +187,9 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		var memberId = '<%= (String)session.getAttribute("memberId") %>';
+		var memberId = '<%= session.getAttribute("memberId") %>';
+		var loginUser = '<%= session.getAttribute("loginUser") %>';
+		console.log(loginUser)
 		var loginUrl = '/bnk/login'
 		if(memberId==='null') {
 			$('.needLogin').children('a').attr('href', loginUrl)
@@ -195,6 +218,9 @@
 				$('.navMenusButton').hide()
 			}
 		});
+		$('#navUserImgWrap').click(function(){
+			location.href="/bnk/myPage";
+		})
 	});
 </script>
 </head>
@@ -234,7 +260,11 @@
 				</c:when>
 				<c:when test="${param.navSubTitle!=null}">
 					<div id="navSubTitle">
-						<div class="back"><i class="bi bi-chevron-left" style="font-size: 2.2rem;"></i></div>
+						<div class="back">
+							<span class="arrow_back_ios_new material-symbols-outlined">
+							arrow_back_ios_new
+							</span>
+						</div>
 						<h3 align="center">${param.navSubTitle}</h3>
 					</div>
 				</c:when>
@@ -243,6 +273,13 @@
 						<a href="/bnk/home"><img src="/img/mbti.png" id="nvaHomeMobileLogo"></a>
 					</div>
 				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${loginUser!=null}">
+					<div id="navUserImgWrap">
+						<img src="${loginUser.memberChar}" id=navUserImg>
+					</div>
+				</c:when>
 			</c:choose>
 		</div>
 	</nav>
