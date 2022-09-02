@@ -31,10 +31,10 @@
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
-			margin-top: 80px; /* 상단바 80*/
+			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;
 			background-color: #fef0f0;
-			min-height: calc(100vh - 80px);
+			min-height: calc(100vh - 70px);
 		}
 		.search-box{
 			padding-top: 10px;
@@ -43,12 +43,12 @@
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 190px);
+			min-height: calc(100vh - 170px);
 		}
 		.search-box{
 			padding-top: 50px;
 			padding-bottom: 50px;
-			min-height: calc(100vh - 190px);
+			min-height: calc(100vh - 170px);
 		}
 	}
 	/* 상하단 바를 위한 필수 css */

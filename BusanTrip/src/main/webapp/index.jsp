@@ -20,18 +20,18 @@
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
-	    padding: 20px 0;
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
-			margin-top: 80px; /* 상단바 80*/
-			padding-bottom: 80px;
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
 			min-height: calc(100vh - 80px);
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 190px);
+			min-height: calc(100vh - 180px);
+	    	padding: 20px 0;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */

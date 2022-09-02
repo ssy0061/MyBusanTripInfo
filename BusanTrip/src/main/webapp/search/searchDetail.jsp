@@ -32,18 +32,27 @@
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
-	    padding: 20px 0;
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
-			margin-top: 80px; /* 상단바 80*/
+			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;
+			background-color: #fef0f0;
 			min-height: calc(100vh - 80px);
+		}
+		#toTop{
+			bottom: 100px;
+			right: 10px;
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 190px);
+			min-height: calc(100vh - 180px);
+			padding: 20px 0;
+		}
+		#toTop{
+			bottom: 130px;
+			right: 30px;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -56,29 +65,49 @@
 	    padding-top: 10px;
 	    padding-bottom: 10px;
 	} */
-	
+	#toTop{
+		position: fixed;
+		width: 32px;
+		border: 2px solid black;
+		border-radius: 10px;
+		background-color: white;
+	}
+	#toTop:hover{
+		cursor: pointer;
+	}
 	.box-1{
 		max-width: 720px;
 		margin: 0 auto;
 		text-align: center;
 		background-color: #fef0f0;
 		border-radius: 10px;
-	}
-	.box-2{
-		max-width: 500px;
-		background-color: white;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		padding-bottom: 10px;
 	}
 	.searchDetail-upper {
+		width: 75%;
+		background-color: white;
+		border-radius: 10px;
 		max-width: 500px;
-		width: 80%;
 		margin: 15px auto;
 		text-align: center;
 		height: 140px;
-		/* border-radius: 5px;
-		border: 1px solid var(--bnk-gray); */
 		
 		
 	}
+	
+	.searchDetail-lower {
+		width: 75%;
+		background-color: white;
+		max-width: 500px;
+		margin: 0 auto;
+		text-align: center;
+		min-height: 5vh;
+		border-radius: 5px;
+	}
+	
 	.ud-center {
 		background-color: white;
 		/* position: absolute;
@@ -170,24 +199,15 @@
 	    background-color: var(--button-active);
 	}
 	
-	.searchDetail-lower {
-		max-width: 400px;
-		margin: 0 auto;
-		text-align: center;
-		min-height: 5vh;
-		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
-	}
-	
 	.searchDetail-lower-box {
-		max-width: 300px;
+		max-width: 450px;
 		margin: 10px auto;
 		min-height: 60px;
 		height: auto;
 		border-bottom-color: var(--bnk-lightgray);
 		border-bottom-width: 2px;
 		border-bottom-style: solid;
-		padding: 5px 0 3px;
+		padding: 5px 10px 3px;
 	}
 	
 	.searchDetail-lower-box-inner {
@@ -219,7 +239,7 @@
 	}
 	
 	.storeName {
-		width: 200px;
+		width: 180px;
 		text-align: left;
 		margin: 0 0 0 5px;
 		font-weight: bold;
@@ -227,7 +247,7 @@
 	}
 	
 	.payAmount {
-		width: 100px;
+		width: 120px;
 		text-align: right;
 		margin: 0 5px 0 0;
 		font-weight: bold;
@@ -251,7 +271,7 @@
 		text-align: center;
 		font-size: 13px;
 	}
-	
+
 
 </style>
 
@@ -265,7 +285,9 @@
 			url: '/member/getBalance',
 			data: {'accountNumber': accountNumber},
 			success: function(res){
-				console.log(res)
+				/* console.log(res) */
+				$('.accountNumber').text(accountNumber)
+				$('.amount').text(res+"원")
 			},
 			error: function(e) {
 				console.log(e)
@@ -394,17 +416,32 @@
 		// 맨 처음 페이지 들어왔을 시 1개월을 기본으로 조회하도록 자동 호출.
 		$('.periodBox:eq(0)').click();
 		
+		var chkPage = 1;
 		// 무한 스크롤
 		$(window).scroll(function(){
-			console.log($(document).height(), $(window).scrollTop() + $(window).height())
-			if($(document).height() <= $(window).scrollTop() + $(window).height()+10) {
-				if(nowPage < totalPage){
-					
-					nowPage+=1;
-					console.log(nowPage)
-					loadData(nowPage)
+			/* console.log($(document).height(), $(window).scrollTop() + $(window).height()) */
+			if($(document).height() <= $(window).scrollTop() + $(window).height()+15) {
+				if(nowPage < totalPage && nowPage === chkPage){
+					chkPage++;
+					var loading = '<div id="scrollLoading" class="d-flex justify-content-center">'+
+								  '<div class="spinner-border text-danger" role="status">'+
+								  '<span class="sr-only">Loading...</span></div></div>'
+					$('#detailBox').append(loading)
+					setTimeout(function() {
+						nowPage+=1;
+						console.log(nowPage)
+						$('#scrollLoading').remove();
+						loadData(nowPage)
+						
+					}, 300);
 				}
+				
+				
 			}
+		})
+		
+		$('#toTop').on('click', function(){
+			window.scrollTo(0, 0);
 		})
 		function loadData(page) {
 			var start = (totalPage*10)-10;
@@ -452,36 +489,38 @@
 
 		<div class="content container">
 			<div class="box-1">
-				<div class="box-2">
-					<div class="searchDetail-upper">
-						<div class="ud-center">
-							<div class="rounded-lg searchDetail-upper-top">
-								<span class="accountNumber">XXX-XXXXXX-XX-XXX</span> <span
-									class="amount">9999 원</span>
+				<div class="searchDetail-upper shadow">
+					<div class="ud-center">
+						<div class="rounded-lg searchDetail-upper-top">
+							<span class="accountNumber">XXX-XXXXXX-XX-XXX</span> 
+							<span class="amount">9999 원</span>
+						</div>
+						<div class="rounded-lg searchDetail-upper-bottom">
+							<div class="searchDetail-upper-bottom-inner">
+								<input type="text" class="datepicker" id="startDate"
+									readonly="readonly"> <span width="15px"><b>~</b></span>
+								<input type="text" class="datepicker" id="endDate"
+									readonly="readonly"> <span class="searchBox"><img
+									src="/img/search.png" width=20px></span>
 							</div>
-							<div class="rounded-lg searchDetail-upper-bottom">
-								<div class="searchDetail-upper-bottom-inner">
-									<input type="text" class="datepicker" id="startDate"
-										readonly="readonly"> <span width="15px"><b>~</b></span>
-									<input type="text" class="datepicker" id="endDate"
-										readonly="readonly"> <span class="searchBox"><img
-										src="/img/search.png" width=20px></span>
-								</div>
-	
-								<div class="searchDetail-upper-bottom-inner">
-									<span class="periodBox" value="1">1개월</span> <span
-										class="periodBox" value="3">3개월</span> <span class="periodBox"
-										value="6">6개월</span> <span class="periodBox" value="12">1년</span>
-								</div>
+
+							<div class="searchDetail-upper-bottom-inner">
+								<span class="periodBox" value="1">1개월</span> <span
+									class="periodBox" value="3">3개월</span> <span class="periodBox"
+									value="6">6개월</span> <span class="periodBox" value="12">1년</span>
 							</div>
 						</div>
 					</div>
-	
-					<div id="detailBox" class="searchDetail-lower">
-	
-					</div>
+				</div>
+
+				<div id="detailBox" class="searchDetail-lower shadow">
+
+				</div>
+				<div id="toTop" class="d-flex justify-content-center">
+					<i class="bi bi-caret-up-fill" style="font-size: 1.2rem;"></i>
 				</div>
 			</div>
+			
 		</div>
 
 		<c:import url="../footer/footer.jsp" />
