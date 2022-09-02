@@ -166,7 +166,7 @@
 		<div class="storeDetail-box">
 			
 			<div class="storeDetail-box-title">
-				<i id="likeBtn" class="bi bi-star"></i>
+				<i id="likeBtn" class="bi bi-star" store-id=""></i>
 				<div id="storeName">아삭토스트 범내골점</div>
 				<div class="blank"></div>
 			</div>
