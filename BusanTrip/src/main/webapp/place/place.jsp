@@ -262,7 +262,8 @@
 						<div class="info-right-lower">
 							<span class="location">부산 남구</span>
 							<div class="searchBtnDiv">
-								<img class="searchBtn" src="/img/search.png" store-id="가게id기입">
+								<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
+									data-toggle="modal" data-target="#searchModal">
 							</div>
 						</div>
 					</div>
@@ -295,11 +296,6 @@
 					addContents(divTitleLeft, result);  // 함수 호출
 					
 					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
-					// 이미지랑 버튼 연결용 코드
-					$('.searchBtn').off('click').click(function(){
-						alert('search!');
-					});  // img click
-					
 					// collapse 버튼 연결용 코드
 					$('.moreBtn').off('click').click(function(){
 						let targetId = $(this).attr('data-target');
@@ -333,11 +329,6 @@
 				addContents(divTitleLeft, result);  // 함수 호출
 				
 				<%-- .off()를 써서 기존 중복 설정을 제거. --%>
-				// 이미지랑 버튼 연결용 코드
-				$('.searchBtn').off('click').click(function(){
-					alert('search!');
-				});  // img click
-				
 				// collapse 버튼 연결용 코드
 				$('.moreBtn').off('click').click(function(){
 					let targetId = $(this).attr('data-target');
@@ -373,11 +364,6 @@
 					addContents(divTitleLeft, result);  // 함수 호출
 					
 					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
-					// 이미지랑 버튼 연결용 코드
-					$('.searchBtn').off('click').click(function(){
-						alert('가게 ID: ' + $(this).attr('store-id'));
-					});  // img click
-					
 					// collapse 버튼 연결용 코드
 					$('.moreBtn').off('click').click(function(){
 						let targetId = $(this).attr('data-target');
@@ -467,6 +453,8 @@ function addContents(divTitleLeft, result) {
 			imgSearchBtn.setAttribute('class', 'searchBtn');
 			imgSearchBtn.setAttribute('src', '/img/search.png');
 			imgSearchBtn.setAttribute('store-id', id);
+			imgSearchBtn.setAttribute('data-toggle', "modal");
+			imgSearchBtn.setAttribute('data-target', "#searchModal");
 			
 			divSearchBtnDiv = document.createElement('div');
 			divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
@@ -542,90 +530,32 @@ function addContents(divTitleLeft, result) {
 		</c:if>
 		
 		<div class="place-lower">
-			<%-- 참고용, 살짝 다름! 저 위에 있는 주석 참고. --%>
-			<%--
-			<div class="place-lower-box">
-				<div class="place-lower-box-title">
-					* <span class="regionName">부산</span>의 인기 장소
-				</div>
-				<div class="place-lower-box-lower">
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<div class="searchBtnDiv">
-									<img class="searchBtn" src="/img/search.png">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="place-lower-box">
-				<div class="place-lower-box-title">
-					* 최근 <span class="periodName">일주일</span> 인기 장소
-				</div>
-				<div class="place-lower-box-lower">
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<div class="searchBtnDiv">
-									<img class="searchBtn" src="/img/search.png">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="place-lower-box">
-				<div class="place-lower-box-title">
-					* 인기 <span class="categoryName">카페</span>
-				</div>
-				<div class="place-lower-box-lower">
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<div class="searchBtnDiv">
-									<img class="searchBtn" src="/img/search.png">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			--%>
+			<%-- 여기에 상단 주석에 넣어놓은 코드가 (유사 구조로) 들어감 --%>
 		</div>
 		
 	</div>
 	
 	<c:import url="/footer/footer.jsp" />
+	
+	<%-- Modal --%>
+	<div class="modal fade" id="searchModal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">가게 상세 정보</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<%--
+					<form>
+						<label for="search-text" class="col-form-label">~~~</label>
+					</form>
+					--%>
+					test etset
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>
