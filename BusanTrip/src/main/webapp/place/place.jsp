@@ -282,8 +282,6 @@
 				url: '/store/findStorePopularByRegion',
 				data: {'region': region},
 				success: function(result) {
-					let contentsId = generateId();
-					
 					let spanRegionName = document.createElement('span');
 					spanRegionName.setAttribute('class', 'regionName');
 					spanRegionName.append(region);
@@ -294,101 +292,7 @@
 					divTitleLeft.append(spanRegionName);
 					divTitleLeft.append("의 인기 장소");
 					
-					
-					let moreBtn = document.createElement('button');
-					moreBtn.setAttribute('type', 'button');
-					moreBtn.setAttribute('class', 'moreBtn');
-					moreBtn.setAttribute('data-target', '#' + contentsId);
-					moreBtn.append("▼");
-					
-					let divTitleRight = document.createElement('div');
-					divTitleRight.setAttribute('class', 'title-right');
-					divTitleRight.append(moreBtn);
-					
-					
-					let divPlaceLowerBoxTitle = document.createElement('div');
-					divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-					divPlaceLowerBoxTitle.append(divTitleLeft);
-					divPlaceLowerBoxTitle.append(divTitleRight);
-					
-					
-					let divPlaceLowerBoxLower = document.createElement('div');
-					divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
-					divPlaceLowerBoxLower.setAttribute('id', contentsId);
-					
-					for (var i=0; i<result.length; i++) {
-						let store = result[i];
-						let id = store.storeId;
-						let category = store.storeCategory;
-						let placeName = store.storeName;
-						let location = store.storeAddr;
-						let hasId = (id != null);
-						
-						let spanCategory = document.createElement('span');
-						spanCategory.setAttribute('class', 'category');
-						spanCategory.append(category);
-						
-						let divUdCenter = document.createElement('div');
-						divUdCenter.setAttribute('class', 'ud-center');
-						divUdCenter.append(spanCategory);
-						
-						let divInfoLeft = document.createElement('div');
-						divInfoLeft.setAttribute('class', 'info-left');
-						divInfoLeft.append(divUdCenter);
-						
-						
-						let divPlaceName = document.createElement('div');
-						divPlaceName.setAttribute('class', 'placeName');
-						divPlaceName.append(placeName);
-						
-						let divInfoRightUpper = document.createElement('div');
-						divInfoRightUpper.setAttribute('class', 'info-right-upper');
-						divInfoRightUpper.append(divPlaceName);
-						
-						
-						let spanLocation = document.createElement('span');
-						spanLocation.setAttribute('class', 'location');
-						spanLocation.append(location);
-						
-						let divSearchBtnDiv;
-						if (hasId) {  // hasId
-							var imgSearchBtn = document.createElement('img');
-							imgSearchBtn.setAttribute('class', 'searchBtn');
-							imgSearchBtn.setAttribute('src', '/img/search.png');
-							imgSearchBtn.setAttribute('store-id', id);
-							
-							divSearchBtnDiv = document.createElement('div');
-							divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
-							divSearchBtnDiv.append(imgSearchBtn);
-						}
-						
-						let divInfoRightLower = document.createElement('div');
-						divInfoRightLower.setAttribute('class', 'info-right-lower');
-						divInfoRightLower.append(spanLocation);
-						if (hasId) divInfoRightLower.append(divSearchBtnDiv);
-						
-						
-						let divInfoRight = document.createElement('div');
-						divInfoRight.setAttribute('class', 'info-right');
-						divInfoRight.append(divInfoRightUpper);
-						divInfoRight.append(divInfoRightLower);
-
-						let divPlaceLowerBoxInfo = document.createElement('div');
-						divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-						divPlaceLowerBoxInfo.append(divInfoLeft);
-						divPlaceLowerBoxInfo.append(divInfoRight);
-						
-						divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-						
-					}  // for
-					
-					let divPlaceLowerBox = document.createElement('div');
-					divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-					divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-					divPlaceLowerBox.append(divPlaceLowerBoxLower);
-					
-					let divPlaceLower = $('.place-lower');
-					divPlaceLower.append(divPlaceLowerBox);
+					addContents(divTitleLeft, result);  // 함수 호출
 					
 					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
 					// 이미지랑 버튼 연결용 코드
@@ -415,8 +319,6 @@
 			type: 'post',
 			url: '/store/findStorePopularByPeriod',
 			success: function(result) {
-				let contentsId = generateId();
-				
 				// * 최근 <span class="periodName">일주일</span> 인기 장소
 				let spanPeriodName = document.createElement('span');
 				spanPeriodName.setAttribute('class', 'periodName');
@@ -428,101 +330,7 @@
 				divTitleLeft.append(spanPeriodName);
 				divTitleLeft.append(" 인기 장소");
 				
-				
-				let moreBtn = document.createElement('button');
-				moreBtn.setAttribute('type', 'button');
-				moreBtn.setAttribute('class', 'moreBtn');
-				moreBtn.setAttribute('data-target', '#' + contentsId);
-				moreBtn.append("▼");
-				
-				let divTitleRight = document.createElement('div');
-				divTitleRight.setAttribute('class', 'title-right');
-				divTitleRight.append(moreBtn);
-				
-				
-				let divPlaceLowerBoxTitle = document.createElement('div');
-				divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-				divPlaceLowerBoxTitle.append(divTitleLeft);
-				divPlaceLowerBoxTitle.append(divTitleRight);
-				
-				
-				let divPlaceLowerBoxLower = document.createElement('div');
-				divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
-				divPlaceLowerBoxLower.setAttribute('id', contentsId);
-				
-				for (var i=0; i<result.length; i++) {
-					let store = result[i];
-					let id = store.storeId;
-					let category = store.storeCategory;
-					let placeName = store.storeName;
-					let location = store.storeAddr;
-					let hasId = (id != null);
-					
-					let spanCategory = document.createElement('span');
-					spanCategory.setAttribute('class', 'category');
-					spanCategory.append(category);
-					
-					let divUdCenter = document.createElement('div');
-					divUdCenter.setAttribute('class', 'ud-center');
-					divUdCenter.append(spanCategory);
-					
-					let divInfoLeft = document.createElement('div');
-					divInfoLeft.setAttribute('class', 'info-left');
-					divInfoLeft.append(divUdCenter);
-					
-					
-					let divPlaceName = document.createElement('div');
-					divPlaceName.setAttribute('class', 'placeName');
-					divPlaceName.append(placeName);
-					
-					let divInfoRightUpper = document.createElement('div');
-					divInfoRightUpper.setAttribute('class', 'info-right-upper');
-					divInfoRightUpper.append(divPlaceName);
-					
-					
-					let spanLocation = document.createElement('span');
-					spanLocation.setAttribute('class', 'location');
-					spanLocation.append(location);
-					
-					let divSearchBtnDiv;
-					if (hasId) {  // hasId
-						var imgSearchBtn = document.createElement('img');
-						imgSearchBtn.setAttribute('class', 'searchBtn');
-						imgSearchBtn.setAttribute('src', '/img/search.png');
-						imgSearchBtn.setAttribute('store-id', id);
-						
-						divSearchBtnDiv = document.createElement('div');
-						divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
-						divSearchBtnDiv.append(imgSearchBtn);
-					}
-					
-					let divInfoRightLower = document.createElement('div');
-					divInfoRightLower.setAttribute('class', 'info-right-lower');
-					divInfoRightLower.append(spanLocation);
-					if (hasId) divInfoRightLower.append(divSearchBtnDiv);
-					
-					
-					let divInfoRight = document.createElement('div');
-					divInfoRight.setAttribute('class', 'info-right');
-					divInfoRight.append(divInfoRightUpper);
-					divInfoRight.append(divInfoRightLower);
-
-					let divPlaceLowerBoxInfo = document.createElement('div');
-					divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-					divPlaceLowerBoxInfo.append(divInfoLeft);
-					divPlaceLowerBoxInfo.append(divInfoRight);
-					
-					divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-					
-				}  // for
-				
-				let divPlaceLowerBox = document.createElement('div');
-				divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-				divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-				divPlaceLowerBox.append(divPlaceLowerBoxLower);
-				
-				let divPlaceLower = $('.place-lower');
-				divPlaceLower.append(divPlaceLowerBox);
+				addContents(divTitleLeft, result);  // 함수 호출
 				
 				<%-- .off()를 써서 기존 중복 설정을 제거. --%>
 				// 이미지랑 버튼 연결용 코드
@@ -552,8 +360,6 @@
 				url: '/store/findStorePopularByCategory',
 				data: {'category': category},
 				success: function(result) {
-					let contentsId = generateId();
-					
 					// * 인기 <span class="categoryName">카페</span>
 					let spanCategoryName = document.createElement('span');
 					spanCategoryName.setAttribute('class', 'categoryName');
@@ -564,101 +370,7 @@
 					divTitleLeft.append("* 인기 ");
 					divTitleLeft.append(spanCategoryName);
 					
-					
-					let moreBtn = document.createElement('button');
-					moreBtn.setAttribute('type', 'button');
-					moreBtn.setAttribute('class', 'moreBtn');
-					moreBtn.setAttribute('data-target', '#' + contentsId);
-					moreBtn.append("▼");
-					
-					let divTitleRight = document.createElement('div');
-					divTitleRight.setAttribute('class', 'title-right');
-					divTitleRight.append(moreBtn);
-					
-					
-					let divPlaceLowerBoxTitle = document.createElement('div');
-					divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-					divPlaceLowerBoxTitle.append(divTitleLeft);
-					divPlaceLowerBoxTitle.append(divTitleRight);
-					
-					
-					let divPlaceLowerBoxLower = document.createElement('div');
-					divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
-					divPlaceLowerBoxLower.setAttribute('id', contentsId);
-					
-					for (var i=0; i<result.length; i++) {
-						let store = result[i];
-						let id = store.storeId;
-						let category = store.storeCategory;
-						let placeName = store.storeName;
-						let location = store.storeAddr;
-						let hasId = (id != null);
-						
-						let spanCategory = document.createElement('span');
-						spanCategory.setAttribute('class', 'category');
-						spanCategory.append(category);
-						
-						let divUdCenter = document.createElement('div');
-						divUdCenter.setAttribute('class', 'ud-center');
-						divUdCenter.append(spanCategory);
-						
-						let divInfoLeft = document.createElement('div');
-						divInfoLeft.setAttribute('class', 'info-left');
-						divInfoLeft.append(divUdCenter);
-						
-						
-						let divPlaceName = document.createElement('div');
-						divPlaceName.setAttribute('class', 'placeName');
-						divPlaceName.append(placeName);
-						
-						let divInfoRightUpper = document.createElement('div');
-						divInfoRightUpper.setAttribute('class', 'info-right-upper');
-						divInfoRightUpper.append(divPlaceName);
-						
-						
-						let spanLocation = document.createElement('span');
-						spanLocation.setAttribute('class', 'location');
-						spanLocation.append(location);
-						
-						let divSearchBtnDiv;
-						if (hasId) {  // hasId
-							var imgSearchBtn = document.createElement('img');
-							imgSearchBtn.setAttribute('class', 'searchBtn');
-							imgSearchBtn.setAttribute('src', '/img/search.png');
-							imgSearchBtn.setAttribute('store-id', id);
-							
-							divSearchBtnDiv = document.createElement('div');
-							divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
-							divSearchBtnDiv.append(imgSearchBtn);
-						}
-						
-						let divInfoRightLower = document.createElement('div');
-						divInfoRightLower.setAttribute('class', 'info-right-lower');
-						divInfoRightLower.append(spanLocation);
-						if (hasId) divInfoRightLower.append(divSearchBtnDiv);
-						
-						
-						let divInfoRight = document.createElement('div');
-						divInfoRight.setAttribute('class', 'info-right');
-						divInfoRight.append(divInfoRightUpper);
-						divInfoRight.append(divInfoRightLower);
-
-						let divPlaceLowerBoxInfo = document.createElement('div');
-						divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-						divPlaceLowerBoxInfo.append(divInfoLeft);
-						divPlaceLowerBoxInfo.append(divInfoRight);
-						
-						divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-						
-					}  // for
-					
-					let divPlaceLowerBox = document.createElement('div');
-					divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-					divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-					divPlaceLowerBox.append(divPlaceLowerBoxLower);
-					
-					let divPlaceLower = $('.place-lower');
-					divPlaceLower.append(divPlaceLowerBox);
+					addContents(divTitleLeft, result);  // 함수 호출
 					
 					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
 					// 이미지랑 버튼 연결용 코드
@@ -689,6 +401,105 @@ function generateId() {
 		else id +=String.fromCharCode(randInt+87);
 	}
 	return id;
+}
+
+function addContents(divTitleLeft, result) {
+	let contentsId = generateId();
+	
+	let moreBtn = document.createElement('button');
+	moreBtn.setAttribute('type', 'button');
+	moreBtn.setAttribute('class', 'moreBtn');
+	moreBtn.setAttribute('data-target', '#' + contentsId);
+	moreBtn.append("▼");
+	
+	let divTitleRight = document.createElement('div');
+	divTitleRight.setAttribute('class', 'title-right');
+	divTitleRight.append(moreBtn);
+	
+	
+	let divPlaceLowerBoxTitle = document.createElement('div');
+	divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
+	divPlaceLowerBoxTitle.append(divTitleLeft);
+	divPlaceLowerBoxTitle.append(divTitleRight);
+	
+	
+	let divPlaceLowerBoxLower = document.createElement('div');
+	divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
+	divPlaceLowerBoxLower.setAttribute('id', contentsId);
+	
+	for (var i=0; i<result.length; i++) {
+		let store = result[i];
+		let id = store.storeId;
+		let category = store.storeCategory;
+		let placeName = store.storeName;
+		let location = store.storeAddr;
+		let hasId = (id != null);
+		
+		let spanCategory = document.createElement('span');
+		spanCategory.setAttribute('class', 'category');
+		spanCategory.append(category);
+		
+		let divUdCenter = document.createElement('div');
+		divUdCenter.setAttribute('class', 'ud-center');
+		divUdCenter.append(spanCategory);
+		
+		let divInfoLeft = document.createElement('div');
+		divInfoLeft.setAttribute('class', 'info-left');
+		divInfoLeft.append(divUdCenter);
+		
+		
+		let divPlaceName = document.createElement('div');
+		divPlaceName.setAttribute('class', 'placeName');
+		divPlaceName.append(placeName);
+		
+		let divInfoRightUpper = document.createElement('div');
+		divInfoRightUpper.setAttribute('class', 'info-right-upper');
+		divInfoRightUpper.append(divPlaceName);
+		
+		
+		let spanLocation = document.createElement('span');
+		spanLocation.setAttribute('class', 'location');
+		spanLocation.append(location);
+		
+		let divSearchBtnDiv;
+		if (hasId) {  // hasId
+			var imgSearchBtn = document.createElement('img');
+			imgSearchBtn.setAttribute('class', 'searchBtn');
+			imgSearchBtn.setAttribute('src', '/img/search.png');
+			imgSearchBtn.setAttribute('store-id', id);
+			
+			divSearchBtnDiv = document.createElement('div');
+			divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
+			divSearchBtnDiv.append(imgSearchBtn);
+		}
+		
+		let divInfoRightLower = document.createElement('div');
+		divInfoRightLower.setAttribute('class', 'info-right-lower');
+		divInfoRightLower.append(spanLocation);
+		if (hasId) divInfoRightLower.append(divSearchBtnDiv);
+		
+		
+		let divInfoRight = document.createElement('div');
+		divInfoRight.setAttribute('class', 'info-right');
+		divInfoRight.append(divInfoRightUpper);
+		divInfoRight.append(divInfoRightLower);
+
+		let divPlaceLowerBoxInfo = document.createElement('div');
+		divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
+		divPlaceLowerBoxInfo.append(divInfoLeft);
+		divPlaceLowerBoxInfo.append(divInfoRight);
+		
+		divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
+		
+	}  // for
+	
+	let divPlaceLowerBox = document.createElement('div');
+	divPlaceLowerBox.setAttribute('class', 'place-lower-box');
+	divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+	divPlaceLowerBox.append(divPlaceLowerBoxLower);
+	
+	let divPlaceLower = $('.place-lower');
+	divPlaceLower.append(divPlaceLowerBox);
 }
 	
 </script>
