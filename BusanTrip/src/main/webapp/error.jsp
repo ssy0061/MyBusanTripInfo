@@ -22,18 +22,18 @@
 	  transform: translate(-50%, -50%);
 	}
 	h1 {
-	  margin: 100px auto 10px auto;
+	  margin: 100px auto 30px auto;
 	  color: var(--stroke-color);
 	  font-family: 'Encode Sans Semi Condensed', Verdana, sans-serif;
-	  font-size: 5rem; line-height: 10rem;
-	  font-weight: 200;
+	  font-size: 3rem; line-height: 5rem;
+	  font-weight: 500;
 	  text-align: center;
 	}
 	h2 {
 	  margin: 200px auto 30px auto;
 	  font-family: 'Encode Sans Semi Condensed', Verdana, sans-serif;
 	  font-size: 1.5rem;
-	  font-weight: 200;
+	  font-weight: 400;
 	  text-align: center;
 	}
 	h1, h2 {
@@ -122,10 +122,10 @@
 	  60% { -webkit-transform: rotate(30deg);}
 	  100% { -webkit-transform: rotate(0deg);}
 	}
-	@-webkit-keyframes anticlockwiseErrorStop {
+	@-webkit-keyframes clockwiseErrorStop {
 	  0% { -webkit-transform: rotate(0deg);}
-	  20% { -webkit-transform: rotate(-30deg);}
-	  60% { -webkit-transform: rotate(-30deg);}
+	  20% { -webkit-transform: rotate(30deg);}
+	  60% { -webkit-transform: rotate(30deg);}
 	  100% { -webkit-transform: rotate(0deg);}
 	}
 	@-webkit-keyframes anticlockwiseError {
@@ -136,7 +136,7 @@
 	  100% { -webkit-transform: rotate(0deg);}
 	}
 	.gear.one {
-	  -webkit-animation: anticlockwiseErrorStop 2s linear infinite;
+	  -webkit-animation: clockwiseErrorStop 2s linear infinite;
 	}
 	.gear.two {
 	  -webkit-animation: anticlockwiseError 2s linear infinite;
@@ -178,6 +178,6 @@
       <div class="bar"></div>
     </div>
   </div>
-  <h2><a href="/bnk/home" style="text-decoration-line: none; color: #e60000">Return to HomePage</a><b> &nbsp :)</b></h2>
+  <h2><a href="/bnk/home" style="text-decoration-line: none; color: #e60000;">Return to HomePage</a><b> &nbsp :)</b></h2>
 </body>
 </html>
