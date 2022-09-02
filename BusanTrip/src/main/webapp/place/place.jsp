@@ -539,7 +539,7 @@ function addContents(divTitleLeft, result) {
 	
 	<%-- Modal --%>
 	<div class="modal fade" id="searchModal">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h6 class="modal-title">가게 상세 정보</h6>
@@ -551,7 +551,7 @@ function addContents(divTitleLeft, result) {
 						<label for="search-text" class="col-form-label">~~~</label>
 					</form>
 					--%>
-					test etset
+					<c:import url="/place/storeDetail.jsp" />
 				</div>
 			</div>
 		</div>
