@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55cec7f8be9f2d2a780ad76e59683837"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <style>
@@ -204,8 +205,19 @@
 </style>
 
 <script>
-	
 	$(function() {
+		// ================================== 지도 API 생성용
+		var lati = 35.2740278, longi = 129.2358014;
+			
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = { 
+		        center: new kakao.maps.LatLng(lati, longi), // 지도의 중심좌표
+		        level: 4 // 지도의 확대 레벨
+		    };
+		
+		var map = new kakao.maps.Map(mapContainer, mapOption);  // 생성
+		// ================================== 지도 API 생성용
+		
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
 		
 		if (memberId != 'null') {
@@ -273,7 +285,7 @@
 		--%>
 		
 		<%-- 지역별 컨텐츠 --%>
-		var regionArr = ["해운대", "기장"];
+		var regionArr = ["기장"];
 		
 		for (var j=0; j<regionArr.length; j++) {
 			let region = regionArr[j];
@@ -402,16 +414,52 @@
 					$('#storeName').text(result.storeName);
 					$('#contact').text(result.storeTele);
 					$('#address').text(result.storeAddr);
-					$('#openHour').text(result.storeWorkhour); // 이거 수정해야 할 듯...
+					$('#openHour').text(result.storeWorkhour);
 					$('#holiday').text(result.storeHoliday);
-					console.log(result.storeLatitude);
-					console.log(result.storeLongitude);
-					console.log(result);
+					$('#searchModal').attr('latitude', result.storeLatitude);
+					$('#searchModal').attr('longitude', result.storeLongitude);
 				},
 				error: function(e){ console.log(e); }
 			});  // getMemberName end
-			
 		}  // serachModalChange end
+		
+		$("#searchModal").on('shown.bs.modal', function() {
+			// 모달이 보여진 이후 다음 코드를 수행해야 정상적으로 임베딩 됨.
+			lati = $(this).attr('latitude');
+			longi = $(this).attr('longitude');
+			
+			// 마커가 표시될 위치입니다 
+			var markerPosition  = new kakao.maps.LatLng(lati, longi); 
+			
+			// 마커를 생성합니다
+			var marker = new kakao.maps.Marker({
+			    position: markerPosition
+			});
+			
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+			
+			var iwContent =
+				// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				'<div style="width:150px; padding:5px; text-align:center;">' + $('#storeName').text() +
+				'<br><small><a href="https://map.kakao.com/link/map/' + $('#storeName').text() +',' + lati +
+				', ' + longi + '" style="color:blue" target="_blank">큰지도보기</a>  <a href="https://map.kakao.com/link/to/' +
+				$('#storeName').text() + ',' + lati + ', ' + longi + '" style="color:blue" target="_blank">길찾기</a></small></div>',
+			    iwPosition = new kakao.maps.LatLng(lati, longi); //인포윈도우 표시 위치입니다
+			
+			// 인포윈도우를 생성합니다
+			var infowindow = new kakao.maps.InfoWindow({
+			    position : iwPosition, 
+			    content : iwContent 
+			});
+			  
+			// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+			infowindow.open(map, marker);
+			
+			map.setCenter(new kakao.maps.LatLng(lati, longi));
+			
+			map.relayout();
+		});  // searchModal's modal show end
 		
 	});  // JQuery
 	
