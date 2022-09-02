@@ -11,7 +11,7 @@
 	</insert>
 	
 	<delete id="deleteStory" parameterType="int">
-		DELETE * FROM STORY 
+		DELETE FROM STORY 
 		WHERE STORY_ID=#{storyId}
 	</delete>
 	

@@ -201,10 +201,10 @@ class BusanTripApplicationTests {
 //		 storyDAO.addStory("testStory", "gwak222");
 //	}
 	
-	@Test
-	void deleteStory() {
-		 storyDAO.deleteStory(24);
-	}
+//	@Test
+//	void deleteStory() {
+//		 storyDAO.deleteStory('24');
+//	}
 	
 //	@Test
 //	void findStoryMember() {

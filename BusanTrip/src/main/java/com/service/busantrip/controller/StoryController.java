@@ -27,6 +27,13 @@ public class StoryController {
 	@Autowired
 	MemberService memberService;
 	
+	@PostMapping("deleteStory")
+	@ResponseBody
+	public void deleteStory(int storyId, Model model, HttpSession session) {
+		System.out.println("deleteStory:: " + storyId);
+		storyService.deleteStory(storyId);
+	}
+	
 	@PostMapping("findIdExist")
 	@ResponseBody
 	public Boolean findIdExist(String memberId, Model model, HttpSession session) {

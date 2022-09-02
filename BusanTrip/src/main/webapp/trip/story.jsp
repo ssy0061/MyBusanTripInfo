@@ -98,11 +98,31 @@
 		  display: none;
 		}
 	}
+	.card-body{
+		position: relative;
+	}
+	.deleteStory{
+		position: absolute;
+		top: 2px;
+		right: 5px;
+		font-size: 1.5rem;
+		text-align: center;
+		border-radius: 30px;
+		
+	}
+	.deleteStory:hover{
+		
+	}
 </style>
 
 <script>
 
 $(function() {
+	$('.deleteStory').hover(function(){
+		$(this).addClass('shadow')
+	}, function(){
+		$(this).removeClass('shadow')
+	})
 	var currentMemberId = '<%= (String)session.getAttribute("memberId") %>';
 	var memberList = [];
 	var storyList = [];
@@ -126,16 +146,19 @@ $(function() {
 				//console.log("storyId:: " + storyId + " storyName:: " + cardTitle);
 				
 				 $('.col-12').append(
-						"<div class="+"card"+">"
-						+"<div class="+"card-body"+ " onclick="+"location.href="+"\'/bnk/trip/"+storyId +"\'>"
-						+"<h5 class="+"card-title"+">"+ cardTitle +"</h5>"
-						+"<p class="+"card-text"+">"+ cardText +"</p></div></div>"
+					"<div id="+"\'"+ storyId +"\'"+" class=card>"
+						+'<div class=card-body onclick=' + "location.href="+"\'/bnk/trip/"+ storyId +"\'>"
+							+"<h5 class=card-title>"+ cardTitle+"</h5>"
+							+"<p class=card-text>"+ cardText +"</p></div>"
+						+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\"><i class="bi bi-x-lg"></i></button>'
+					+"</div>"
 				) 
 			} 
 		},
 		error:function(e) {
 			console.log(e);
 		}
+		
 	});
 	
 	
@@ -227,13 +250,30 @@ $(function() {
 			});
 		}
 	}
+	
 	var deleteStoryId = "";
-	$('.deleteStory').click(function(){
-		deleteStoryId = $(this).parent().parent().parent().attr("id");
+	$('.col-12').on("click", ".deleteStory",function(){
+		deleteStoryId = $(this).parent().attr("id");
+		console.log("deleteStoryId:: " + deleteStoryId)
 	})
-		
+	
+
+	
 	$('.deleteStoryYes').click(function(){
-		$('#'+deleteStoryId).remove();
+
+		$.ajax({
+			type: 'post',
+			url: '/story/deleteStory',
+			data: {'storyId': deleteStoryId},
+			
+			success: function(result) {
+				alert("삭제되었습니다.")
+				document.location.reload();	// 삭제된 스토리 반영하기 위해 새로고침
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
 	})
 });
 
@@ -259,10 +299,9 @@ $(function() {
 				<div id='story-1' class="card">
 					<div class="card-body">
 					<!-- <div class="card-body" onclick="location.href='/bnk/trip/3'"> -->
-						<h5 class="card-title">First Story
-							<button type="button" class="deleteStory float-right" data-toggle="modal" data-target="#deleteStoryModal">&times;</button>
-						</h5>
+						<h5 class="card-title">First Story</h5>
 						<p class="card-text">불러온거 아니고 직접 넣은 카드</p>
+						<button type="button" class="deleteStory" data-toggle="modal" data-target="#deleteStoryModal"><i class="bi bi-x-lg"></i></button>
 					</div>
 				</div>
 				<div id='story-2' class="card">
@@ -271,7 +310,7 @@ $(function() {
 						<h5 class="card-title">Second Story
 							<button type="button" class="deleteStory float-right" data-toggle="modal" data-target="#deleteStoryModal">&times;</button>
 						</h5>
-						<p class="card-text">카드2</p>
+						<p class="card-text">직접 넣은 카드2</p>
 					</div>
 				</div>
 			</div>
