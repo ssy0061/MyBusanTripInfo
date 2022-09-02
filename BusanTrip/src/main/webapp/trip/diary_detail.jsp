@@ -58,6 +58,9 @@
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* modal - pic */
+	.modal-header, .modal-footer{
+		width:100%;
+	}
 	.image-area {
 	    position: relative;
 	}
@@ -409,12 +412,14 @@ $(document).ready(function () {
 					<i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
 				</button>
 				</a>
-				<a data-toggle="tooltip" data-placement="left" title="멤버 조회">
+				<a data-toggle="tooltip" data-placement="left" title="멤버 조회하기">
 				<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
 					<i class="bi bi-people-fill" style="font-size: 1.2rem;"></i>
-					<!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-					  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-					</svg> -->
+				</button>
+				</a>
+				<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
+				<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+					<i class="bi bi-receipt" style="font-size: 1.2rem;"></i>
 				</button>
 				</a>
 			</div>
@@ -487,25 +492,6 @@ $(document).ready(function () {
 				<h5>사용자B</h5>
 			</div>
 		</div>
-		
-		<!-- <div id="customizeButton">
-			<div class="btn-group-vertical">
-				<a data-toggle="tooltip" data-placement="left" title="거래내역 추가하기">
-				<button type="button" class="btn btn-outline-secondary custom-button" data-toggle="modal" data-target="#transactionModal">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-					  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-					</svg>
-				</button>
-				</a>
-				<a data-toggle="tooltip" data-placement="left" title="멤버 조회">
-				<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-					  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-					</svg>
-				</button>
-				</a>
-			</div>
-		</div>-->
 		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
@@ -531,8 +517,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="확인" class="btn btn-secondary"
-							data-dismiss="modal"></input>
+						<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
 					</div>
 				</div>
 			</div>
@@ -563,8 +548,23 @@ $(document).ready(function () {
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="확인" class="btn btn-secondary"
-						data-dismiss="modal"></input>
+					<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="payListModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">결제내역 조회하기</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>

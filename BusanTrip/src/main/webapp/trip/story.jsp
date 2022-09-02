@@ -33,14 +33,14 @@
 		max-width:800px;
 		margin: 20px auto;
 	}
-	#addbutton, #deletebutton{
+	#addbutton{
 		background-color:transparent;
 		border-style:solid;
 		border-width:2px;
 		border-color:#53565A;
 		border-radius:5px;
 	}
-	#addbutton:hover, #deletebutton:hover {
+	#addbutton:hover{
 		color:white;
 		background-color:#53565A;
 	}
@@ -51,10 +51,41 @@
 		cursor:pointer;
 		background-color:#f0c2c4;
 	}
+	.deleteStory{
+		background-color:transparent;
+		border-color:transparent;
+	}
 	/* modal */
 	#membersearch{
 		border-color:transparent;
 		border-radius:2px;
+	}
+	.deleteStoryYes{
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#F08080;
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
+	.deleteStoryNo{
+		display:inline-block;
+		padding:4px 10px;
+		margin:0 5px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#6c9dc6;
+		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -101,16 +132,12 @@ $(function() {
 						+"<p class="+"card-text"+">"+ cardText +"</p></div></div>"
 				) 
 			} 
-			
 		},
 		error:function(e) {
 			console.log(e);
 		}
-		
 	});
 	
-	
-
 	
 	$('#membersearch').click(function(){
 		addMember();
@@ -183,7 +210,7 @@ $(function() {
 						data: {'storyId':result, 'memberList': memberList},
 						
 						success:function(result2) {
-							alert(result2+"명과 함께하는 스토리가 생성되었습니다.");
+							alert(result2+"명과 함께하는 머니앨범이 생성되었습니다.");
 							$('#storyname').val("")
 							$('#newmember').val("");
 							console.log(result2)
@@ -200,7 +227,14 @@ $(function() {
 			});
 		}
 	}
-
+	var deleteStoryId = "";
+	$('.deleteStory').click(function(){
+		deleteStoryId = $(this).parent().parent().parent().attr("id");
+	})
+		
+	$('.deleteStoryYes').click(function(){
+		$('#'+deleteStoryId).remove();
+	})
 });
 
 </script>
@@ -214,21 +248,30 @@ $(function() {
 		<div class="space100"></div>
 		<div class="row">
 			<div class="storyTitle col-6">
-				<h4>스토리</h4>
+				<h4>머니앨범</h4>
 			</div>
 			<div class="col-6" align="right">
 				<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
 					<i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
 				</button>
-				<button type="button" id="deletebutton">
-					<i class="bi bi-trash3" style="font-size: 1.2rem;"></i>
-				</button>
 			</div>
 			<div class="col-12">
-				<div class="card">
-					<div class="card-body" onclick="location.href='/bnk/trip/3'">
-						<h5 class="card-title">First Story</h5>
+				<div id='story-1' class="card">
+					<div class="card-body">
+					<!-- <div class="card-body" onclick="location.href='/bnk/trip/3'"> -->
+						<h5 class="card-title">First Story
+							<button type="button" class="deleteStory float-right" data-toggle="modal" data-target="#deleteStoryModal">&times;</button>
+						</h5>
 						<p class="card-text">불러온거 아니고 직접 넣은 카드</p>
+					</div>
+				</div>
+				<div id='story-2' class="card">
+					<div class="card-body">
+					<!-- <div class="card-body" onclick="location.href='/bnk/trip/3'"> -->
+						<h5 class="card-title">Second Story
+							<button type="button" class="deleteStory float-right" data-toggle="modal" data-target="#deleteStoryModal">&times;</button>
+						</h5>
+						<p class="card-text">카드2</p>
 					</div>
 				</div>
 			</div>
@@ -240,11 +283,11 @@ $(function() {
 	   <div class="modal-dialog modal-dialog-centered">
 	     <div class="modal-content">
 	     	<div class="modal-header">
-	     		<h4 class="modal-title">스토리 생성하기</h4>
+	     		<h4 class="modal-title">머니앨범 생성하기</h4>
 	     		<button type="button" id="closebutton" class="close" data-dismiss="modal">&times;</button>
 	     	</div>
 	     	<div class="modal-body" align="center">
-	       		<p>스토리 이름 : <input type="text" id="storyname" size="18"></p>
+	       		<p>머니앨범 이름 : <input type="text" id="storyname" size="18"></p>
 	       		<p>
 	       			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#53565A" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
 					  <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
@@ -273,5 +316,22 @@ $(function() {
 	      </div>
 	    </div>
 	  </div>
+	  <div class="modal fade" id="deleteStoryModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">머니앨범 삭제하기</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+				<p align="center">해당 머니앨범을 정말 삭제하겠습니까?</p>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="삭제" class="btn btn-secondary deleteStoryYes" data-dismiss="modal"></input>
+					<input type="submit" value="취소" class="btn btn-secondary deleteStoryNo" data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
