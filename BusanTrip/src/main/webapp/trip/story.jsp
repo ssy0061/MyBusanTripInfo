@@ -111,18 +111,15 @@
 		
 	}
 	.deleteStory:hover{
-		
+		 /*  box-shadow: 3px 3px 3px 3px gray; */
+		 background-color: 	#f5f5f5;
 	}
 </style>
 
 <script>
 
 $(function() {
-	$('.deleteStory').hover(function(){
-		$(this).addClass('shadow')
-	}, function(){
-		$(this).removeClass('shadow')
-	})
+	
 	var currentMemberId = '<%= (String)session.getAttribute("memberId") %>';
 	var memberList = [];
 	var storyList = [];
@@ -147,7 +144,7 @@ $(function() {
 				
 				 $('.col-12').append(
 					"<div id="+"\'"+ storyId +"\'"+" class=card>"
-						+'<div class=card-body onclick=' + "location.href="+"\'/bnk/trip/"+ storyId +"\'>"
+						+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
 							+"<h5 class=card-title>"+ cardTitle+"</h5>"
 							+"<p class=card-text>"+ cardText +"</p></div>"
 						+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\"><i class="bi bi-x-lg"></i></button>'
@@ -267,7 +264,7 @@ $(function() {
 			data: {'storyId': deleteStoryId},
 			
 			success: function(result) {
-				alert("삭제되었습니다.")
+				alert("삭제되었습니다.");
 				document.location.reload();	// 삭제된 스토리 반영하기 위해 새로고침
 			},
 			error: function(e) {
