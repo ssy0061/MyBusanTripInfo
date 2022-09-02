@@ -17,8 +17,8 @@ public class StoreServiceImpl implements StoreService{
 	private StoreDAO storeDAO;
 	
 	@Override
-	public List<Store> findStoreTransaction(String accountNumber, String storeId) {
-		return storeDAO.findStoreTransaction(accountNumber, storeId);
+	public List<Store> findStoreTransaction(String memberID, String storeId) {
+		return storeDAO.findStoreTransaction(memberID, storeId);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import com.service.busantrip.domain.Transaction;
 
 public interface StoreService {
 
-	public List<Store> findStoreTransaction(String accountNumber, String storeId);
+	public List<Store> findStoreTransaction(String memberId, String storeId);
 	public List<Store> findStoreInfo(String storeId);
 	public String findStoreId(String storeName);
 	

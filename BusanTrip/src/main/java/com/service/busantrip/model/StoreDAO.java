@@ -8,7 +8,7 @@ import com.service.busantrip.domain.Transaction;
 
 public interface StoreDAO {
 
-	public List<Store> findStoreTransaction(String accountNumber, String storeId);
+	public List<Store> findStoreTransaction(String memberId, String storeId);
 	public List<Store> findStoreInfo(String storeId);
 	public String findStoreId(String storeName);
 	public List<Store> findStorePopularByRegion(String region); // 인기가게 지역별

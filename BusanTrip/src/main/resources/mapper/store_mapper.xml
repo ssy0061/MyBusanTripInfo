@@ -7,7 +7,7 @@
 	<select id="findStoreTransaction" parameterType="hashmap" resultType="transaction">
 		SELECT TRANSACTION_TIME, TRANSACTION_AMT
 		FROM TRANSACTION
-		WHERE ACCOUNT_NUMBER=#{accountNumber} AND STORE_ID=#{storeId}
+		WHERE MEMBER_ID=#{memberId} AND STORE_ID=#{storeId}
 	</select>
 	
 	<select id="findStoreInfo" parameterType="String" resultType="store">
