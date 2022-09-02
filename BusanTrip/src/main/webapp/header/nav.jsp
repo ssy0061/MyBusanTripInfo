@@ -166,6 +166,12 @@
 </style>
 <script type="text/javascript">
 	$(function(){
+		var memberId = '<%= (String)session.getAttribute("memberId") %>';
+		var loginUrl = '/bnk/login'
+		if(memberId==='null') {
+			$('.needLogin').children('a').attr('href', loginUrl)
+		}
+		
 		$('.back').click(function(){
 			window.history.back();
 		})
@@ -197,10 +203,10 @@
 		<div class="nav-web">
 			<a href="/bnk/home"><img src="/img/mbti.png" id="navHomeWebLogo"></a>
 			<div class="navMenus">
-				<div><a href="/bnk/search">조회</a></div>
-				<div><a href="/bnk/trip">머니앨범</a></div>
+				<div class="needLogin"><a href="/bnk/search">조회</a></div>
+				<div class="needLogin"><a href="/bnk/trip">머니앨범</a></div>
 				<div><a href="/bnk/place">핫플</a></div>
-				<div><a href="/bnk/myPage">MyPage</a></div>
+				<div class="needLogin"><a href="/bnk/myPage">MyPage</a></div>
 			</div>
 			<div class="navMenusButton">
 			    <i class="bi bi-list" style="font-size: 2.5rem;"></i>
@@ -212,10 +218,10 @@
 		
 		<div class="collpaseWrap">
 			<div class="collapse" id="navCollpase">
-				<div><a href="/bnk/search">조회</a></div>
-				<div><a href="/bnk/trip">머니앨범</a></div>
+				<div class="needLogin"><a href="/bnk/search">조회</a></div>
+				<div class="needLogin"><a href="/bnk/trip">머니앨범</a></div>
 				<div><a href="/bnk/place">핫플</a></div>
-				<div><a href="/bnk/myPage">MyPage</a></div>
+				<div class="needLogin"><a href="/bnk/myPage">MyPage</a></div>
 			</div>
 		</div>
 		

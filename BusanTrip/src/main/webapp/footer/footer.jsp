@@ -63,6 +63,10 @@
 </style>
 <script type="text/javascript">
 	$(function() {
+		var isLogin = false;
+		if('<%= (String)session.getAttribute("memberId") %>' !== 'null') isLogin = true
+		
+		
 		let scrollNum = 0;
 		window.addEventListener('scroll', function(){
 			if(matchMedia("screen and (max-width: 575px)").matches){
@@ -111,10 +115,12 @@
 			location.href='/bnk/home';
 		})
 		$('.icon-search').click(function(){
-			location.href='/bnk/search';
+			if(!isLogin) location.href='/bnk/login'
+			else location.href='/bnk/search';
 		})
 		$('.icon-trip').click(function(){
-			location.href='/bnk/trip';
+			if(!isLogin) location.href='/bnk/login'
+			else location.href='/bnk/trip';
 		})
 		$('.icon-place').click(function(){
 			location.href='/bnk/place';
