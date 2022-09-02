@@ -268,8 +268,8 @@
 		}
 		
 		
-		$('chargemodal').on('click', chargepoint)
-		$('paymodal').on('click', paypoint)
+		$('#chargemodal').on('click', chargepoint)
+		$('#paymodal').on('click', paypoint)
 	});
 
 	
