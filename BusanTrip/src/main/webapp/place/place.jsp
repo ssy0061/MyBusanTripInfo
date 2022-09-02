@@ -262,7 +262,8 @@
 						<div class="info-right-lower">
 							<span class="location">부산 남구</span>
 							<div class="searchBtnDiv">
-								<img class="searchBtn" src="/img/search.png">
+								<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
+									data-toggle="modal" data-target="#searchModal">
 							</div>
 						</div>
 					</div>
@@ -282,8 +283,6 @@
 				url: '/store/findStorePopularByRegion',
 				data: {'region': region},
 				success: function(result) {
-					let contentsId = generateId();
-					
 					let spanRegionName = document.createElement('span');
 					spanRegionName.setAttribute('class', 'regionName');
 					spanRegionName.append(region);
@@ -294,112 +293,19 @@
 					divTitleLeft.append(spanRegionName);
 					divTitleLeft.append("의 인기 장소");
 					
-					
-					let moreBtn = document.createElement('button');
-					moreBtn.setAttribute('type', 'button');
-					moreBtn.setAttribute('class', 'moreBtn');
-					moreBtn.setAttribute('data-target', '#' + contentsId);
-					moreBtn.append("▼");
-					
-					let divTitleRight = document.createElement('div');
-					divTitleRight.setAttribute('class', 'title-right');
-					divTitleRight.append(moreBtn);
-					
-					
-					let divPlaceLowerBoxTitle = document.createElement('div');
-					divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-					divPlaceLowerBoxTitle.append(divTitleLeft);
-					divPlaceLowerBoxTitle.append(divTitleRight);
-					
-					
-					let divPlaceLowerBoxLower = document.createElement('div');
-					divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
-					divPlaceLowerBoxLower.setAttribute('id', contentsId);
-					
-					for (var i=0; i<result.length; i++) {
-						let store = result[i];
-						let id = store.storeId;
-						let category = store.storeCategory;
-						let placeName = store.storeName;
-						let location = store.storeAddr;
-						let hasId = (id == null);  // 이거 수정해야 함
-						
-						let spanCategory = document.createElement('span');
-						spanCategory.setAttribute('class', 'category');
-						spanCategory.append(category);
-						
-						let divUdCenter = document.createElement('div');
-						divUdCenter.setAttribute('class', 'ud-center');
-						divUdCenter.append(spanCategory);
-						
-						let divInfoLeft = document.createElement('div');
-						divInfoLeft.setAttribute('class', 'info-left');
-						divInfoLeft.append(divUdCenter);
-						
-						
-						let divPlaceName = document.createElement('div');
-						divPlaceName.setAttribute('class', 'placeName');
-						divPlaceName.append(placeName);
-						
-						let divInfoRightUpper = document.createElement('div');
-						divInfoRightUpper.setAttribute('class', 'info-right-upper');
-						divInfoRightUpper.append(divPlaceName);
-						
-						
-						let spanLocation = document.createElement('span');
-						spanLocation.setAttribute('class', 'location');
-						spanLocation.append(location);
-						
-						let divSearchBtnDiv;
-						if (hasId) {  // hasId
-							var imgSearchBtn = document.createElement('img');
-							imgSearchBtn.setAttribute('class', 'searchBtn');
-							imgSearchBtn.setAttribute('src', '/img/search.png');
-							
-							divSearchBtnDiv = document.createElement('div');
-							divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
-							divSearchBtnDiv.append(imgSearchBtn);
-						}
-						
-						let divInfoRightLower = document.createElement('div');
-						divInfoRightLower.setAttribute('class', 'info-right-lower');
-						divInfoRightLower.append(spanLocation);
-						if (hasId) divInfoRightLower.append(divSearchBtnDiv);
-						
-						
-						let divInfoRight = document.createElement('div');
-						divInfoRight.setAttribute('class', 'info-right');
-						divInfoRight.append(divInfoRightUpper);
-						divInfoRight.append(divInfoRightLower);
-
-						let divPlaceLowerBoxInfo = document.createElement('div');
-						divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-						divPlaceLowerBoxInfo.append(divInfoLeft);
-						divPlaceLowerBoxInfo.append(divInfoRight);
-						
-						divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-						
-					}  // for
-					
-					let divPlaceLowerBox = document.createElement('div');
-					divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-					divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-					divPlaceLowerBox.append(divPlaceLowerBoxLower);
-					
-					let divPlaceLower = $('.place-lower');
-					divPlaceLower.append(divPlaceLowerBox);
+					addContents(divTitleLeft, result);  // 함수 호출
 					
 					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
-					// 이미지랑 버튼 연결용 코드
-					$('.searchBtn').off('click').click(function(){
-						alert('search!');
-					});  // img click
-					
 					// collapse 버튼 연결용 코드
 					$('.moreBtn').off('click').click(function(){
 						let targetId = $(this).attr('data-target');
 						$(targetId).collapse('toggle');
 					});  // button click
+					
+					// img 버튼 연결용 코드
+					$('.searchBtn').off('click').click(function(){
+						serachModalChange($(this).attr('store-id'));
+					});  // img click
 					
 				},  // ajax success end
 				error: function(e){ console.log(e); }
@@ -414,8 +320,6 @@
 			type: 'post',
 			url: '/store/findStorePopularByPeriod',
 			success: function(result) {
-				let contentsId = generateId();
-				
 				// * 최근 <span class="periodName">일주일</span> 인기 장소
 				let spanPeriodName = document.createElement('span');
 				spanPeriodName.setAttribute('class', 'periodName');
@@ -427,113 +331,20 @@
 				divTitleLeft.append(spanPeriodName);
 				divTitleLeft.append(" 인기 장소");
 				
-				
-				let moreBtn = document.createElement('button');
-				moreBtn.setAttribute('type', 'button');
-				moreBtn.setAttribute('class', 'moreBtn');
-				moreBtn.setAttribute('data-target', '#' + contentsId);
-				moreBtn.append("▼");
-				
-				let divTitleRight = document.createElement('div');
-				divTitleRight.setAttribute('class', 'title-right');
-				divTitleRight.append(moreBtn);
-				
-				
-				let divPlaceLowerBoxTitle = document.createElement('div');
-				divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-				divPlaceLowerBoxTitle.append(divTitleLeft);
-				divPlaceLowerBoxTitle.append(divTitleRight);
-				
-				
-				let divPlaceLowerBoxLower = document.createElement('div');
-				divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
-				divPlaceLowerBoxLower.setAttribute('id', contentsId);
-				
-				for (var i=0; i<result.length; i++) {
-					let store = result[i];
-					let id = store.storeId;
-					let category = store.storeCategory;
-					let placeName = store.storeName;
-					let location = store.storeAddr;
-					let hasId = (id == null);  // 이거 수정해야 함
-					
-					let spanCategory = document.createElement('span');
-					spanCategory.setAttribute('class', 'category');
-					spanCategory.append(category);
-					
-					let divUdCenter = document.createElement('div');
-					divUdCenter.setAttribute('class', 'ud-center');
-					divUdCenter.append(spanCategory);
-					
-					let divInfoLeft = document.createElement('div');
-					divInfoLeft.setAttribute('class', 'info-left');
-					divInfoLeft.append(divUdCenter);
-					
-					
-					let divPlaceName = document.createElement('div');
-					divPlaceName.setAttribute('class', 'placeName');
-					divPlaceName.append(placeName);
-					
-					let divInfoRightUpper = document.createElement('div');
-					divInfoRightUpper.setAttribute('class', 'info-right-upper');
-					divInfoRightUpper.append(divPlaceName);
-					
-					
-					let spanLocation = document.createElement('span');
-					spanLocation.setAttribute('class', 'location');
-					spanLocation.append(location);
-					
-					let divSearchBtnDiv;
-					if (hasId) {  // hasId
-						var imgSearchBtn = document.createElement('img');
-						imgSearchBtn.setAttribute('class', 'searchBtn');
-						imgSearchBtn.setAttribute('src', '/img/search.png');
-						
-						divSearchBtnDiv = document.createElement('div');
-						divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
-						divSearchBtnDiv.append(imgSearchBtn);
-					}
-					
-					let divInfoRightLower = document.createElement('div');
-					divInfoRightLower.setAttribute('class', 'info-right-lower');
-					divInfoRightLower.append(spanLocation);
-					if (hasId) divInfoRightLower.append(divSearchBtnDiv);
-					
-					
-					let divInfoRight = document.createElement('div');
-					divInfoRight.setAttribute('class', 'info-right');
-					divInfoRight.append(divInfoRightUpper);
-					divInfoRight.append(divInfoRightLower);
-
-					let divPlaceLowerBoxInfo = document.createElement('div');
-					divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-					divPlaceLowerBoxInfo.append(divInfoLeft);
-					divPlaceLowerBoxInfo.append(divInfoRight);
-					
-					divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-					
-				}  // for
-				
-				let divPlaceLowerBox = document.createElement('div');
-				divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-				divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-				divPlaceLowerBox.append(divPlaceLowerBoxLower);
-				
-				let divPlaceLower = $('.place-lower');
-				divPlaceLower.append(divPlaceLowerBox);
+				addContents(divTitleLeft, result);  // 함수 호출
 				
 				<%-- .off()를 써서 기존 중복 설정을 제거. --%>
-				// 이미지랑 버튼 연결용 코드
-				$('.searchBtn').off('click').click(function(){
-					alert('search!');
-				});  // img click
-				
 				// collapse 버튼 연결용 코드
 				$('.moreBtn').off('click').click(function(){
 					let targetId = $(this).attr('data-target');
 					$(targetId).collapse('toggle');
 				});  // button click
 				
+				// img 버튼 연결용 코드
+				$('.searchBtn').off('click').click(function(){
+					serachModalChange($(this).attr('store-id'));
+				});  // img click
+		
 			},  // ajax success end
 			error: function(e){ console.log(e); }
 		});  // findStorePopularByRegion end - period
@@ -550,8 +361,6 @@
 				url: '/store/findStorePopularByCategory',
 				data: {'category': category},
 				success: function(result) {
-					let contentsId = generateId();
-					
 					// * 인기 <span class="categoryName">카페</span>
 					let spanCategoryName = document.createElement('span');
 					spanCategoryName.setAttribute('class', 'categoryName');
@@ -562,112 +371,19 @@
 					divTitleLeft.append("* 인기 ");
 					divTitleLeft.append(spanCategoryName);
 					
-					
-					let moreBtn = document.createElement('button');
-					moreBtn.setAttribute('type', 'button');
-					moreBtn.setAttribute('class', 'moreBtn');
-					moreBtn.setAttribute('data-target', '#' + contentsId);
-					moreBtn.append("▼");
-					
-					let divTitleRight = document.createElement('div');
-					divTitleRight.setAttribute('class', 'title-right');
-					divTitleRight.append(moreBtn);
-					
-					
-					let divPlaceLowerBoxTitle = document.createElement('div');
-					divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-					divPlaceLowerBoxTitle.append(divTitleLeft);
-					divPlaceLowerBoxTitle.append(divTitleRight);
-					
-					
-					let divPlaceLowerBoxLower = document.createElement('div');
-					divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
-					divPlaceLowerBoxLower.setAttribute('id', contentsId);
-					
-					for (var i=0; i<result.length; i++) {
-						let store = result[i];
-						let id = store.storeId;
-						let category = store.storeCategory;
-						let placeName = store.storeName;
-						let location = store.storeAddr;
-						let hasId = (id == null);  // 이거 수정해야 함
-						
-						let spanCategory = document.createElement('span');
-						spanCategory.setAttribute('class', 'category');
-						spanCategory.append(category);
-						
-						let divUdCenter = document.createElement('div');
-						divUdCenter.setAttribute('class', 'ud-center');
-						divUdCenter.append(spanCategory);
-						
-						let divInfoLeft = document.createElement('div');
-						divInfoLeft.setAttribute('class', 'info-left');
-						divInfoLeft.append(divUdCenter);
-						
-						
-						let divPlaceName = document.createElement('div');
-						divPlaceName.setAttribute('class', 'placeName');
-						divPlaceName.append(placeName);
-						
-						let divInfoRightUpper = document.createElement('div');
-						divInfoRightUpper.setAttribute('class', 'info-right-upper');
-						divInfoRightUpper.append(divPlaceName);
-						
-						
-						let spanLocation = document.createElement('span');
-						spanLocation.setAttribute('class', 'location');
-						spanLocation.append(location);
-						
-						let divSearchBtnDiv;
-						if (hasId) {  // hasId
-							var imgSearchBtn = document.createElement('img');
-							imgSearchBtn.setAttribute('class', 'searchBtn');
-							imgSearchBtn.setAttribute('src', '/img/search.png');
-							
-							divSearchBtnDiv = document.createElement('div');
-							divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
-							divSearchBtnDiv.append(imgSearchBtn);
-						}
-						
-						let divInfoRightLower = document.createElement('div');
-						divInfoRightLower.setAttribute('class', 'info-right-lower');
-						divInfoRightLower.append(spanLocation);
-						if (hasId) divInfoRightLower.append(divSearchBtnDiv);
-						
-						
-						let divInfoRight = document.createElement('div');
-						divInfoRight.setAttribute('class', 'info-right');
-						divInfoRight.append(divInfoRightUpper);
-						divInfoRight.append(divInfoRightLower);
-
-						let divPlaceLowerBoxInfo = document.createElement('div');
-						divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-						divPlaceLowerBoxInfo.append(divInfoLeft);
-						divPlaceLowerBoxInfo.append(divInfoRight);
-						
-						divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-						
-					}  // for
-					
-					let divPlaceLowerBox = document.createElement('div');
-					divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-					divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-					divPlaceLowerBox.append(divPlaceLowerBoxLower);
-					
-					let divPlaceLower = $('.place-lower');
-					divPlaceLower.append(divPlaceLowerBox);
+					addContents(divTitleLeft, result);  // 함수 호출
 					
 					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
-					// 이미지랑 버튼 연결용 코드
-					$('.searchBtn').off('click').click(function(){
-						alert('search!');
-					});  // img click
-					
 					// collapse 버튼 연결용 코드
 					$('.moreBtn').off('click').click(function(){
 						let targetId = $(this).attr('data-target');
 						$(targetId).collapse('toggle');
 					});  // button click
+					
+					// img 버튼 연결용 코드
+					$('.searchBtn').off('click').click(function(){
+						serachModalChange($(this).attr('store-id'));
+					});  // img click
 					
 				},  // ajax success end
 				error: function(e){ console.log(e); }
@@ -676,17 +392,139 @@
 		
 		// initial method
 		
+		function serachModalChange(storeId) {
+			$.ajax({
+				type: 'post',
+				url: '/store/findStoreInfo',
+				data: {'storeId': storeId},
+				success: function(result) {
+					result = result[0];
+					$('#storeName').text(result.storeName);
+					$('#contact').text(result.storeTele);
+					$('#address').text(result.storeAddr);
+					$('#openHour').text(result.storeWorkhour); // 이거 수정해야 할 듯...
+					$('#holiday').text(result.storeHoliday);
+					console.log(result.storeLatitude);
+					console.log(result.storeLongitude);
+					console.log(result);
+				},
+				error: function(e){ console.log(e); }
+			});  // getMemberName end
+			
+		}  // serachModalChange end
+		
 	});  // JQuery
 	
-function generateId() {
-	let id = '', randInt;
-	for (let i = 0; i < 32; i++) {
-		randInt = parseInt(Math.random()*36)
-		if (randInt < 10) id += randInt;
-		else id +=String.fromCharCode(randInt+87);
+	function generateId() {
+		let id = '', randInt;
+		for (let i = 0; i < 32; i++) {
+			randInt = parseInt(Math.random()*36)
+			if (randInt < 10) id += randInt;
+			else id +=String.fromCharCode(randInt+87);
+		}
+		return id;
 	}
-	return id;
-}
+	
+	function addContents(divTitleLeft, result) {
+		let contentsId = generateId();
+		
+		let moreBtn = document.createElement('button');
+		moreBtn.setAttribute('type', 'button');
+		moreBtn.setAttribute('class', 'moreBtn');
+		moreBtn.setAttribute('data-target', '#' + contentsId);
+		moreBtn.append("▼");
+		
+		let divTitleRight = document.createElement('div');
+		divTitleRight.setAttribute('class', 'title-right');
+		divTitleRight.append(moreBtn);
+		
+		
+		let divPlaceLowerBoxTitle = document.createElement('div');
+		divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
+		divPlaceLowerBoxTitle.append(divTitleLeft);
+		divPlaceLowerBoxTitle.append(divTitleRight);
+		
+		
+		let divPlaceLowerBoxLower = document.createElement('div');
+		divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
+		divPlaceLowerBoxLower.setAttribute('id', contentsId);
+		
+		for (var i=0; i<result.length; i++) {
+			let store = result[i];
+			let id = store.storeId;
+			let category = store.storeCategory;
+			let placeName = store.storeName;
+			let location = store.storeAddr;
+			let hasId = (id != null);
+			
+			let spanCategory = document.createElement('span');
+			spanCategory.setAttribute('class', 'category');
+			spanCategory.append(category);
+			
+			let divUdCenter = document.createElement('div');
+			divUdCenter.setAttribute('class', 'ud-center');
+			divUdCenter.append(spanCategory);
+			
+			let divInfoLeft = document.createElement('div');
+			divInfoLeft.setAttribute('class', 'info-left');
+			divInfoLeft.append(divUdCenter);
+			
+			
+			let divPlaceName = document.createElement('div');
+			divPlaceName.setAttribute('class', 'placeName');
+			divPlaceName.append(placeName);
+			
+			let divInfoRightUpper = document.createElement('div');
+			divInfoRightUpper.setAttribute('class', 'info-right-upper');
+			divInfoRightUpper.append(divPlaceName);
+			
+			
+			let spanLocation = document.createElement('span');
+			spanLocation.setAttribute('class', 'location');
+			spanLocation.append(location);
+			
+			let divSearchBtnDiv;
+			if (hasId) {  // hasId
+				var imgSearchBtn = document.createElement('img');
+				imgSearchBtn.setAttribute('class', 'searchBtn');
+				imgSearchBtn.setAttribute('src', '/img/search.png');
+				imgSearchBtn.setAttribute('store-id', id);
+				imgSearchBtn.setAttribute('data-toggle', "modal");
+				imgSearchBtn.setAttribute('data-target', "#searchModal");
+				
+				divSearchBtnDiv = document.createElement('div');
+				divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
+				divSearchBtnDiv.append(imgSearchBtn);
+			}
+			
+			let divInfoRightLower = document.createElement('div');
+			divInfoRightLower.setAttribute('class', 'info-right-lower');
+			divInfoRightLower.append(spanLocation);
+			if (hasId) divInfoRightLower.append(divSearchBtnDiv);
+			
+			
+			let divInfoRight = document.createElement('div');
+			divInfoRight.setAttribute('class', 'info-right');
+			divInfoRight.append(divInfoRightUpper);
+			divInfoRight.append(divInfoRightLower);
+	
+			let divPlaceLowerBoxInfo = document.createElement('div');
+			divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
+			divPlaceLowerBoxInfo.append(divInfoLeft);
+			divPlaceLowerBoxInfo.append(divInfoRight);
+			
+			divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
+			
+		}  // for
+		
+		let divPlaceLowerBox = document.createElement('div');
+		divPlaceLowerBox.setAttribute('class', 'place-lower-box');
+		divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+		divPlaceLowerBox.append(divPlaceLowerBoxLower);
+		
+		let divPlaceLower = $('.place-lower');
+		divPlaceLower.append(divPlaceLowerBox);
+	}
 	
 </script>
 
@@ -728,90 +566,27 @@ function generateId() {
 		</c:if>
 		
 		<div class="place-lower">
-			<%-- 참고용, 살짝 다름! 저 위에 있는 주석 참고. --%>
-			<%--
-			<div class="place-lower-box">
-				<div class="place-lower-box-title">
-					* <span class="regionName">부산</span>의 인기 장소
-				</div>
-				<div class="place-lower-box-lower">
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<div class="searchBtnDiv">
-									<img class="searchBtn" src="/img/search.png">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="place-lower-box">
-				<div class="place-lower-box-title">
-					* 최근 <span class="periodName">일주일</span> 인기 장소
-				</div>
-				<div class="place-lower-box-lower">
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<div class="searchBtnDiv">
-									<img class="searchBtn" src="/img/search.png">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="place-lower-box">
-				<div class="place-lower-box-title">
-					* 인기 <span class="categoryName">카페</span>
-				</div>
-				<div class="place-lower-box-lower">
-					<div class="place-lower-box-info">
-						<div class="info-left">
-							<div class="ud-center">
-								<span class="category">관광지</span>
-							</div>
-						</div>
-						<div class="info-right">
-							<div class="info-right-upper">
-								<div class="placeName">오륙도 스카이워크</div>
-							</div>
-							<div class="info-right-lower">
-								<span class="location">부산 남구</span>
-								<div class="searchBtnDiv">
-									<img class="searchBtn" src="/img/search.png">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			--%>
+			<%-- 여기에 상단 주석에 넣어놓은 코드가 (유사 구조로) 들어감 --%>
 		</div>
 		
 	</div>
 	
 	<c:import url="/footer/footer.jsp" />
+	
+	<%-- Modal --%>
+	<div class="modal fade" id="searchModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">가게 상세 정보</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<c:import url="/place/storeDetail.jsp" />
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>
