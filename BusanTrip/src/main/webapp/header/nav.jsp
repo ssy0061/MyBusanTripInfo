@@ -200,7 +200,7 @@
 				<div><a href="/bnk/search">조회</a></div>
 				<div><a href="/bnk/trip">여행스토리</a></div>
 				<div><a href="/bnk/place">핫플</a></div>
-				<div><a href="#">MyPage</a></div>
+				<div><a href="/bnk/myPage">MyPage</a></div>
 			</div>
 			<div class="navMenusButton">
 			    <i class="bi bi-list" style="font-size: 2.5rem;"></i>
@@ -215,7 +215,7 @@
 				<div><a href="/bnk/search">조회</a></div>
 				<div><a href="/bnk/trip">여행스토리</a></div>
 				<div><a href="/bnk/place">핫플</a></div>
-				<div><a href="#">MyPage</a></div>
+				<div><a href="/bnk/myPage">MyPage</a></div>
 			</div>
 		</div>
 		

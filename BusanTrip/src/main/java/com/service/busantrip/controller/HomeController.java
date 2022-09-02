@@ -37,6 +37,10 @@ public class HomeController {
 	public String place() {
 		return "place/place";
 	}
+	@RequestMapping("myPage")
+	public String mypage() {
+		return "home/myPage";
+	}
 	@RequestMapping("login")
 	public String login() {
 		return "home/login";
