@@ -13,6 +13,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <style>
 	/* all */
 	*{
@@ -26,6 +28,9 @@
 		max-width:800px;
 		margin: 20px auto;
 	}
+	#first-row, #third-row, #fourth-row{
+		margin-top:20px;
+	}
 	/* == first row == */
 	#accountPlace{
 		width:100%;
@@ -36,12 +41,11 @@
 		border-radius:5px;
 	}
 	#bnkIcon{
-		width:35px;
-		height:35px;
-		border-radius:10px;
+		width:30px;
+		height:30px;
 		border-style:solid;
+		border-radius:10px;
 		border-color:#CB333B;
-		border-width:2px;
 	}
 	#accountPrice{
 		width:100%;
@@ -75,10 +79,40 @@
 	.charIamge:hover{
 		cursor:pointer;
 	}
-	/* == other row == */
-	#first-row, #third-row, #fourth-row{
-		margin-top:20px;
+	/* modal */
+	.modal-header{
+		width:95%;
 	}
+	 .each-pic{
+	 	margin:5px 0;
+	 	width:80%;
+	 	max-width:150px;
+	 	height:auto;
+	 	border-style:solid;
+		border-color:#CB333B;
+		border-width:4px;
+		border-radius:4px;
+		box-shadow:2px 3px 5px 0 #53565A;
+		filter: brightness(80%);
+	 }
+	 .each-pic:hover{
+	 	cursor:pointer;
+		filter: brightness(100%);
+	 }
+	 .charChangeOk{
+	 	display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#53565A;
+		box-shadow: 0 3px 3px 0 #53565A;
+	 }
+	/* == second row == */
 	#second-row{
 		margin:20px 1px 0 1px;
 		display:flex;
@@ -106,6 +140,7 @@
 		background-color:#4CAF50;
 		color:white;
 	}
+	/* == third row == */
 	#whichPlace, #myPlace{
 		width:100%;
 		height:150px;
@@ -114,26 +149,57 @@
 		border-color:gray;
 		border-radius:5px;
 	}
-	/* modal */
-	.modal-header{
-		width:95%;
+	#third-row{
+		width:200px;
+		height:200px;
+		color: white;
+   		padding: 20px;
+		display:flex;
+		justify-content:center;
+		align-items:end;
+		border-radius:10px;
+    background-image:
+    linear-gradient(to bottom, transparent, #F08080 80%),
+    url("https://image.shutterstock.com/image-photo/grilled-chicken-meat-fresh-vegetable-600w-1888455823.jpg");
 	}
-	 .each-pic{
-	 	margin:5px 0;
-	 	width:80%;
-	 	max-width:150px;
-	 	height:auto;
-	 	border-style:solid;
-		border-color:#CB333B;
-		border-width:4px;
-		border-radius:4px;
-		box-shadow:2px 3px 5px 0 #53565A;
-		filter: brightness(80%);
-	 }
-	 .each-pic:hover{
-	 	cursor:pointer;
-		filter: brightness(100%);
-	 }
+	/* swiper */
+	.swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .content>*{
+    	display: flex;
+		flex-wrap: wrap;
+		align-content: space-between;;
+    }
+	/* == fourth row == */
 	/* responsive web */
 	@media screen and (max-width: 575px) {
 		.large, .large>* {
@@ -152,6 +218,58 @@ $(document).ready(function() {
 		var src = $(this).attr("src");
 		console.log(src)
 	});
+	
+	refreshContent();
+
+    $(window).resize(function () {
+    });
+	
+	//this function define the size of the items
+    function refreshContent() {
+    	for(let i = 0; i<result.length; i++) {
+    		// 생성
+    		user = result[i].user;
+    		list = result[i].list;
+    		$('.content').append(
+    			"<div id='user-"+user+"'>"+
+    			"<h5>"+user+"</h5>"+
+    			"<div class='swiper' id='swiper-"+user+"'>"+
+    			"<div class='swiper-wrapper'>"+
+    			"</div><div class='swiper-pagination'></div>"+
+    			"<div class='swiper-scrollbar'></div></div></div>"
+    		);
+    		for(let i=0; i<list.length; i++){
+    			$('#swiper-'+user).children('.swiper-wrapper').append(
+    				"<div class='swiper-slide'><div class='card'>"+
+    				"<img class='card-img-top' src='"+list[i].url+"' style='width:100%'>"+
+    				"<div class='card-body'><h6 class='card-text'>결제일시</h6>"+
+    				"<div class='card-text pay-store'><h5 class='card-title'>"+list[i].storeName+"</h5></div>"+
+    				"<div class='card-text pay-price'><h5>"+list[i].payment+"</h5></div>"+
+    				"<h6>"+list[i].memo+"</h6></div></div></div>"
+    			);
+    		}
+    		
+    		var swiper = new Swiper("#swiper-"+user, {
+    			slidesPerView: 2.7,
+    	        spaceBetween: 10,
+    	        grabCursor: true,
+    	        navigation: {
+    	          nextEl: ".swiper-button-next",
+    	          prevEl: ".swiper-button-prev",
+    	        },
+    	        breakpoints: {
+    	            // when window width is >= 0px
+    	            0: { slidesPerView: 1.2, spaceBetween: 10 },
+    	            720: { slidesPerView: 2.2, },
+    	            1200: { slidesPerView: 2.5, }
+    	        },
+    	        scrollbar: {
+    	            el: ".swiper-scrollbar",
+    	            draggable: true,
+    	        }
+    		});
+    	}
+    }
 })
 	
 </script>
@@ -165,7 +283,7 @@ $(document).ready(function() {
 		<div class="row" id="fisrt-row">
 			<div class="col-8">
 				<div id="accountPlace">
-					<p><img id="bnkIcon" src="/img/bank_icon.png"> 부산은행 계좌번호</p>
+					<p><img id="bnkIcon" src="/img/bank_db.png"> 부산은행 계좌번호</p>
 					<p id="accountPrice">9,999,999원</p>
 				</div>
 			</div>
@@ -184,12 +302,66 @@ $(document).ready(function() {
 			<button type="button" class="button3">정보 수정</button>
 		</div>
 		<div class="row" id="third-row">
-			<div class="col-12">
-				<div id="whichPlace">
-					<p>무엇을 넣을지...?</p>
-				</div>
-			</div>
+			
 		</div>
+		
+		<!-- Slider main container -->
+		<div class="swiper mySwiper">
+		  <!-- Additional required wrapper -->
+		  <div class="swiper-wrapper">
+		    <!-- Slides -->
+		    <div class="swiper-slide">
+				<div class="card">
+                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
+					<div class="card-body">
+						<h6 class="card-text">결제일시</h6>
+						<div class="card-text pay-store"><h5 class="card-title">가게이름1</h5></div>
+						<div class="card-text pay-price"><h5>결제금액</h5></div>
+						<h6>메모 내용 들어갈 곳</h6>
+					</div>
+                </div>
+			</div>
+		    <div class="swiper-slide">
+				<div class="card">
+                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
+					<div class="card-body">
+						<h6 class="card-text">결제일시</h6>
+						<div class="card-text pay-store"><h5 class="card-title">가게이름2</h5></div>
+						<div class="card-text pay-price"><h5>결제금액</h5></div>
+						<h6>메모 내용 들어갈 곳</h6>
+					</div>
+                </div>
+			</div>
+		    <div class="swiper-slide">
+				<div class="card">
+                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
+					<div class="card-body">
+						<h6 class="card-text">결제일시</h6>
+						<div class="card-text pay-store"><h5 class="card-title">가게이름3</h5></div>
+						<div class="card-text pay-price"><h5>결제금액</h5></div>
+						<h6>메모 내용 들어갈 곳</h6>
+					</div>
+                </div>
+			</div>
+		    <div class="swiper-slide">
+				<div class="card">
+                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
+					<div class="card-body">
+						<h6 class="card-text">결제일시</h6>
+						<div class="card-text pay-store"><h5 class="card-title">가게이름4</h5></div>
+						<div class="card-text pay-price"><h5>결제금액</h5></div>
+						<h6>메모 내용 들어갈 곳</h6>
+					</div>
+                </div>
+			</div>			
+		  </div>
+		  <!-- If we need pagination -->
+		  <div class="swiper-pagination"></div>
+		
+		  <!-- If we need scrollbar -->
+		  <div class="swiper-scrollbar"></div>
+		</div>
+		
 		<div class="row" id="fourth-row">
 			<div class="col-12">
 				<div id="myPlace">
@@ -236,7 +408,7 @@ $(document).ready(function() {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="변경" class="btn btn-secondary" data-dismiss="modal"></input>
+						<input type="submit" value="변경" class="btn btn-secondary charChangeOk" data-dismiss="modal"></input>
 					</div>
 				</div>
 			</div>

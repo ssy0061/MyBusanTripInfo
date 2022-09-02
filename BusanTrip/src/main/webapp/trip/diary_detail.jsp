@@ -339,10 +339,9 @@ $(document).ready(function () {
     	            draggable: true,
     	        }
     		});
-    		
-    		
     	}
     }
+    
     var fileArr = "";
     /* multi file upload */
 	function readMultiImage(input) {
@@ -445,6 +444,7 @@ $(document).ready(function () {
 				</a>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-12">
 				<h5>사용자A</h5>
