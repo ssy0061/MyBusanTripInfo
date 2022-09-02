@@ -141,10 +141,10 @@ class BusanTripApplicationTests {
 //		System.out.println(storeDAO.findStoreTransaction("acc222", "1"));
 //	}
 	
-//	@Test
-//	void findStoreInfo() { 
-//		System.out.println(storeDAO.findStoreTransaction("acc222", "1"));
-//	}
+	@Test
+	void findStoreInfo() { 
+		System.out.println(storeDAO.findStoreInfo("165"));
+	}
 	
 //	@Test
 //	void findStoreId() { 
@@ -201,10 +201,10 @@ class BusanTripApplicationTests {
 //		 storyDAO.addStory("testStory", "gwak222");
 //	}
 	
-	@Test
-	void deleteStory() {
-		 storyDAO.deleteStory(24);
-	}
+//	@Test
+//	void deleteStory() {
+//		 storyDAO.deleteStory(24);
+//	}
 	
 //	@Test
 //	void findStoryMember() {

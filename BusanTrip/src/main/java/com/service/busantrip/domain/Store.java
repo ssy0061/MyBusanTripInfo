@@ -68,7 +68,7 @@ public class Store {
 		return storeWorkhour;
 	}
 
-	public void setStoreWorkhour(String StoreWorkhour) {
+	public void setStoreWorkhour(String storeWorkhour) {
 		this.storeWorkhour = storeWorkhour;
 	}
 
