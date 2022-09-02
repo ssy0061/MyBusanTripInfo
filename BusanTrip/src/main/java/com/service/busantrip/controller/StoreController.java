@@ -31,8 +31,8 @@ public class StoreController {
 	
 	@PostMapping("findStoreTransaction") //가게 세부정보 조회시 해당 가게 거래내역..
 	@ResponseBody
-	public List<Store> findStoreTransaction(String accountNumber, String storeId, Model model, HttpSession session) {
-		List<Store> storeTransaction = storeService.findStoreTransaction(accountNumber, storeId);
+	public List<Store> findStoreTransaction(String memberId, String storeId, Model model, HttpSession session) {
+		List<Store> storeTransaction = storeService.findStoreTransaction(memberId, storeId);
 		return storeTransaction;
 	}
 	

@@ -19,11 +19,11 @@ public class StoreDAOImpl implements StoreDAO{
 	private SqlSession sqlsession;
 	
 	@Override
-	public List<Store> findStoreTransaction(String accountNumber, String storeId) {
+	public List<Store> findStoreTransaction(String memberID, String storeId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("accountNumber", accountNumber);
+		map.put("memberID", memberID);
 		map.put("storeId", storeId);
-		System.out.println(accountNumber + " " +storeId);
+		System.out.println(memberID + " " +storeId);
 		return sqlsession.selectList(NS+"findStoreTransaction", map);
 	}
 
