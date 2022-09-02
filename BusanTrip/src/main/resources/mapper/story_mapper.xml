@@ -5,15 +5,21 @@
 
 <mapper namespace="sql.story.mapper">
 	
-	<insert id="addStory" parameterType="String">
-		INSERT INTO STORY(STORY_ID, STORY_NAME)
-		VALUES(STORY_SEQ.NEXTVAL, #{storyName})
+	<insert id="addStory" parameterType="hashmap">
+		INSERT INTO STORY(STORY_ID, STORY_NAME, STORY_SUBTITLE)
+		VALUES(STORY_SEQ.NEXTVAL, #{storyName}, #{subtitle})
 	</insert>
 	
 	<delete id="deleteStory" parameterType="int">
 		DELETE FROM STORY 
 		WHERE STORY_ID=#{storyId}
 	</delete>
+	
+	<update id="updateStory" parameterType="hashmap">
+		UPDATE STORY
+		SET STORY_SUBTITLE = #{memberList}
+		WHERE STORY_ID = #{storyId}
+	</update>
 	
 	<select id="getStoryId" resultType="String">
 		SELECT STORY_ID FROM STORY WHERE STORY_NAME= #{storyName}
@@ -24,7 +30,7 @@
 	</insert>
 	
 	<select id="findAllStoryList" parameterType="String" resultType="story">
-		SELECT ST.STORY_ID, ST.STORY_NAME
+		SELECT ST.STORY_ID, ST.STORY_NAME, ST.STORY_SUBTITLE
 		FROM STORY ST, STORYMEMBER SM
 		WHERE ST.STORY_ID=SM.STORY_ID AND SM.MEMBER_ID = #{memberId}
 	</select>

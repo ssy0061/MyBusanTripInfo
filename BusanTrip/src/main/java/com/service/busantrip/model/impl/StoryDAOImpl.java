@@ -26,15 +26,19 @@ public class StoryDAOImpl implements StoryDAO{
 	
 	
 	@Override
-	public String addStory(String storyName, String memberId) {
+	public String addStory(String storyName, String memberId, String subtitle) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storyName", storyName);
+		map.put("subtitle", subtitle);
+		sqlSession.insert(NS+"addStory", map);
 		
-		sqlSession.insert(NS+"addStory", storyName);
 		String storyId = sqlSession.selectOne(NS+"getStoryId", storyName);
-		System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
-		
+	//	System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
+	
 		HashMap<String, Object> learderMap = new HashMap<String, Object>();
 		learderMap.put("storyId", storyId);
 		learderMap.put("memberId", memberId);
+		
 		sqlSession.insert(NS+"addStoryMemberLeader",learderMap);
 		
 		return storyId;
@@ -45,6 +49,16 @@ public class StoryDAOImpl implements StoryDAO{
 		System.out.println("delete in " + storyId);
 		sqlSession.delete(NS+"deleteStory", storyId);
 		
+	}
+	
+	@Override
+	public void updateStory(String memberList, int storyId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberList", memberList);
+		map.put("storyId", storyId);
+		System.out.println("memberList:: " + memberList + ", storyId :: " + storyId);
+		
+		sqlSession.update(NS+"updateStory", map);
 	}
 
 	@Override

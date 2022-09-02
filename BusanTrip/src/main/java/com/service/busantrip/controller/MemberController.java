@@ -17,6 +17,7 @@ import com.service.busantrip.domain.Account;
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.model.MemberService;
+import com.service.busantrip.model.StoryService;
 
 @Controller
 @RequestMapping("member")
@@ -24,6 +25,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private StoryService storyService;
 	
 	@PostMapping("login")
 	public String login(String id, String pw, Model model, HttpSession session) {
@@ -86,6 +89,8 @@ public class MemberController {
 			int registerData = memberService.join(member);
 			if(registerData == 1) {
 				model.addAttribute("registerData", member.getMemberId());
+				storyService.addStory("나의 머니앨범", memberId, memberId);
+				
 				return "redirect:/bnk/login";
 			}else {
 				return "redirect:/bnk/register";

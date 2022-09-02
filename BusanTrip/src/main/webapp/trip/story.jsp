@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style type="text/css">
 	/* all */
 	card{
@@ -103,17 +104,29 @@
 	}
 	.deleteStory{
 		position: absolute;
-		top: 2px;
+		top: 10px;
 		right: 5px;
 		font-size: 1.5rem;
 		text-align: center;
 		border-radius: 30px;
-		
+		color: black;
 	}
-	.deleteStory:hover{
+	.deleteStory:active{
 		 /*  box-shadow: 3px 3px 3px 3px gray; */
 		 background-color: 	#f5f5f5;
 	}
+	
+	
+	.close {
+	  font-variation-settings:
+	  'FILL' 0,
+	  'wght' 500,
+	  'GRAD' 0,
+	  'opsz' 48;
+	  font-size: 25px;
+	  
+	}
+
 </style>
 
 <script>
@@ -123,8 +136,9 @@ $(function() {
 	var currentMemberId = '<%= (String)session.getAttribute("memberId") %>';
 	var memberList = [];
 	var storyList = [];
+	var storyMemberList = [];
 	var cardTitle = "cardTitle";
-	var cardText = "cardText";
+	var cardSubtitle = "";
 	
 	//console.log("currentMemberId:: " + currentMemberId);
 	
@@ -133,21 +147,22 @@ $(function() {
 		url: '/story/findAllStory',
 		data: {'memberId': currentMemberId},
 		
-		success:function(result) {
-			//console.log("storyList :: " + result);
-			
+		success:function(result) {	// 스토리 목록
+			console.log("storyList :: " + result);
+			storyList = result;
 			var storyId;
-			for(var i=0; i<result.length; i++) {
-				storyId = result[i].storyId;
-				cardTitle = result[i].storyName;
-				//console.log("storyId:: " + storyId + " storyName:: " + cardTitle);
+			for(var i=0; i<storyList.length; i++) {
+				storyId = storyList[i].storyId;
+				cardTitle = storyList[i].storyName;
+				cardSubtitle = storyList[i].storySubtitle;
 				
 				 $('.col-12').append(
 					"<div id="+"\'"+ storyId +"\'"+" class=card>"
 						+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
 							+"<h5 class=card-title>"+ cardTitle+"</h5>"
-							+"<p class=card-text>"+ cardText +"</p></div>"
-						+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\"><i class="bi bi-x-lg"></i></button>'
+							+"<p class=card-text>"+ cardSubtitle +"</p></div>"
+						+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
+						+'<span class="close material-symbols-outlined">close</span></button>'
 					+"</div>"
 				) 
 			} 
@@ -192,14 +207,14 @@ $(function() {
 						memberList.push(memberId);
 						$('#statusmember').append('<p class="mb-0">'+memberId+'</p>');
 						$('#statusmessage').text("");
+						$('#newmember').val("");
 					}
-				}
-				else {
+					
+				} else {
 					if(memberId != ""){
 						$('#statusmessage').text("존재하지 않는 사용자"); 
 					}
-						
-				}
+				}	
 				$("#membersearch").slideDown();
 				console.log(result);
 			},
@@ -218,7 +233,7 @@ $(function() {
 			
 			$.ajax({
 				type: 'post',
-				url: '/story/addStory',
+				url: '/story/addStory',		// 스토리 추가 +리더추가
 				data: {'storyName':storyName, 'memberId': currentMemberId},
 				
 				success:function(result) {
@@ -226,7 +241,7 @@ $(function() {
 					
 					$.ajax({
 						type: 'post',
-						url: '/story/addStoryMember',
+						url: '/story/addStoryMember', // 스토리에 멤버 추가
 						data: {'storyId':result, 'memberList': memberList},
 						
 						success:function(result2) {
@@ -291,6 +306,7 @@ $(function() {
 				<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
 					<i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
 				</button>
+				
 			</div>
 			<div class="col-12">
 				<div id='story-1' class="card">
@@ -299,15 +315,6 @@ $(function() {
 						<h5 class="card-title">First Story</h5>
 						<p class="card-text">불러온거 아니고 직접 넣은 카드</p>
 						<button type="button" class="deleteStory" data-toggle="modal" data-target="#deleteStoryModal"><i class="bi bi-x-lg"></i></button>
-					</div>
-				</div>
-				<div id='story-2' class="card">
-					<div class="card-body">
-					<!-- <div class="card-body" onclick="location.href='/bnk/trip/3'"> -->
-						<h5 class="card-title">Second Story
-							<button type="button" class="deleteStory float-right" data-toggle="modal" data-target="#deleteStoryModal">&times;</button>
-						</h5>
-						<p class="card-text">직접 넣은 카드2</p>
 					</div>
 				</div>
 			</div>

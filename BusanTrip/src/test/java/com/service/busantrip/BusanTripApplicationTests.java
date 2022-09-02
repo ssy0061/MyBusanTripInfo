@@ -207,6 +207,13 @@ class BusanTripApplicationTests {
 //	}
 	
 //	@Test
+//	void updateStory() {
+//		String memberList = "cho555 gwak222";
+//		int storyId = 41;
+//		storyDAO.updateStory(memberList, storyId);
+//	}
+	
+//	@Test
 //	void findStoryMember() {
 //		 System.out.println(storyDAO.findStoryMember("24"));
 //	}

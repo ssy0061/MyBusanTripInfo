@@ -19,14 +19,19 @@ public class StoryServiceImpl implements StoryService{
 	private StoryDAO storyDAO;
 		
 	@Override
-	public String addStory(String storyName, String memberId) {
-		return storyDAO.addStory(storyName, memberId);
+	public String addStory(String storyName, String memberId, String subtitle) {
+		return storyDAO.addStory(storyName, memberId, subtitle);
 		
 	}
 	
 	@Override
 	public void deleteStory(int storyId) {
 		storyDAO.deleteStory(storyId);
+	}
+	
+	@Override
+	public void updateStory(String memberList, int storyId) {
+		storyDAO.updateStory(memberList, storyId);
 	}
 
 	@Override
