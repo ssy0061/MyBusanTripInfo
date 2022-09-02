@@ -424,6 +424,8 @@
 		}  // serachModalChange end
 		
 		$("#searchModal").on('shown.bs.modal', function() {
+			map.relayout();  // 모달에 따라서 보이는 위치 조정
+			
 			// 모달이 보여진 이후 다음 코드를 수행해야 정상적으로 임베딩 됨.
 			lati = $(this).attr('latitude');
 			longi = $(this).attr('longitude');
@@ -456,9 +458,10 @@
 			// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 			infowindow.open(map, marker);
 			
+			// center 이동
 			map.setCenter(new kakao.maps.LatLng(lati, longi));
 			
-			map.relayout();
+			
 		});  // searchModal's modal show end
 		
 	});  // JQuery
