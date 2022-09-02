@@ -88,9 +88,10 @@ public class MemberController {
 		try {
 			Member member = new Member(memberId, memberPw, memberName, memberTele, memberAddr);
 			int registerData = memberService.join(member);
+			String defaultAlbumName = "나의 머니앨범";
 			if(registerData == 1) {
 				model.addAttribute("registerData", member.getMemberId());
-				storyService.addStory("나의 머니앨범", memberId, memberId);
+				storyService.addStory(defaultAlbumName, memberId, memberId);
 				
 				return "redirect:/bnk/login";
 			}else {
