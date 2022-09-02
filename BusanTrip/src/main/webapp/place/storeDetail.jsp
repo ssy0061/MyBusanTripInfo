@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
 <!-- 필요시 주석 해제해서 사용. 모달로 쓸 예정이라 필요없는 영역은 다 잘랐음. -->
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,48 +132,6 @@
 	
 </style>
 
-<script>
-
-	$(function() {
-		var dateArr = ["2022-08-30", "2022-07-24", "2022-06-14", "2022-05-05", "2022-03-08"];
-		var moneyArr = ["7000", "3400", "12500", "9900", "11000"];
-		
-		for (var i=0; i<5; i++) {
-			let date = dateArr[i];
-			let money = moneyArr[i];
-			
-			money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			
-			// html tag 생성 form
-			<%-- 
-			<div class="storeDetail-box-bottom-inner">
-				<span class="visitDate">2022-06-23</span>
-				<span class="payAmount">9,000</span>
-			</div>
-			--%>
-			
-			let spanVisitDate = document.createElement('span');
-			spanVisitDate.setAttribute('class', 'visitDate');
-			spanVisitDate.append(date);
-			
-			let spanPayAmount = document.createElement('span');
-			spanPayAmount.setAttribute('class', 'payAmount');
-			spanPayAmount.append(money);
-			
-			let divDetailBoxBottomInner = document.createElement('div');
-			divDetailBoxBottomInner.setAttribute('class', 'storeDetail-box-bottom-inner');
-			divDetailBoxBottomInner.append(spanVisitDate);
-			divDetailBoxBottomInner.append(spanPayAmount);
-			
-			$('#detailBox').append(divDetailBoxBottomInner);
-			
-		}  // for
-		
-	});  // JQuery
-
-</script>
-
-
 <body>
 	<%--
 	<!-- 필요시 주석 해제해서 사용. 모달로 쓸 예정이라 필요없는 영역은 다 잘랐음. -->
@@ -210,15 +168,18 @@
 			<div id="map" class="storeDetail-box-middle" style="height:280px;">
 			</div>
 			
-			<div id="detailBox" class="rounded-lg storeDetail-box-bottom">
-				<span class="title-box">최근 나의 방문 기록</span>
-				<%-- 
-				<div class="storeDetail-box-bottom-inner">
-					<span class="visitDate">2022-06-23</span>
-					<span class="payAmount">9,000</span>
+			<%-- 로그인되어 있는 경우에만 최근 방문 기록 정보를 출력 --%>
+			<c:if test="${!empty loginUser}">
+				<div id="detailBox" class="rounded-lg storeDetail-box-bottom">
+					<span class="title-box">최근 나의 방문 기록</span>
+					<%-- 
+					<div class="storeDetail-box-bottom-inner">
+						<span class="visitDate">2022-06-23</span>
+						<span class="payAmount">9,000</span>
+					</div>
+					--%>
 				</div>
-				--%>
-			</div>
+			</c:if>
 			
 		</div>
 		

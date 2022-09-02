@@ -285,7 +285,7 @@
 		--%>
 		
 		<%-- 지역별 컨텐츠 --%>
-		var regionArr = ["기장"];
+		let regionArr = ["기장"];
 		
 		for (var j=0; j<regionArr.length; j++) {
 			let region = regionArr[j];
@@ -363,7 +363,7 @@
 		
 		
 		<%-- 범주별 컨텐츠 --%>
-		var categoryArr = ["카페", "음식점", "관광지"];
+		let categoryArr = ["카페", "음식점", "관광지"];
 		
 		for (var j=0; j<categoryArr.length; j++) {
 			let category = categoryArr[j];
@@ -395,14 +395,14 @@
 					// img 버튼 연결용 코드
 					$('.searchBtn').off('click').click(function(){
 						serachModalChange($(this).attr('store-id'));
+						
 					});  // img click
 					
 				},  // ajax success end
 				error: function(e){ console.log(e); }
 			});  // findStorePopularByCategory end
 		}  // for - 범주별 컨텐츠
-		
-		// initial method
+
 		
 		function serachModalChange(storeId) {
 			$.ajax({
@@ -421,6 +421,48 @@
 				},
 				error: function(e){ console.log(e); }
 			});  // getMemberName end
+			
+			$('#detailBox').html("");  // 기존에 출력된 거래내역 초기화
+			
+			$.ajax({
+				type: 'post',
+				url: '/store/findStoreTransaction',
+				data: {'memberId': memberId, 'storeId': storeId},
+				success: function(result) {
+					for (let i=0; i<result.length; i++) {
+						let date = result[i].transactionTime.split('T')[0];
+						let money = result[i].transactionAmt.toString();
+						
+						money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						
+						// html tag 생성 form
+						<%-- 
+						<div class="storeDetail-box-bottom-inner">
+							<span class="visitDate">2022-06-23</span>
+							<span class="payAmount">9,000</span>
+						</div>
+						--%>
+						
+						let spanVisitDate = document.createElement('span');
+						spanVisitDate.setAttribute('class', 'visitDate');
+						spanVisitDate.append(date);
+						
+						let spanPayAmount = document.createElement('span');
+						spanPayAmount.setAttribute('class', 'payAmount');
+						spanPayAmount.append(money);
+						
+						let divDetailBoxBottomInner = document.createElement('div');
+						divDetailBoxBottomInner.setAttribute('class', 'storeDetail-box-bottom-inner');
+						divDetailBoxBottomInner.append(spanVisitDate);
+						divDetailBoxBottomInner.append(spanPayAmount);
+						
+						$('#detailBox').append(divDetailBoxBottomInner);
+					} // for
+				},
+				error: function(e){ console.log(e); }
+			});  // findStoreTransaction end
+			
+			
 		}  // serachModalChange end
 		
 		$("#searchModal").on('shown.bs.modal', function() {
@@ -460,10 +502,7 @@
 			
 			// center 이동
 			map.setCenter(new kakao.maps.LatLng(lati, longi));
-			
-			
 		});  // searchModal's modal show end
-		
 	});  // JQuery
 	
 	function generateId() {
