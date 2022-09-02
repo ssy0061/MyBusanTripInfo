@@ -262,7 +262,7 @@
 						<div class="info-right-lower">
 							<span class="location">부산 남구</span>
 							<div class="searchBtnDiv">
-								<img class="searchBtn" src="/img/search.png">
+								<img class="searchBtn" src="/img/search.png" store-id="가게id기입">
 							</div>
 						</div>
 					</div>
@@ -322,7 +322,7 @@
 						let category = store.storeCategory;
 						let placeName = store.storeName;
 						let location = store.storeAddr;
-						let hasId = (id == null);  // 이거 수정해야 함
+						let hasId = (id != null);
 						
 						let spanCategory = document.createElement('span');
 						spanCategory.setAttribute('class', 'category');
@@ -355,6 +355,7 @@
 							var imgSearchBtn = document.createElement('img');
 							imgSearchBtn.setAttribute('class', 'searchBtn');
 							imgSearchBtn.setAttribute('src', '/img/search.png');
+							imgSearchBtn.setAttribute('store-id', id);
 							
 							divSearchBtnDiv = document.createElement('div');
 							divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
@@ -455,7 +456,7 @@
 					let category = store.storeCategory;
 					let placeName = store.storeName;
 					let location = store.storeAddr;
-					let hasId = (id == null);  // 이거 수정해야 함
+					let hasId = (id != null);
 					
 					let spanCategory = document.createElement('span');
 					spanCategory.setAttribute('class', 'category');
@@ -488,6 +489,7 @@
 						var imgSearchBtn = document.createElement('img');
 						imgSearchBtn.setAttribute('class', 'searchBtn');
 						imgSearchBtn.setAttribute('src', '/img/search.png');
+						imgSearchBtn.setAttribute('store-id', id);
 						
 						divSearchBtnDiv = document.createElement('div');
 						divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
@@ -590,7 +592,7 @@
 						let category = store.storeCategory;
 						let placeName = store.storeName;
 						let location = store.storeAddr;
-						let hasId = (id == null);  // 이거 수정해야 함
+						let hasId = (id != null);
 						
 						let spanCategory = document.createElement('span');
 						spanCategory.setAttribute('class', 'category');
@@ -623,6 +625,7 @@
 							var imgSearchBtn = document.createElement('img');
 							imgSearchBtn.setAttribute('class', 'searchBtn');
 							imgSearchBtn.setAttribute('src', '/img/search.png');
+							imgSearchBtn.setAttribute('store-id', id);
 							
 							divSearchBtnDiv = document.createElement('div');
 							divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
@@ -660,7 +663,7 @@
 					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
 					// 이미지랑 버튼 연결용 코드
 					$('.searchBtn').off('click').click(function(){
-						alert('search!');
+						alert('가게 ID: ' + $(this).attr('store-id'));
 					});  // img click
 					
 					// collapse 버튼 연결용 코드
