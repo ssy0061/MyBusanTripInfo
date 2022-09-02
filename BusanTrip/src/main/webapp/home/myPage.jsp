@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<srcipt src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></srcipt>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -28,7 +29,11 @@
 		max-width:800px;
 		margin: 20px auto;
 	}
-	#first-row, #third-row, #fourth-row{
+	.swiperContent h5{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	#first-row, #fourth-row{
 		margin-top:20px;
 	}
 	/* == first row == */
@@ -63,7 +68,7 @@
 		height:140px;
 	}
 	.charPlace.small{
-		height:130px;
+		height:120px;
 		width:auto;
 		padding-top:10px;
 	}
@@ -114,7 +119,7 @@
 	 }
 	/* == second row == */
 	#second-row{
-		margin:20px 1px 0 1px;
+		margin:20px 1px 20px 1px;
 		display:flex;
 		justify-content:space-around;
 	}
@@ -194,11 +199,22 @@
       height: 100%;
       object-fit: cover;
     }
-    .content>*{
+    .swiperContent>*{
     	display: flex;
 		flex-wrap: wrap;
 		align-content: space-between;;
     }
+    .bgGrad {
+		width:220px;
+		height:200px;
+		color: white;
+    	padding: 10px;
+		display:flex;
+		justify-content:center;
+		align-items:end;
+		border-radius:10px;
+    	background-size: cover;
+}
 	/* == fourth row == */
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -214,6 +230,43 @@
 </style>
 <script>
 $(document).ready(function() {
+	var result = [
+		{
+		'user': '사용자1',
+		'grcolor':['#F08080', '#66CDAA', '#FFA07A', '#6c9dc6'],
+		'list': [
+			{
+				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
+				'storeName': '가게이름1',
+				'memo': 'memo1'
+			},
+			{
+				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
+				'storeName': '가게이름2',
+				'memo': 'memo2'
+			},
+			{
+				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
+				'storeName': '가게이름3',
+				'memo': 'memo3'
+			},
+			{
+				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
+				'storeName': '가게이름4',
+				'memo': 'memo4'
+			},
+			{
+				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
+				'storeName': '가게이름5',
+				'memo': 'memo5'
+			},
+			{
+				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
+				'storeName': '가게이름6',
+				'memo': 'memo6'
+			}
+		]}
+	];
 	$('.each-pic').on("click", function(e){
 		var src = $(this).attr("src");
 		console.log(src)
@@ -226,13 +279,14 @@ $(document).ready(function() {
 	
 	//this function define the size of the items
     function refreshContent() {
+		
     	for(let i = 0; i<result.length; i++) {
     		// 생성
     		user = result[i].user;
     		list = result[i].list;
-    		$('.content').append(
+    		grcolor = result[i].grcolor;
+    		$('.swiperContent').append(
     			"<div id='user-"+user+"'>"+
-    			"<h5>"+user+"</h5>"+
     			"<div class='swiper' id='swiper-"+user+"'>"+
     			"<div class='swiper-wrapper'>"+
     			"</div><div class='swiper-pagination'></div>"+
@@ -240,12 +294,10 @@ $(document).ready(function() {
     		);
     		for(let i=0; i<list.length; i++){
     			$('#swiper-'+user).children('.swiper-wrapper').append(
-    				"<div class='swiper-slide'><div class='card'>"+
-    				"<img class='card-img-top' src='"+list[i].url+"' style='width:100%'>"+
-    				"<div class='card-body'><h6 class='card-text'>결제일시</h6>"+
-    				"<div class='card-text pay-store'><h5 class='card-title'>"+list[i].storeName+"</h5></div>"+
-    				"<div class='card-text pay-price'><h5>"+list[i].payment+"</h5></div>"+
-    				"<h6>"+list[i].memo+"</h6></div></div></div>"
+    				"<div class='swiper-slide'><div class='bgGrad' "+
+    				"style='background-image:linear-gradient(to bottom, transparent, "+grcolor[(i%4)]+" 85%),url(\""+
+    				list[i].url+"\"); background-position:center center;'><h6>"+
+    				list[i].storeName+"<br><small>"+list[i].memo+"</small></h6></div>"
     			);
     		}
     		
@@ -258,10 +310,17 @@ $(document).ready(function() {
     	          prevEl: ".swiper-button-prev",
     	        },
     	        breakpoints: {
-    	            // when window width is >= 0px
-    	            0: { slidesPerView: 1.2, spaceBetween: 10 },
-    	            720: { slidesPerView: 2.2, },
-    	            1200: { slidesPerView: 2.5, }
+    	        	// when window width is >= 0px
+    	            0: {
+    	            	slidesPerView: 2.3,
+    	            	spaceBetween: 10
+    	            },
+    	            720: {
+    	            	slidesPerView: 3.3,
+    	            },
+    	            1200: {
+    	            	slidesPerView: 3.5,
+    	            }
     	        },
     	        scrollbar: {
     	            el: ".swiper-scrollbar",
@@ -301,8 +360,9 @@ $(document).ready(function() {
 			<button type="button" class="button2">결제</button>
 			<button type="button" class="button3">정보 수정</button>
 		</div>
-		<div class="row" id="third-row">
-			
+		
+		<div class="swiperContent">
+			<h5>최근 머니앨범 피드</h5>
 		</div>
 		
 		<!-- Slider main container -->
@@ -310,50 +370,6 @@ $(document).ready(function() {
 		  <!-- Additional required wrapper -->
 		  <div class="swiper-wrapper">
 		    <!-- Slides -->
-		    <div class="swiper-slide">
-				<div class="card">
-                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-					<div class="card-body">
-						<h6 class="card-text">결제일시</h6>
-						<div class="card-text pay-store"><h5 class="card-title">가게이름1</h5></div>
-						<div class="card-text pay-price"><h5>결제금액</h5></div>
-						<h6>메모 내용 들어갈 곳</h6>
-					</div>
-                </div>
-			</div>
-		    <div class="swiper-slide">
-				<div class="card">
-                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-					<div class="card-body">
-						<h6 class="card-text">결제일시</h6>
-						<div class="card-text pay-store"><h5 class="card-title">가게이름2</h5></div>
-						<div class="card-text pay-price"><h5>결제금액</h5></div>
-						<h6>메모 내용 들어갈 곳</h6>
-					</div>
-                </div>
-			</div>
-		    <div class="swiper-slide">
-				<div class="card">
-                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-					<div class="card-body">
-						<h6 class="card-text">결제일시</h6>
-						<div class="card-text pay-store"><h5 class="card-title">가게이름3</h5></div>
-						<div class="card-text pay-price"><h5>결제금액</h5></div>
-						<h6>메모 내용 들어갈 곳</h6>
-					</div>
-                </div>
-			</div>
-		    <div class="swiper-slide">
-				<div class="card">
-                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-					<div class="card-body">
-						<h6 class="card-text">결제일시</h6>
-						<div class="card-text pay-store"><h5 class="card-title">가게이름4</h5></div>
-						<div class="card-text pay-price"><h5>결제금액</h5></div>
-						<h6>메모 내용 들어갈 곳</h6>
-					</div>
-                </div>
-			</div>			
 		  </div>
 		  <!-- If we need pagination -->
 		  <div class="swiper-pagination"></div>

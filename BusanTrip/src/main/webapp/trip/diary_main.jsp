@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <title>Insert title here</title>
 <style>
 	/* all */
@@ -32,15 +33,23 @@
 		margin: 20px auto;
 	}
 	#addbutton{
+		display:flex;
+		justify-content:center;
+		align-items:center;
 		background-color:transparent;
 		border-style:solid;
 		border-width:2px;
 		border-color:#53565A;
 		border-radius:5px;
 	}
-	#addbutton:hover{
-		color:white;
-		background-color:#53565A;
+	.perm_media{
+	  font-variation-settings:
+	  'FILL' 0,
+	  'wght' 600,
+	  'GRAD' 0,
+	  'opsz' 24;
+	  margin:4px 0;
+	  color:#53565A;
 	}
 	.card{
 		display: flex;
@@ -153,7 +162,13 @@
 			})
 		}
 		
-		
+		$('#addbutton').hover(function(){
+			$(this).children().css("color","white");
+			$(this).css("background-color","#53565A");
+		}, function(){
+			$(this).children().css("color", "#53565A")
+			$(this).css("background-color","white");
+		})
 	});
 </script>
 </head>
@@ -169,7 +184,7 @@
 			</div>
 			<div class="col-6" align="right">
 				<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
-					<i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
+					<span class="material-symbols-outlined perm_media">perm_media</span>
 				</button>
 			</div>
 		</div>
