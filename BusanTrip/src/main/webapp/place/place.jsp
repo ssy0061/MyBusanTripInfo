@@ -422,7 +422,7 @@
 				error: function(e){ console.log(e); }
 			});  // getMemberName end
 			
-			$('#detailBox').html("");  // 기존에 출력된 거래내역 초기화
+			$('#detailBox').html('<span class="title-box">최근 나의 방문 기록</span>');  // 기존에 출력된 거래내역 초기화
 			
 			$.ajax({
 				type: 'post',
@@ -461,11 +461,17 @@
 				},
 				error: function(e){ console.log(e); }
 			});  // findStoreTransaction end
-			
-			
 		}  // serachModalChange end
 		
+		
+		var infowindow, marker;
 		$("#searchModal").on('shown.bs.modal', function() {
+			// 기존 마커 삭제 & 인포윈도우 삭제. 기존 요소가 없으면 무시
+			try {
+				marker.setMap(null);
+				infowindow.close();
+			} catch(e) {}
+			
 			map.relayout();  // 모달에 따라서 보이는 위치 조정
 			
 			// 모달이 보여진 이후 다음 코드를 수행해야 정상적으로 임베딩 됨.
@@ -476,7 +482,7 @@
 			var markerPosition  = new kakao.maps.LatLng(lati, longi); 
 			
 			// 마커를 생성합니다
-			var marker = new kakao.maps.Marker({
+			marker = new kakao.maps.Marker({
 			    position: markerPosition
 			});
 			
@@ -492,7 +498,7 @@
 			    iwPosition = new kakao.maps.LatLng(lati, longi); //인포윈도우 표시 위치입니다
 			
 			// 인포윈도우를 생성합니다
-			var infowindow = new kakao.maps.InfoWindow({
+			infowindow = new kakao.maps.InfoWindow({
 			    position : iwPosition, 
 			    content : iwContent 
 			});
