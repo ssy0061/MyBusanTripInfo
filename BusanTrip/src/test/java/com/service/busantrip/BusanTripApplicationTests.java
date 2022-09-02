@@ -214,6 +214,14 @@ class BusanTripApplicationTests {
 	
 //	@Test
 //	void deleteStory() {
+//		 storyDAO.deleteStory('24');
+//	}
+	
+//	@Test
+//	void updateStory() {
+//		String memberList = "cho555 gwak222";
+//		int storyId = 41;
+//		storyDAO.updateStory(memberList, storyId);
 //		 storyDAO.deleteStory(24);
 //	}
 	

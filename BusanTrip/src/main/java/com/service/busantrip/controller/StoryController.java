@@ -27,6 +27,15 @@ public class StoryController {
 	@Autowired
 	MemberService memberService;
 	
+	String memberListAll="";
+	
+	@PostMapping("deleteStory")
+	@ResponseBody
+	public void deleteStory(int storyId, Model model, HttpSession session) {
+		System.out.println("deleteStory:: " + storyId);
+		storyService.deleteStory(storyId);
+	}
+	
 	@PostMapping("findIdExist")
 	@ResponseBody
 	public Boolean findIdExist(String memberId, Model model, HttpSession session) {
@@ -36,7 +45,9 @@ public class StoryController {
 	@PostMapping("addStory")
 	@ResponseBody
 	public String addStory(String storyName, String memberId, Model model, HttpSession session) {
-		String storyId = storyService.addStory(storyName, memberId);
+		memberListAll = "";
+		String storyId = storyService.addStory(storyName, memberId, memberId);
+		memberListAll += memberId+" ";
 		
 		return storyId;
 	}
@@ -45,12 +56,16 @@ public class StoryController {
 	@ResponseBody
 	public int addStoryMember(String storyId, @RequestParam(value="memberList[]") List<String> memberList, Model model, HttpSession session) {
 		int count = 0;
-		System.out.println("count:: " + count);
 		
 		for(String memberId: memberList) {
 			storyService.addStoryMember(storyId, memberId);
+			memberListAll += memberId + " ";
 			count+=1;
 		}
+		
+		System.out.println("str_memberList:: " + memberListAll);
+		storyService.updateStory(memberListAll, Integer.parseInt(storyId));
+	
 		return count;
 	}
 	
