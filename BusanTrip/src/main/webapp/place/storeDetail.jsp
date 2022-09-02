@@ -130,6 +130,27 @@
 		margin:10px auto;
 	}
 	
+	.storeDetail-box-title {
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	#likeBtn, .blank {
+		width: 7%;
+		min-width: 22px;
+	}
+	
+	#likeBtn {
+		color: gold;
+		font-size: 20px;
+		position: relative;
+		bottom: 7px;
+	}
+	
+	#storeName {
+		width: 86%;
+	}
+	
 </style>
 
 <body>
@@ -143,8 +164,12 @@
 	<div class="inner-content container">
 	
 		<div class="storeDetail-box">
-		
-			<span id="storeName">아삭토스트 범내골점</span>
+			
+			<div class="storeDetail-box-title">
+				<i id="likeBtn" class="bi bi-star"></i>
+				<div id="storeName">아삭토스트 범내골점</div>
+				<div class="blank"></div>
+			</div>
 			
 			<div class="rounded-lg storeDetail-box-top">
 				<div class="storeDetail-box-top-inner">
