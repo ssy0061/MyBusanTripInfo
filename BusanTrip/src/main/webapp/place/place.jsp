@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55cec7f8be9f2d2a780ad76e59683837"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <style>
@@ -204,8 +205,19 @@
 </style>
 
 <script>
-	
 	$(function() {
+		// ================================== 지도 API 생성용
+		var lati = 35.2740278, longi = 129.2358014;
+			
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = { 
+		        center: new kakao.maps.LatLng(lati, longi), // 지도의 중심좌표
+		        level: 4 // 지도의 확대 레벨
+		    };
+		
+		var map = new kakao.maps.Map(mapContainer, mapOption);  // 생성
+		// ================================== 지도 API 생성용
+		
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
 		
 		if (memberId != 'null') {
@@ -273,7 +285,7 @@
 		--%>
 		
 		<%-- 지역별 컨텐츠 --%>
-		var regionArr = ["해운대", "기장"];
+		let regionArr = ["기장"];
 		
 		for (var j=0; j<regionArr.length; j++) {
 			let region = regionArr[j];
@@ -351,7 +363,7 @@
 		
 		
 		<%-- 범주별 컨텐츠 --%>
-		var categoryArr = ["카페", "음식점", "관광지"];
+		let categoryArr = ["카페", "음식점", "관광지"];
 		
 		for (var j=0; j<categoryArr.length; j++) {
 			let category = categoryArr[j];
@@ -383,14 +395,14 @@
 					// img 버튼 연결용 코드
 					$('.searchBtn').off('click').click(function(){
 						serachModalChange($(this).attr('store-id'));
+						
 					});  // img click
 					
 				},  // ajax success end
 				error: function(e){ console.log(e); }
 			});  // findStorePopularByCategory end
 		}  // for - 범주별 컨텐츠
-		
-		// initial method
+
 		
 		function serachModalChange(storeId) {
 			$.ajax({
@@ -402,17 +414,101 @@
 					$('#storeName').text(result.storeName);
 					$('#contact').text(result.storeTele);
 					$('#address').text(result.storeAddr);
-					$('#openHour').text(result.storeWorkhour); // 이거 수정해야 할 듯...
+					$('#openHour').text(result.storeWorkhour);
 					$('#holiday').text(result.storeHoliday);
-					console.log(result.storeLatitude);
-					console.log(result.storeLongitude);
-					console.log(result);
+					$('#searchModal').attr('latitude', result.storeLatitude);
+					$('#searchModal').attr('longitude', result.storeLongitude);
 				},
 				error: function(e){ console.log(e); }
 			});  // getMemberName end
 			
+			$('#detailBox').html('<span class="title-box">최근 나의 방문 기록</span>');  // 기존에 출력된 거래내역 초기화
+			
+			$.ajax({
+				type: 'post',
+				url: '/store/findStoreTransaction',
+				data: {'memberId': memberId, 'storeId': storeId},
+				success: function(result) {
+					for (let i=0; i<result.length; i++) {
+						let date = result[i].transactionTime.split('T')[0];
+						let money = result[i].transactionAmt.toString();
+						
+						money = money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						
+						// html tag 생성 form
+						<%-- 
+						<div class="storeDetail-box-bottom-inner">
+							<span class="visitDate">2022-06-23</span>
+							<span class="payAmount">9,000</span>
+						</div>
+						--%>
+						
+						let spanVisitDate = document.createElement('span');
+						spanVisitDate.setAttribute('class', 'visitDate');
+						spanVisitDate.append(date);
+						
+						let spanPayAmount = document.createElement('span');
+						spanPayAmount.setAttribute('class', 'payAmount');
+						spanPayAmount.append(money);
+						
+						let divDetailBoxBottomInner = document.createElement('div');
+						divDetailBoxBottomInner.setAttribute('class', 'storeDetail-box-bottom-inner');
+						divDetailBoxBottomInner.append(spanVisitDate);
+						divDetailBoxBottomInner.append(spanPayAmount);
+						
+						$('#detailBox').append(divDetailBoxBottomInner);
+					} // for
+				},
+				error: function(e){ console.log(e); }
+			});  // findStoreTransaction end
 		}  // serachModalChange end
 		
+		
+		var infowindow, marker;
+		$("#searchModal").on('shown.bs.modal', function() {
+			// 기존 마커 삭제 & 인포윈도우 삭제. 기존 요소가 없으면 무시
+			try {
+				marker.setMap(null);
+				infowindow.close();
+			} catch(e) {}
+			
+			map.relayout();  // 모달에 따라서 보이는 위치 조정
+			
+			// 모달이 보여진 이후 다음 코드를 수행해야 정상적으로 임베딩 됨.
+			lati = $(this).attr('latitude');
+			longi = $(this).attr('longitude');
+			
+			// 마커가 표시될 위치입니다 
+			var markerPosition  = new kakao.maps.LatLng(lati, longi); 
+			
+			// 마커를 생성합니다
+			marker = new kakao.maps.Marker({
+			    position: markerPosition
+			});
+			
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+			
+			var iwContent =
+				// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				'<div style="width:150px; padding:5px; text-align:center;">' + $('#storeName').text() +
+				'<br><small><a href="https://map.kakao.com/link/map/' + $('#storeName').text() +',' + lati +
+				', ' + longi + '" style="color:blue" target="_blank">큰지도보기</a>  <a href="https://map.kakao.com/link/to/' +
+				$('#storeName').text() + ',' + lati + ', ' + longi + '" style="color:blue" target="_blank">길찾기</a></small></div>',
+			    iwPosition = new kakao.maps.LatLng(lati, longi); //인포윈도우 표시 위치입니다
+			
+			// 인포윈도우를 생성합니다
+			infowindow = new kakao.maps.InfoWindow({
+			    position : iwPosition, 
+			    content : iwContent 
+			});
+			  
+			// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+			infowindow.open(map, marker);
+			
+			// center 이동
+			map.setCenter(new kakao.maps.LatLng(lati, longi));
+		});  // searchModal's modal show end
 	});  // JQuery
 	
 	function generateId() {
