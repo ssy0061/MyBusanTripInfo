@@ -302,6 +302,11 @@
 						$(targetId).collapse('toggle');
 					});  // button click
 					
+					// img 버튼 연결용 코드
+					$('.searchBtn').off('click').click(function(){
+						serachModalChange($(this).attr('store-id'));
+					});  // img click
+					
 				},  // ajax success end
 				error: function(e){ console.log(e); }
 			});  // findStorePopularByRegion end
@@ -335,6 +340,11 @@
 					$(targetId).collapse('toggle');
 				});  // button click
 				
+				// img 버튼 연결용 코드
+				$('.searchBtn').off('click').click(function(){
+					serachModalChange($(this).attr('store-id'));
+				});  // img click
+		
 			},  // ajax success end
 			error: function(e){ console.log(e); }
 		});  // findStorePopularByRegion end - period
@@ -370,6 +380,11 @@
 						$(targetId).collapse('toggle');
 					});  // button click
 					
+					// img 버튼 연결용 코드
+					$('.searchBtn').off('click').click(function(){
+						serachModalChange($(this).attr('store-id'));
+					});  // img click
+					
 				},  // ajax success end
 				error: function(e){ console.log(e); }
 			});  // findStorePopularByCategory end
@@ -377,118 +392,139 @@
 		
 		// initial method
 		
+		function serachModalChange(storeId) {
+			$.ajax({
+				type: 'post',
+				url: '/store/findStoreInfo',
+				data: {'storeId': storeId},
+				success: function(result) {
+					result = result[0];
+					$('#storeName').text(result.storeName);
+					$('#contact').text(result.storeTele);
+					$('#address').text(result.storeAddr);
+					$('#openHour').text(result.storeWorkhour); // 이거 수정해야 할 듯...
+					$('#holiday').text(result.storeHoliday);
+					console.log(result.storeLatitude);
+					console.log(result.storeLongitude);
+					console.log(result);
+				},
+				error: function(e){ console.log(e); }
+			});  // getMemberName end
+			
+		}  // serachModalChange end
+		
 	});  // JQuery
 	
-function generateId() {
-	let id = '', randInt;
-	for (let i = 0; i < 32; i++) {
-		randInt = parseInt(Math.random()*36)
-		if (randInt < 10) id += randInt;
-		else id +=String.fromCharCode(randInt+87);
-	}
-	return id;
-}
-
-function addContents(divTitleLeft, result) {
-	let contentsId = generateId();
-	
-	let moreBtn = document.createElement('button');
-	moreBtn.setAttribute('type', 'button');
-	moreBtn.setAttribute('class', 'moreBtn');
-	moreBtn.setAttribute('data-target', '#' + contentsId);
-	moreBtn.append("▼");
-	
-	let divTitleRight = document.createElement('div');
-	divTitleRight.setAttribute('class', 'title-right');
-	divTitleRight.append(moreBtn);
-	
-	
-	let divPlaceLowerBoxTitle = document.createElement('div');
-	divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-	divPlaceLowerBoxTitle.append(divTitleLeft);
-	divPlaceLowerBoxTitle.append(divTitleRight);
-	
-	
-	let divPlaceLowerBoxLower = document.createElement('div');
-	divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
-	divPlaceLowerBoxLower.setAttribute('id', contentsId);
-	
-	for (var i=0; i<result.length; i++) {
-		let store = result[i];
-		let id = store.storeId;
-		let category = store.storeCategory;
-		let placeName = store.storeName;
-		let location = store.storeAddr;
-		let hasId = (id != null);
-		
-		let spanCategory = document.createElement('span');
-		spanCategory.setAttribute('class', 'category');
-		spanCategory.append(category);
-		
-		let divUdCenter = document.createElement('div');
-		divUdCenter.setAttribute('class', 'ud-center');
-		divUdCenter.append(spanCategory);
-		
-		let divInfoLeft = document.createElement('div');
-		divInfoLeft.setAttribute('class', 'info-left');
-		divInfoLeft.append(divUdCenter);
-		
-		
-		let divPlaceName = document.createElement('div');
-		divPlaceName.setAttribute('class', 'placeName');
-		divPlaceName.append(placeName);
-		
-		let divInfoRightUpper = document.createElement('div');
-		divInfoRightUpper.setAttribute('class', 'info-right-upper');
-		divInfoRightUpper.append(divPlaceName);
-		
-		
-		let spanLocation = document.createElement('span');
-		spanLocation.setAttribute('class', 'location');
-		spanLocation.append(location);
-		
-		let divSearchBtnDiv;
-		if (hasId) {  // hasId
-			var imgSearchBtn = document.createElement('img');
-			imgSearchBtn.setAttribute('class', 'searchBtn');
-			imgSearchBtn.setAttribute('src', '/img/search.png');
-			imgSearchBtn.setAttribute('store-id', id);
-			imgSearchBtn.setAttribute('data-toggle', "modal");
-			imgSearchBtn.setAttribute('data-target', "#searchModal");
-			
-			divSearchBtnDiv = document.createElement('div');
-			divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
-			divSearchBtnDiv.append(imgSearchBtn);
+	function generateId() {
+		let id = '', randInt;
+		for (let i = 0; i < 32; i++) {
+			randInt = parseInt(Math.random()*36)
+			if (randInt < 10) id += randInt;
+			else id +=String.fromCharCode(randInt+87);
 		}
-		
-		let divInfoRightLower = document.createElement('div');
-		divInfoRightLower.setAttribute('class', 'info-right-lower');
-		divInfoRightLower.append(spanLocation);
-		if (hasId) divInfoRightLower.append(divSearchBtnDiv);
-		
-		
-		let divInfoRight = document.createElement('div');
-		divInfoRight.setAttribute('class', 'info-right');
-		divInfoRight.append(divInfoRightUpper);
-		divInfoRight.append(divInfoRightLower);
-
-		let divPlaceLowerBoxInfo = document.createElement('div');
-		divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-		divPlaceLowerBoxInfo.append(divInfoLeft);
-		divPlaceLowerBoxInfo.append(divInfoRight);
-		
-		divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-		
-	}  // for
+		return id;
+	}
 	
-	let divPlaceLowerBox = document.createElement('div');
-	divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-	divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-	divPlaceLowerBox.append(divPlaceLowerBoxLower);
+	function addContents(divTitleLeft, result) {
+		let contentsId = generateId();
+		
+		let moreBtn = document.createElement('button');
+		moreBtn.setAttribute('type', 'button');
+		moreBtn.setAttribute('class', 'moreBtn');
+		moreBtn.setAttribute('data-target', '#' + contentsId);
+		moreBtn.append("▼");
+		
+		let divTitleRight = document.createElement('div');
+		divTitleRight.setAttribute('class', 'title-right');
+		divTitleRight.append(moreBtn);
+		
+		
+		let divPlaceLowerBoxTitle = document.createElement('div');
+		divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
+		divPlaceLowerBoxTitle.append(divTitleLeft);
+		divPlaceLowerBoxTitle.append(divTitleRight);
+		
+		
+		let divPlaceLowerBoxLower = document.createElement('div');
+		divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
+		divPlaceLowerBoxLower.setAttribute('id', contentsId);
+		
+		for (var i=0; i<result.length; i++) {
+			let store = result[i];
+			let id = store.storeId;
+			let category = store.storeCategory;
+			let placeName = store.storeName;
+			let location = store.storeAddr;
+			let hasId = (id != null);
+			
+			let spanCategory = document.createElement('span');
+			spanCategory.setAttribute('class', 'category');
+			spanCategory.append(category);
+			
+			let divUdCenter = document.createElement('div');
+			divUdCenter.setAttribute('class', 'ud-center');
+			divUdCenter.append(spanCategory);
+			
+			let divInfoLeft = document.createElement('div');
+			divInfoLeft.setAttribute('class', 'info-left');
+			divInfoLeft.append(divUdCenter);
+			
+			
+			let divPlaceName = document.createElement('div');
+			divPlaceName.setAttribute('class', 'placeName');
+			divPlaceName.append(placeName);
+			
+			let divInfoRightUpper = document.createElement('div');
+			divInfoRightUpper.setAttribute('class', 'info-right-upper');
+			divInfoRightUpper.append(divPlaceName);
+			
+			
+			let spanLocation = document.createElement('span');
+			spanLocation.setAttribute('class', 'location');
+			spanLocation.append(location);
+			
+			let divSearchBtnDiv;
+			if (hasId) {  // hasId
+				var imgSearchBtn = document.createElement('img');
+				imgSearchBtn.setAttribute('class', 'searchBtn');
+				imgSearchBtn.setAttribute('src', '/img/search.png');
+				imgSearchBtn.setAttribute('store-id', id);
+				imgSearchBtn.setAttribute('data-toggle', "modal");
+				imgSearchBtn.setAttribute('data-target', "#searchModal");
+				
+				divSearchBtnDiv = document.createElement('div');
+				divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
+				divSearchBtnDiv.append(imgSearchBtn);
+			}
+			
+			let divInfoRightLower = document.createElement('div');
+			divInfoRightLower.setAttribute('class', 'info-right-lower');
+			divInfoRightLower.append(spanLocation);
+			if (hasId) divInfoRightLower.append(divSearchBtnDiv);
+			
+			
+			let divInfoRight = document.createElement('div');
+			divInfoRight.setAttribute('class', 'info-right');
+			divInfoRight.append(divInfoRightUpper);
+			divInfoRight.append(divInfoRightLower);
 	
-	let divPlaceLower = $('.place-lower');
-	divPlaceLower.append(divPlaceLowerBox);
-}
+			let divPlaceLowerBoxInfo = document.createElement('div');
+			divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
+			divPlaceLowerBoxInfo.append(divInfoLeft);
+			divPlaceLowerBoxInfo.append(divInfoRight);
+			
+			divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
+			
+		}  // for
+		
+		let divPlaceLowerBox = document.createElement('div');
+		divPlaceLowerBox.setAttribute('class', 'place-lower-box');
+		divPlaceLowerBox.append(divPlaceLowerBoxTitle);
+		divPlaceLowerBox.append(divPlaceLowerBoxLower);
+		
+		let divPlaceLower = $('.place-lower');
+		divPlaceLower.append(divPlaceLowerBox);
+	}
 	
 </script>
 
@@ -546,11 +582,6 @@ function addContents(divTitleLeft, result) {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<%--
-					<form>
-						<label for="search-text" class="col-form-label">~~~</label>
-					</form>
-					--%>
 					<c:import url="/place/storeDetail.jsp" />
 				</div>
 			</div>

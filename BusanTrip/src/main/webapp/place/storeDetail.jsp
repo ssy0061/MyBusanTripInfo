@@ -28,7 +28,7 @@
 	  --button-active: #EEEEEE;
 	}
 	
-	.content{
+	.inner-content{
 		min-height: 60vh;
 	    width: 100%;
 	    margin: 0 auto;
@@ -131,7 +131,6 @@
 <script>
 
 	$(function() {
-		
 		var dateArr = ["2022-08-30", "2022-07-24", "2022-06-14", "2022-05-05", "2022-03-08"];
 		var moneyArr = ["7000", "3400", "12500", "9900", "11000"];
 		
@@ -179,7 +178,7 @@
 	</c:import>
 	--%>
 	
-	<div class="content container">
+	<div class="inner-content container">
 	
 		<div class="storeDetail-box">
 		
