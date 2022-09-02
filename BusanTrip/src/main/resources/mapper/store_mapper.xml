@@ -61,17 +61,20 @@
 		VALUES(WISHLIST_SEQ.NEXTVAL, #{memberId}, #{storeId})
 	</insert>
 	
+	<delete id="deleteWishlist" parameterType="hashmap">
+		DELETE FROM WISHLIST 
+		WHERE MEMBER_ID=#{memberId} AND STORE_ID=#{storeId}
+	</delete>
+	
+	<select id="findExistWishlist" parameterType="hashmap" resultType="int">
+		SELECT STORE_ID, MEMBER_ID
+		FROM WISHLIST 
+		WHERE MEMBER_ID=#{memberId} AND STORE_ID=#{storeId}
+	</select>
+	
 	<select id="findAllWishlist" parameterType="String" resultType="Store">
-		SELECT DISTINCT S.STORE_NAME
+		SELECT DISTINCT S.STORE_ID, S.STORE_NAME
 		FROM WISHLIST W, STORE S
 		WHERE W.STORE_ID = S.STORE_ID AND W.MEMBER_ID = #{memberId}
 	</select>
 </mapper>
-
-
-
-
-
-
-
-

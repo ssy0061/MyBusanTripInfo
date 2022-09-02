@@ -58,8 +58,20 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
+	public void deleteWishlist(String storeId, String memberId) {
+		storeDAO.deleteWishlist(storeId, memberId);
+	}
+
+	@Override
+	public int findExistWishlist(String storeId, String memberId) {
+		return storeDAO.findExistWishlist(storeId, memberId);
+	}
+	
+	@Override
 	public List<Store> findAllWishlist(String memberId) {
 		return storeDAO.findAllWishlist(memberId);
 	}
+
+
 
 }

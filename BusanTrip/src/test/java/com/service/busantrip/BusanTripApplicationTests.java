@@ -141,10 +141,10 @@ class BusanTripApplicationTests {
 //		System.out.println(storeDAO.findStoreTransaction("acc222", "1"));
 //	}
 	
-	@Test
-	void findStoreInfo() { 
-		System.out.println(storeDAO.findStoreInfo("165"));
-	}
+//	@Test
+//	void findStoreInfo() { 
+//		System.out.println(storeDAO.findStoreInfo("165"));
+//	}
 	
 //	@Test
 //	void findStoreId() { 
@@ -190,9 +190,19 @@ class BusanTripApplicationTests {
 //	}
 	
 //	@Test
-//	void findAllWishlist() {
-//		 System.out.println(storeDAO.findAllWishlist("gwak222"));
+//	void deleteWishlist() {
+//		 storeDAO.deleteWishlist("1","gwak222");
 //	}
+	
+//	@Test
+//	void findExistWishlist() {
+//		 System.out.println(storeDAO.findExistWishlist("1","gwak222"));
+//	}
+	
+	@Test
+	void findAllWishlist() {
+		 System.out.println(storeDAO.findAllWishlist("gwak222"));
+	}
 	
 	/***** StoryDAOImpl Unit test ******/
 	
