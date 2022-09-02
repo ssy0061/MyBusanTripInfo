@@ -186,7 +186,7 @@
 		width: 100px;
 		border-radius: 10px;
 		border: 3px outset var(--bnk-gray);
-		background-color: var(--bnk-lightgray);
+		background-color: #ccd9ff;
 		font-weight: bold;
 		margin: 0 1px 1px;
 	}
@@ -278,7 +278,21 @@
 <script>
 
 	$(function() {
+		// 오늘 날짜 가져오기
+		function getNowDay(){
+			let nowDay = new Date();
+			let nowYear = nowDay.getFullYear();
+			let nowMonth = nowDay.getMonth() + 1;
+			let nowDate = nowDay.getDate();
+			return nowYear + '-' + ('00' + nowMonth).slice(-2)
+					+ '-' + ('00' + nowDate).slice(-2);
+			
+		}
 		const accountNumber = '${accountNumber}'
+		
+		
+		
+		let now = getNowDay()
 		// 잔액 조회
 		$.ajax({
 			type: 'post',
@@ -299,12 +313,14 @@
 		// 보여줄 아이템 수 10개
 		var nowPage = 1;
 		var totalPage = 1;
-		getTransaction()
-		function getTransaction() {
+		getTransaction(,now)
+		function getTransaction(startDay, finishDay) {
 			$.ajax({
 				type: 'post',
-				url: '/member/findAllTransaction',
-				data: {'accountNumber': accountNumber},
+				url: '/member/findTransactionBySpecificPeriod',
+				data: {'accountNumber': accountNumber,
+					   'startDay': startDay,
+					   'finishDay': finishDay},
 				
 				success: function(res){
 					console.log(res)
@@ -321,13 +337,7 @@
 		
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		
-		// 오늘 날짜 가져오기
-		let nowDay = new Date();
-		let nowYear = nowDay.getFullYear();
-		let nowMonth = nowDay.getMonth() + 1;
-		let nowDate = nowDay.getDate();
-		let now = nowYear + '-' + ('00' + nowMonth).slice(-2)
-					+ '-' + ('00' + nowDate).slice(-2);
+		
 		
 		// initial method
 		
@@ -337,11 +347,11 @@
 				let period = $(this).attr('value');
 				
 				let befDay = new Date();
-				befDay.setMonth(nowMonth-1-period);
+				befDay.setMonth(nowMonth-period);
 				befDay.setDate(nowDate+1);
 				
 				let befYear = befDay.getFullYear();
-				let befMonth = befDay.getMonth() + 1;
+				let befMonth = befDay.getMonth();
 				let befDate = befDay.getDate();
 				let bef = befYear + '-' + ('00' + befMonth).slice(-2)
 							+ '-' + ('00' + befDate).slice(-2);
