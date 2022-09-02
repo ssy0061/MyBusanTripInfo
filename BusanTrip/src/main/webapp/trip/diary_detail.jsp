@@ -339,10 +339,9 @@ $(document).ready(function () {
     	            draggable: true,
     	        }
     		});
-    		
-    		
     	}
     }
+    
     var fileArr = "";
     /* multi file upload */
 	function readMultiImage(input) {
