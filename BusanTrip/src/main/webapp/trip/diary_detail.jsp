@@ -417,7 +417,7 @@ $(document).ready(function () {
 					<i class="bi bi-people-fill" style="font-size: 1.2rem;"></i>
 				</button>
 				</a>
-				<a data-toggle="tooltip" data-placement="left" title="결제내역  조회하기">
+				<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
 				<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
 					<i class="bi bi-receipt" style="font-size: 1.2rem;"></i>
 				</button>
