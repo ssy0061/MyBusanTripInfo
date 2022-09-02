@@ -12,6 +12,7 @@ import com.service.busantrip.dto.req.DiaryTransactionReqDTO;
 
 public interface StoryDAO { // 쿼리문이나 메소드 결정해서 인자값 결정해야함
 	public String addStory(String storyName, String memberId);
+	public void deleteStory(int storyId);
 	public List<Member> findStoryMember(String storyId);
 	public void addStoryMember(String storyId, String memberId);
 	public List<Story> findAllStoryList(String memberId);

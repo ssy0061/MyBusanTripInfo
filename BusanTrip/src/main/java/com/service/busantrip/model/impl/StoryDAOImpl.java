@@ -39,6 +39,13 @@ public class StoryDAOImpl implements StoryDAO{
 		
 		return storyId;
 	}
+	
+	@Override
+	public void deleteStory(int storyId) {
+		System.out.println("delete in " + storyId);
+		sqlSession.delete(NS+"deleteStory", storyId);
+		
+	}
 
 	@Override
 	public List<Member> findStoryMember(String storyId) {

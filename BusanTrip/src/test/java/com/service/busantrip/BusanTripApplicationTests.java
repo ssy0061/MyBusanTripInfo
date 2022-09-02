@@ -146,10 +146,10 @@ class BusanTripApplicationTests {
 //		System.out.println(storeDAO.findStoreTransaction("acc222", "1"));
 //	}
 	
-	@Test
-	void findStoreId() { 
-		System.out.println(storeService.findStoreId("커피구루마"));
-	}
+//	@Test
+//	void findStoreId() { 
+//		System.out.println(storeService.findStoreId("커피구루마"));
+//	}
 	
 //	@Test
 //	void findStorePopularByRegion() {
@@ -201,9 +201,14 @@ class BusanTripApplicationTests {
 //		 storyDAO.addStory("testStory", "gwak222");
 //	}
 	
+	@Test
+	void deleteStory() {
+		 storyDAO.deleteStory(24);
+	}
+	
 //	@Test
 //	void findStoryMember() {
-//		 System.out.println(storyDAO.findStoryMember("3"));
+//		 System.out.println(storyDAO.findStoryMember("24"));
 //	}
 	
 //	@Test

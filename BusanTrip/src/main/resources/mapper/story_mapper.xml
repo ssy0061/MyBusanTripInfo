@@ -9,6 +9,12 @@
 		INSERT INTO STORY(STORY_ID, STORY_NAME)
 		VALUES(STORY_SEQ.NEXTVAL, #{storyName})
 	</insert>
+	
+	<delete id="deleteStory" parameterType="int">
+		DELETE * FROM STORY 
+		WHERE STORY_ID=#{storyId}
+	</delete>
+	
 	<select id="getStoryId" resultType="String">
 		SELECT STORY_ID FROM STORY WHERE STORY_NAME= #{storyName}
 	</select>

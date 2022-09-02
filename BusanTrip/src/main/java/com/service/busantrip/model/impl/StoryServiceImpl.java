@@ -23,6 +23,11 @@ public class StoryServiceImpl implements StoryService{
 		return storyDAO.addStory(storyName, memberId);
 		
 	}
+	
+	@Override
+	public void deleteStory(int storyId) {
+		storyDAO.deleteStory(storyId);
+	}
 
 	@Override
 	public List<Member> findStoryMember(String storyId) {
