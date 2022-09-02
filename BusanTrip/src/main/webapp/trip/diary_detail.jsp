@@ -10,21 +10,27 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<srcipt src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></srcipt>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <title>Insert title here</title>
 <style>
 	/* all */
 	*{
 		box-sizing:border-box;
 	}
-	.albumTitle h4{
+	.albumTitle{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	.albumTitle h3{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
 	}
-	.albumTitle h6{
+	.albumTitle h5{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 400;
 	}
@@ -53,9 +59,18 @@
 		border-color:#53565A;
 		border-radius:5px;
 	}
-	.custom-button:hover{
-		color:white;
-		background-color:#53565A;
+	.material-symbols-outlined{
+	  font-variation-settings:
+	  'FILL' 0,
+	  'wght' 600,
+	  'GRAD' 0,
+	  'opsz' 24;
+	  margin:4px 0;
+	  color:#53565A;
+	}
+	.buttonWithText{
+		display:flex;
+		align-items:center;
 	}
 	/* modal - member */
 	.mem-id, .mem-name{
@@ -296,7 +311,7 @@ $(document).ready(function () {
     		list = result[i].list;
     		$('.swiperContent').append(
     			"<div id='user-"+user+"'>"+
-    			"<h5>"+user+"</h5>"+
+    			"<h5 class='mt-3'>"+user+"</h5>"+
     			"<div class='swiper' id='swiper-"+user+"'>"+
     			"<div class='swiper-wrapper'>"+
     			"</div><div class='swiper-pagination'></div>"+
@@ -412,6 +427,14 @@ $(document).ready(function () {
 		console.log(fileArr)
 		$(this).parent().remove();
 	});
+	
+	$('.custom-button').hover(function(){
+		$(this).children().css("color","white");
+		$(this).css("background-color","#53565A");
+	}, function(){
+		$(this).children().css("color", "#53565A")
+		$(this).css("background-color","white");
+	})
 });
 </script>
 </head>
@@ -422,26 +445,30 @@ $(document).ready(function () {
 	<div class="container">
 		<div class="space100"></div>
 		<div class="row mt-4 mb-4">
-			<div class="albumTitle col-6">
-				<h4>ㅇㅇ여행</h4>
-				<h6>2022.08.13 ~ 2022.08.15</h6>
+			<div class="albumTitle col-6 pr-0">
+				<h3>ㅇㅇ여행</h3>
+				<h5>2022.08.13 ~ 2022.08.15</h5>
 			</div>
-			<div class="col-6" id="customizeButton" align="right">
-				<a data-toggle="tooltip" data-placement="left" title="거래내역 추가하기">
-				<button type="button" class="btn btn-outline-secondary custom-button" data-toggle="modal" data-target="#transactionModal">
-					<i class="bi bi-plus-lg" style="font-size: 1.2rem;"></i>
-				</button>
-				</a>
-				<a data-toggle="tooltip" data-placement="left" title="멤버 조회하기">
-				<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
-					<i class="bi bi-people-fill" style="font-size: 1.2rem;"></i>
-				</button>
-				</a>
-				<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
-				<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
-					<i class="bi bi-receipt" style="font-size: 1.2rem;"></i>
-				</button>
-				</a>
+			<div class="col-6 row p-0" id="customizeButton" align="right">
+				<div class="col-12 p-0">
+					<a data-toggle="tooltip" data-placement="left" title="멤버 조회하기">
+					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
+						<span class="material-symbols-outlined group">group</span>
+					</button>
+					</a>
+					<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
+					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+						<span class="material-symbols-outlined receipt_long">receipt_long</span>
+					</button>
+					</a>
+				</div>
+				<div class="col-12 mt-1 p-0">
+					<a data-toggle="tooltip" data-placement="left" title="피드 추가하기">
+					<button type="button" class="btn btn-outline-secondary custom-button buttonWithText" data-toggle="modal" data-target="#transactionModal">
+						<span class="material-symbols-outlined add_photo_alternate">add_photo_alternate</span><span class="addFeed">피드 추가하기</span>
+					</button>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="swiperContent">
@@ -524,12 +551,12 @@ $(document).ready(function () {
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">거래내역 추가하기</h4>
+					<h4 class="modal-title">피드 추가하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body" align="center">
 					<p>
-						거래내역 추가하기 <input type="text"></input>
+						결제내역 불러오기 <input type="text"></input>
 					</p>
 					<div class="row py-2">
 						<div class="mx-auto picture-btn-re">
