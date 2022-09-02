@@ -175,15 +175,29 @@ $(function() {
 				cardTitle = storyList[i].storyName;
 				cardSubtitle = storyList[i].storySubtitle;
 				
-				 $('.col-12').append(
-					"<div id="+"\'"+ storyId +"\'"+" class=card>"
-						+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
-							+"<h5 class=card-title>"+ cardTitle+"</h5>"
-							+"<p class=card-text>"+ cardSubtitle +"</p></div>"
-						+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
-						+'<span class="close material-symbols-outlined">close</span></button>'
-					+"</div>"
-				) 
+				//console.log("공백 여부:: "+ cardSubtitle.search(" "));
+				
+				if(cardSubtitle.search(" ") == -1) { // 개인 머니 앨범이면
+					$('.myStorySpace .col-12').append(
+							"<div id="+"\'"+ storyId +"\'"+" class=card>"
+								+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
+									+"<h5 class=card-title>"+ cardTitle+"</h5>"
+									+"<p class=card-text>"+ cardSubtitle +"</p></div>"
+							+"</div>"
+						 )
+				}else {
+					 $('.ourStorySpace .col-12').append(
+						"<div id="+"\'"+ storyId +"\'"+" class=card>"
+							+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
+								+"<h5 class=card-title>"+ cardTitle+"</h5>"
+								+"<p class=card-text>"+ cardSubtitle +"</p></div>"
+							+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
+							+'<span class="close material-symbols-outlined">close</span></button>'
+						+"</div>"
+					 ) 
+				}
+				
+				
 			} 
 		},
 		error:function(e) {
