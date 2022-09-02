@@ -64,5 +64,27 @@ public class StoreController {
 		return storePopularByCategory;
 	}
 	
-
+	@PostMapping("addWishlist")
+	@ResponseBody
+	public void addWishlist(String storeId, String memberId) {
+		storeService.addWishlist(storeId, memberId);
+	}
+	
+	@PostMapping("deleteWishlist")
+	@ResponseBody
+	public void deleteWishlist(String storeId, String memberId) {
+		storeService.deleteWishlist(storeId, memberId);
+	}
+	
+	@PostMapping("findExistWishlist")
+	@ResponseBody
+	public int findExistWishlist(String storeId, String memberId) {
+		return storeService.findExistWishlist(storeId, memberId);
+	}
+	
+	@PostMapping("findAllWishlist")
+	@ResponseBody
+	public List<Store> findAllWishlist(String memberId) {
+		return storeService.findAllWishlist(memberId);
+	}
 }
