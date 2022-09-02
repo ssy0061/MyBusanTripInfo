@@ -20,6 +20,14 @@
 	*{
 		box-sizing:border-box;
 	}
+	.albumTitle h4{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	.albumTitle h6{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	}
 	/* container */
 	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
 	.space100 {
@@ -415,7 +423,7 @@ $(document).ready(function () {
 	<div class="container">
 		<div class="space100"></div>
 		<div class="row mt-4 mb-4">
-			<div class="col-6">
+			<div class="albumTitle col-6">
 				<h4>ㅇㅇ여행</h4>
 				<h6>2022.08.13 ~ 2022.08.15</h6>
 			</div>

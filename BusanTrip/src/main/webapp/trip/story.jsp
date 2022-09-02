@@ -29,7 +29,7 @@
 		height:100px;
 	}
 	.container{
-		width:80%;
+		width:90%;
 		max-width:800px;
 		margin: 20px auto;
 	}

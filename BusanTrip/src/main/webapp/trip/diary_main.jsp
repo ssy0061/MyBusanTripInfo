@@ -17,13 +17,17 @@
 	*{
 		box-sizing:border-box;
 	}
+	.diaryTitle h4{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
 	/* container */
 	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
 	.space100 {
 		height:100px;
 	}
 	.container{
-		width:80%;
+		width:90%;
 		max-width:800px;
 		margin: 20px auto;
 	}
@@ -160,7 +164,7 @@
 	<div class="container">
 		<div class="space100"></div>
 		<div class="row">
-			<div class="col-6">
+			<div class="diaryTitle col-6">
 				<h4>oo 스토리</h4>
 			</div>
 			<div class="col-6" align="right">
