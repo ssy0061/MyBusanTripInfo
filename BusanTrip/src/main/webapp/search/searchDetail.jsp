@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<%-- 구글 아이콘 --%>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style type="text/css">
 
 	:root {
@@ -28,7 +30,13 @@
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
-	
+
+	.material-symbols-outlined {
+	  font-variation-settings:
+	  'wght' 600,
+	  'GRAD' 0,
+	  'opsz' 40
+	}
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
@@ -39,6 +47,8 @@
 			padding-bottom: 80px;
 			background-color: #fef0f0;
 			min-height: calc(100vh - 80px);
+			padding-left: 0;
+			padding-right: 0;
 		}
 		#toTop{
 			bottom: 100px;
@@ -53,6 +63,10 @@
 		#toTop{
 			bottom: 130px;
 			right: 30px;
+		}
+		.box-1{
+			border-radius: 10px;
+			box-shadow: 1px 3px 5px 3px lightGray;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -76,19 +90,13 @@
 	}
 	.box-1{
 		max-width: 720px;
+		min-height: calc(100vh - 150px);
 		margin: 0 auto;
 		text-align: center;
 		background-color: #fef0f0;
-		border-radius: 10px;
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		padding-bottom: 10px;
 	}
 	.searchDetail-upper {
-		width: 75%;
-		background-color: white;
-		border-radius: 10px;
+		width: 100%;
 		max-width: 500px;
 		margin: 15px auto;
 		text-align: center;
@@ -98,10 +106,9 @@
 	}
 	
 	.searchDetail-lower {
-		width: 75%;
+		width: 100%;
 		background-color: white;
-		max-width: 500px;
-		margin: 0 auto;
+		max-width: 720px;
 		text-align: center;
 		min-height: 5vh;
 		border-radius: 5px;
@@ -109,21 +116,17 @@
 	}
 	
 	.ud-center {
-		background-color: white;
-		/* position: absolute;
+		/* background-color: white;
+		position: absolute;
 		left: 50%; top: 50%;
 		transform: translate(-50%, -50%); */
 	}
 	
-	.searchDetail-upper-top, .searchDetail-upper-bottom {
-		margin: 10px auto;
-		border: 1px solid var(--bnk-gray);
-	}
-	
 	.searchDetail-upper-top {
 		display: flex;
-		justify-content: space-around;
-		padding: 3px 0;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 	
 	/* */
@@ -131,22 +134,13 @@
 	.accountNumber {
 		max-width: 100px;
 		width: 100%;
-		font-size: 10px;
-		text-align: left;
-		position: relative;
-		left: 5px;
-		vertical-align: bottom;
-		margin: 15px 0 0;
-		color: gray;
+		font-size: 20px;
 	}
 	
 	.amount {
 		max-width: 160px;
 		width: 100%;
-		font-size: 22px;
-		text-align: right;
-		position: relative;
-		right: 5px;
+		font-size: 24px;
 		font-weight: bold;
 	}
 	
@@ -161,20 +155,19 @@
 		margin: 2px 2px;
 	}
 	
-	.periodBox, .searchBox {
+	.periodBox {
 		border-radius: 10px;
 		border: 3px outset #53565A;
 		font-weight: bold;
-	}
-	
-	.periodBox {
 		width: 100px;
 		margin: 0 1px 1px;
-	
 	}
 	.searchBox {
 		width: 40px;
 		margin: 1px 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	
 	.searchBox>img {
@@ -200,11 +193,11 @@
 	}
 	
 	.searchDetail-lower-box {
-		max-width: 450px;
-		margin: 10px auto;
+		max-width: 720px;
+		margin: 20px auto;
 		min-height: 60px;
 		height: auto;
-		border-bottom-color: var(--bnk-lightgray);
+		border-bottom-color:#DCDCDC;
 		border-bottom-width: 2px;
 		border-bottom-style: solid;
 		padding: 5px 10px 3px;
@@ -323,7 +316,8 @@
 		// 보여줄 아이템 수 10개
 		var nowPage = 1;
 		var totalPage = 1;
-		/* getTransaction(,now) */
+		getTransaction(getPastDay(1),getNowDay())
+		
 		function getTransaction(startDay, finishDay) {
 			$.ajax({
 				type: 'post',
@@ -336,6 +330,8 @@
 					console.log(res)
 					list = res;
 					totalPage = Math.ceil(list.length/10);
+					$('#startDate').val(startDay)
+					$('#endDate').val(finishDay)
 					loadData(1)
 				},
 				error: function(e) {
@@ -392,10 +388,8 @@
 			
 			if (startDay <= endDay) {
 				// 비동기 방식으로 정보 전달...
-				//
-				
+				getTransaction(dayToString(startDay), dayToString(endDay))
 				$('#detailBox').html("");
-				loadData(4);  // 임시코드
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				
 				// 이미지랑 버튼 연결용 코드 
@@ -485,6 +479,8 @@
 			
 			
 		}  // loadData
+		
+		$('.periodBox:eq(0)').attr('class', 'periodBox-choiced');
 	});  // JQuery
 	
 	
@@ -500,7 +496,7 @@
 
 		<div class="content container">
 			<div class="box-1">
-				<div class="searchDetail-upper shadow">
+				<div class="searchDetail-upper">
 					<div class="ud-center">
 						<div class="rounded-lg searchDetail-upper-top">
 							<span class="accountNumber"></span> 
@@ -511,8 +507,12 @@
 								<input type="text" class="datepicker" id="startDate"
 									readonly="readonly"> <span width="15px"><b>~</b></span>
 								<input type="text" class="datepicker" id="endDate"
-									readonly="readonly"> <span class="searchBox"><img
-									src="/img/search.png" width=20px></span>
+									readonly="readonly">
+								<span class="searchBox">
+									<span class="material-symbols-outlined">
+									search
+									</span>
+								</span>
 							</div>
 
 							<div class="searchDetail-upper-bottom-inner">
@@ -524,7 +524,7 @@
 					</div>
 				</div>
 
-				<div id="detailBox" class="searchDetail-lower shadow">
+				<div id="detailBox" class="searchDetail-lower">
 
 				</div>
 				<div id="toTop" class="d-flex justify-content-center shadow">

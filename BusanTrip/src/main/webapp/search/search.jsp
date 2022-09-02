@@ -63,8 +63,8 @@
 	
 	.search-box-inner {
 		max-width: 500px;
-		width: 80%;
-		margin: 0 auto 30px;
+		width: 95%;
+		margin: 0 auto 15px;
 		height: 100px;
 		/* position: relative; */
 		background-color: white;
