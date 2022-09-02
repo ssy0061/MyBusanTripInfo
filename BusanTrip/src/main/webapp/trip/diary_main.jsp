@@ -17,13 +17,17 @@
 	*{
 		box-sizing:border-box;
 	}
+	.diaryTitle h4{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
 	/* container */
 	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
 	.space100 {
 		height:100px;
 	}
 	.container{
-		width:80%;
+		width:90%;
 		max-width:800px;
 		margin: 20px auto;
 	}
@@ -47,7 +51,7 @@
 	}
 	.card:hover{
 		cursor:pointer;
-		background-color:#f0c2c4;
+		background-color:#fef0f0;
 	}
 	.card>img{
 		margin:0 0 10px 0;
@@ -57,6 +61,19 @@
 	#membersearch{
 		border-color:transparent;
 		border-radius:2px;
+	}
+	.addDiaryYes{
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#6c9dc6;
+		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -117,7 +134,7 @@
 			}
 		})
 
-		$('.modal-button').on("click", addDiary)
+		$('.addDiaryYes').on("click", addDiary)
 		function addDiary() {
 			var diaryName = $('#newDiaryName').val();
 			$.ajax({
@@ -147,7 +164,7 @@
 	<div class="container">
 		<div class="space100"></div>
 		<div class="row">
-			<div class="col-6">
+			<div class="diaryTitle col-6">
 				<h4>oo 스토리</h4>
 			</div>
 			<div class="col-6" align="right">
@@ -179,7 +196,7 @@
 	     		<p>다이어리 이름 : <input type="text" id="newDiaryName" size="18"></p>
 	     	</div>
 	        <div class="modal-footer">
-	        	<input type="submit" value="추가" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+	        	<input type="submit" value="추가" class="btn btn-secondary addDiaryYes" data-dismiss="modal"></input>
 	     	</div>
 	      </div>
 	    </div>

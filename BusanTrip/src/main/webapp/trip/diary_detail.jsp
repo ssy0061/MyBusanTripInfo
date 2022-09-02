@@ -20,6 +20,14 @@
 	*{
 		box-sizing:border-box;
 	}
+	.albumTitle h4{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	.albumTitle h6{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	}
 	/* container */
 	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
 	.space100 {
@@ -104,7 +112,7 @@
 		background-color:#F08080;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	#resetUpload{
+	#input-label{
 		display:inline-block;
 		padding:4px 10px;
 		margin:0 5px;
@@ -116,6 +124,19 @@
 		border-radius:10px;
 		border-color:transparent;
 		background-color:#6c9dc6;
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
+	#resetUpload, .addTransYes, .memberSearchOk, .playListOk{
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* responsive web */
@@ -402,7 +423,7 @@ $(document).ready(function () {
 	<div class="container">
 		<div class="space100"></div>
 		<div class="row mt-4 mb-4">
-			<div class="col-6">
+			<div class="albumTitle col-6">
 				<h4>ㅇㅇ여행</h4>
 				<h6>2022.08.13 ~ 2022.08.15</h6>
 			</div>
@@ -517,7 +538,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
+						<input type="submit" value="확인" class="btn addTransYes" data-dismiss="modal"></input>
 					</div>
 				</div>
 			</div>
@@ -548,7 +569,7 @@ $(document).ready(function () {
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
+					<input type="submit" value="확인" class="btn memberSearchOk" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>
@@ -564,7 +585,7 @@ $(document).ready(function () {
 					
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="확인" class="btn btn-secondary" data-dismiss="modal"></input>
+					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>
