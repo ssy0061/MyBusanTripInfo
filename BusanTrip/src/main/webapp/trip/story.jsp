@@ -257,7 +257,7 @@ $(function() {
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
-		<c:param name="navTitle" value="여행"/>
+		<c:param name="navTitle" value="머니앨범"/>
 	</c:import>
 	<div class="container">
 		<div class="space100"></div>

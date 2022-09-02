@@ -182,7 +182,7 @@
       height: 100%;
       object-fit: cover;
     }
-    .content>*{
+    .swiperContent>*{
     	display: flex;
 		flex-wrap: wrap;
 		align-content: space-between;;
@@ -294,7 +294,7 @@ $(document).ready(function () {
     		// 생성
     		user = result[i].user;
     		list = result[i].list;
-    		$('.content').append(
+    		$('.swiperContent').append(
     			"<div id='user-"+user+"'>"+
     			"<h5>"+user+"</h5>"+
     			"<div class='swiper' id='swiper-"+user+"'>"+
@@ -444,7 +444,9 @@ $(document).ready(function () {
 				</a>
 			</div>
 		</div>
+		<div class="swiperContent">
 
+		</div>
 		<div class="row">
 			<div class="col-12">
 				<h5>사용자A</h5>

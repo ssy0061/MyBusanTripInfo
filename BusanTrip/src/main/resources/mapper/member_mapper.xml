@@ -46,6 +46,7 @@
 		FROM TRANSACTION
 		WHERE ACCOUNT_NUMBER = #{accountNumber}
 		AND TRANSACTION_TIME BETWEEN #{startDay} AND #{finishDay}
+		ORDER BY TRANSACTION_TIME DESC
 	</select>
 	
 	<select id="findTransactionByMonthPeriod" parameterType="hashmap" resultType="transaction">
