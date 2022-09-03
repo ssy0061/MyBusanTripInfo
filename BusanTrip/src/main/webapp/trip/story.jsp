@@ -356,14 +356,7 @@ $(function() {
 				
 			</div>
 			<div class="col-12">
-				<div id='story-1' class="card">
-					<div class="card-body">
-					<!-- <div class="card-body" onclick="location.href='/bnk/trip/3'"> -->
-						<h5 class="card-title">First Story</h5>
-						<p class="card-text">불러온거 아니고 직접 넣은 카드</p>
-						<button type="button" class="deleteStory" data-toggle="modal" data-target="#deleteStoryModal"><i class="bi bi-x-lg"></i></button>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</div>

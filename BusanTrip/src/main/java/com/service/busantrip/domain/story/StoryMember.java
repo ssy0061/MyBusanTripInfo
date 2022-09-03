@@ -1,5 +1,6 @@
 package com.service.busantrip.domain.story;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.service.busantrip.domain.Member;
 
 public class StoryMember {
@@ -7,14 +8,17 @@ public class StoryMember {
 	private String storymemberAuth;
 	private String memberId;
 	private String storyId;
+	private String storymemberName;
 	
+	@JsonIgnore
 	private Member member;
+	@JsonIgnore
 	private Story story;
 	
 	public StoryMember() { }
 
 	public StoryMember(int storymemberId, String storymemberAuth, String memberId, String storyId, Member member,
-			Story story) {
+			Story story, String storymemberName) {
 		super();
 		this.storymemberId = storymemberId;
 		this.storymemberAuth = storymemberAuth;
@@ -22,9 +26,9 @@ public class StoryMember {
 		this.storyId = storyId;
 		this.member = member;
 		this.story = story;
+		this.storymemberName = storymemberName;
 	}
 
-	
 
 	public String getMemberId() {
 		return memberId;
@@ -74,11 +78,18 @@ public class StoryMember {
 		this.story = story;
 	}
 
+	public String getStorymemberName() {
+		return storymemberName;
+	}
+
+	public void setStorymemberName(String storymemberName) {
+		this.storymemberName = storymemberName;
+	}
+
 	@Override
 	public String toString() {
 		return "StoryMember [storymemberId=" + storymemberId + ", storymemberAuth=" + storymemberAuth + ", memberId="
-				+ memberId + ", storyId=" + storyId + "]";
+				+ memberId + ", storyId=" + storyId + ", storymemberName=" + storymemberName + "]";
 	}
 
-	
 }

@@ -100,8 +100,7 @@
 		max-width: 500px;
 		margin: 15px auto;
 		text-align: center;
-		height: 140px;
-		
+		height: 140px;		
 		
 	}
 	
