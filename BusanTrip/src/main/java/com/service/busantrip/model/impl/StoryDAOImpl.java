@@ -63,6 +63,11 @@ public class StoryDAOImpl implements StoryDAO{
 		
 		sqlSession.update(NS+"updateStory", map);
 	}
+	
+	@Override
+	public String getStoryName(String storyId) {
+		return sqlSession.selectOne(NS+"getStoryName", storyId);
+	}
 
 	@Override
 	public List<Member> findStoryMember(String storyId) {

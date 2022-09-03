@@ -98,53 +98,63 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		var storyId = location.pathname.substring(10)
+		var storyId = location.pathname.substring(10)	
 		
+		getStoryName(storyId);
+		getDiaryList();
 		
-		
-		$.ajax({
-			type: 'post',
-			url: "/story/findAllDiaryList",
-			data: {'storyId': storyId},
-			
-			success:function(result) {
-				console.log(result)
+		function getStoryName(storyId) {
+			$.ajax({
+				type: 'post',
+				url: '/story/getStoryName',
+				data: {"storyId": storyId},
 				
-				var diaryName;
-				var imageUrl = "/img/noimg.png";
-				for(var i=0; i<result.length; i++) {
-					diaryName = result[i].diaryName;
-					
-					$('.diary-in-story').append(
-							'<div class="card col-sm-6 col-md-4">'
-								+'<div class="card-body" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/diary_detail\'\">"
-									+'<h5 class="card-title">'+ diaryName +'</h5>'
-								+'</div>'
-								+'<img class="card-img-bottom" src='+ imageUrl +' style="width:100%">'
-							+'</div>'
-					) 
+				success:function(result) {
+					console.log(result);
+					$('.diaryTitle').append(
+						'<h4>' + result + '</h4>'		
+					)
+				},
+				error:function(e) {
+					console.log(e);
 				}
-
-			},
-			error: function(e){
-				console.log(e);
-			}
-		})
-		
-		$.ajax({
-			type: "post",
-			url: "/story/findStoryMember",
-			data: {'storyId': storyId},
+			})
 			
-			success:function(result) {
-				console.log(result)
-			},
-			error: function(e){
-				console.log(e);
-			}
-		})
+		}
+		
+		function getDiaryList(){
+			$.ajax({
+				type: 'post',
+				url: "/story/findAllDiaryList",
+				data: {'storyId': storyId},
+				
+				success:function(result) {
+					console.log(result)
+					
+					var diaryName;
+					var imageUrl = "/img/mountain.jpg";
+					for(var i=0; i<result.length; i++) {
+						diaryName = result[i].diaryName;
+						$('.diary-in-story').append(
+									'<div class="col-md-4 col-6 px-2">'
+									+'<div class="card" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/diary_detail\'\">"
+										+ '<img class="card-img-top m-0" src=' + imageUrl +' alt="Card image" style="width:100%">'
+										+ '<div class="py-2">'
+											+ ' <div class="card-content m-0" style="font-size: 1rem;">' + diaryName + '</div>'
+										+ '</div>'
+									+'</div></div>'
+								
+						) 
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		}
 
 		$('.addDiaryYes').on("click", addDiary)
+		
 		function addDiary() {
 			var diaryName = $('#newDiaryName').val();
 			$.ajax({
@@ -155,7 +165,9 @@
 				success:function(result) {
 					alert(diaryName + " 다이어리 추가 완료");
 					console.log(result);
-					document.location.reload();	// 생성된 다이어리 반영하기 위해 새로고침
+					$('.diary-in-story').html("");
+					$('#newDiaryName').val("");
+					getDiaryList();	// 생성된 다이어리 반영하기 위해 새로고침
 				},
 				error: function(e){
 					console.log(e);
@@ -181,7 +193,7 @@
 		<div class="space100"></div>
 		<div class="row">
 			<div class="diaryTitle col-6">
-				<h4>oo 스토리</h4>
+				<!-- <h4>oo 스토리</h4> -->
 			</div>
 			<div class="col-6" align="right">
 				<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
@@ -189,13 +201,8 @@
 				</button>
 			</div>
 		</div>
-		<div class="row d-flex justify-content-center diary-in-story">
-			<div class="card col-sm-6 col-md-4">
-				<div class="card-body" onclick="location.href='/bnk/trip/diary_detail'">
-					<h5 class="card-text">직접 입력한 추억</h5>
-				</div>
-				<img class="card-img-bottom" src="/img/noimg.png" style="width:100%">
-			</div>
+		<div class="row d-flex justify-content-start diary-in-story">
+			
 			
 		</div>
 	</div>
