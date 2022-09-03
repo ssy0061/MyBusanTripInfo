@@ -24,26 +24,31 @@
 	<select id="getStoryId" resultType="String">
 		SELECT STORY_ID FROM STORY WHERE STORY_NAME= #{storyName}
 	</select>
-	<insert id="addStoryMemberLeader">
-		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID, STORYMEMBER_AUTH) 
-		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId},'Y')
+	
+	<select id="getStoryName" parameterType="String" resultType="String">
+		SELECT STORY_NAME FROM STORY WHERE STORY_ID= #{storyId}
+	</select>
+	
+	<insert id="addStoryMemberLeader" parameterType="hashmap">
+		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID, STORYMEMBER_AUTH, STORYMEMBER_NAME) 
+		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId},'Y', #{memberName})
 	</insert>
+	
+	<insert id="addStoryMember" parameterType="hashmap">
+		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID, STORYMEMBER_AUTH, STORYMEMBER_NAME) 
+		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId}, 'N', #{memberName})
+	</insert>
+	
+	<select id="findStoryMember" parameterType="String" resultType="storyMember">
+		SELECT MEMBER_ID, STORYMEMBER_AUTH, STORYMEMBER_NAME FROM STORYMEMBER WHERE STORY_ID = #{storyId}
+	</select>
 	
 	<select id="findAllStoryList" parameterType="String" resultType="story">
 		SELECT ST.STORY_ID, ST.STORY_NAME, ST.STORY_SUBTITLE
 		FROM STORY ST, STORYMEMBER SM
 		WHERE ST.STORY_ID=SM.STORY_ID AND SM.MEMBER_ID = #{memberId}
 	</select>
-	
-	<select id="findStoryMember" parameterType="String" resultType="storyMember">
-		SELECT MEMBER_ID, STORYMEMBER_AUTH FROM STORYMEMBER WHERE STORY_ID = #{storyId}
-	</select>
-	
-	<insert id="addStoryMember" parameterType="hashmap">
-		INSERT INTO STORYMEMBER(STORYMEMBER_ID, MEMBER_ID, STORY_ID) 
-		VALUES(STORYMEMBER_SEQ.NEXTVAL, #{memberId}, #{storyId})
-	</insert>
-	
+
 	<select id="findStoryInviteMember" parameterType="String" resultType="member">
 		SELECT MEMBER_NAME FROM MEMBER WHERE MEMBER_ID=#{memberId}
 	</select>

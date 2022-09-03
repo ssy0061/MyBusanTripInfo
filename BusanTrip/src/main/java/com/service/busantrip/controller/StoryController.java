@@ -70,12 +70,12 @@ public class StoryController {
 	}
 	
 	
-	/////////////////////////////////////////////////////////////
 	
 	@PostMapping("findStoryMember")
 	@ResponseBody
 	public List<Member> findStoryMember(String storyId, Model model, HttpSession session){
 		//System.out.println("storyId:: " + storyId);
+		System.out.println("hhstoryId:: " + storyId);
 		List<Member> list = storyService.findStoryMember(storyId);
 		
 		System.out.println(list);

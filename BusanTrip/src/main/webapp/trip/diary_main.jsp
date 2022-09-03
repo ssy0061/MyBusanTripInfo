@@ -101,8 +101,9 @@
 		var storyId = location.pathname.substring(10)
 		
 		
+		
 		$.ajax({
-			type: "post",
+			type: 'post',
 			url: "/story/findAllDiaryList",
 			data: {'storyId': storyId},
 			
@@ -116,7 +117,7 @@
 					
 					$('.diary-in-story').append(
 							'<div class="card col-sm-6 col-md-4">'
-								+'<div class="card-body" onclick='+'\"location.href='+"\'/bnk/trip/diary_detail\'\">"
+								+'<div class="card-body" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/diary_detail\'\">"
 									+'<h5 class="card-title">'+ diaryName +'</h5>'
 								+'</div>'
 								+'<img class="card-img-bottom" src='+ imageUrl +' style="width:100%">'
