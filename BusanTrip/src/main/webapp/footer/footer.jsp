@@ -99,7 +99,8 @@
 <script type="text/javascript">
 	$(function() {
 		function isLogin() {
-			if('<%= (String)session.getAttribute("memberId") %>' !== 'null') return true
+			if(<%= (String)session.getAttribute("memberId") != null%>
+				&& <%= session.getAttribute("loginUser") != null%>) return true
 			else return false
 		}
 		

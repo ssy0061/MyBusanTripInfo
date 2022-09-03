@@ -275,7 +275,7 @@ $(document).ready(function () {
     $(window).resize(function () {
     });
     
-	var storyId = location.pathname.substring(10,11);
+	var storyId = location.pathname.split("/")[3];
 	var memberList = [];
 	$.ajax({
 		type: 'post',
