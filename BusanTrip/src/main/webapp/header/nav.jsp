@@ -191,7 +191,7 @@
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		console.log(loginUser)
 		var loginUrl = '/bnk/login'
-		if(memberId==='null') {
+		if(memberId==='null' || loginUser==='null') {
 			$('.needLogin').children('a').attr('href', loginUrl)
 		}
 		

@@ -110,7 +110,6 @@
 		padding-top: 20px;
 		position: relative;
 		bottom: 0;
-		
 	}
 	
 	.searchDetail-lower {
@@ -132,6 +131,9 @@
 	.condition-collapseWrap{
 		padding: 2px auto;
 		background-color: white;
+		border-bottom-style:solid;
+        border-bottom-width:4px;
+        border-color:lightGray;
 	}
 	
 	/* */
