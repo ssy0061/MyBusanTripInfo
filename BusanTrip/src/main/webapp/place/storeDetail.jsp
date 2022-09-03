@@ -135,20 +135,37 @@
 		justify-content: space-around;
 	}
 	
-	#likeBtn, .blank {
-		width: 7%;
+	.blank {
+		width: 50px;
 		min-width: 22px;
 	}
 	
-	#likeBtn {
-		color: gold;
-		font-size: 20px;
+	#heartBox {
 		position: relative;
-		bottom: 7px;
+		bottom: 35px;
+		right: 35px;
+		height: 0;
+	}
+	
+	.heart {
+		width: 100px;
+		height: 100px;
+		background: url("/img/heart.png") no-repeat;
+		background-position: 0 0;
+		cursor: pointer;
+		transition: background-position 1s steps(28);
+		transition-duration: 0s;
+
+	}
+	
+	.is-active {
+		transition-duration: 1s;
+		background-position: -2800px 0;
 	}
 	
 	#storeName {
-		width: 86%;
+		margin: 0 auto;
+		max-width: 300px;
 	}
 	
 </style>
@@ -162,11 +179,12 @@
 	--%>
 	
 	<div class="inner-content container">
-	
+
 		<div class="storeDetail-box">
-			
+			<div id="heartBox"><div id="likeBtn" class="heart" store-id=""></div></div>
 			<div class="storeDetail-box-title">
-				<i id="likeBtn" class="bi bi-star" store-id=""></i>
+				<!-- <i id="likeBtn" class="bi bi-star" store-id=""></i> -->
+				<div class="blank"></div>
 				<div id="storeName">아삭토스트 범내골점</div>
 				<div class="blank"></div>
 			</div>

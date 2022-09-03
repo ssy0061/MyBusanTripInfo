@@ -201,7 +201,6 @@
 		left: 50%; top: 50%;
 		transform: translate(-50%, -50%);
 	}
-	
 </style>
 
 <script>
@@ -468,8 +467,8 @@
 				data: {'storeId': storeId, 'memberId': memberId},
 				success: function(result) {
 					$('#likeBtn').attr('store-id', storeId);
-					if (Boolean(result)) $('#likeBtn').attr('class', 'bi bi-star-fill');  // 즐찾된경우
-					else $('#likeBtn').attr('class', 'bi bi-star');  // 안즐찾시
+					if (Boolean(result)) $(".heart").attr("class", "heart is-active");  // 즐찾된경우
+					else $(".heart").attr("class", "heart"); // 안즐찾시
 				},
 				error: function(e){ console.log(e); }
 			});  // findExistWishlist end
@@ -524,16 +523,20 @@
 		
 		
 		$('#likeBtn').click(function() {
+			
+		});  // click end
+		
+		$(".heart").on("click", function() {
 			let storeId = $(this).attr('store-id');
 			
-			if ($(this).attr('class').includes('fill')) {
+			if ($(this).attr('class').includes('is-active')) {
 				// 즐겨찾기가 되어있는 경우
 				$.ajax({
 					type: 'post',
 					url: '/store/deleteWishlist',
 					data: {'storeId': storeId, 'memberId': memberId},
 					success: function(result) {
-						$('#likeBtn').attr('class', 'bi bi-star');
+						$(".heart").toggleClass("is-active");
 						// DOM상에 명시적으로 불러진 elem을 변경해야 먹힌다
 					},
 					error: function(e){ console.log(e); }
@@ -545,15 +548,14 @@
 					url: '/store/addWishlist',
 					data: {'storeId': storeId, 'memberId': memberId},
 					success: function(result) {
-						$('#likeBtn').attr('class', 'bi bi-star-fill');
+						$(".heart").toggleClass("is-active");
 						// DOM상에 명시적으로 불러진 elem을 변경해야 먹힌다
 					},
 					error: function(e){ console.log(e); }
 				});  // addWishlist end
 			}
-			
-			
-		});
+
+		});  // click end
 		
 	});  // JQuery
 	
