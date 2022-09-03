@@ -347,7 +347,7 @@ $(function() {
 		</div>
 		<div class="row ourStorySpace mt-4">
 			<div class="storyTitle col-9">
-				<h4>우리의 머니앨범</h4>
+				<h4>모임 머니앨범</h4>
 			</div>
 			<div class="col-3" align="right">
 				<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
