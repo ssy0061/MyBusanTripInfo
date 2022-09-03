@@ -45,7 +45,6 @@
 		.content{
 			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;
-			background-color: #fef0f0;
 			min-height: calc(100vh - 80px);
 			padding-left: 0;
 			padding-right: 0;
@@ -56,6 +55,9 @@
 		}
 		.searchDetail-lower{
 			min-height: calc(100vh - 290px);
+		}
+		.condition-collapseWrap{
+			padding-top: 10px;
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
@@ -101,7 +103,7 @@
 		max-width: 720px;
 		margin: 0 auto;
 		text-align: center;
-		background-color: #fef0f0;
+		background-color: white;
 	}
 	.searchDetail-upper {
 		width: 100%;
@@ -110,11 +112,11 @@
 		padding-top: 20px;
 		position: relative;
 		bottom: 0;
+		background-color: #fef0f0;
 	}
 	
 	.searchDetail-lower {
 		width: 100%;
-		background-color: white;
 		max-width: 720px;
 		text-align: center;
 		border-radius: 0 0 5px 5px;
@@ -127,13 +129,14 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		
 	}
 	.condition-collapseWrap{
-		padding: 2px auto;
-		background-color: white;
-		border-bottom-style:solid;
+		background-color: #F6F6F6;
+		/* border-bottom-style:solid;
         border-bottom-width:4px;
-        border-color:lightGray;
+        border-color:#DCDCDC; */
+        border-radius: 0 0 10px 10px;
 	}
 	
 	/* */
@@ -152,7 +155,7 @@
 	}
 	
 	.searchDetail-upper-bottom {
-		background-color: lightGray;
+		background-color: #DCDCDC;
 		text-align: center;
 	}
 	.conditon-btn{
@@ -168,6 +171,7 @@
 		justify-content: space-around;
 	}
 	.periodBox {
+		background-color: white;
 		border-radius: 10px;
 		border: 2px solid lightGray;
 		font-weight: bold;
@@ -188,6 +192,7 @@
 	}
 	
 	.periodBox-choiced {
+		background-color: white;
 		width: 100px;
 		border-radius: 10px;
 		border: 3px solid #ff6666;
@@ -207,7 +212,7 @@
 	
 	.searchDetail-lower-box {
 		max-width: 720px;
-		margin: 20px auto;
+		margin: 0 auto 10px;
 		min-height: 60px;
 		height: auto;
 		border-bottom-color:#DCDCDC;
@@ -278,7 +283,10 @@
 		text-align: center;
 		font-size: 13px;
 	}
-
+	.totalAmount{
+		display: flex;
+		justify-content: space-around;
+	}
 
 </style>
 
@@ -330,6 +338,8 @@
 		// 보여줄 아이템 수 10개
 		var nowPage = 1;
 		var totalPage = 1;
+		
+		// 1개월 조회(기본값)
 		getTransaction(getPastDay(1),getNowDay())
 		
 		function getTransaction(startDay, finishDay) {
@@ -358,10 +368,6 @@
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		
 		
-		
-		// initial method
-		
-		
 		$('.periodBox').click(function(){
 			if ($(this).attr('class') != 'periodBox-choiced') {
 				let period = $(this).attr('value');
@@ -375,25 +381,36 @@
 				// 비동기 방식으로 정보 전달...
 				//
 				
-				$('#detailBox').html("");
-				getTransaction(start, end)
+				/* $('#detailBox').html("");
+				getTransaction(start, end) */
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
 				
-				// 이미지랑 버튼 연결용 코드
+				/* // 이미지랑 버튼 연결용 코드
 				$('.searchBtn').click(function(){
 					alert('search!  ' + $(this).parent().parent().text());
 				});  // img click
 				$('.memoBtn').click(function(){
 					// alert('memo!  ' + $(this).parent().parent().text());
 					$('#memo-text').val('');  // 내용 초기화
-				});  // img click
+				});  // img click */
 				
 			}  // if
 		});  // div click
 		
+		$('#startDate').change(function(){
+			$('.periodBox-choiced').attr('class', 'periodBox');
+		})
+		
+		$('#endDate').change(function(){
+			$('.periodBox-choiced').attr('class', 'periodBox');
+		})
+		
 		
 		$('.searchBox').click(function(){
+			let state = $('.periodBox-choiced').text()
+			if(state !== "") $('#state').text(state)
+			else $('#state').text("직접입력")
 			let start = $('#startDate').val()
 			let end = $('#endDate').val()
 			
@@ -404,7 +421,7 @@
 				// 비동기 방식으로 정보 전달...
 				getTransaction(dayToString(startDay), dayToString(endDay))
 				$('#detailBox').html("");
-				$('.periodBox-choiced').attr('class', 'periodBox');
+				//$('.periodBox-choiced').attr('class', 'periodBox');
 				
 				// 이미지랑 버튼 연결용 코드 
 				$('.searchBtn').click(function(){
@@ -459,6 +476,9 @@
 		$('#toTop').on('click', function(){
 			window.scrollTo(0, 0);
 		})
+		
+		var total = 0;
+		
 		function loadData(page) {
 			var start = (totalPage*10)-10;
 			var end = list.length;
@@ -471,6 +491,8 @@
 				return
 			}
 			for (var i=start; i<end; i++) {
+				total += list[i].transactionAmt
+				
 				var memo = list[i].transactionMemo !== null ?
 						'<div class="searchDetail-lower-box-inner">'+
 						'<span class="memo">'+list[i].transactionMemo+'</span></div>'
@@ -491,6 +513,8 @@
 				
 			}// for
 			
+			$('.totalAmount').html('<span><b>기간 합계</b></span><span><b>'+
+					               total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</b></span>');
 			
 		}  // loadData
 		
@@ -510,20 +534,20 @@
 
 		<div class="content container">
 			<div class="box-1">
-				<div class="searchDetail-upper">
+				<div class="searchDetail-upper pb-3">
 					<div class="searchDetail-upper-top">
 						<span class="accountNumber"></span> 
 						<span class="amount"></span>
 					</div>
+					
 				</div>
-				<div class="searchDetail-upper-bottom d-flex justify-content-between align-items-center px-3 mt-3">
-					<div>총 지출금액</div>
+				<div class="searchDetail-upper-bottom d-flex justify-content-end align-items-center px-3">
 					<div>
 						<a data-toggle="collapse" href="#conditionCollpase" 
 						   style="text-decoration: none; color: black;"
 						   class="d-flex justify-content-end  align-items-center">
 							<span>최신순</span><span class="mx-2 mb-1">|</span>
-							<span>기간</span>
+							<span id="state">1개월</span>
 							<span class="conditon-btn material-symbols-outlined">
 								arrow_drop_down
 							</span>
@@ -543,12 +567,16 @@
 								<span width="15px"><b>~</b></span>
 								<input type="text" class="datepicker" id="endDate" readonly="readonly">
 							</div>
-							<div class="searchBox">
-								<button class="btn">조회</button>
+							<div class="searchBox d-flex align-items-center">
+								<a data-toggle="collapse" href="#conditionCollpase"
+								   style="text-decoration: none; color: black;"
+						   		   class="d-flex justify-content-end  align-items-center">
+								<button class="btn">조회</button></a>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="totalAmount"></div>
 				<div id="detailBox" class="searchDetail-lower">
 
 				</div>

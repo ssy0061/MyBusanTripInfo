@@ -167,7 +167,7 @@ $(function() {
 		data: {'memberId': currentMemberId},
 		
 		success:function(result) {	// 스토리 목록
-			console.log("storyList :: " + result);
+			console.log("storyList :: " + JSON.stringify(result));
 			storyList = result;
 			var storyId;
 			for(var i=0; i<storyList.length; i++) {
@@ -176,23 +176,19 @@ $(function() {
 				cardSubtitle = storyList[i].storySubtitle;
 				
 				//console.log("공백 여부:: "+ cardSubtitle.search(" "));
-				
+				var card = "<div id="+"\'"+ storyId +"\'"+" class=card>"
+							+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
+							+"<h5 class=card-title>"+ cardTitle+"</h5>"
+							+"<p class=card-text>"+ cardSubtitle +"</p></div>"
 				if(cardSubtitle.search(" ") == -1) { // 개인 머니 앨범이면
 					$('.myStorySpace .col-12').append(
-							"<div id="+"\'"+ storyId +"\'"+" class=card>"
-								+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
-									+"<h5 class=card-title>"+ cardTitle+"</h5>"
-									+"<p class=card-text>"+ cardSubtitle +"</p></div>"
-							+"</div>"
+							card + "</div>"
 						 )
 				}else {
 					 $('.ourStorySpace .col-12').append(
-						"<div id="+"\'"+ storyId +"\'"+" class=card>"
-							+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
-								+"<h5 class=card-title>"+ cardTitle+"</h5>"
-								+"<p class=card-text>"+ cardSubtitle +"</p></div>"
-							+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
-							+'<span class="close material-symbols-outlined">close</span></button>'
+						card
+						+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
+						+'<span class="close material-symbols-outlined">close</span></button>'
 						+"</div>"
 					 ) 
 				}
