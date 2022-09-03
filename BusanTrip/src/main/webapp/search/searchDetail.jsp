@@ -54,10 +54,13 @@
 			bottom: 100px;
 			right: 10px;
 		}
+		.searchDetail-lower{
+			min-height: calc(100vh - 290px);
+		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 180px);
+			min-height: calc(100vh - 190px); /*상하단바 190px */
 			padding: 20px 0;
 		}
 		#toTop{
@@ -67,6 +70,12 @@
 		.box-1{
 			border-radius: 10px;
 			box-shadow: 1px 3px 5px 3px lightGray;
+			min-height: calc(100vh - 230px);
+		}
+		.collapseInnerWrap{
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -90,18 +99,17 @@
 	}
 	.box-1{
 		max-width: 720px;
-		min-height: calc(100vh - 150px);
 		margin: 0 auto;
 		text-align: center;
 		background-color: #fef0f0;
 	}
 	.searchDetail-upper {
 		width: 100%;
-		max-width: 500px;
-		margin: 15px auto;
+		max-width: 720px;
 		text-align: center;
-		height: 140px;
-		
+		padding-top: 20px;
+		position: relative;
+		bottom: 0;
 		
 	}
 	
@@ -110,16 +118,9 @@
 		background-color: white;
 		max-width: 720px;
 		text-align: center;
-		min-height: 5vh;
-		border-radius: 5px;
+		border-radius: 0 0 5px 5px;
 		padding-bottom: 10px;
-	}
-	
-	.ud-center {
-		/* background-color: white;
-		position: absolute;
-		left: 50%; top: 50%;
-		transform: translate(-50%, -50%); */
+		padding-top: 10px;
 	}
 	
 	.searchDetail-upper-top {
@@ -127,6 +128,10 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+	}
+	.condition-collapseWrap{
+		padding: 2px auto;
+		background-color: white;
 	}
 	
 	/* */
@@ -145,26 +150,31 @@
 	}
 	
 	.searchDetail-upper-bottom {
+		background-color: lightGray;
 		text-align: center;
 	}
-	
+	.conditon-btn{
+		font-variation-settings:
+		'FILL' 0,
+		'wght' 400,
+		'GRAD' 0,
+		'opsz' 48
+	}
 	.searchDetail-upper-bottom-inner {
 		text-align: center;
 		display: flex;
 		justify-content: space-around;
-		margin: 2px 2px;
 	}
-	
 	.periodBox {
 		border-radius: 10px;
-		border: 3px outset #53565A;
+		border: 2px solid lightGray;
 		font-weight: bold;
 		width: 100px;
 		margin: 0 1px 1px;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 	.searchBox {
-		width: 40px;
-		margin: 1px 0;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -178,10 +188,11 @@
 	.periodBox-choiced {
 		width: 100px;
 		border-radius: 10px;
-		border: 3px outset #53565A;
-		background-color: lightGray;
+		border: 3px solid #ff6666;
 		font-weight: bold;
 		margin: 0 1px 1px;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 	
 	.periodBox:hover, .searchBox:hover {
@@ -229,6 +240,7 @@
 		bottom: 4px;
 		margin: 0 2px;
 		width: 20px;
+		z-index: 96;
 	}
 	
 	.storeName {
@@ -304,7 +316,7 @@
 			success: function(res){
 				/* console.log(res) */
 				$('.accountNumber').text(accountNumber)
-				$('.amount').text(res+"원")
+				$('.amount').text(res.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원')
 			},
 			error: function(e) {
 				console.log(e)
@@ -497,33 +509,44 @@
 		<div class="content container">
 			<div class="box-1">
 				<div class="searchDetail-upper">
-					<div class="ud-center">
-						<div class="rounded-lg searchDetail-upper-top">
-							<span class="accountNumber"></span> 
-							<span class="amount"></span>
-						</div>
-						<div class="rounded-lg searchDetail-upper-bottom">
-							<div class="searchDetail-upper-bottom-inner">
-								<input type="text" class="datepicker" id="startDate"
-									readonly="readonly"> <span width="15px"><b>~</b></span>
-								<input type="text" class="datepicker" id="endDate"
-									readonly="readonly">
-								<span class="searchBox">
-									<span class="material-symbols-outlined">
-									search
-									</span>
-								</span>
+					<div class="searchDetail-upper-top">
+						<span class="accountNumber"></span> 
+						<span class="amount"></span>
+					</div>
+				</div>
+				<div class="searchDetail-upper-bottom d-flex justify-content-between align-items-center px-3 mt-3">
+					<div>총 지출금액</div>
+					<div>
+						<a data-toggle="collapse" href="#conditionCollpase" 
+						   style="text-decoration: none; color: black;"
+						   class="d-flex justify-content-end  align-items-center">
+							<span>최신순</span><span class="mx-2 mb-1">|</span>
+							<span>기간</span>
+							<span class="conditon-btn material-symbols-outlined">
+								arrow_drop_down
+							</span>
+						</a>
+					</div>
+				</div>
+				<div class="condition-collapseWrap">
+					<div class="collapse" id="conditionCollpase">
+						<div class="collapseInnerWrap">
+							<div class="periodBoxWrap">
+								<span class="periodBox" value="1">1개월</span>
+								<span class="periodBox" value="3">3개월</span>
+								<span class="periodBox" value="6">6개월</span>
 							</div>
-
 							<div class="searchDetail-upper-bottom-inner">
-								<span class="periodBox" value="1">1개월</span> <span
-									class="periodBox" value="3">3개월</span> <span class="periodBox"
-									value="6">6개월</span> <span class="periodBox" value="12">1년</span>
+								<input type="text" class="datepicker" id="startDate" readonly="readonly"> 
+								<span width="15px"><b>~</b></span>
+								<input type="text" class="datepicker" id="endDate" readonly="readonly">
+							</div>
+							<div class="searchBox">
+								<button class="btn">조회</button>
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<div id="detailBox" class="searchDetail-lower">
 
 				</div>
