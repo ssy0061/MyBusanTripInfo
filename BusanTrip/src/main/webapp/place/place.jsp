@@ -533,8 +533,8 @@
 					url: '/store/deleteWishlist',
 					data: {'storeId': storeId, 'memberId': memberId},
 					success: function(result) {
-						alert('delete!');  // 이거 안 먹히네;;; 모달창 닫고 열어야 된다.
-						$(this).attr('class', 'bi bi-star');
+						$('#likeBtn').attr('class', 'bi bi-star');
+						// DOM상에 명시적으로 불러진 elem을 변경해야 먹힌다
 					},
 					error: function(e){ console.log(e); }
 				});  // deleteWishlist end
@@ -545,8 +545,8 @@
 					url: '/store/addWishlist',
 					data: {'storeId': storeId, 'memberId': memberId},
 					success: function(result) {
-						alert('add!');  // 이거 안 먹히네;;; 모달창 닫고 열어야 된다.
-						$(this).attr('class', 'bi bi-star-fill');
+						$('#likeBtn').attr('class', 'bi bi-star-fill');
+						// DOM상에 명시적으로 불러진 elem을 변경해야 먹힌다
 					},
 					error: function(e){ console.log(e); }
 				});  // addWishlist end
