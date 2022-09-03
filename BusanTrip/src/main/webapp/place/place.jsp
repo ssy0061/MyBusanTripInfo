@@ -461,6 +461,18 @@
 				},
 				error: function(e){ console.log(e); }
 			});  // findStoreTransaction end
+			
+			$.ajax({
+				type: 'post',
+				url: '/store/findExistWishlist',
+				data: {'storeId': storeId, 'memberId': memberId},
+				success: function(result) {
+					$('#likeBtn').attr('store-id', storeId);
+					if (Boolean(result)) $('#likeBtn').attr('class', 'bi bi-star-fill');  // 즐찾된경우
+					else $('#likeBtn').attr('class', 'bi bi-star');  // 안즐찾시
+				},
+				error: function(e){ console.log(e); }
+			});  // findExistWishlist end
 		}  // serachModalChange end
 		
 		
@@ -509,6 +521,40 @@
 			// center 이동
 			map.setCenter(new kakao.maps.LatLng(lati, longi));
 		});  // searchModal's modal show end
+		
+		
+		$('#likeBtn').click(function() {
+			let storeId = $(this).attr('store-id');
+			
+			if ($(this).attr('class').includes('fill')) {
+				// 즐겨찾기가 되어있는 경우
+				$.ajax({
+					type: 'post',
+					url: '/store/deleteWishlist',
+					data: {'storeId': storeId, 'memberId': memberId},
+					success: function(result) {
+						$('#likeBtn').attr('class', 'bi bi-star');
+						// DOM상에 명시적으로 불러진 elem을 변경해야 먹힌다
+					},
+					error: function(e){ console.log(e); }
+				});  // deleteWishlist end
+			} else {
+				// 즐겨찾기가 안 되어있는 경우
+				$.ajax({
+					type: 'post',
+					url: '/store/addWishlist',
+					data: {'storeId': storeId, 'memberId': memberId},
+					success: function(result) {
+						$('#likeBtn').attr('class', 'bi bi-star-fill');
+						// DOM상에 명시적으로 불러진 elem을 변경해야 먹힌다
+					},
+					error: function(e){ console.log(e); }
+				});  // addWishlist end
+			}
+			
+			
+		});
+		
 	});  // JQuery
 	
 	function generateId() {
@@ -630,7 +676,7 @@
 	</c:import>
 	
 	<div class="content container">
-		
+	
 		<%-- 로그인되어 있는 경우에만 My핫플 정보를 출력 --%>
 		<c:if test="${!empty loginUser}">
 			<div class="place-upper">
