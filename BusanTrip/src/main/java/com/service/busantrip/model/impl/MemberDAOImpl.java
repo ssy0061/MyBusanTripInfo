@@ -41,8 +41,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
-	public String getMemberName(String memberId) {
-		return sqlSession.selectOne(NS+"getMemberName",memberId);
+	public Member findMemberInfo(String memberId) {
+		return sqlSession.selectOne(NS+"findMemberInfo",memberId);
 	}
 	
 	@Override

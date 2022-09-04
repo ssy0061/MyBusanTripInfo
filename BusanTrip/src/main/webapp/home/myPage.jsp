@@ -21,60 +21,32 @@
 	*{
 		box-sizing:border-box;
 	}
-	.space100 {
-		height:100px;
+	.space85 {
+		height:85px;
 	}
 	.container{
 		width:80%;
 		max-width:800px;
 		margin: 20px auto;
 	}
-	.swiperContent h5{
+	.swiperContent h5, .myPlace h5{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
 	}
-	#first-row, #fourth-row{
-		margin-top:20px;
-	}
 	/* == first row == */
-	#accountPlace{
-		width:100%;
-		height:140px;
-		padding:20px 20px;
-		border-style:solid;
-		border-color:gray;
-		border-radius:5px;
-	}
-	#bnkIcon{
-		width:30px;
-		height:30px;
-		border-style:solid;
-		border-radius:10px;
-		border-color:#CB333B;
-	}
-	#accountPrice{
-		width:100%;
-	    font-size: 22px;
-	    text-align: right;
-	    font-weight:bold;
+	#first-row{
+		margin-top:20px;
 	}
 	.charPlace{
 		display: flex;
         justify-content: center;
         align-items: center;
 	}
-	.charPlace.large{
-		width:80%;
-		height:140px;
-	}
-	.charPlace.small{
-		height:120px;
-		width:auto;
-		padding-top:10px;
-	}
 	.charIamge{
-		width:auto;
-		height:100%;
+		width:40%;
+		max-width:150px;
+		min-width:100px;
+		height:auto;
 		border-style:solid;
 		border-color:#CB333B;
 		border-width:4px;
@@ -83,6 +55,27 @@
 	}
 	.charIamge:hover{
 		cursor:pointer;
+	}
+	.infoPlace{
+		display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top:12px;
+	}
+	.myInfo{
+		width:80%;
+		max-width:400px;
+		border-color:gray;
+		border-radius:5px;
+		border-style:solid;
+		padding:5px 20px 5px 20px;
+	}
+	.myInfo p{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	.userInfo{
+		margin:4px 0 4px 0;
 	}
 	/* modal */
 	.modal-header{
@@ -117,33 +110,32 @@
 		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	 }
+	 #editModal h4{
+	 	font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	 }
+	 #editModal p{
+	 	font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	 }
 	/* == second row == */
 	#second-row{
-		margin:20px 1px 20px 1px;
+		margin:10px 1px 20px 1px;
 		display:flex;
 		justify-content:space-around;
 	}
-	.button1, .button2{
-		width:28%;
-		padding:6px 0;
-		color:#4CAF50;
-		font-weight:600;
-		background-color:white;
-		border: 3px solid #4CAF50;
-		border-radius:2px;
-	}
 	.button3{
-		width:40%;
-		padding:6px 0;
-		color:#4CAF50;
-		font-weight:600;
-		background-color:white;
-		border: 3px solid #4CAF50;
-		border-radius:2px;
-	}
-	.button1:hover, .button2:hover, .button3:hover{
-		background-color:#4CAF50;
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
 		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#53565A;
+		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* == third row == */
 	#whichPlace, #myPlace{
@@ -176,8 +168,7 @@
     .swiper-slide {
       text-align: center;
       font-size: 18px;
-      background: #fff;
-
+      background: #fff
       /* Center slide text vertically */
       display: -webkit-box;
       display: -ms-flexbox;
@@ -214,22 +205,44 @@
 		align-items:end;
 		border-radius:10px;
     	background-size: cover;
-}
+	}
+	.swiperContent h6{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	}
 	/* == fourth row == */
+	#fourth-row{
+		margin-top:20px;
+	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
-		.large, .large>* {
+		.large {
 		  display:none;
 		}
 	}
 	@media screen and (min-width: 576px) {
-		.small, .small>* {
+		.small {
 		  display: none;
 		}
 	}
 </style>
 <script>
 $(document).ready(function() {
+	var memberId = '<%= (String)session.getAttribute("memberId") %>';
+	$.ajax({
+		type:'post',
+		url:'/member/findMemberInfo',
+		data:{'memberId':memberId},
+		success:function(result){
+			$('#userName').append(result.memberName);
+			$('#userId').append(memberId);
+			$('#userTele').append(result.memberTele);
+			$('#userAddr').append(result.memberAddr);
+			$('.charPlace').setAttribute(result.memberChar);
+		},
+		error: function(e){ console.log(e); }
+	});
+	
 	var result = [
 		{
 		'user': '사용자1',
@@ -338,26 +351,23 @@ $(document).ready(function() {
 		<c:param name="navTitle" value="마이페이지" />
 	</c:import>
 	<div class="container">
-		<div class="space100"></div>
+		<div class="space85"></div>
 		<div class="row" id="fisrt-row">
-			<div class="col-8">
-				<div id="accountPlace">
-					<p><img id="bnkIcon" src="/img/bank_db.png"> 부산은행 계좌번호</p>
-					<p id="accountPrice">9,999,999원</p>
+			<div class="col-12">
+				<div class="charPlace">
+					<img class="charIamge" src="/img/character_01.png" data-toggle="modal" data-target="#editModal">
 				</div>
-			</div>
-			<div class="col-4">
-				<div id="charPlace" class="charPlace small">
-					<img class="charIamge" src="/img/char.png" data-toggle="modal" data-target="#editModal">
-				</div>
-				<div id="charPlace" class="charPlace large">
-					<img class="charIamge" src="/img/char.png" data-toggle="modal" data-target="#editModal">
+				<div class="infoPlace">
+					<div class="myInfo">
+						<p id="userName" class="userInfo">이름 : </p>
+						<p id="userId" class="userInfo">아이디 : </p>
+						<p id="userTele" class="userInfo">전화번호 : </p>
+						<p id="userAddr" class="userInfo">주소 : </p>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row" id="second-row">
-			<button type="button" class="button1">충전</button>
-			<button type="button" class="button2">결제</button>
 			<button type="button" class="button3">정보 수정</button>
 		</div>
 		
@@ -378,12 +388,11 @@ $(document).ready(function() {
 		  <div class="swiper-scrollbar"></div>
 		</div>
 		
-		<div class="row" id="fourth-row">
+		<div class="row myPlace" id="fourth-row">
 			<div class="col-12">
-				<div id="myPlace">
-					<p>나의 플레이스 (찜 목록)</p>
-				</div>
+				<h5>나의 플레이스 (찜 목록)</h5>
 			</div>
+			
 		</div>
 		<div class="space100"></div>
 	</div>

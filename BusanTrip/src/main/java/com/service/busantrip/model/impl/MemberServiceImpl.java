@@ -56,8 +56,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public String getMemberName(String memberId) {	//
-		return memberDAO.getMemberName(memberId);
+	public Member findMemberInfo(String memberId) {	//
+		return memberDAO.findMemberInfo(memberId);
 	}
 	
 	@Override

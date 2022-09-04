@@ -11,7 +11,7 @@ public interface MemberService {
 	public int join(Member member); //회원가입
 	public Boolean findIdExist(String memberId); //아이디 중복 확인용 아이디 리스트..
 	
-	public String getMemberName(String memberId);
+	public Member findMemberInfo(String memberId);
 	
 	public Member login(Member member); //로그인
 	public void logout(); //로그아웃

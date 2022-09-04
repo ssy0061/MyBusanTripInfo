@@ -66,6 +66,10 @@
 		margin:0 0 10px 0;
 		border-radius:5px;
 	}
+	#diaryName{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	}
 	/* modal */
 	#membersearch{
 		border-color:transparent;
@@ -140,7 +144,7 @@
 									+'<div class="card" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/diary_detail\'\">"
 										+ '<img class="card-img-top m-0" src=' + imageUrl +' alt="Card image" style="width:100%">'
 										+ '<div class="py-2">'
-											+ ' <div class="card-content m-0" style="font-size: 1rem;">' + diaryName + '</div>'
+											+ ' <div id="diaryName" class="card-content m-0" style="font-size: 1rem;">' + diaryName + '</div>'
 										+ '</div>'
 									+'</div></div>'
 								

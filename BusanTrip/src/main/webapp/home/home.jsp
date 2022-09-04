@@ -19,6 +19,9 @@
 <%-- scroll 고정. --%>
 <script>history.scrollRestoration = "manual"</script>
 <style type="text/css">
+	*{
+		box-sizing:border-box;
+	}
 	:root {
 	  --bnk-red: #E60000;
 	  --bnk-dark-red: #BE0000;
@@ -137,6 +140,13 @@
 		width: 100%;
 		text-align: left;
 	}
+	#bnkIcon{
+		width:30px;
+		height:30px;
+		border-style:solid;
+		border-radius:10px;
+		border-color:#CB333B;
+	}
 	
 	#logoutBox {
 		width: 40px;
@@ -206,8 +216,9 @@
 	
 	.ud-center {
 		width: 100%;
+		height:250px;
 		position: absolute;
-		left: 50%; top: 50%;
+		left: 50%; top: 80%;
 		transform: translate(-50%, -50%);
 	}
 	
@@ -254,10 +265,10 @@
 		if (memberId != 'null') {
 			$.ajax({
 				type: 'post',
-				url: '/member/getMemberName',
+				url: '/member/findMemberInfo',
 				data: {'memberId': memberId},
 				success: function(result) {
-					$('#userName').text(result);
+					$('#userName').text(result.memberName);
 				},
 				error: function(e){ console.log(e); }
 			});  // getMemberName end
@@ -416,6 +427,7 @@
 							</c:choose>
 						</div>
 					</div>
+
 
 					<div class="home-middle slideUp2">
 						<div id="eventSlide" class="carousel slide" data-ride="carousel">

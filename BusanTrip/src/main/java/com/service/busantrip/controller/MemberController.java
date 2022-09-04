@@ -56,11 +56,11 @@ public class MemberController {
 			return "/bnk/home";
 	}
 	
-	@PostMapping("getMemberName")
+	@PostMapping("findMemberInfo")
 	@ResponseBody
-	public String getMemberName(String memberId, Model model, HttpSession session) {
-		String memberName = memberService.getMemberName(memberId);
-		return memberName;
+	public Member findMemberInfo(String memberId, Model model, HttpSession session) {
+		Member member = memberService.findMemberInfo(memberId);
+		return member;
 	}
 	
 	@PostMapping("getBalance")

@@ -19,8 +19,8 @@
 		VALUES(#{accountNumber}, #{memberId})
 	</insert>
 	
-	<select id="getMemberName" parameterType="String" resultType="String">
-		SELECT MEMBER_NAME
+	<select id="findMemberInfo" parameterType="String" resultType="member">
+		SELECT MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR, MEMBER_CHAR
 		FROM MEMBER
 		WHERE MEMBER_ID = #{memberId}
 	</select>
