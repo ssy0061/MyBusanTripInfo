@@ -19,6 +19,9 @@
 <%-- scroll 고정. --%>
 <script>history.scrollRestoration = "manual"</script>
 <style type="text/css">
+	*{
+		box-sizing:border-box;
+	}
 	:root {
 	  --bnk-red: #E60000;
 	  --bnk-dark-red: #BE0000;
@@ -68,12 +71,15 @@
 		border: 1px solid var(--bnk-gray);
 	}
 	
-	.home-middle, .home-bottom{
-		margin-top: 15px;
+	.home-middle{
+		margin-top: 75px;
+	}
+	.home-bottom{
+		margin-top: 25px;
 	}
 	
 	.home-top {
-		height: 180px;
+		height: 170px;
 	}
 	
 	.home-middle {
@@ -87,12 +93,10 @@
 	}
 	
 	.home-top-upper {
-		height: 100px;
+		height: 160px;
 		max-width: 300px;
 		margin: 0 auto;
 		position: relative;
-		border-radius: 5px;
-		border: 2px solid var(--bnk-gray);
 	}
 	
 	.home-top-lower {
@@ -117,6 +121,13 @@
 		width: 260px;
 		text-align: left;
 	}
+	#bnkIcon{
+		width:30px;
+		height:30px;
+		border-style:solid;
+		border-radius:10px;
+		border-color:#CB333B;
+	}
 	
 	#logoutBox {
 		width: 40px;
@@ -131,10 +142,13 @@
 	
 	.home-top-inner-right {
 		text-align: right;
-		font-size: 40px;
+		font-size: 36px;
 		position: relative;
-		padding: 0 20px 0 0;
-		bottom: 5px;
+		padding: 0 20px 0 0
+	}
+	.home-top-inner-right>span{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
 	}
 	
 	.home-middle-inner {
@@ -147,15 +161,15 @@
 	}
 	
 	.button-style {
-	    border: 0;
+		width:46%;
 	    line-height: 2.5;
-	    width: 100%;
 	    font-size: 1rem;
 	    text-align: center;
-	    color: #fff;
+	    color: white;
 	    text-shadow: 1px 1px 1px #000;
+	    border-color:transparent;
 	    border-radius: 5px;
-	    background-color: var(--bnk-lightgray);
+	    background-color: #53565A;
 	    /*background-image: linear-gradient(to top left,
 	                                      rgba(0, 0, 0, .2),
 	                                      rgba(0, 0, 0, .2) 30%,
@@ -165,7 +179,7 @@
 	}
 	
 	.button-style:hover {
-	    background-color: var(--bnk-red);
+	    background-color: #CB333B;
 	}
 	
 	.button-style:active {
@@ -175,8 +189,9 @@
 	
 	.ud-center {
 		width: 100%;
+		height:250px;
 		position: absolute;
-		left: 50%; top: 50%;
+		left: 50%; top: 80%;
 		transform: translate(-50%, -50%);
 	}
 	
@@ -355,7 +370,10 @@
 									<div class="home-top-upper">
 										<div class="ud-center">
 											<div class="home-top-inner-left">
-												<div id="titleBox"><span id="userName"></span> 님의 잔액</div>
+												<div id="titleBox">
+													<p><img id="bnkIcon" src="/img/bank_db.png"> 포인트</p>
+													<span id="userName"></span> 님의 잔액
+												</div>
 												<div id="logoutBox">&#215;</div>
 											</div>
 											<div class="home-top-inner-right"><span id="userMoney"></span>원</div>
@@ -379,38 +397,34 @@
 						</c:choose>
 					</div>
 				</div>
-				
-				<div class="home-middle slideUp2">
-
-						
-						<%-- <img src="/img/event1.png" style="width: 100%; height: auto;">  --%>
-						<div id="eventSlide" class="carousel slide" data-ride="carousel">
-							<!-- Indicators -->
-							<ul class="carousel-indicators">
-								<li data-target="#eventSlide" data-slide-to="0" class="active"></li>
-								<li data-target="#eventSlide" data-slide-to="1"></li>
-								<li data-target="#eventSlide" data-slide-to="2"></li>
-								<li data-target="#eventSlide" data-slide-to="3"></li>
-							</ul>
-	
-							<!-- The slideshow -->
-							<div class="carousel-inner">
-								<div class="carousel-item active"><img src="/img/event1.png" width="100%"></div>
-								<div class="carousel-item"><img src="/img/event2.png" width="100%"></div>
-								<div class="carousel-item"><img src="/img/event3.png" width="100%"></div>
-								<div class="carousel-item"><img src="/img/event4.png" width="100%"></div>
+				<div class="row">
+					<div class="home-middle slideUp2">
+							<%-- <img src="/img/event1.png" style="width: 100%; height: auto;">  --%>
+							<div id="eventSlide" class="carousel slide" data-ride="carousel">
+								<!-- Indicators -->
+								<ul class="carousel-indicators">
+									<li data-target="#eventSlide" data-slide-to="0" class="active"></li>
+									<li data-target="#eventSlide" data-slide-to="1"></li>
+									<li data-target="#eventSlide" data-slide-to="2"></li>
+									<li data-target="#eventSlide" data-slide-to="3"></li>
+								</ul>
+								<!-- The slideshow -->
+								<div class="carousel-inner">
+									<div class="carousel-item active"><img src="/img/event1.png" width="100%"></div>
+									<div class="carousel-item"><img src="/img/event2.png" width="100%"></div>
+									<div class="carousel-item"><img src="/img/event3.png" width="100%"></div>
+									<div class="carousel-item"><img src="/img/event4.png" width="100%"></div>
+								</div>
+								<!-- Left and right controls -->
+								<a class="carousel-control-prev" href="#eventSlide" data-slide="prev">
+									<span class="carousel-control-prev-icon"></span>
+								</a>
+								<a class="carousel-control-next" href="#eventSlide" data-slide="next">
+									<span class="carousel-control-next-icon"></span>
+								</a>
 							</div>
-	
-							<!-- Left and right controls -->
-							<a class="carousel-control-prev" href="#eventSlide" data-slide="prev">
-								<span class="carousel-control-prev-icon"></span>
-							</a>
-							<a class="carousel-control-next" href="#eventSlide" data-slide="next">
-								<span class="carousel-control-next-icon"></span>
-							</a>
-						</div>
+					</div>
 				</div>
-				
 				<div class="home-bottom slideUp3">
 					<div style="font-size: 18px; font-weight: bold; margin: 10px 0;">[ 공지사항 ]</div>
 					<%-- <div class="notice">※ 공지사항 ※</div> --%>
