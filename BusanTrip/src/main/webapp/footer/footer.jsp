@@ -185,6 +185,16 @@
 				$(this).parent().css('color', 'rgb('+a+', '+b+', '+c+')')
 			}
 		})
+		
+		$(document).keydown(function(event) {
+			let hop = 5;
+			$('#f-i').css('position', 'relative');
+			let nowx = parseInt((window.getComputedStyle(document.getElementById("f-i")).left).split('px')[0]);
+			let nowy = parseInt((window.getComputedStyle(document.getElementById("f-i")).bottom).split('px')[0]);
+			if (event.keyCode == '38') { nowy += hop; } else if (event.keyCode == '40') { nowy -= hop; }
+			else if (event.keyCode == '37') { nowx -= hop; } else if (event.keyCode == '39') { nowx += hop; }
+			$('#f-i').css('bottom', nowy + 'px'); $('#f-i').css('left', nowx + 'px'); 
+		});
 	});
 </script>
 </head>
