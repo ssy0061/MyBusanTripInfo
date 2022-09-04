@@ -85,14 +85,7 @@
 	}
 	
 	.home-top {
-		border: 1px solid var(--bnk-gray);
-	}
-	
-	.home-middle{
-		margin-top: 15px;
-	}
-	
-	.home-top {
+		background-color: #fef0f0;
 		height: 180px;
 	}
 	
@@ -100,11 +93,13 @@
 		max-height: 250px;
 		overflow: hidden;
 		border-radius: 10px;
+		margin-top: 15px;
 	}
 	
 	.home-bottom {
 		min-height: 10px;
 		padding: 10px 0;
+		background-color: #fef0f0;
 	}
 	
 	.home-top-upper {
@@ -114,7 +109,8 @@
 		margin: 0 auto;
 		position: relative;
 		border-radius: 5px;
-		border: 2px solid var(--bnk-gray);
+		box-shadow: 0px 5px 8px -3px #aaa;
+		background-color: white;
 	}
 	
 	.home-top-lower {
@@ -186,25 +182,19 @@
 	}
 	
 	.button-style {
-	    border: 0;
-	    line-height: 2.5;
+	    line-height: 2.0;
 	    width: 100%;
+	    background-color: white;
+	    border: 0;
+	    border-radius: 5px;
 	    font-size: 1rem;
 	    text-align: center;
-	    color: #fff;
-	    text-shadow: 1px 1px 1px #000;
-	    border-radius: 5px;
-	    background-color: var(--bnk-lightgray);
-	    /*background-image: linear-gradient(to top left,
-	                                      rgba(0, 0, 0, .2),
-	                                      rgba(0, 0, 0, .2) 30%,
-	                                      rgba(0, 0, 0, 0));
-	    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
-	                inset -2px -2px 3px rgba(0, 0, 0, .6);*/
+	    box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.button-style:hover {
-	    background-color: var(--bnk-red);
+	    background-color: var(--bnk-dark-red);
+	    color: #fff;
 	}
 	
 	.button-style:active {
@@ -212,15 +202,13 @@
 	                inset 2px 2px 3px rgba(0, 0, 0, .6);
 	}
 	
+	.blank { width: 20px; }
+	
 	.ud-center {
 		width: 100%;
 		position: absolute;
 		left: 50%; top: 50%;
 		transform: translate(-50%, -50%);
-	}
-	
-	.home-bottom {
-		background-color: #fef0f0;
 	}
 	
 	.notice {
@@ -335,7 +323,6 @@
 	});
 
 	
-	
 	function chargepoint(){
 		var chargepoint = $('#chargepoint').val();
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
@@ -377,9 +364,7 @@
 	
 </script>
 
-
 </head>
-
 <body>
 
 	<div>
@@ -415,6 +400,7 @@
 										<div class="home-top-lower">
 											<button class="button-style" type="button"
 												data-toggle="modal" data-target="#chargeModal">충전</button>
+											<div class="blank"></div>
 											<button class="button-style" type="button"
 												data-toggle="modal" data-target="#payModal">결제</button>
 										</div>
