@@ -154,6 +154,9 @@
 		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
+	.addTransYes:hover, .memberSearchOk:hover, .playListOk:hover{
+		color:white;
+	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
 		.large {
