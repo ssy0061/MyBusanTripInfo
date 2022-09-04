@@ -226,8 +226,15 @@
 		height: 180px;
 	}
 	
-	.login span{
-		font-size: 2rem;
+	.login-inner{
+		font-size: 30px;
+		box-shadow: 0px 5px 8px -3px #aaa;
+		background-color: white;
+		border-radius: 5px;
+		margin: 0 20px;
+		font-weight: bold;
+		height: 140px;
+		line-height: 135px;
 	}
 	
 	/* event slide 모양 처리 */
@@ -409,7 +416,7 @@
 								<c:when test="${empty loginUser}">
 									<div class="login">
 										<div class="ud-center">
-											<span>로그인 하기</span>
+											<div class="login-inner">로그인 하기</div>
 										</div>
 									</div>
 								</c:when>
