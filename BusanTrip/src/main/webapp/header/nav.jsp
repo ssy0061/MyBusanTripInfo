@@ -191,7 +191,7 @@
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		var path = window.location.pathname.split('/').pop(1);
 		console.log()
-		if(loginUser!=null && path!='myPage') {
+		if(${loginUser!=null} && path!=='myPage') {
 			$('.nav-mobile').append(
 					'<div id="navUserImgWrap">'+
 					'<img src="${loginUser.memberChar}" id=navUserImg></div>'
@@ -281,13 +281,6 @@
 						<a href="/bnk/home"><img src="/img/mbti.png" id="nvaHomeMobileLogo"></a>
 					</div>
 				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${false}">
-					<div id="navUserImgWrap">
-						<img src="${loginUser.memberChar}" id=navUserImg>
-					</div>
-				</c:when>
 			</c:choose>
 		</div>
 	</nav>
