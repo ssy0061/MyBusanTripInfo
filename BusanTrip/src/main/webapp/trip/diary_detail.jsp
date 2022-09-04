@@ -21,6 +21,7 @@
 	*{
 		box-sizing:border-box;
 	}
+	
 	.albumTitle{
 		display: flex;
 		flex-direction: column;
@@ -80,6 +81,27 @@
 	.modal-footer>input{
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
+	
+
+/* 	.modal-dialog.modal-fullsize {
+	  width: auto;
+	  height: 100%;
+	  min-width: 100%;
+	  max-width: 768px;
+	  margin: 0;
+	  padding: 0;
+	} */
+	
+	.modal-fullsize {
+	  width: 100%;
+	  max-width: 720px;	  
+	  border-radius: 0;
+	}
+	
+	.modal-content-ta {
+	  min-height: 80vh;
+	}
+
 	/* modal - pic */
 	.modal-header, .modal-footer{
 		width:100%;
@@ -154,6 +176,9 @@
 		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
+	.addTransYes:hover, .memberSearchOk:hover, .playListOk:hover{
+		color:white;
+	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
 		.large {
@@ -202,6 +227,7 @@
 		flex-wrap: wrap;
 		align-content: space-between;;
     }
+
 </style>
 <script>
 $(document).ready(function () {
@@ -443,8 +469,8 @@ $(document).ready(function () {
 	</c:import>
 	<div class="container">
 		<div class="space100"></div>
-		<div class="row mt-4 mb-4">
-			<div class="albumTitle col-6 pr-0">
+		<div class="row mt-4 mb-4 ">
+			<div class="albumTitle col-6 pr-0 ">
 				<h3>ㅇㅇ여행</h3>
 				<h5>2022.08.13 ~ 2022.08.15</h5>
 			</div>
@@ -458,6 +484,11 @@ $(document).ready(function () {
 					<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
 					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
 						<span class="material-symbols-outlined receipt_long">receipt_long</span>
+					</button>
+					</a>
+					<a data-toggle="tooltip" data-placement="left" title="결제내역  불러오기">
+					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+						<span class="material-symbols-outlined receipt_long">assignment_add</span>
 					</button>
 					</a>
 				</div>
@@ -531,11 +562,11 @@ $(document).ready(function () {
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="payListModal">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
+	<div class="modal fade pr-0" id="payListModal">
+		<div class="modal-dialog modal-fullsize modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content modal-content-ta">
 				<div class="modal-header">
-					<h4 class="modal-title">결제내역 조회하기</h4>
+					<h3 class="modal-title"> 결제내역 조회하기</h3>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">

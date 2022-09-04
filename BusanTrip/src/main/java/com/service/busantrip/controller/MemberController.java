@@ -1,5 +1,7 @@
 package com.service.busantrip.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -106,10 +108,10 @@ public class MemberController {
 	
 	@PostMapping("updateCharacter")
 	@ResponseBody
-	public String updateCharacter(String memberChar, String memberId, Model model, HttpSession session) {
+	public void updateCharacter(String memberChar, String memberId, Model model, HttpSession session) {
 		memberService.updateCharacter(memberChar, memberId);
 		model.addAttribute("memberChar",memberChar);
-		return "redirect: /bnk/home/mypage"; //마이페이지 링크 추후 수정 필요..
+		
 	}
 	
 	@PostMapping("addExternalTransaction")
@@ -158,6 +160,9 @@ public class MemberController {
 	@ResponseBody
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay, Model model, HttpSession session) {
 		List<Transaction> allTransactionListByPeriod = memberService.findTransactionBySpecificPeriod(accountNumber, startDay, finishDay);
+		 System.out.println("finday :: " + finishDay+" 23:59");
+		
+		System.out.println("현재:: " + LocalTime.now());
 		return allTransactionListByPeriod;
 	}
 	

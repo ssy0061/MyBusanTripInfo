@@ -183,7 +183,6 @@
       -webkit-align-items: center;
       align-items: center;
     }
-
     .swiper-slide img {
       display: block;
       width: 100%;
@@ -214,6 +213,20 @@
 	#fourth-row{
 		margin-top:20px;
 	}
+	#myPlaceList{
+		display:flex;
+		justify-content:center;
+		flex-wrap:wrap;
+		background-color:gray;
+		padding:5px;
+	}
+	.myjjim{
+		display:flex;
+		justify-content:space-around;
+		background-color:white;
+		border-radis:4px;
+		margin:4px;
+	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
 		.large {
@@ -229,6 +242,8 @@
 <script>
 $(document).ready(function() {
 	var memberId = '<%= (String)session.getAttribute("memberId") %>';
+	var memberCharUrl = '';
+	
 	$.ajax({
 		type:'post',
 		url:'/member/findMemberInfo',
@@ -238,10 +253,22 @@ $(document).ready(function() {
 			$('#userId').append(memberId);
 			$('#userTele').append(result.memberTele);
 			$('#userAddr').append(result.memberAddr);
-			$('.charPlace').setAttribute(result.memberChar);
+			$('.charIamge').attr("src", result.memberChar);
 		},
 		error: function(e){ console.log(e); }
 	});
+	
+	function updateChar() {
+		$.ajax({
+			type:'post',
+			url:'/member/findMemberInfo',
+			data:{'memberId':memberId},
+			success:function(result){
+				$('.charIamge').attr("src", result.memberChar);
+			},
+			error: function(e){ console.log(e); }
+		});
+	}
 	
 	var result = [
 		{
@@ -281,8 +308,20 @@ $(document).ready(function() {
 		]}
 	];
 	$('.each-pic').on("click", function(e){
-		var src = $(this).attr("src");
-		console.log(src)
+		memberCharUrl = $(this).attr("src");
+		console.log(memberCharUrl)
+	});
+	$('.charChangeOk').on("click", function(e){
+		$.ajax({
+			type:'post',
+			url:'/member/updateCharacter',
+			data:{'memberChar':memberCharUrl, 'memberId':memberId},
+			success:function(result){
+				console.log(result)
+				updateChar()
+			},
+			error: function(e){ console.log(e); }
+		});
 	});
 	
 	refreshContent();
@@ -391,6 +430,9 @@ $(document).ready(function() {
 		<div class="row myPlace" id="fourth-row">
 			<div class="col-12">
 				<h5>나의 플레이스 (찜 목록)</h5>
+				<div id="myPlaceList">
+					<div class="myjjim col-md-5 px-0"><span class="jjimname">가게이름</span><span class="jjimploc">위치</span></div>
+				</div>
 			</div>
 			
 		</div>
