@@ -130,14 +130,15 @@
 		text-align: left;
 		font-size: 18px;
 		position: relative;
-		padding: 0 18px 0 12px;
-		top: 6px;
+		top: 10px;
 		display: flex;
 		justify-content: space-around;
+		width: 100%;
+		padding: 0 10px;
 	}
 	
 	#titleBox {
-		width: 260px;
+		width: 100%;
 		text-align: left;
 	}
 	
@@ -147,18 +148,32 @@
 		font-weight: bold;
 		position: relative;
 		bottom: 14px;
-		left: 15px;
+		left: 8px;
 		font-size: 24px;
 		color: var(--bnk-dark-red);
 	}
 	
 	.home-top-inner-right {
 		text-align: right;
-		font-size: 32px;
+		font-size: 30px;
 		position: relative;
 		padding: 0 12px 0 0;
-		bottom: 6px;
+		bottom: 8px;
 		font-weight: bold;
+		width: 100%;
+	}
+	
+	@media screen and (max-width: 330px) {  /* 작은폰 */
+		.home-top-inner-left { font-size: 15px; }
+		.home-top-inner-right { font-size: 25px; }
+	}
+	@media screen and (min-width: 330.1px) {  /* 그 이상 */
+		.home-top-inner-left { font-size: 18px; }
+		.home-top-inner-right { font-size: 30px; }
+	}
+	@media screen and (min-width: 992.1px) {  /* 매우 큰 경우 이상 */
+		.home-top-inner-left { font-size: 20px; padding: 0 35px; }
+		.home-top-inner-right { font-size: 35px; padding: 0 35px; }
 	}
 	
 	.home-middle-inner {
