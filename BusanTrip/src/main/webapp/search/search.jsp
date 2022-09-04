@@ -63,8 +63,8 @@
 	
 	.search-box-inner {
 		max-width: 500px;
-		width: 80%;
-		margin: 0 auto 30px;
+		width: 95%;
+		margin: 0 auto 15px;
 		height: 100px;
 		/* position: relative; */
 		background-color: white;
@@ -164,15 +164,18 @@
 				/* console.log(result) */
 				for (var i=0; i<result.length; i++) {
 					let accountBank = result[i].accountBank;
-					let icon = "/img/char.png";
-					if(accountBank==='부산은행' || accountBank==='경남은행') icon = "/img/bank_bnk.png"
+					let icon = "/img/bank_bnk.png" /* 부산은행 or 경남은행 */
 					let accountNumber = result[i].accountNumber;
 					let accountBalance = result[i].accountBalance;
 					let id = result[i].id;
 					
 					accountBalance = accountBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  + " 원"
-					
-					$('#searchBox').append(
+					var goTo = '#account'
+					if(accountBank === '포인트') {
+						goTo = '#point';
+						icon = "/img/char.png";
+					}
+					$(goTo).append(
 						'<div id="'+accountNumber+'" class="rounded-lg shadow bg-white search-box-inner">'+
 						'<div class="ud-center">'+
 						
@@ -186,7 +189,6 @@
 						'<span class="amount">'+accountBalance+'</span>'+
 						'</div></div></div>'
 					);
-					
 				}  // Initial
 			},
 			error: function(e){
@@ -205,7 +207,12 @@
 		
 	<div class="content container">
 		<div id="searchBox" class="search-box">
-		
+			<div id="point">
+			
+			</div>
+			<div id="account">
+			
+			</div>
 		</div>
 	</div>
 	

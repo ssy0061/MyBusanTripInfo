@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -267,41 +267,39 @@ $(document).ready(function () {
 				'payment': '30000',
 				'memo': 'memo3'
 			}]
-		},
-		{
-		'user': '사용자3',
-		'list': [
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름1',
-				'payment': '20000',
-				'memo': 'memo1'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름2',
-				'payment': '50000',
-				'memo': 'memo2'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름3',
-				'payment': '30000',
-				'memo': 'memo3'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름4',
-				'payment': '70000',
-				'memo': 'memo4'
-			}]
-		},
+		}
 	];
 
 	refreshContent();
 
     $(window).resize(function () {
     });
+    
+	var storyId = location.pathname.split("/")[3];
+	var memberList = [];
+	$.ajax({
+		type: 'post',
+		url: '/story/findStoryMember',
+		data: {'storyId' : storyId},
+		
+		success:function(result) {
+			console.log(result);
+			memberList = result;
+			for(var i=0; i<memberList.length; i++) {
+				$('.mem-id').append(
+					"<p align=center>"+memberList[i].memberId+"</p>"		
+				);
+				$('.mem-name').append(
+					"<p align=center>"+memberList[i].storymemberName+"</p>"	
+				);
+				
+			}
+		},
+		error:function(e) {
+			console.log(e);
+		}
+		
+	})
     
     //this function define the size of the items
     function refreshContent() {
@@ -355,7 +353,7 @@ $(document).ready(function () {
     	        }
     		});
     	}
-    }
+    } //refreshContent
     
     var fileArr = "";
     /* multi file upload */
@@ -396,11 +394,11 @@ $(document).ready(function () {
 				
 				reader.readAsDataURL(file)
 				
-				})
-				multiContainer.appendChild($colDiv)
-			}
-			
+			})
+			multiContainer.appendChild($colDiv)
 		}
+			
+	} //readMultiImage(input)
 	const inputMultiImage = document.getElementById("upload")
 		inputMultiImage.addEventListener('change', (e) => {
 			readMultiImage(e.target)
@@ -409,6 +407,7 @@ $(document).ready(function () {
 	function deleteFile(obj){
 		obj.parent().remove();
 	}
+
 	$('#resetUpload').hide();
 	$('#resetUpload').click(function(){
 		$('#multiContainer').children().remove();
@@ -474,74 +473,9 @@ $(document).ready(function () {
 		<div class="swiperContent">
 
 		</div>
-		<div class="row">
-			<div class="col-12">
-				<h5>사용자A</h5>
-			</div>
-		</div>
 		
-		<!-- Slider main container -->
-		<div class="swiper mySwiper">
-		  <!-- Additional required wrapper -->
-		  <div class="swiper-wrapper">
-		    <!-- Slides -->
-		    <div class="swiper-slide">
-				<div class="card">
-                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-					<div class="card-body">
-						<h6 class="card-text">결제일시</h6>
-						<div class="card-text pay-store"><h5 class="card-title">가게이름1</h5></div>
-						<div class="card-text pay-price"><h5>결제금액</h5></div>
-						<h6>메모 내용 들어갈 곳</h6>
-					</div>
-                </div>
-			</div>
-		    <div class="swiper-slide">
-				<div class="card">
-                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-					<div class="card-body">
-						<h6 class="card-text">결제일시</h6>
-						<div class="card-text pay-store"><h5 class="card-title">가게이름2</h5></div>
-						<div class="card-text pay-price"><h5>결제금액</h5></div>
-						<h6>메모 내용 들어갈 곳</h6>
-					</div>
-                </div>
-			</div>
-		    <div class="swiper-slide">
-				<div class="card">
-                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-					<div class="card-body">
-						<h6 class="card-text">결제일시</h6>
-						<div class="card-text pay-store"><h5 class="card-title">가게이름3</h5></div>
-						<div class="card-text pay-price"><h5>결제금액</h5></div>
-						<h6>메모 내용 들어갈 곳</h6>
-					</div>
-                </div>
-			</div>
-		    <div class="swiper-slide">
-				<div class="card">
-                    <img class="card-img-top" src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL" style="width:100%">
-					<div class="card-body">
-						<h6 class="card-text">결제일시</h6>
-						<div class="card-text pay-store"><h5 class="card-title">가게이름4</h5></div>
-						<div class="card-text pay-price"><h5>결제금액</h5></div>
-						<h6>메모 내용 들어갈 곳</h6>
-					</div>
-                </div>
-			</div>			
-		  </div>
-		  <!-- If we need pagination -->
-		  <div class="swiper-pagination"></div>
 		
-		  <!-- If we need scrollbar -->
-		  <div class="swiper-scrollbar"></div>
-		</div>
-		
-		<div class="row">
-			<div class="col-12">
-				<h5>사용자B</h5>
-			</div>
-		</div>
+	
 		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
@@ -584,17 +518,11 @@ $(document).ready(function () {
 				<div class="modal-body">
 					<div class="col-6 mem-id">
 						<p align="center">아이디</p>
-						<p align="center">aaaaa</p>
-						<p align="center">bbbbb</p>
-						<p align="center">ccccc</p>
-						<p align="center">ddddd</p>
+						<hr>
 					</div>
 					<div class="col-6 mem-name">
 						<p align="center">이름</p>
-						<p align="center">에이에이</p>
-						<p align="center">비비비</p>
-						<p align="center">씨씨씨</p>
-						<p align="center">디디디</p>
+						<hr>
 					</div>
 				</div>
 				<div class="modal-footer">

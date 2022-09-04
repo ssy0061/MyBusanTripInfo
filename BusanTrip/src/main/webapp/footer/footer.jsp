@@ -11,10 +11,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 <style type="text/css">
 	.footer-web{
-		border: 2px dotted green;
 		width: 100%;
-		height: 100px;
-		background-color: white;
+		height: 280px;
+		background-color: #545443;
 	}
 	@media screen and (max-width: 575px) {
 		.footer-web {
@@ -60,11 +59,51 @@
 	.bi{
 		height: 32px;
 	}
+	.footer-wrapper{
+		margin: 50px;
+		padding: 30px 0 0;
+	}
+	.footer-title{
+		font-weight: bold;
+		font-size: 25px;
+		color: #F8F8F8;
+	}
+	.footer-inner, .footer-icon-wrapper{
+		margin: 15px 0 0;
+	}
+	.footer-inner *{
+		line-height: 20px;
+		font-size: 13px;
+		color: #D4D4D4;
+	}
+	.impact{
+		color: #E60000;
+	}
+	.button{
+		border: none;
+		text-align: center;
+		opacity: 0.6;
+		transition: 0.3s;
+		display: inline-block;
+		text-decoration: none;
+		cursor: pointer;
+		background-color: #545443;
+	}
+	.button img{
+		width: 50px;
+		height: 50px;
+		margin: 0;
+	}
+	.button:hover {opacity: 1}
 </style>
 <script type="text/javascript">
 	$(function() {
-		var isLogin = false;
-		if('<%= (String)session.getAttribute("memberId") %>' !== 'null') isLogin = true
+		function isLogin() {
+			if(<%= (String)session.getAttribute("memberId") != null%>
+				&& <%= session.getAttribute("loginUser") != null%>) return true
+			else return false
+		}
+		
 		
 		
 		let scrollNum = 0;
@@ -115,11 +154,11 @@
 			location.href='/bnk/home';
 		})
 		$('.icon-search').click(function(){
-			if(!isLogin) location.href='/bnk/login'
+			if(!isLogin()) location.href='/bnk/login'
 			else location.href='/bnk/search';
 		})
 		$('.icon-trip').click(function(){
-			if(!isLogin) location.href='/bnk/login'
+			if(!isLogin()) location.href='/bnk/login'
 			else location.href='/bnk/trip';
 		})
 		$('.icon-place').click(function(){
@@ -154,7 +193,21 @@
 		</div>
 	</footer>
 	<footer class="footer-web">
-		<h2 align="center">web</h2>
+		<div class="footer-wrapper">
+			<div class="footer-title">
+				여행가실<span class="impact">부은 <i class="bi bi-airplane-fill"></i></span>
+			</div>
+			<div class="footer-inner">
+				<div><b>조 명:</b> MBTI (2조)</div>
+				<div><b>Front-end:</b> 서상용, 장연정, 허수민</div>
+				<div><b>Back-end:</b> 곽효석, 조서영</div>
+				<div><b>프로젝트 진행 기간:</b> 2022. 08. 10. ~ 2022. 09. 08.</div>
+			</div>
+			<div class="footer-icon-wrapper">
+				<button class="button"><img src="/img/foot_web_github.png" onclick="location.href='https://github.com/ssy0061/MyBusanTripInfo'"></button>
+				<button class="button"><img src="/img/foot_web_notion.png" onclick="location.href='https://www.notion.so/Web-Project-5948018eede144498ed4a67968dfafef'"></button>
+			</div>
+		</div>
 	</footer>
 </body>
 </html>

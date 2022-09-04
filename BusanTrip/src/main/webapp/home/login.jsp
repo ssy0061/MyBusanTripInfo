@@ -92,7 +92,7 @@
 <body>
 	<div>
 		<c:import url="../header/nav.jsp">
-			<c:param name="navSubTitle" value="조회222"/>
+			<c:param name="navSubTitle" value="로그인"/>
 		</c:import>
 		
 		<div class="index container">

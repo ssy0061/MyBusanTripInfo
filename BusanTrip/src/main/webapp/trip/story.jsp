@@ -167,7 +167,7 @@ $(function() {
 		data: {'memberId': currentMemberId},
 		
 		success:function(result) {	// 스토리 목록
-			console.log("storyList :: " + result);
+			console.log("storyList :: " + JSON.stringify(result));
 			storyList = result;
 			var storyId;
 			for(var i=0; i<storyList.length; i++) {
@@ -176,23 +176,19 @@ $(function() {
 				cardSubtitle = storyList[i].storySubtitle;
 				
 				//console.log("공백 여부:: "+ cardSubtitle.search(" "));
-				
+				var card = "<div id="+"\'"+ storyId +"\'"+" class=card>"
+							+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
+							+"<h5 class=card-title>"+ cardTitle+"</h5>"
+							+"<p class=card-text>"+ cardSubtitle +"</p></div>"
 				if(cardSubtitle.search(" ") == -1) { // 개인 머니 앨범이면
 					$('.myStorySpace .col-12').append(
-							"<div id="+"\'"+ storyId +"\'"+" class=card>"
-								+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
-									+"<h5 class=card-title>"+ cardTitle+"</h5>"
-									+"<p class=card-text>"+ cardSubtitle +"</p></div>"
-							+"</div>"
+							card + "</div>"
 						 )
 				}else {
 					 $('.ourStorySpace .col-12').append(
-						"<div id="+"\'"+ storyId +"\'"+" class=card>"
-							+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
-								+"<h5 class=card-title>"+ cardTitle+"</h5>"
-								+"<p class=card-text>"+ cardSubtitle +"</p></div>"
-							+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
-							+'<span class="close material-symbols-outlined">close</span></button>'
+						card
+						+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
+						+'<span class="close material-symbols-outlined">close</span></button>'
 						+"</div>"
 					 ) 
 				}
@@ -347,7 +343,7 @@ $(function() {
 		</div>
 		<div class="row ourStorySpace mt-4">
 			<div class="storyTitle col-9">
-				<h4>우리의 머니앨범</h4>
+				<h4>모임 머니앨범</h4>
 			</div>
 			<div class="col-3" align="right">
 				<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
@@ -356,14 +352,7 @@ $(function() {
 				
 			</div>
 			<div class="col-12">
-				<div id='story-1' class="card">
-					<div class="card-body">
-					<!-- <div class="card-body" onclick="location.href='/bnk/trip/3'"> -->
-						<h5 class="card-title">First Story</h5>
-						<p class="card-text">불러온거 아니고 직접 넣은 카드</p>
-						<button type="button" class="deleteStory" data-toggle="modal" data-target="#deleteStoryModal"><i class="bi bi-x-lg"></i></button>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</div>

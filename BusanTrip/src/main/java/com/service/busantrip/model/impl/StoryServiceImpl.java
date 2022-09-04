@@ -33,6 +33,11 @@ public class StoryServiceImpl implements StoryService{
 	public void updateStory(String memberList, int storyId) {
 		storyDAO.updateStory(memberList, storyId);
 	}
+	
+	@Override
+	public String getStoryName(String storyId) {
+		return storyDAO.getStoryName(storyId);
+	}
 
 	@Override
 	public List<Member> findStoryMember(String storyId) {
@@ -62,6 +67,9 @@ public class StoryServiceImpl implements StoryService{
 
 	@Override
 	public List<Diary> findAllDiaryList(String storyId) {
+		String storyName;
+		
+		
 		return storyDAO.findAllDiaryList(storyId);
 	}
 

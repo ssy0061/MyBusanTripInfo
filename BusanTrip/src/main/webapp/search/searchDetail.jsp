@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<%-- 구글 아이콘 --%>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style type="text/css">
 
 	:root {
@@ -28,7 +30,13 @@
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
-	
+
+	.material-symbols-outlined {
+	  font-variation-settings:
+	  'wght' 600,
+	  'GRAD' 0,
+	  'opsz' 40
+	}
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
@@ -37,22 +45,39 @@
 		.content{
 			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;
-			background-color: #fef0f0;
 			min-height: calc(100vh - 80px);
+			padding-left: 0;
+			padding-right: 0;
 		}
 		#toTop{
 			bottom: 100px;
 			right: 10px;
 		}
+		.searchDetail-lower{
+			min-height: calc(100vh - 290px);
+		}
+		.condition-collapseWrap{
+			padding-top: 10px;
+		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 180px);
+			min-height: calc(100vh - 190px); /*상하단바 190px */
 			padding: 20px 0;
 		}
 		#toTop{
 			bottom: 130px;
 			right: 30px;
+		}
+		.box-1{
+			border-radius: 10px;
+			box-shadow: 1px 3px 5px 3px lightGray;
+			min-height: calc(100vh - 230px);
+		}
+		.collapseInnerWrap{
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -78,52 +103,40 @@
 		max-width: 720px;
 		margin: 0 auto;
 		text-align: center;
-		background-color: #fef0f0;
-		border-radius: 10px;
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		padding-bottom: 10px;
+		background-color: white;
 	}
 	.searchDetail-upper {
-		width: 75%;
-		background-color: white;
-		border-radius: 10px;
-		max-width: 500px;
-		margin: 15px auto;
+		width: 100%;
+		max-width: 720px;
 		text-align: center;
-		height: 140px;
-		
-		
+		padding-top: 20px;
+		position: relative;
+		bottom: 0;
+		background-color: #fef0f0;
 	}
 	
 	.searchDetail-lower {
-		width: 75%;
-		background-color: white;
-		max-width: 500px;
-		margin: 0 auto;
+		width: 100%;
+		max-width: 720px;
 		text-align: center;
-		min-height: 5vh;
-		border-radius: 5px;
+		border-radius: 0 0 5px 5px;
 		padding-bottom: 10px;
-	}
-	
-	.ud-center {
-		background-color: white;
-		/* position: absolute;
-		left: 50%; top: 50%;
-		transform: translate(-50%, -50%); */
-	}
-	
-	.searchDetail-upper-top, .searchDetail-upper-bottom {
-		margin: 10px auto;
-		border: 1px solid var(--bnk-gray);
+		padding-top: 10px;
 	}
 	
 	.searchDetail-upper-top {
 		display: flex;
-		justify-content: space-around;
-		padding: 3px 0;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		
+	}
+	.condition-collapseWrap{
+		background-color: #F6F6F6;
+		/* border-bottom-style:solid;
+        border-bottom-width:4px;
+        border-color:#DCDCDC; */
+        border-radius: 0 0 10px 10px;
 	}
 	
 	/* */
@@ -131,50 +144,46 @@
 	.accountNumber {
 		max-width: 100px;
 		width: 100%;
-		font-size: 10px;
-		text-align: left;
-		position: relative;
-		left: 5px;
-		vertical-align: bottom;
-		margin: 15px 0 0;
-		color: gray;
+		font-size: 20px;
 	}
 	
 	.amount {
 		max-width: 160px;
 		width: 100%;
-		font-size: 22px;
-		text-align: right;
-		position: relative;
-		right: 5px;
+		font-size: 24px;
 		font-weight: bold;
 	}
 	
 	.searchDetail-upper-bottom {
+		background-color: #DCDCDC;
 		text-align: center;
 	}
-	
+	.conditon-btn{
+		font-variation-settings:
+		'FILL' 0,
+		'wght' 400,
+		'GRAD' 0,
+		'opsz' 48
+	}
 	.searchDetail-upper-bottom-inner {
 		text-align: center;
 		display: flex;
 		justify-content: space-around;
-		margin: 2px 2px;
 	}
-	
-	.periodBox, .searchBox {
-		border-radius: 10px;
-		border: 3px outset #53565A;
-		font-weight: bold;
-	}
-	
 	.periodBox {
+		background-color: white;
+		border-radius: 10px;
+		border: 2px solid lightGray;
+		font-weight: bold;
 		width: 100px;
 		margin: 0 1px 1px;
-	
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 	.searchBox {
-		width: 40px;
-		margin: 1px 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	
 	.searchBox>img {
@@ -183,12 +192,14 @@
 	}
 	
 	.periodBox-choiced {
+		background-color: white;
 		width: 100px;
 		border-radius: 10px;
-		border: 3px outset #53565A;
-		background-color: lightGray;
+		border: 3px solid #ff6666;
 		font-weight: bold;
 		margin: 0 1px 1px;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 	
 	.periodBox:hover, .searchBox:hover {
@@ -200,11 +211,11 @@
 	}
 	
 	.searchDetail-lower-box {
-		max-width: 450px;
-		margin: 10px auto;
+		max-width: 720px;
+		margin: 0 auto 10px;
 		min-height: 60px;
 		height: auto;
-		border-bottom-color: var(--bnk-lightgray);
+		border-bottom-color:#DCDCDC;
 		border-bottom-width: 2px;
 		border-bottom-style: solid;
 		padding: 5px 10px 3px;
@@ -236,6 +247,7 @@
 		bottom: 4px;
 		margin: 0 2px;
 		width: 20px;
+		z-index: 96;
 	}
 	
 	.storeName {
@@ -271,7 +283,10 @@
 		text-align: center;
 		font-size: 13px;
 	}
-
+	.totalAmount{
+		display: flex;
+		justify-content: space-around;
+	}
 
 </style>
 
@@ -311,7 +326,7 @@
 			success: function(res){
 				/* console.log(res) */
 				$('.accountNumber').text(accountNumber)
-				$('.amount').text(res+"원")
+				$('.amount').text(res.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원')
 			},
 			error: function(e) {
 				console.log(e)
@@ -323,7 +338,10 @@
 		// 보여줄 아이템 수 10개
 		var nowPage = 1;
 		var totalPage = 1;
-		/* getTransaction(,now) */
+		
+		// 1개월 조회(기본값)
+		getTransaction(getPastDay(1),getNowDay())
+		
 		function getTransaction(startDay, finishDay) {
 			$.ajax({
 				type: 'post',
@@ -336,6 +354,8 @@
 					console.log(res)
 					list = res;
 					totalPage = Math.ceil(list.length/10);
+					$('#startDate').val(startDay)
+					$('#endDate').val(finishDay)
 					loadData(1)
 				},
 				error: function(e) {
@@ -346,10 +366,6 @@
 		
 		
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
-		
-		
-		
-		// initial method
 		
 		
 		$('.periodBox').click(function(){
@@ -365,25 +381,36 @@
 				// 비동기 방식으로 정보 전달...
 				//
 				
-				$('#detailBox').html("");
-				getTransaction(start, end)
+				/* $('#detailBox').html("");
+				getTransaction(start, end) */
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
 				
-				// 이미지랑 버튼 연결용 코드
+				/* // 이미지랑 버튼 연결용 코드
 				$('.searchBtn').click(function(){
 					alert('search!  ' + $(this).parent().parent().text());
 				});  // img click
 				$('.memoBtn').click(function(){
 					// alert('memo!  ' + $(this).parent().parent().text());
 					$('#memo-text').val('');  // 내용 초기화
-				});  // img click
+				});  // img click */
 				
 			}  // if
 		});  // div click
 		
+		$('#startDate').change(function(){
+			$('.periodBox-choiced').attr('class', 'periodBox');
+		})
+		
+		$('#endDate').change(function(){
+			$('.periodBox-choiced').attr('class', 'periodBox');
+		})
+		
 		
 		$('.searchBox').click(function(){
+			let state = $('.periodBox-choiced').text()
+			if(state !== "") $('#state').text(state)
+			else $('#state').text("직접입력")
 			let start = $('#startDate').val()
 			let end = $('#endDate').val()
 			
@@ -392,11 +419,9 @@
 			
 			if (startDay <= endDay) {
 				// 비동기 방식으로 정보 전달...
-				//
-				
+				getTransaction(dayToString(startDay), dayToString(endDay))
 				$('#detailBox').html("");
-				loadData(4);  // 임시코드
-				$('.periodBox-choiced').attr('class', 'periodBox');
+				//$('.periodBox-choiced').attr('class', 'periodBox');
 				
 				// 이미지랑 버튼 연결용 코드 
 				$('.searchBtn').click(function(){
@@ -451,6 +476,9 @@
 		$('#toTop').on('click', function(){
 			window.scrollTo(0, 0);
 		})
+		
+		var total = 0;
+		
 		function loadData(page) {
 			var start = (totalPage*10)-10;
 			var end = list.length;
@@ -463,6 +491,8 @@
 				return
 			}
 			for (var i=start; i<end; i++) {
+				total += list[i].transactionAmt
+				
 				var memo = list[i].transactionMemo !== null ?
 						'<div class="searchDetail-lower-box-inner">'+
 						'<span class="memo">'+list[i].transactionMemo+'</span></div>'
@@ -483,8 +513,12 @@
 				
 			}// for
 			
+			$('.totalAmount').html('<span><b>기간 합계</b></span><span><b>'+
+					               total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</b></span>');
 			
 		}  // loadData
+		
+		$('.periodBox:eq(0)').attr('class', 'periodBox-choiced');
 	});  // JQuery
 	
 	
@@ -500,31 +534,50 @@
 
 		<div class="content container">
 			<div class="box-1">
-				<div class="searchDetail-upper shadow">
-					<div class="ud-center">
-						<div class="rounded-lg searchDetail-upper-top">
-							<span class="accountNumber"></span> 
-							<span class="amount"></span>
-						</div>
-						<div class="rounded-lg searchDetail-upper-bottom">
-							<div class="searchDetail-upper-bottom-inner">
-								<input type="text" class="datepicker" id="startDate"
-									readonly="readonly"> <span width="15px"><b>~</b></span>
-								<input type="text" class="datepicker" id="endDate"
-									readonly="readonly"> <span class="searchBox"><img
-									src="/img/search.png" width=20px></span>
+				<div class="searchDetail-upper pb-3">
+					<div class="searchDetail-upper-top">
+						<span class="accountNumber"></span> 
+						<span class="amount"></span>
+					</div>
+					
+				</div>
+				<div class="searchDetail-upper-bottom d-flex justify-content-end align-items-center px-3">
+					<div>
+						<a data-toggle="collapse" href="#conditionCollpase" 
+						   style="text-decoration: none; color: black;"
+						   class="d-flex justify-content-end  align-items-center">
+							<span>최신순</span><span class="mx-2 mb-1">|</span>
+							<span id="state">1개월</span>
+							<span class="conditon-btn material-symbols-outlined">
+								arrow_drop_down
+							</span>
+						</a>
+					</div>
+				</div>
+				<div class="condition-collapseWrap">
+					<div class="collapse" id="conditionCollpase">
+						<div class="collapseInnerWrap">
+							<div class="periodBoxWrap">
+								<span class="periodBox" value="1">1개월</span>
+								<span class="periodBox" value="3">3개월</span>
+								<span class="periodBox" value="6">6개월</span>
 							</div>
-
 							<div class="searchDetail-upper-bottom-inner">
-								<span class="periodBox" value="1">1개월</span> <span
-									class="periodBox" value="3">3개월</span> <span class="periodBox"
-									value="6">6개월</span> <span class="periodBox" value="12">1년</span>
+								<input type="text" class="datepicker" id="startDate" readonly="readonly"> 
+								<span width="15px"><b>~</b></span>
+								<input type="text" class="datepicker" id="endDate" readonly="readonly">
+							</div>
+							<div class="searchBox d-flex align-items-center">
+								<a data-toggle="collapse" href="#conditionCollpase"
+								   style="text-decoration: none; color: black;"
+						   		   class="d-flex justify-content-end  align-items-center">
+								<button class="btn">조회</button></a>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div id="detailBox" class="searchDetail-lower shadow">
+				<div class="totalAmount"></div>
+				<div id="detailBox" class="searchDetail-lower">
 
 				</div>
 				<div id="toTop" class="d-flex justify-content-center shadow">

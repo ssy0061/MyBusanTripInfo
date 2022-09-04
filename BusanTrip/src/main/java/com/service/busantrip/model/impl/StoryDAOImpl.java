@@ -35,11 +35,14 @@ public class StoryDAOImpl implements StoryDAO{
 		String storyId = sqlSession.selectOne(NS+"getStoryId", storyName);
 	//	System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
 	
-		HashMap<String, Object> learderMap = new HashMap<String, Object>();
-		learderMap.put("storyId", storyId);
-		learderMap.put("memberId", memberId);
+		String memberName = sqlSession.selectOne("sql.member.mapper."+"getMemberName", memberId);
 		
-		sqlSession.insert(NS+"addStoryMemberLeader",learderMap);
+		HashMap<String, Object> leaderMap = new HashMap<String, Object>();
+		leaderMap.put("storyId", storyId);
+		leaderMap.put("memberId", memberId);
+		leaderMap.put("memberName", memberName);
+		
+		sqlSession.insert(NS+"addStoryMemberLeader",leaderMap);
 		
 		return storyId;
 	}
@@ -60,6 +63,11 @@ public class StoryDAOImpl implements StoryDAO{
 		
 		sqlSession.update(NS+"updateStory", map);
 	}
+	
+	@Override
+	public String getStoryName(String storyId) {
+		return sqlSession.selectOne(NS+"getStoryName", storyId);
+	}
 
 	@Override
 	public List<Member> findStoryMember(String storyId) {
@@ -69,9 +77,12 @@ public class StoryDAOImpl implements StoryDAO{
 
 	@Override
 	public void addStoryMember(String storyId, String memberId) {
+		String memberName = sqlSession.selectOne("sql.member.mapper."+"getMemberName", memberId);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("storyId", storyId);
 		map.put("memberId", memberId);
+		map.put("memberName", memberName);
 		sqlSession.insert(NS+"addStoryMember", map);
 	}
 

@@ -84,7 +84,8 @@ public class StoreDAOImpl implements StoreDAO{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("storeId", storeId);
 		map.put("memberId", memberId);
-		return sqlsession.selectOne(NS+"findExistWishlist", map);
+		
+		return (sqlsession.selectOne(NS+"findExistWishlist", map) != null) ? 1 : 0;
 		
 	}
 	

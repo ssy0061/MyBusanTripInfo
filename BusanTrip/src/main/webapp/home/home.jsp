@@ -43,10 +43,25 @@
 			padding-bottom: 80px;
 			min-height: calc(100vh - 70px);
 		}
+		
+		.web-right{
+			margin-top: 15px;
+		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 170px);
+			min-height: calc(65vh - 170px);
+		}
+		
+		.web-container{
+			display: flex;
+			justify-content: space-around;
+		}
+		.web-left, .web-right{
+			width: 100%
+		}
+		.web-right{
+			margin-top: 0px;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -72,10 +87,14 @@
 	}
 	
 	.home-middle{
+<<<<<<< HEAD
 		margin-top: 75px;
 	}
 	.home-bottom{
 		margin-top: 25px;
+=======
+		margin-top: 15px;
+>>>>>>> 07d84310bd1a4bcad1c4ae6572133ad8e62d9ab4
 	}
 	
 	.home-top {
@@ -109,10 +128,10 @@
 	
 	.home-top-inner-left {
 		text-align: left;
-		font-size: 20px;
+		font-size: 18px;
 		position: relative;
-		padding: 0 20px;
-		top: 5px;
+		padding: 0 18px 0 12px;
+		top: 6px;
 		display: flex;
 		justify-content: space-around;
 	}
@@ -134,14 +153,15 @@
 		text-align: center;
 		font-weight: bold;
 		position: relative;
-		bottom: 5px;
-		left: 18px;
-		font-size: 22px;
+		bottom: 14px;
+		left: 15px;
+		font-size: 24px;
 		color: var(--bnk-dark-red);
 	}
 	
 	.home-top-inner-right {
 		text-align: right;
+<<<<<<< HEAD
 		font-size: 36px;
 		position: relative;
 		padding: 0 20px 0 0
@@ -149,6 +169,13 @@
 	.home-top-inner-right>span{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
+=======
+		font-size: 32px;
+		position: relative;
+		padding: 0 12px 0 0;
+		bottom: 6px;
+		font-weight: bold;
+>>>>>>> 07d84310bd1a4bcad1c4ae6572133ad8e62d9ab4
 	}
 	
 	.home-middle-inner {
@@ -232,8 +259,8 @@
 <script>
 
 	$(function() {
+		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
-		
 		if (memberId != 'null') {
 			$.ajax({
 				type: 'post',
@@ -358,44 +385,50 @@
 			<%-- <c:param name="navSubTitle" value="조회222"/> --%>
 		</c:import>
 		
-			<div class="content container">
+		<div class="content container">
+			<div class="web-container">
 			
-				<div class="home-top slideUp1">
-        
-					<div class="ud-center">
-						<c:choose>
-							<c:when test="${!empty loginUser}">
-							<%-- loginUser로 일단 객체 값 받기. --%>
-								<div>
-									<div class="home-top-upper">
-										<div class="ud-center">
-											<div class="home-top-inner-left">
-												<div id="titleBox">
-													<p><img id="bnkIcon" src="/img/bank_db.png"> 포인트</p>
-													<span id="userName"></span> 님의 잔액
+				<div class="web-left">
+					<div class="home-top slideUp1">
+						<div class="ud-center">
+							<c:choose>
+								<c:when test="${!empty loginUser}">
+									<%-- loginUser로 일단 객체 값 받기. --%>
+									<div>
+										<div class="home-top-upper">
+											<div class="ud-center">
+												<div class="home-top-inner-left">
+													<div id="titleBox">
+														<span id="userName"></span>님의 잔액
+													</div>
+													<div id="logoutBox">&#215;</div>
 												</div>
-												<div id="logoutBox">&#215;</div>
+												<div class="home-top-inner-right">
+													<span id="userMoney"></span>원
+												</div>
 											</div>
-											<div class="home-top-inner-right"><span id="userMoney"></span>원</div>
 										</div>
 									</div>
-								</div>
-								<div>
-									<div class="home-top-lower">
-										<button class="button-style" type="button" data-toggle="modal" data-target="#chargeModal">충전</button>
-										<button class="button-style" type="button" data-toggle="modal" data-target="#payModal">결제</button>
+									<div>
+										<div class="home-top-lower">
+											<button class="button-style" type="button"
+												data-toggle="modal" data-target="#chargeModal">충전</button>
+											<button class="button-style" type="button"
+												data-toggle="modal" data-target="#payModal">결제</button>
+										</div>
 									</div>
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="login">
-									<div class="ud-center">
-										<span>로그인 하기</span>
+								</c:when>
+								<c:when test="${empty loginUser}">
+									<div class="login">
+										<div class="ud-center">
+											<span>로그인 하기</span>
+										</div>
 									</div>
-								</div>
-							</c:otherwise>
-						</c:choose>
+								</c:when>
+							</c:choose>
+						</div>
 					</div>
+<<<<<<< HEAD
 				</div>
 				<div class="row">
 					<div class="home-middle slideUp2">
@@ -428,9 +461,55 @@
 				<div class="home-bottom slideUp3">
 					<div style="font-size: 18px; font-weight: bold; margin: 10px 0;">[ 공지사항 ]</div>
 					<%-- <div class="notice">※ 공지사항 ※</div> --%>
+=======
+
+					<div class="home-middle slideUp2">
+						<div id="eventSlide" class="carousel slide" data-ride="carousel">
+							<!-- Indicators -->
+							<ul class="carousel-indicators">
+								<li data-target="#eventSlide" data-slide-to="0" class="active"></li>
+								<li data-target="#eventSlide" data-slide-to="1"></li>
+								<li data-target="#eventSlide" data-slide-to="2"></li>
+								<li data-target="#eventSlide" data-slide-to="3"></li>
+							</ul>
+
+							<!-- The slideshow -->
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<img src="/img/event1.png" width="100%">
+								</div>
+								<div class="carousel-item">
+									<img src="/img/event2.png" width="100%">
+								</div>
+								<div class="carousel-item">
+									<img src="/img/event3.png" width="100%">
+								</div>
+								<div class="carousel-item">
+									<img src="/img/event4.png" width="100%">
+								</div>
+							</div>
+
+							<!-- Left and right controls -->
+							<a class="carousel-control-prev" href="#eventSlide"
+								data-slide="prev"> <span class="carousel-control-prev-icon"></span>
+							</a> <a class="carousel-control-next" href="#eventSlide"
+								data-slide="next"> <span class="carousel-control-next-icon"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="web-right">
+					<div class="home-bottom slideUp3">
+						<div style="font-size: 18px; font-weight: bold; margin: 10px 0;">[ 공지사항 ]</div>
+						<%-- <div class="notice">※ 공지사항 ※</div> --%>
+					</div>
+>>>>>>> 07d84310bd1a4bcad1c4ae6572133ad8e62d9ab4
 				</div>
 				
 			</div>
+
+		</div>
 			
 		<c:import url="../footer/footer.jsp" />
 	</div>
