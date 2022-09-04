@@ -189,7 +189,15 @@
 	$(function(){
 		var memberId = '<%= session.getAttribute("memberId") %>';
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
-		console.log(loginUser)
+		var path = window.location.pathname.split('/').pop(1);
+		console.log()
+		if(loginUser!=null && path!='myPage') {
+			$('.nav-mobile').append(
+					'<div id="navUserImgWrap">'+
+					'<img src="${loginUser.memberChar}" id=navUserImg></div>'
+			)
+		}
+		
 		var loginUrl = '/bnk/login'
 		if(memberId==='null' || loginUser==='null') {
 			$('.needLogin').children('a').attr('href', loginUrl)
@@ -275,7 +283,7 @@
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
-				<c:when test="${loginUser!=null}">
+				<c:when test="${false}">
 					<div id="navUserImgWrap">
 						<img src="${loginUser.memberChar}" id=navUserImg>
 					</div>

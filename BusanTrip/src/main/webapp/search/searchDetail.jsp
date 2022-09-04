@@ -18,6 +18,8 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <%-- 구글 아이콘 --%>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<%-- 카카오 맵 --%>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55cec7f8be9f2d2a780ad76e59683837"></script>
 <style type="text/css">
 
 	:root {
@@ -551,6 +553,10 @@
 			})
 			
 		}  // loadData
+		$("#memoModal").on('show.bs.modal', function () {
+			
+		});
+		
 		
 		$('.periodBox:eq(0)').attr('class', 'periodBox-choiced');
 	});  // JQuery
@@ -638,7 +644,7 @@
 
 		<c:import url="../footer/footer.jsp" />
 		
-		<%-- Modal --%>
+		<%-- Memo Modal --%>
 		<div class="modal fade" id="memoModal">
 			<div class="modal-dialog modal-sm">
 				<div class="modal-content">
@@ -655,6 +661,20 @@
 					<div class="modal-footer">
 						<button type="button" id="memoSubmit">수정</button>
 						<button type="button" id="memoClose" data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%-- Store Modal --%>
+		<div class="modal fade" id="searchModal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h6 class="modal-title">가게 상세 정보</h6>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<c:import url="/place/storeDetail.jsp" />
 					</div>
 				</div>
 			</div>
