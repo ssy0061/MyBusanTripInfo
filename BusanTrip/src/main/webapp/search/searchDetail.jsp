@@ -369,12 +369,17 @@
 		getTransaction(getPastDay(1),getNowDay())
 		
 		function getTransaction(startDay, finishDay) {
+			let finishDayDate = new Date(finishDay);
+			finishDayDate.setDate(finishDayDate.getDate()+1);
+			let finishDayPlus1 = dayToString(finishDayDate);
+			// 하루 더 더해야 올바른 조회가 가능.
+			
 			$.ajax({
 				type: 'post',
 				url: '/member/findTransactionBySpecificPeriod',
 				data: {'accountNumber': accountNumber,
 					   'startDay': startDay,
-					   'finishDay': finishDay},
+					   'finishDay': finishDayPlus1},
 				
 				success: function(res){
 					console.log(res)
