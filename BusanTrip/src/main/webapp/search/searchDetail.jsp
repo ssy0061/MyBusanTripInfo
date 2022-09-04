@@ -121,6 +121,7 @@
 		width: 32px;
 		border-radius: 10px;
 		background-color: white;
+		z-index: 98;
 	}
 	#toTop:hover{
 		cursor: pointer;
@@ -396,7 +397,9 @@
 		}
 		
 		
-		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd',
+			beforeShow: function() { setTimeout(function(){ $('.ui-datepicker').css('z-index', 97); }, 0); }
+		});
 		
 		
 		$('.periodBox').click(function(){
