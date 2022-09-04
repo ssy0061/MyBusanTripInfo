@@ -44,21 +44,28 @@
 			min-height: calc(100vh - 70px);
 		}
 		
+		.home-top, .home-middle, .home-bottom {
+			width: 80%;
+			max-width: 400px;
+		}
 		.web-right{
 			margin-top: 15px;
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(65vh - 170px);
+			min-height: calc(100vh - 260px);
 		}
 		
+		.home-top, .home-middle, .home-bottom {
+			width: 92%;
+		}
 		.web-container{
 			display: flex;
 			justify-content: space-around;
 		}
 		.web-left, .web-right{
-			width: 100%
+			width: 100%;
 		}
 		.web-right{
 			margin-top: 0px;
@@ -74,45 +81,44 @@
 	}
 	
 	.home-top, .home-middle, .home-bottom {
-		width: 80%;
-		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
 		position: relative;
-	}
-	
-	.home-top, .home-bottom {
 		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
-	}
-	
-	.home-middle{
-		margin-top: 15px;
 	}
 	
 	.home-top {
-		height: 170px;
+		background-color: #fef0f0;
+		height: 180px;
 	}
 	
 	.home-middle {
 		max-height: 250px;
 		overflow: hidden;
 		border-radius: 10px;
+		margin-top: 15px;
 	}
 	
 	.home-bottom {
 		min-height: 10px;
+		padding: 10px 0;
+		background-color: #fef0f0;
 	}
 	
 	.home-top-upper {
-		height: 160px;
-		max-width: 300px;
+		height: 100px;
+		max-width: 400px;
+		width: 80%;
 		margin: 0 auto;
 		position: relative;
+		border-radius: 5px;
+		box-shadow: 0px 5px 8px -3px #aaa;
+		background-color: white;
 	}
 	
 	.home-top-lower {
-		max-width: 300px;
+		max-width: 400px;
+		width: 80%;
 		margin: 10px auto 0;
 		display: flex;
 		justify-content: space-around;
@@ -123,14 +129,15 @@
 		text-align: left;
 		font-size: 18px;
 		position: relative;
-		padding: 0 18px 0 12px;
-		top: 6px;
+		top: 10px;
 		display: flex;
 		justify-content: space-around;
+		width: 100%;
+		padding: 0 10px;
 	}
 	
 	#titleBox {
-		width: 260px;
+		width: 100%;
 		text-align: left;
 	}
 	#bnkIcon{
@@ -147,18 +154,32 @@
 		font-weight: bold;
 		position: relative;
 		bottom: 14px;
-		left: 15px;
+		left: 8px;
 		font-size: 24px;
 		color: var(--bnk-dark-red);
 	}
 	
 	.home-top-inner-right {
 		text-align: right;
-		font-size: 32px;
+		font-size: 30px;
 		position: relative;
 		padding: 0 12px 0 0;
-		bottom: 6px;
+		bottom: 8px;
 		font-weight: bold;
+		width: 100%;
+	}
+	
+	@media screen and (max-width: 330px) {  /* 작은폰 */
+		.home-top-inner-left { font-size: 15px; }
+		.home-top-inner-right { font-size: 25px; }
+	}
+	@media screen and (min-width: 330.1px) {  /* 그 이상 */
+		.home-top-inner-left { font-size: 18px; }
+		.home-top-inner-right { font-size: 30px; }
+	}
+	@media screen and (min-width: 992.1px) {  /* 매우 큰 경우 이상 */
+		.home-top-inner-left { font-size: 20px; padding: 0 35px; }
+		.home-top-inner-right { font-size: 35px; padding: 0 35px; }
 	}
 	
 	.home-middle-inner {
@@ -171,31 +192,27 @@
 	}
 	
 	.button-style {
-		width:46%;
-	    line-height: 2.5;
+	    line-height: 2.0;
+	    width: 100%;
+	    background-color: white;
+	    border: 0;
+	    border-radius: 5px;
 	    font-size: 1rem;
 	    text-align: center;
-	    color: white;
-	    text-shadow: 1px 1px 1px #000;
-	    border-color:transparent;
-	    border-radius: 5px;
-	    background-color: #53565A;
-	    /*background-image: linear-gradient(to top left,
-	                                      rgba(0, 0, 0, .2),
-	                                      rgba(0, 0, 0, .2) 30%,
-	                                      rgba(0, 0, 0, 0));
-	    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
-	                inset -2px -2px 3px rgba(0, 0, 0, .6);*/
+	    box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.button-style:hover {
-	    background-color: #CB333B;
+	    background-color: var(--bnk-dark-red);
+	    color: #fff;
 	}
 	
 	.button-style:active {
 	    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
 	                inset 2px 2px 3px rgba(0, 0, 0, .6);
 	}
+	
+	.blank { width: 20px; }
 	
 	.ud-center {
 		width: 100%;
@@ -207,12 +224,13 @@
 	
 	.notice {
 		margin: 15px auto;
-		max-width: 300px;
-		padding: 3px 0;
+		max-width: 400px;
+		width: 80%;
+		padding: 5px 5px;
 		font-size: 15px;
 		border-radius: 5px;
-		border: 2px solid var(--bnk-gray);
-		background-color: #FFFFD4;
+		background-color: #fff;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.login {
@@ -291,7 +309,7 @@
 		// 공지사항 생성
 		var noticeArr = [
 			"8월의 여행가실부은 이벤트 당첨자 안내",
-			"8월 신규 등록 업체 안내",
+			"9월 신규 등록 업체 안내",
 			"🌺 동백전과 함께하는 동백 이벤트 🌺",
 			"여행가실부은 신규 가입 이벤트!",
 			"2030 부산월드엑스포 부산에 유치해~"
@@ -315,7 +333,6 @@
 		$('#paymodal').on('click', paypoint)
 	});
 
-	
 	
 	function chargepoint(){
 		var chargepoint = $('#chargepoint').val();
@@ -358,9 +375,7 @@
 	
 </script>
 
-
 </head>
-
 <body>
 
 	<div>
@@ -396,6 +411,7 @@
 										<div class="home-top-lower">
 											<button class="button-style" type="button"
 												data-toggle="modal" data-target="#chargeModal">충전</button>
+											<div class="blank"></div>
 											<button class="button-style" type="button"
 												data-toggle="modal" data-target="#payModal">결제</button>
 										</div>
