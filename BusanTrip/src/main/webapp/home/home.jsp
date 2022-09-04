@@ -247,10 +247,10 @@
 		if (memberId != 'null') {
 			$.ajax({
 				type: 'post',
-				url: '/member/getMemberName',
+				url: '/member/findMemberInfo',
 				data: {'memberId': memberId},
 				success: function(result) {
-					$('#userName').text(result);
+					$('#userName').text(result.memberName);
 				},
 				error: function(e){ console.log(e); }
 			});  // getMemberName end

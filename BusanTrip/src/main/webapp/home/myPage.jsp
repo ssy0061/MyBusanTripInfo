@@ -68,7 +68,14 @@
 		border-color:gray;
 		border-radius:5px;
 		border-style:solid;
-		padding:5px 20px 0 20px;
+		padding:5px 20px 5px 20px;
+	}
+	.myInfo p{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	.userInfo{
+		margin:4px 0 4px 0;
 	}
 	/* modal */
 	.modal-header{
@@ -103,6 +110,14 @@
 		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	 }
+	 #editModal h4{
+	 	font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	 }
+	 #editModal p{
+	 	font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	 }
 	/* == second row == */
 	#second-row{
 		margin:10px 1px 20px 1px;
@@ -110,18 +125,17 @@
 		justify-content:space-around;
 	}
 	.button3{
-		width:40%;
-		max-width:150px;
-		min-width:100px;
-		color:#4CAF50;
-		font-weight:600;
-		background-color:white;
-		border: 3px solid #4CAF50;
-		border-radius:2px;
-	}
-	.button1:hover, .button2:hover, .button3:hover{
-		background-color:#4CAF50;
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
 		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#53565A;
+		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	/* == third row == */
 	#whichPlace, #myPlace{
@@ -154,8 +168,7 @@
     .swiper-slide {
       text-align: center;
       font-size: 18px;
-      background: #fff;
-
+      background: #fff
       /* Center slide text vertically */
       display: -webkit-box;
       display: -ms-flexbox;
@@ -192,7 +205,11 @@
 		align-items:end;
 		border-radius:10px;
     	background-size: cover;
-}
+	}
+	.swiperContent h6{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	}
 	/* == fourth row == */
 	#fourth-row{
 		margin-top:20px;
@@ -211,12 +228,17 @@
 </style>
 <script>
 $(document).ready(function() {
+	var memberId = '<%= (String)session.getAttribute("memberId") %>';
 	$.ajax({
 		type:'post',
-		url:'/member/getMemberName',
+		url:'/member/findMemberInfo',
 		data:{'memberId':memberId},
 		success:function(result){
-			$('#userName').append(result);
+			$('#userName').append(result.memberName);
+			$('#userId').append(memberId);
+			$('#userTele').append(result.memberTele);
+			$('#userAddr').append(result.memberAddr);
+			$('.charPlace').setAttribute(result.memberChar);
 		},
 		error: function(e){ console.log(e); }
 	});
@@ -333,14 +355,14 @@ $(document).ready(function() {
 		<div class="row" id="fisrt-row">
 			<div class="col-12">
 				<div class="charPlace">
-					<img class="charIamge" src="/img/char.png" data-toggle="modal" data-target="#editModal">
+					<img class="charIamge" src="/img/character_01.png" data-toggle="modal" data-target="#editModal">
 				</div>
 				<div class="infoPlace">
 					<div class="myInfo">
-						<p id="userName" class="mb-0">이름 : </p>
-						<p id="userId">아이디 : </p>
-						<p id="userPhone">전화번호 : </p>
-						<p id="userAddress">주소 : </p>
+						<p id="userName" class="userInfo">이름 : </p>
+						<p id="userId" class="userInfo">아이디 : </p>
+						<p id="userTele" class="userInfo">전화번호 : </p>
+						<p id="userAddr" class="userInfo">주소 : </p>
 					</div>
 				</div>
 			</div>

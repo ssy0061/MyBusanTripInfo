@@ -14,7 +14,7 @@ public interface MemberDAO {
 	public List<Member> findIdExist(String memberId); //아이디 중복 확인용 아이디 리스트..
 	public void addAccount(String memberId, String accountNumber); //회원가입시 자동생성계좌..
 	
-	public String getMemberName(String memberId);
+	public Member findMemberInfo(String memberId);
 	
 	public Member login(Member member); //로그인
 	public void logout(); //로그아웃
