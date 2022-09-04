@@ -41,6 +41,10 @@
 			min-height: calc(100vh - 70px);
 		}
 		
+		.home-top, .home-middle, .home-bottom {
+			width: 80%;
+			max-width: 400px;
+		}
 		.web-right{
 			margin-top: 15px;
 		}
@@ -50,12 +54,15 @@
 			min-height: calc(65vh - 170px);
 		}
 		
+		.home-top, .home-middle, .home-bottom {
+			width: 92%;
+		}
 		.web-container{
 			display: flex;
 			justify-content: space-around;
 		}
 		.web-left, .web-right{
-			width: 100%
+			width: 100%;
 		}
 		.web-right{
 			margin-top: 0px;
@@ -71,15 +78,13 @@
 	}
 	
 	.home-top, .home-middle, .home-bottom {
-		width: 80%;
-		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
 		position: relative;
+		border-radius: 5px;
 	}
 	
-	.home-top, .home-bottom {
-		border-radius: 5px;
+	.home-top {
 		border: 1px solid var(--bnk-gray);
 	}
 	
@@ -99,11 +104,13 @@
 	
 	.home-bottom {
 		min-height: 10px;
+		padding: 10px 0;
 	}
 	
 	.home-top-upper {
 		height: 100px;
-		max-width: 300px;
+		max-width: 400px;
+		width: 80%;
 		margin: 0 auto;
 		position: relative;
 		border-radius: 5px;
@@ -111,7 +118,8 @@
 	}
 	
 	.home-top-lower {
-		max-width: 300px;
+		max-width: 400px;
+		width: 80%;
 		margin: 10px auto 0;
 		display: flex;
 		justify-content: space-around;
@@ -196,14 +204,19 @@
 		transform: translate(-50%, -50%);
 	}
 	
+	.home-bottom {
+		background-color: #fef0f0;
+	}
+	
 	.notice {
 		margin: 15px auto;
-		max-width: 300px;
-		padding: 3px 0;
+		max-width: 400px;
+		width: 80%;
+		padding: 5px 5px;
 		font-size: 15px;
 		border-radius: 5px;
-		border: 2px solid var(--bnk-gray);
-		background-color: #FFFFD4;
+		background-color: #fff;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.login {
@@ -282,7 +295,7 @@
 		// 공지사항 생성
 		var noticeArr = [
 			"8월의 여행가실부은 이벤트 당첨자 안내",
-			"8월 신규 등록 업체 안내",
+			"9월 신규 등록 업체 안내",
 			"🌺 동백전과 함께하는 동백 이벤트 🌺",
 			"여행가실부은 신규 가입 이벤트!",
 			"2030 부산월드엑스포 부산에 유치해~"
