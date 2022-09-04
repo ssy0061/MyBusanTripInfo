@@ -73,7 +73,8 @@ public class MemberDAOImpl implements MemberDAO{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("accountNumber", accountNumber);
 		map.put("startDay", startDay);
-		map.put("finishDay", finishDay);
+		String endDay = finishDay + " 23:59";
+		map.put("finishDay", endDay);
 		return sqlSession.selectList(NS+"findTransactionBySpecificPeriod", map);
 	}
 

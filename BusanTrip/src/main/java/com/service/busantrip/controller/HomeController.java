@@ -23,12 +23,13 @@ public class HomeController {
 		}
 		return "search/search";
 	}
+
 	@RequestMapping("transaction")
 	public String transaction(String id, HttpServletRequest request) {
 		request.setAttribute("id", id);
 		return "redirect:/search/searchDetail.jsp";
 	}
-	
+
 	@RequestMapping("trip")
 	public String trip() {
 		return "trip/story";
