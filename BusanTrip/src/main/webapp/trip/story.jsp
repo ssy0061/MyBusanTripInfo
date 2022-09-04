@@ -63,10 +63,33 @@
 		border-color:transparent;
 	}
 	/* modal */
+	#storyModal h4, #deleteStoryModal h4{
+	 	font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	 }
+	 #storyModal p, #deleteStoryModal p{
+	 	font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
+	 }
 	#membersearch{
-		border-color:transparent;
-		border-radius:10px;
+		display:inline-block;
 		background-color:#6c9dc6;
+		border-color:transparent;
+		border-radius:5px;
+		padding:0 3px;
+	}
+	.search-icon{
+		font-variation-settings:
+		  'FILL' 0,
+		  'wght' 600,
+		  'GRAD' 200,
+		  'opsz' 24;
+		margin-top:2px;
+	}
+	.modal-body-second{
+		display:flex;
+		justify-content:center;
+		align-items:center;
 	}
 	.addStoryYes{
 		display:inline-block;
@@ -135,8 +158,6 @@
 		 /*  box-shadow: 3px 3px 3px 3px gray; */
 		 background-color: 	#f5f5f5;
 	}
-	
-	
 	.close {
 	  font-variation-settings:
 	  'FILL' 0,
@@ -144,9 +165,7 @@
 	  'GRAD' 0,
 	  'opsz' 48;
 	  font-size: 25px;
-	  
 	}
-
 </style>
 
 <script>
@@ -367,11 +386,11 @@ $(function() {
 	     	</div>
 	     	<div class="modal-body" align="center">
 	       		<p>머니앨범 이름 : <input type="text" id="storyname" size="18"></p>
-	       		<p>
+	       		<p class="modal-body-second">
 					<i class="bi bi-person-bounding-box" style="font-size: 1.2rem;"></i>&nbsp;
 	       			<input type="text" id="newmember" placeholder="추가할 멤버 아이디 검색하기" size="23">
-	       			<button type="button" class="button btn-primary" id="membersearch">
-	       				<i class="bi bi-search" style="font-size: 1.2rem;"></i>
+	       			&nbsp;<button type="button" class="button btn-primary" id="membersearch">
+	       				<span class="material-symbols-outlined search-icon">search</span>
 					</button>
 	       		</p>
 	       		<p>

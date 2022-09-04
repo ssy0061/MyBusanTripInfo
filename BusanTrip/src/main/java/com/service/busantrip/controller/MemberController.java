@@ -106,10 +106,10 @@ public class MemberController {
 	
 	@PostMapping("updateCharacter")
 	@ResponseBody
-	public String updateCharacter(String memberChar, String memberId, Model model, HttpSession session) {
+	public void updateCharacter(String memberChar, String memberId, Model model, HttpSession session) {
 		memberService.updateCharacter(memberChar, memberId);
 		model.addAttribute("memberChar",memberChar);
-		return "redirect: /bnk/home/mypage"; //마이페이지 링크 추후 수정 필요..
+		
 	}
 	
 	@PostMapping("addExternalTransaction")
