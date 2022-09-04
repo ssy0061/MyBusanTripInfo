@@ -51,7 +51,7 @@
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(65vh - 170px);
+			min-height: calc(100vh - 260px);
 		}
 		
 		.home-top, .home-middle, .home-bottom {
