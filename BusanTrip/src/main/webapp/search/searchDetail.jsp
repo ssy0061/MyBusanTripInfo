@@ -121,6 +121,7 @@
 		width: 32px;
 		border-radius: 10px;
 		background-color: white;
+		z-index: 98;
 	}
 	#toTop:hover{
 		cursor: pointer;
@@ -312,6 +313,7 @@
 		display: flex;
 		justify-content: space-between;
 	}
+	
 
 </style>
 
@@ -368,12 +370,17 @@
 		getTransaction(getPastDay(1),getNowDay())
 		
 		function getTransaction(startDay, finishDay) {
+			let finishDayDate = new Date(finishDay);
+			finishDayDate.setDate(finishDayDate.getDate()+1);
+			let finishDayPlus1 = dayToString(finishDayDate);
+			// 하루 더 더해야 올바른 조회가 가능.
+			
 			$.ajax({
 				type: 'post',
 				url: '/member/findTransactionBySpecificPeriod',
 				data: {'accountNumber': accountNumber,
 					   'startDay': startDay,
-					   'finishDay': finishDay},
+					   'finishDay': finishDayPlus1},
 				
 				success: function(res){
 					console.log(res)
@@ -390,7 +397,9 @@
 		}
 		
 		
-		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd',
+			beforeShow: function() { setTimeout(function(){ $('.ui-datepicker').css('z-index', 97); }, 0); }
+		});
 		
 		
 		$('.periodBox').click(function(){
@@ -403,8 +412,6 @@
 				$('#endDate').val(end)
 				
 				// period - 기간. befDay - 시작점. nowDay - 끝점(오늘).
-				// 비동기 방식으로 정보 전달...
-				//
 				
 				/* $('#detailBox').html("");
 				getTransaction(start, end) */
@@ -431,7 +438,7 @@
 			$('.periodBox-choiced').attr('class', 'periodBox');
 		})
 		
-		
+		var total = 0;  // total 변수의 위치
 		$('.searchBox').click(function(){
 			let state = $('.periodBox-choiced').text()
 			if(state !== "") $('#state').text(state)
@@ -443,7 +450,7 @@
 			let endDay = new Date(end);
 			
 			if (startDay <= endDay) {
-				// 비동기 방식으로 정보 전달...
+				total = 0;  // total 초기화
 				getTransaction(dayToString(startDay), dayToString(endDay))
 				$('#detailBox').html("");
 				//$('.periodBox-choiced').attr('class', 'periodBox');
@@ -502,7 +509,7 @@
 			window.scrollTo(0, 0);
 		})
 		
-		var total = 0;
+		// total 변수의 위치를 이동.
 		function loadData(page) {
 			var start = (totalPage*10)-10;
 			var end = list.length;
