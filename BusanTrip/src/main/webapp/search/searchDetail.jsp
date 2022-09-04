@@ -312,6 +312,7 @@
 		display: flex;
 		justify-content: space-between;
 	}
+	
 
 </style>
 
@@ -403,8 +404,6 @@
 				$('#endDate').val(end)
 				
 				// period - 기간. befDay - 시작점. nowDay - 끝점(오늘).
-				// 비동기 방식으로 정보 전달...
-				//
 				
 				/* $('#detailBox').html("");
 				getTransaction(start, end) */
@@ -431,7 +430,7 @@
 			$('.periodBox-choiced').attr('class', 'periodBox');
 		})
 		
-		
+		var total = 0;  // total 변수의 위치
 		$('.searchBox').click(function(){
 			let state = $('.periodBox-choiced').text()
 			if(state !== "") $('#state').text(state)
@@ -443,7 +442,7 @@
 			let endDay = new Date(end);
 			
 			if (startDay <= endDay) {
-				// 비동기 방식으로 정보 전달...
+				total = 0;  // total 초기화
 				getTransaction(dayToString(startDay), dayToString(endDay))
 				$('#detailBox').html("");
 				//$('.periodBox-choiced').attr('class', 'periodBox');
@@ -502,7 +501,7 @@
 			window.scrollTo(0, 0);
 		})
 		
-		var total = 0;
+		// total 변수의 위치를 이동.
 		function loadData(page) {
 			var start = (totalPage*10)-10;
 			var end = list.length;
