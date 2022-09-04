@@ -67,6 +67,11 @@
 		.web-right{
 			margin-top: 0px;
 		}
+		.backImg{ /* web backgorund */
+			background-image: url("/img/back3.jpg");
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+		}
 	}
 	/* 상하단 바를 위한 필수 css */
 	.content{
@@ -374,7 +379,7 @@
 </head>
 <body>
 
-	<div>
+	<div class="backImg">
 		<c:import url="../header/nav.jsp">
 			<%-- <c:param name="navSubTitle" value="조회222"/> --%>
 		</c:import>
