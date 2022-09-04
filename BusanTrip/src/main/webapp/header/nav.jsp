@@ -190,7 +190,6 @@
 		var memberId = '<%= session.getAttribute("memberId") %>';
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		var path = window.location.pathname.split('/').pop(1);
-		console.log()
 		if(${loginUser!=null} && path!=='myPage') {
 			$('.nav-mobile').append(
 					'<div id="navUserImgWrap">'+

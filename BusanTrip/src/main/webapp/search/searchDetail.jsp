@@ -89,7 +89,13 @@
 		.searchDetail-upper-bottom-inner{
 			padding-left: 12px;
 		}
+		.backImg{ /* web backgorund */
+/* 			background-image: url("/img/back3.jpg");
+			background-size: 1500px 4000px;
+			background-repeat: no-repeat; */
+		}
 	}
+	
 	@media screen and (min-width: 575.1px) { /* Web box */
 		.content{
 			min-height: calc(100vh - 190px); /*상하단바 190px */
@@ -369,6 +375,7 @@
 		// 1개월 조회(기본값)
 		getTransaction(getPastDay(1),getNowDay())
 		
+		var total = 0;
 		function getTransaction(startDay, finishDay) {
 			let finishDayDate = new Date(finishDay);
 			finishDayDate.setDate(finishDayDate.getDate()+1);
@@ -388,6 +395,10 @@
 					totalPage = Math.ceil(list.length/10);
 					$('#startDate').val(startDay)
 					$('#endDate').val(finishDay)
+					/* total */
+					for (var i=0; i<list.length; i++) {
+						total += list[i].transactionAmt
+					}
 					loadData(1)
 				},
 				error: function(e) {
@@ -508,8 +519,7 @@
 		$('#toTop').on('click', function(){
 			window.scrollTo(0, 0);
 		})
-		
-		// total 변수의 위치를 이동.
+    
 		function loadData(page) {
 			var start = (totalPage*10)-10;
 			var end = list.length;
@@ -522,7 +532,6 @@
 				return
 			}
 			for (var i=start; i<end; i++) {
-				total += list[i].transactionAmt
 				
 				var memo = list[i].transactionMemo !== null ?
 						'<div class="searchDetail-lower-box-inner">'+
@@ -574,7 +583,7 @@
 
 </head>
 <body>
-	<div>
+	<div class="backImg">
 		<c:import url="/header/nav.jsp">
 			<c:param name="navSubTitle" value="소비내역"/>
 		</c:import>

@@ -23,7 +23,7 @@
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
-	
+
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
