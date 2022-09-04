@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 	/* all */
 	*{
@@ -65,14 +66,14 @@
 	.myInfo{
 		width:80%;
 		max-width:400px;
-		border-color:gray;
-		border-radius:5px;
-		border-style:solid;
 		padding:5px 20px 5px 20px;
+		border-radius:4px;
+		box-shadow:2px 3px 5px 2px lightgray;
 	}
 	.myInfo p{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
+		color:#53565A;
 	}
 	.userInfo{
 		margin:4px 0 4px 0;
@@ -217,15 +218,34 @@
 		display:flex;
 		justify-content:center;
 		flex-wrap:wrap;
-		background-color:gray;
 		padding:5px;
 	}
 	.myjjim{
 		display:flex;
-		justify-content:space-around;
+		justify-content:space-between;
+		align-items: center;
 		background-color:white;
-		border-radis:4px;
-		margin:4px;
+		border-radius:4px;
+		box-shadow:2px 3px 5px 2px lightgray;
+		margin:6px;
+		padding:5px;
+	}
+	.favorite-icon{
+		font-variation-settings:
+	  'FILL' 1,
+	  'wght' 600,
+	  'GRAD' 0,
+	  'opsz' 24;
+	  color:#eb4747;
+	  cursor:pointer;
+	}
+	.favorite-icon:hover{
+		color:#F08080;
+	}
+	.jjimname, .jjimaddr{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+		color:#53565A;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -264,6 +284,7 @@ $(document).ready(function() {
 			url:'/member/findMemberInfo',
 			data:{'memberId':memberId},
 			success:function(result){
+				let storeNameList = 
 				$('.charIamge').attr("src", result.memberChar);
 			},
 			error: function(e){ console.log(e); }
@@ -381,6 +402,38 @@ $(document).ready(function() {
     		});
     	}
     }
+	
+    $.ajax({
+		type:'post',
+		url:'/store/findAllWishlist',
+		data:{'memberId':memberId},
+		success:function(result){
+			let i;
+			for(i=0; i<result.length; i++) {
+				console.log(result[i].storeName);
+				console.log(result[i].storeAddr.split(" ")[0]);
+				$('#myPlaceList').append("<div class='myjjim col-md-5'><span class='material-symbols-outlined favorite-icon'>favorite</span>"+
+						"<span class='jjimname'>"+result[i].storeName+"</span>"+
+						"<span class='jjimaddr'>"+result[i].storeAddr.split(" ")[0]+"</span></div>")
+			}
+		}, error: function(e){ console.log(e); }
+	});
+	
+    function deletejjim(){
+    	$.ajax({
+    		type:'post',
+    		url:'/store/deleteWishlist',
+    		data:{'storeId':storeId, 'memberId':memberId},
+    		success:function(result){
+    			document.location.reload();
+    		}, error:function(e) { console.log(e); }
+    	});
+    }
+	
+    var storeId = "";
+    $('#myPlaceList').on('click', '.favorite-icon', function(){
+    	$(this).parent().removeClass('myjjim')
+    })
 })
 	
 </script>
@@ -431,7 +484,6 @@ $(document).ready(function() {
 			<div class="col-12">
 				<h5>나의 플레이스 (찜 목록)</h5>
 				<div id="myPlaceList">
-					<div class="myjjim col-md-5 px-0"><span class="jjimname">가게이름</span><span class="jjimploc">위치</span></div>
 				</div>
 			</div>
 			
