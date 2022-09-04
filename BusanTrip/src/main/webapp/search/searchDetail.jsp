@@ -56,11 +56,39 @@
 		.searchDetail-lower{
 			min-height: calc(100vh - 290px);
 		}
-		.condition-collapseWrap{
-			padding-top: 10px;
+	}
+	@media screen and (max-width: 768px) {
+		.collapseInnerWrap{
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			width: 100%;
+		}
+		.collapseLeft{
+			display: flex;
+			flex-direction: column;
+		}
+		.periodBoxWrap{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.searchDetail-upper-bottom-inner{
+			padding-top: 8px;
+			width: 100%;
 		}
 	}
-	@media screen and (min-width: 575.1px) { /* Web */
+	@media screen and (min-width: 768px) {
+		.collapseInnerWrap{
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+		}
+		.searchDetail-upper-bottom-inner{
+			padding-left: 12px;
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web box */
 		.content{
 			min-height: calc(100vh - 190px); /*상하단바 190px */
 			padding: 20px 0;
@@ -74,11 +102,7 @@
 			box-shadow: 1px 3px 5px 3px lightGray;
 			min-height: calc(100vh - 230px);
 		}
-		.collapseInnerWrap{
-			display: flex;
-			justify-content: space-around;
-			align-items: center;
-		}
+
 	}
 	/* 상하단 바를 위한 필수 css */
 	
@@ -166,14 +190,13 @@
 		'opsz' 48
 	}
 	.searchDetail-upper-bottom-inner {
-		text-align: center;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 	}
 	.periodBox {
 		background-color: white;
 		border-radius: 10px;
-		border: 2px solid lightGray;
+		border: 3px solid lightGray;
 		font-weight: bold;
 		width: 100px;
 		margin: 0 1px 1px;
@@ -184,6 +207,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		width: 40px;
+		height: 40px;
 	}
 	
 	.searchBox>img {
@@ -212,20 +237,19 @@
 	
 	.searchDetail-lower-box {
 		max-width: 720px;
-		margin: 0 auto 10px;
+		margin: 0 auto;
 		min-height: 60px;
 		height: auto;
-		border-bottom-color:#DCDCDC;
-		border-bottom-width: 2px;
-		border-bottom-style: solid;
-		padding: 5px 10px 3px;
+		padding: 10px 10px 10px;
 	}
 	
 	.searchDetail-lower-box-inner {
 		text-align: center;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
+		align-items: center;
 		margin: 2px 0;
+		padding: 0 10px;
 	}
 	
 	.payDate { 
@@ -237,9 +261,7 @@
 	}
 	
 	.image-box {
-		width: 80px;
-		text-align: right;
-		margin: 0 5px 0 0;
+		width: 32px;
 	}
 	
 	.searchBtn, .memoBtn {
@@ -251,7 +273,6 @@
 	}
 	
 	.storeName {
-		width: 180px;
 		text-align: left;
 		margin: 0 0 0 5px;
 		font-weight: bold;
@@ -259,7 +280,6 @@
 	}
 	
 	.payAmount {
-		width: 120px;
 		text-align: right;
 		margin: 0 5px 0 0;
 		font-weight: bold;
@@ -267,15 +287,18 @@
 	}
 	
 	.memo {
-		border: 1px solid burlywood;
-		background-color: beige;
 		width: 280px;
-		margin: 3px 5px;
+		margin: 0px 5px;
 		font-size: 10px;
 		text-align: left;
 		padding: 1px 2px;
 	}
-	
+	.datepicker-icon {
+	  font-variation-settings:
+	  'wght' 600,
+	  'GRAD' 0,
+	  'opsz' 40
+	}
 	.datepicker {
 		margin: 1px 0 0;
 		width: 100px;
@@ -285,7 +308,7 @@
 	}
 	.totalAmount{
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 	}
 
 </style>
@@ -478,7 +501,6 @@
 		})
 		
 		var total = 0;
-		
 		function loadData(page) {
 			var start = (totalPage*10)-10;
 			var end = list.length;
@@ -497,24 +519,36 @@
 						'<div class="searchDetail-lower-box-inner">'+
 						'<span class="memo">'+list[i].transactionMemo+'</span></div>'
 						: "";
+				var line = (i < list.length-1) ?
+						   '<div style="max-width: 720px; '+
+						   'border-bottom-color:#DCDCDC; '+
+						   'border-bottom-width: 2px; '+
+						   'border-bottom-style: solid;"></div> ' : ""
 				$('#detailBox').append(
 						'<div class="searchDetail-lower-box" id="lowerBox-'+i+'">'+
 						'<div class="searchDetail-lower-box-inner">'+
 						'<span class="payDate">'+list[i].transactionTime.substring(0,10)+'</span>'+
-						'<div class="image-box">'+
-						'<img class="searchBtn" src="/img/search.png" width=20px>'+
-						'<img class="memoBtn" src="/img/memo.png" width=20px data-toggle="modal" data-target="#memoModal">'+
+						'<div class="image-box d-flex justify-content-center align-items-center">'+
+						'<span class="memoBtn material-symbols-outlined mt-1"'+
+									 'data-toggle="modal" data-target="#memoModal">edit_square</span>'+
 						'</div></div>'+
 						'<div class="searchDetail-lower-box-inner">'+	
-						'<span class="storeName">'+list[i].transactionStore+'</span>'+
-						'<span class="payAmount">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
-						'</div>'+memo+'</div>'
+						'<div class="d-flex align-items-center" style="width: 60%;"><span class="storeName">'+list[i].transactionStore+'</span>'+
+						'<span class="searchBtn material-symbols-outlined pt-2" style="width: 20px;">chevron_right</span></div>'+
+						'<span class="payAmount" style="width: 40%; color: #cb333b;">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
+						'</div>'+memo+'</div>'+line
 				);
 				
 			}// for
 			
 			$('.totalAmount').html('<span><b>기간 합계</b></span><span><b>'+
 					               total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</b></span>');
+			$('.totalAmount').css({
+				"padding": "10px 10px",
+				"border-bottom-style": "solid",
+		        "border-bottom-width": "3px",
+		        "border-color": "black"
+			})
 			
 		}  // loadData
 		
@@ -556,29 +590,44 @@
 				</div>
 				<div class="condition-collapseWrap">
 					<div class="collapse" id="conditionCollpase">
-						<div class="collapseInnerWrap">
-							<div class="periodBoxWrap">
-								<span class="periodBox" value="1">1개월</span>
-								<span class="periodBox" value="3">3개월</span>
-								<span class="periodBox" value="6">6개월</span>
-							</div>
-							<div class="searchDetail-upper-bottom-inner">
-								<input type="text" class="datepicker" id="startDate" readonly="readonly"> 
-								<span width="15px"><b>~</b></span>
-								<input type="text" class="datepicker" id="endDate" readonly="readonly">
+						<div class="collapseInnerWrap px-2">
+							<div class="collapseLeft py-2 d-flex justify-content-between align-items-center">
+								<div class="periodBoxWrap">
+									<span class="periodBox" value="1">1개월</span>
+									<span class="periodBox" value="3">3개월</span>
+									<span class="periodBox" value="6">6개월</span>
+								</div>
+								<div class="searchDetail-upper-bottom-inner d-flex justify-content-between align-items-center">
+									<div class="d-flex justify-content-center align-items-center">
+										<span class="datepicker-icon material-symbols-outlined">
+											calendar_month
+										</span>
+										<input type="text" class="datepicker" id="startDate" readonly="readonly"> 
+									</div>
+									<span width="15px"><b>~</b></span>
+									<div class="d-flex justify-content-center align-items-center">
+										<span class="datepicker-icon material-symbols-outlined">
+											calendar_month
+										</span>
+										<input type="text" class="datepicker" id="endDate" readonly="readonly">
+									</div>
+								</div>
 							</div>
 							<div class="searchBox d-flex align-items-center">
 								<a data-toggle="collapse" href="#conditionCollpase"
 								   style="text-decoration: none; color: black;"
 						   		   class="d-flex justify-content-end  align-items-center">
-								<button class="btn">조회</button></a>
+								<b>조회</b></a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="totalAmount"></div>
-				<div id="detailBox" class="searchDetail-lower">
-
+				<div class="d-flex justify-content-center">
+					<div style="max-width: 550px; width: 95%;">
+						<div class="totalAmount"></div>
+						<div id="detailBox" class="searchDetail-lower">
+						</div>
+					</div>
 				</div>
 				<div id="toTop" class="d-flex justify-content-center shadow">
 					<i class="bi bi-caret-up-fill" style="font-size: 1.2rem;"></i>
