@@ -41,7 +41,7 @@
 			min-height: calc(100vh - 70px);
 		}
 		
-		.home-bottom{
+		.web-right{
 			margin-top: 15px;
 		}
 	}
@@ -57,7 +57,7 @@
 		.web-left, .web-right{
 			width: 100%
 		}
-		.home-bottom{
+		.web-right{
 			margin-top: 0px;
 		}
 	}
