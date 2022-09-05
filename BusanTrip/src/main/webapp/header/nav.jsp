@@ -7,9 +7,10 @@
 <meta charset="UTF-8">
 <title>nav</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;900&display=swap" rel="stylesheet">
 <style type="text/css">
 	.nav{
 		width: 100%;
@@ -24,6 +25,9 @@
         border-bottom-width:4px;
         border-color:#cb333b;
         z-index: 99;
+	}
+	a{
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 	#nvaHomeMobileLogo{
 		height: 55px;
@@ -190,7 +194,7 @@
 		var memberId = '<%= session.getAttribute("memberId") %>';
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		var path = window.location.pathname.split('/').pop(1);
-		if(${loginUser!=null} && path!=='myPage') {
+		if(loginUser!='null' && path!=='myPage') {
 			$('.nav-mobile').append(
 					'<div id="navUserImgWrap">'+
 					'<img src="${loginUser.memberChar}" id=navUserImg></div>'
@@ -239,7 +243,7 @@
 				<div class="needLogin"><a href="/bnk/search">조회</a></div>
 				<div class="needLogin"><a href="/bnk/trip">머니앨범</a></div>
 				<div><a href="/bnk/place">핫플</a></div>
-				<div class="needLogin"><a href="/bnk/myPage">MyPage</a></div>
+				<div class="needLogin"><a href="/bnk/myPage">마이페이지</a></div>
 			</div>
 			<div class="navMenusButton">
 			    <i class="bi bi-list" style="font-size: 2.5rem;"></i>
