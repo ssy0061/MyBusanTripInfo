@@ -21,11 +21,11 @@
 		WHERE STORY_ID = #{storyId}
 	</update>
 	
-	<select id="getStoryId" resultType="String">
+	<select id="findStoryId" resultType="String">
 		SELECT STORY_ID FROM STORY WHERE STORY_NAME= #{storyName}
 	</select>
 	
-	<select id="getStoryName" parameterType="String" resultType="String">
+	<select id="findStoryName" parameterType="String" resultType="String">
 		SELECT STORY_NAME FROM STORY WHERE STORY_ID= #{storyId}
 	</select>
 	
