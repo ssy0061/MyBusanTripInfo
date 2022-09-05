@@ -73,8 +73,8 @@ public class StoryController {
 	
 	@PostMapping("getStoryName")
 	@ResponseBody
-	public String getStoryName(String storyId) {
-		return storyService.getStoryName(storyId);
+	public String findStoryName(String storyId) {
+		return storyService.findStoryName(storyId);
 	}
 	
 	

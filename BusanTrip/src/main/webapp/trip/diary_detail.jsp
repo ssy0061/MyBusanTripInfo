@@ -35,11 +35,6 @@
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 400;
 	}
-	/* container */
-	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
-	.space100 {
-		height:100px;
-	}
 	.pay-store{
 		width:50%;
 		float:left;
@@ -261,7 +256,26 @@
 	  height: 50%;
 	  object-fit: cover;
 	}
-
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	    width:90%;
+		max-width:800px;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 80px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 <script>
 $(document).ready(function () {
@@ -555,8 +569,7 @@ $(document).ready(function () {
 	<c:import url="/header/nav.jsp">
 		<c:param name="navTitle" value="여행"/>
 	</c:import>
-	<div class="container">
-		<div class="space100"></div>
+	<div class="content container">
 		<div class="row mt-4 mb-4 ">
 			<div class="albumTitle col-6 pr-0 ">
 				<h3>ㅇㅇ여행</h3>
@@ -592,10 +605,6 @@ $(document).ready(function () {
 		<div class="swiperContent">
 
 		</div>
-		
-		
-	
-		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
 	<!-- The Modal -->
