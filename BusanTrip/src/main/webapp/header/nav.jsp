@@ -193,12 +193,22 @@
 	$(function(){
 		var memberId = '<%= session.getAttribute("memberId") %>';
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
+		
+		
 		var path = window.location.pathname.split('/').pop(1);
 		if(loginUser!='null' && path!=='myPage') {
-			$('.nav-mobile').append(
-					'<div id="navUserImgWrap">'+
-					'<img src="${loginUser.memberChar}" id=navUserImg></div>'
-			)
+			$.ajax({
+				type: 'post',
+				url: '/member/findMemberInfo',
+				data: {'memberId': memberId},
+				success: function(res){
+					$('.nav-mobile').append(
+							'<div id="navUserImgWrap">'+
+							'<img src="'+res.memberChar+'" id=navUserImg></div>'
+					)
+					$('.nav-mobile').children('#navUserImg').attr("src", );
+				}
+			})
 		}
 		
 		var loginUrl = '/bnk/login'
@@ -207,7 +217,8 @@
 		}
 		
 		$('.back').click(function(){
-			window.history.back();
+			/* window.history.back(); */
+			location.href=document.referrer;
 		})
 		$('.navMenusButton').click(function(){
 			$('#navCollpase').attr("class","collapse show");
@@ -229,7 +240,7 @@
 				$('.navMenusButton').hide()
 			}
 		});
-		$('#navUserImgWrap').click(function(){
+		$('.nav-mobile').on("click","#navUserImgWrap",function(){
 			location.href="/bnk/myPage";
 		})
 	});
@@ -258,7 +269,7 @@
 				<div class="needLogin"><a href="/bnk/search">조회</a></div>
 				<div class="needLogin"><a href="/bnk/trip">머니앨범</a></div>
 				<div><a href="/bnk/place">핫플</a></div>
-				<div class="needLogin"><a href="/bnk/myPage">MyPage</a></div>
+				<div class="needLogin"><a href="/bnk/myPage">마이페이지</a></div>
 			</div>
 		</div>
 		
