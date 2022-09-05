@@ -171,4 +171,10 @@ public class MemberController {
 		List<Map<String, Object>> memberVisitStats = memberService.findMemberVisitStats(memberId);
 		return memberVisitStats;
 	}
+	
+	@PostMapping("updateMemberInfo")
+	@ResponseBody
+	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr, String memberId) {
+		memberService.updateMemberInfo(memberPw, memberTele, memberAddr, memberId);
+	}
 }

@@ -222,9 +222,6 @@
 		flex-wrap: wrap;
 		align-content: space-between; */
     }
-    
-
-    
     .card-header{
     	overflow: hidden;
     	height: 80%; 
@@ -420,8 +417,7 @@ $(document).ready(function () {
 		    		var photoUrl4 = '/img/building.jpg';
 		    		
 		    		var len = photoList.length;
-		    		
-		    		
+
 					if(element == null) { // 공간 생성 안된 사용자인 경우
 						// 사용자 별 스위퍼 공간 생성
 			    		$('.swiperContent').append(

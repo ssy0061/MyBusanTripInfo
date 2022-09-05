@@ -136,4 +136,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.findMemberVisitStats(memberId);
 	}
 
+	@Override
+	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr, String memberId) {
+		memberDAO.updateMemberInfo(memberPw, memberTele, memberAddr, memberId);
+	}
+
 }

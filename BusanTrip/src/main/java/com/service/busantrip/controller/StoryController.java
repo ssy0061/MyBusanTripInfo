@@ -127,6 +127,13 @@ public class StoryController {
 		
 		return storyService.findAllDiaryTransaction(diaryId);
 	}
+	
+	@PostMapping("findDiaryTransactionByMember")
+	@ResponseBody
+	public List<DiaryTransaction> findDiaryTransactionByMember(String memberId) {
+		
+		return storyService.findDiaryTransactionByMember(memberId);
+	}
 
 	@PostMapping("findDiaryPhoto")
 	@ResponseBody
