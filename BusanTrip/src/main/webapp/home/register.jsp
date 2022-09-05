@@ -25,7 +25,7 @@
 	}
 	
 	.content{
-		min-height: 60vh;
+		min-height: 66.5vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
 	    padding-top: 10px;
@@ -37,30 +37,31 @@
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
-		height: 260px;
+		height: 280px;
 		position: relative;
 		border-radius: 10px;
-		border: 2px solid var(--bnk-gray);
+		box-shadow:2px 3px 5px 2px lightgray;
 	}
 	
 	.register-box-inner {
 		max-width: 300px;
-		margin: 5px auto;
+		margin: 6px auto;
 		text-align: center;
 		display: flex;
 		justify-content: space-around;
 	}
 	
 	.inner-text {
-		font-size: 15px;
+		font-size: 16px;
 		margin: 0 5px;
 		width: 140px;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
 	}
 	
 	.inner-text-black { color: black; }
-	.inner-text-red { color: red; font-weight: bold; }
-	.inner-text-yellow { color: gold; font-weight: bold; }
-	.inner-text-green { color: green; font-weight: bold; }
+	.inner-text-red { color: #CB333B; }
+	.inner-text-green { color: green; }
 	
 	.form-box {
 		width: 160px;
@@ -74,10 +75,22 @@
 		font-size: 12px;
 	}
 	
-	.form-register {
+	#joinbutton {
 		width: 100%;
 		margin: 0 5px;
-		font-weight: bold;
+		line-height: 2.0;
+		font-size: 1rem;
+	    text-align: center;
+	    color:white;
+	    font-weight: bold;
+	    background-color: #53565A;
+	    border-color:transparent;
+	    border-radius: 5px;
+	    box-shadow: 0px 5px 8px -3px #aaa;
+	}
+	#joinbutton:hover{
+		background-color: #CB333B;
+	    color: white;
 	}
 	
 	.ud-center {
@@ -104,7 +117,7 @@
 				$('#checkDuple').attr('class', 'inner-text inner-text-black');
 			} else if ((idVal.length < 5) || (idVal.length > 30)) {  // 글자 위반
 				$('#checkDuple').text('5자 ~ 30자로 아이디를 입력해주세요.');
-				$('#checkDuple').attr('class', 'inner-text inner-text-yellow');
+				$('#checkDuple').attr('class', 'inner-text inner-text-red');
 			} else {
 				// id 유무 check
 				$.ajax({
@@ -135,7 +148,7 @@
 				$('#checkPassword').attr('class', 'inner-text inner-text-black');
 			} else if ((pwVal.length < 7) || (pwVal.length > 30)) {  // 글자 위반
 				$('#checkPassword').text('7자 ~ 30자로 비밀번호를 입력해주세요.');
-				$('#checkPassword').attr('class', 'inner-text inner-text-yellow');
+				$('#checkPassword').attr('class', 'inner-text inner-text-red');
 			} else {  // ok
 				$('#checkPassword').text('비밀번호로 사용가능합니다!');
 				$('#checkPassword').attr('class', 'inner-text inner-text-green');
@@ -163,55 +176,51 @@
 		</c:import>
 		
 		<div class="content container">
-			
 			<div class="ud-center">
 				<div class="register-box">
 					<div class="ud-center">
 						<form method="post" name="registerData" action="/member/join">
 						<%-- register.do로 요청. registerData라는 이름으로 요청 --%>
-						
 							<div class="register-box-inner">
-								<div class="inner-text">아이디: </div>
+								<div class="inner-text">아이디 : </div>
 								<input id="idForm" type="text" name="memberId" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
-								<div id="checkDuple" class="inner-text inner-text-black">아이디를 입력해주세요.</div>
+								<div id="checkDuple" class="inner-text inner-text-red">아이디를 입력해주세요.</div>
 							</div>
 							
 							<div class="register-box-inner">
-								<div class="inner-text">비밀번호: </div>
+								<div class="inner-text">비밀번호 : </div>
 								<input id="pwForm" type="password" name="memberPw" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
-								<div id="checkPassword" class="inner-text inner-text-black">비밀번호를 입력해주세요.</div>
+								<div id="checkPassword" class="inner-text inner-text-red">비밀번호를 입력해주세요.</div>
 							</div>
 							
 							<div class="register-box-inner">
-								<div class="inner-text">이름: </div>
+								<div class="inner-text">이름 : </div>
 								<input type="text" name="memberName" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
-								<div class="inner-text">전화번호: </div>
+								<div class="inner-text">전화번호 : </div>
 								<input type="text" name="memberTele" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
-								<div class="inner-text">주소: </div>
+								<div class="inner-text">주소 : </div>
 								<input type="text" name="memberAddr" class="form-box" required="required">
 							</div>
 							
 							<div class="register-box-inner">
-								<input type="submit" class="form-register" value="회원가입">
+								<input type="submit" class="form-register" id="joinbutton" value="회원가입">
 							</div>
-							
 						</form>
 					</div>
 				</div>
 			</div>
-
 		</div>
 		
 		<c:import url="/footer/footer.jsp" />
