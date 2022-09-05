@@ -213,8 +213,8 @@
 			
 			var iwContent =
 				// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				'<div style="width:150px; padding:5px; text-align:center;">' + $('#storeName').text() +
-				'<br><small><a href="https://map.kakao.com/link/map/' + $('#storeName').text() +',' + lati +
+				'<div style="width:180px; padding:2px 0 5px; text-align:center; line-height: 18px;"><small><b>' + $('#storeName').text() +
+				'</b><br><a href="https://map.kakao.com/link/map/' + $('#storeName').text() +',' + lati +
 				', ' + longi + '" style="color:blue" target="_blank">큰지도보기</a>  <a href="https://map.kakao.com/link/to/' +
 				$('#storeName').text() + ',' + lati + ', ' + longi + '" style="color:blue" target="_blank">길찾기</a></small></div>',
 			    iwPosition = new kakao.maps.LatLng(lati, longi); //인포윈도우 표시 위치입니다
