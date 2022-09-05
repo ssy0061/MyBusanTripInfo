@@ -291,6 +291,18 @@ $(document).ready(function() {
 		});
 	}
 	
+	$('#logoutBox').click(function() {
+		$.ajax({
+			type: 'post',
+			url: '/member/logout',
+			success: function(result) {
+				location.href = result;
+			},
+			error: function(e){ console.log(e); }
+		});
+		// 로그아웃 기능 수행.
+	})
+	
 	var result = [
 		{
 		'user': '사용자1',

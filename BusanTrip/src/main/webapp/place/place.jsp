@@ -141,7 +141,6 @@
 		border: 2px solid var(--bnk-gray);
 		border-radius: 5px;
 	}
-
 	.info-left {
 		width: 80px;
 		font-weight: bold;
@@ -401,7 +400,6 @@
 				error: function(e){ console.log(e); }
 			});  // findStorePopularByCategory end
 		}  // for - 범주별 컨텐츠
-
 		
 		function serachModalChange(storeId) {
 			$.ajax({
@@ -502,8 +500,8 @@
 			
 			var iwContent =
 				// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				'<div style="width:150px; padding:5px; text-align:center;">' + $('#storeName').text() +
-				'<br><small><a href="https://map.kakao.com/link/map/' + $('#storeName').text() +',' + lati +
+				'<div style="width:180px; padding:5px; text-align:center;"><small><b>' + $('#storeName').text() +
+				'</b><br><a href="https://map.kakao.com/link/map/' + $('#storeName').text() +',' + lati +
 				', ' + longi + '" style="color:blue" target="_blank">큰지도보기</a>  <a href="https://map.kakao.com/link/to/' +
 				$('#storeName').text() + ',' + lati + ', ' + longi + '" style="color:blue" target="_blank">길찾기</a></small></div>',
 			    iwPosition = new kakao.maps.LatLng(lati, longi); //인포윈도우 표시 위치입니다
@@ -554,7 +552,6 @@
 					error: function(e){ console.log(e); }
 				});  // addWishlist end
 			}
-
 		});  // click end
 		
 	});  // JQuery
