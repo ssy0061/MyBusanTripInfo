@@ -288,6 +288,7 @@ $(document).ready(function() {
 			$('#userTele').append(result.memberTele);
 			$('#userAddr').append(result.memberAddr);
 			$('.charIamge').attr("src", result.memberChar);
+			memberCharUrl = result.memberChar;
 		},
 		error: function(e){ console.log(e); }
 	}); // 회원 정보
@@ -353,21 +354,27 @@ $(document).ready(function() {
 			}
 		]}
 	];
+	var tmpCharUrl = "";
 	$('.each-pic').on("click", function(e){
-		memberCharUrl = $(this).attr("src");
-		console.log(memberCharUrl)
+		tmpCharUrl = $(this).attr("src");
+		$(".each-pic").css("filter","brightness(80%)");
+		$(this).css("filter","brightness(100%)")
 	}); // 캐릭터 이미지 선택
 	$('.charChangeOk').on("click", function(e){
-		$.ajax({
-			type:'post',
-			url:'/member/updateCharacter',
-			data:{'memberChar':memberCharUrl, 'memberId':memberId},
-			success:function(result){
-				console.log(result)
-				updateChar()
-			},
-			error: function(e){ console.log(e); }
-		});
+		if(tmpCharUrl!==memberCharUrl){
+			$.ajax({
+				type:'post',
+				url:'/member/updateCharacter',
+				data:{'memberChar':tmpCharUrl, 'memberId':memberId},
+				success:function(result){
+					memberCharUrl = tmpCharUrl
+					console.log(result)
+					updateChar()
+				},
+				error: function(e){ console.log(e); }
+			});
+		}
+		
 	}); // 캐릭터 이미지 바꾸기
 	
 	refreshContent();
@@ -460,20 +467,27 @@ $(document).ready(function() {
     	deletejjim();
     	$(this).parent().remove();
     })
+    
+    $("#editModal").on('show.bs.modal', function () {/* 모달 열릴 때 */
+        $(".each-pic[src='"+memberCharUrl+"']").css("filter","brightness(100%)")
+    });
+    $("#editModal").on('hide.bs.modal', function () {/* 모달 닫힐 때 */
+        $(".each-pic[src='"+tmpCharUrl+"']").css("filter","brightness(80%)")
+    });
 })
 	
 </script>
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
-		<c:param name="navTitle" value="마이페이지" />
+		<c:param name="navSubTitle" value="마이페이지" />
 	</c:import>
 	<div class="container">
 		<div class="space85"></div>
 		<div class="row" id="fisrt-row">
 			<div class="col-12">
 				<div class="charPlace">
-					<img class="charIamge" src="/img/character_01.png" data-toggle="modal" data-target="#editModal">
+					<img class="charIamge" src="" data-toggle="modal" data-target="#editModal">
 				</div>
 				<div class="infoPlace">
 					<div class="myInfo">
