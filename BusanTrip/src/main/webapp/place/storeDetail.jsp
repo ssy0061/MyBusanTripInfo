@@ -169,7 +169,7 @@
 	}
 	
 </style>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55cec7f8be9f2d2a780ad76e59683837"></script>
 <script>
 	var memberId = '<%= (String)session.getAttribute("memberId") %>';
 
@@ -231,7 +231,6 @@
 			// center 이동
 			map.setCenter(new kakao.maps.LatLng(lati, longi));
 		});  // searchModal's modal show end
-		
 		
 		$('#likeBtn').click(function() {
 			

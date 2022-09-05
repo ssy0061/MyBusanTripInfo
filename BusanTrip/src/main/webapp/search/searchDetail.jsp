@@ -14,12 +14,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <%-- jquery ui 전용 import --%>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <%-- 구글 아이콘 --%>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<%-- 카카오 맵 --%>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55cec7f8be9f2d2a780ad76e59683837"></script>
 <style type="text/css">
 
 	:root {
@@ -357,7 +354,6 @@
 			url: '/member/getBalance',
 			data: {'accountNumber': accountNumber},
 			success: function(res){
-				/* console.log(res) */
 				$('.accountNumber').text(accountNumber)
 				$('.amount').text(res.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원')
 			},
@@ -391,7 +387,6 @@
 					   'finishDay': finishDayPlus1},
 				
 				success: function(res){
-					console.log(res)
 					list = res;
 					totalPage = Math.ceil(list.length/10);
 					nowPage = 1;
@@ -654,45 +649,44 @@
 		</div>
 
 		<c:import url="../footer/footer.jsp" />
-		
-		<%-- Memo Modal --%>
-		<div class="modal fade" id="memoModal">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h6 class="modal-title">Memo</h6>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<form>
-							<label for="memo-text" class="col-form-label">[💌] 메모를 기입해주세요</label>
-							<textarea class="form-control" id="memo-text"></textarea>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" id="memoSubmit" transaction-id=0>수정</button>
-						<button type="button" id="memoClose" data-dismiss="modal">취소</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<%-- Store Modal --%>
-		<div class="modal fade" id="searchModal">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h6 class="modal-title">가게 상세 정보</h6>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<c:import url="/place/storeDetail.jsp" />
-					</div>
-				</div>
-			</div>
-		</div>
-		
 	</div>
-</body>
+	
+	<%-- Memo Modal --%>
+	<div class="modal fade" id="memoModal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Memo</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<label for="memo-text" class="col-form-label">[💌] 메모를 기입해주세요</label>
+						<textarea class="form-control" id="memo-text"></textarea>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="memoSubmit" transaction-id=0>수정</button>
+					<button type="button" id="memoClose" data-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<%-- Store Modal --%>
+	<div class="modal fade" id="searchModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">가게 상세 정보</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<c:import url="/place/storeDetail.jsp" />
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>
