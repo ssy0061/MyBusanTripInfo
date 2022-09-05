@@ -137,8 +137,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr) {
-		memberDAO.updateMemberInfo(memberPw, memberTele, memberAddr);
+	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr, String memberId) {
+		memberDAO.updateMemberInfo(memberPw, memberTele, memberAddr, memberId);
 	}
 
 }
