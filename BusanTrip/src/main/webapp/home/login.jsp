@@ -23,12 +23,12 @@
 	  --bnk-lightgrey: #B3B38F;
 	}
 	
-	.index{
-		height: 60vh;
+	.content{
+		/* height: 60vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
 	    padding-top: 10px;
-	    padding-bottom: 10px;
+	    padding-bottom: 10px; */
 	    position: relative;
 	}
 	
@@ -73,7 +73,29 @@
 		margin: 0 5px;
 		font-weight: bold;
 	}
-	
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 80px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+		.backImg{ /* web backgorund */
+			background-image: url("/img/back-login3.jpg");
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 
 <script>
@@ -90,12 +112,12 @@
 
 </head>
 <body>
-	<div>
+	<div class="backImg">
 		<c:import url="../header/nav.jsp">
 			<c:param name="navSubTitle" value="로그인"/>
 		</c:import>
 		
-		<div class="index container">
+		<div class="content container">
 			
 			<div class="ud-center">
 				<div class="login-box">
