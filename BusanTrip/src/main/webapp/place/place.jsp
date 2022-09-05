@@ -112,9 +112,9 @@
 	}
 	
 	.storeName {
-		width: 200px;
+		width: 100%;
 		text-align: left;
-		padding: 0 0 0 5px;
+		padding: 0 0 0 10px;
 		font-size: 15px;
 		
 	}
@@ -165,20 +165,24 @@
 		margin: 5px 10px 10px;
 		display: flex;
 		justify-content: space-around;
-		border: 2px solid var(--bnk-gray);
-		border-radius: 5px;
-	}
-	.info-left {
-		width: 80px;
-		font-weight: bold;
-		position: relative;
-		border-right: 1px solid var(--bnk-gray);
-		font-size: 15px;
-		background-color: #FFFFD4;
+		border-radius: 15px;
+		overflow: hidden;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
+	.info-left {
+		width: 80%;
+		font-weight: bold;
+		position: relative;
+		font-size: 15px;
+		border-right: 4px solid var(--bnk-gray);
+	}
+	.ilcafe { background-color: #e6ccff; }
+	.ilfood { background-color: #ffd480; }
+	.iltour { background-color: #c1f0cd; }
+	
 	.info-right {
-		width: 220px;
+		width: 220%;
 	}
 	
 	.info-right-upper {
@@ -465,8 +469,12 @@
 			divUdCenter.setAttribute('class', 'ud-center');
 			divUdCenter.append(spanCategory);
 			
+			let categoryCss = "";
+			if (category == "카페") categoryCss = "ilcafe";
+			else if (category == "음식점") categoryCss = "ilfood";
+			else if (category == "관광지") categoryCss = "iltour";
 			let divInfoLeft = document.createElement('div');
-			divInfoLeft.setAttribute('class', 'info-left');
+			divInfoLeft.setAttribute('class', 'info-left ' + categoryCss);
 			divInfoLeft.append(divUdCenter);
 			
 			
