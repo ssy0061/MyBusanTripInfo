@@ -25,11 +25,6 @@
 	.space85 {
 		height:85px;
 	}
-	.container{
-		width:80%;
-		max-width:800px;
-		margin: 20px auto;
-	}
 	.swiperContent h5, .myPlace h5{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
@@ -271,6 +266,26 @@
 		  display: none;
 		}
 	}
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	    width:80%;
+		max-width:800px;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 80px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 <script>
 $(document).ready(function() {
@@ -482,8 +497,7 @@ $(document).ready(function() {
 	<c:import url="/header/nav.jsp">
 		<c:param name="navSubTitle" value="마이페이지" />
 	</c:import>
-	<div class="container">
-		<div class="space85"></div>
+	<div class="content container">
 		<div class="row" id="fisrt-row">
 			<div class="col-12">
 				<div class="charPlace">
@@ -529,7 +543,6 @@ $(document).ready(function() {
 			</div>
 			
 		</div>
-		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
 	<!-- Modal -->

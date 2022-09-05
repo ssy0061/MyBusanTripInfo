@@ -43,7 +43,7 @@
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 170px);
+			min-height: calc(100vh - 90px);
 		}
 		.search-box{
 			padding-top: 50px;
@@ -203,21 +203,23 @@
 
 </head>
 <body>
-	<c:import url="/header/nav.jsp">
-		<c:param name="navTitle" value="계좌"/>
-	</c:import>
-		
-	<div class="content container">
-		<div id="searchBox" class="search-box">
-			<div id="point">
+	<div class="backImg">
+		<c:import url="/header/nav.jsp">
+			<c:param name="navTitle" value="계좌"/>
+		</c:import>
 			
-			</div>
-			<div id="account">
-			
+		<div class="content container">
+			<div id="searchBox" class="search-box">
+				<div id="point">
+				
+				</div>
+				<div id="account">
+				
+				</div>
 			</div>
 		</div>
+		
+		<c:import url="/footer/footer.jsp" />
 	</div>
-	
-	<c:import url="/footer/footer.jsp" />
 </body>
 </html>

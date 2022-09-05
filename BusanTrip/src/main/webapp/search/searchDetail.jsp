@@ -44,7 +44,7 @@
 		.content{
 			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;
-			min-height: calc(100vh - 80px);
+			min-height: calc(100vh - 70px);
 			padding-left: 0;
 			padding-right: 0;
 		}
@@ -95,7 +95,7 @@
 	
 	@media screen and (min-width: 575.1px) { /* Web box */
 		.content{
-			min-height: calc(100vh - 190px); /*상하단바 190px */
+			min-height: calc(100vh - 90px); /*상단바 90px */
 			padding: 20px 0;
 		}
 		#toTop{
