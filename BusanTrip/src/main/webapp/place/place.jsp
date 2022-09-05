@@ -25,32 +25,58 @@
 	  --button-active: #EEEEEE;
 	}
 	
+	/* 상하단 바를 위한 필수 css */
 	.content{
-		min-height: 60vh;
-	    width: 100%;
-	    margin: 100px auto 10px;
-	    padding-top: 10px;
-	    padding-bottom: 10px;
+	    margin-top: 90px;
+	    padding: 20px 0;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;
+			min-height: calc(100vh - 70px);
+		}
+		
+		.place-upper, .place-lower {
+			background-color: #fef0f0;
+			width: 90%;
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			padding-top: 10vh;
+			min-height: calc(100vh - 90px); /* 창 크기 - 상단바 90px*/
+		}
+		
+		.place-upper, .place-lower {
+			background-color: rgba( 255, 255, 255, 0.6 );
+		}
+		.backImg{ /* web backgorund */
+			background-image: url("/img/back4.jpg");
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+		}
 	}
 	
 	.place-upper, .place-lower {
-		max-width: 400px;
+		max-width: 720px;
 		margin: 0 auto 20px;
 		text-align: center;
 		min-height: 10vh;
-		padding: 10px;
+		padding: 15px 0;
 		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
 	}
 	
 	.place-upper-inner {
+		max-width: 400px;
+		width: 80%;
 		min-height: 150px;
-		max-width: 300px;
 		margin: 15px auto;
 		padding: 3px 0;
 		position: relative;
-		border: 1px solid var(--bnk-gray);
 		border-radius: 5px;
+		background-color: white;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.place-upper-inner-title {
@@ -103,12 +129,14 @@
 	}
 	
 	.place-lower-box {
+		max-width: 400px;
+		width: 80%;
 		min-height: 50px;
-		max-width: 300px;
 		margin: 15px auto;
 		padding: 3px 0;
-		border: 1px solid var(--bnk-gray);
 		border-radius: 5px;
+		background-color: white;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.place-lower-box-title {
@@ -501,49 +529,51 @@
 </script>
 
 <body>
-	<c:import url="../header/nav.jsp">
-		<c:param name="navTitle" value="핫플"/>
-	</c:import>
-	
-	<div class="content container">
-	
-		<%-- 로그인되어 있는 경우에만 My핫플 정보를 출력 --%>
-		<c:if test="${!empty loginUser}">
-			<div class="place-upper">
-				<div class="place-upper-inner">
-					<div class="place-upper-inner-title">
-						<span id="nowMonth"></span>의 My핫플
-					</div>
-					<div class="place-upper-inner-contents">
-						<div class="ranking">
-							<img class="medal" src="/img/medal1.png">
-							<span class="storeName"></span>
-							<span class="visitCount"></span>
+	<div class="backImg">
+		<c:import url="../header/nav.jsp">
+			<c:param name="navTitle" value="핫플"/>
+		</c:import>
+		
+		<div class="content container">
+		
+			<%-- 로그인되어 있는 경우에만 My핫플 정보를 출력 --%>
+			<c:if test="${!empty loginUser}">
+				<div class="place-upper">
+					<div class="place-upper-inner">
+						<div class="place-upper-inner-title">
+							<span id="nowMonth"></span>의 My핫플
 						</div>
-						
-						<div class="ranking">
-							<img class="medal" src="/img/medal2.png">
-							<span class="storeName"></span>
-							<span class="visitCount"></span>
-						</div>
-						
-						<div class="ranking">
-							<img class="medal" src="/img/medal3.png">
-							<span class="storeName"></span>
-							<span class="visitCount"></span>
+						<div class="place-upper-inner-contents">
+							<div class="ranking">
+								<img class="medal" src="/img/medal1.png">
+								<span class="storeName"></span>
+								<span class="visitCount"></span>
+							</div>
+							
+							<div class="ranking">
+								<img class="medal" src="/img/medal2.png">
+								<span class="storeName"></span>
+								<span class="visitCount"></span>
+							</div>
+							
+							<div class="ranking">
+								<img class="medal" src="/img/medal3.png">
+								<span class="storeName"></span>
+								<span class="visitCount"></span>
+							</div>
 						</div>
 					</div>
 				</div>
+			</c:if>
+			
+			<div class="place-lower">
+				<%-- 여기에 상단 주석에 넣어놓은 코드가 (유사 구조로) 들어감 --%>
 			</div>
-		</c:if>
-		
-		<div class="place-lower">
-			<%-- 여기에 상단 주석에 넣어놓은 코드가 (유사 구조로) 들어감 --%>
+			
 		</div>
 		
+		<c:import url="/footer/footer.jsp" />
 	</div>
-	
-	<c:import url="/footer/footer.jsp" />
 	
 	<%-- Modal --%>
 	<div class="modal fade" id="searchModal">
