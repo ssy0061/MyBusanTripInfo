@@ -73,7 +73,7 @@
 	</select>
 	
 	<select id="findAllWishlist" parameterType="String" resultType="Store">
-		SELECT DISTINCT S.STORE_ID, S.STORE_NAME
+		SELECT DISTINCT S.STORE_ID, S.STORE_NAME, S.STORE_ADDR, S.STORE_CATEGORY
 		FROM WISHLIST W, STORE S
 		WHERE W.STORE_ID = S.STORE_ID AND W.MEMBER_ID = #{memberId}
 	</select>

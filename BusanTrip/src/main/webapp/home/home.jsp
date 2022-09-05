@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;900&display=swap" rel="stylesheet">
 <%-- scroll 고정. --%>
 <script>history.scrollRestoration = "manual"</script>
@@ -29,6 +29,9 @@
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
+	.home-middle{
+		margin: 15px auto 0;
+	}
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
@@ -40,22 +43,45 @@
 			padding-bottom: 80px;
 			min-height: calc(100vh - 70px);
 		}
-		
-		.home-top, .home-middle, .home-bottom {
-			width: 80%;
-			max-width: 400px;
+		.web-container{
+			display:flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.web-left, .web-right{
+			width: 100%;
+		}
+		.web-left{
+			display:flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.home-top, .home-bottom {
+			width: 90%;
+			background-color: #fef0f0;
+			border-radius: 5px;
+		}
+		.home-middle{
+			width: 90%;
+			display: flex;
+			justify-content: center;
+			margin-top: 15px;
 		}
 		.web-right{
 			margin-top: 15px;
+			display:flex;
+			justify-content: center;
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 260px);
+			padding-top: 10vh;
+			min-height: calc(100vh - 90px); /* 창 크기 - 상단바 90px*/
 		}
 		
 		.home-top, .home-middle, .home-bottom {
-			width: 92%;
+			width: 90%;
 		}
 		.web-container{
 			display: flex;
@@ -67,47 +93,57 @@
 		.web-right{
 			margin-top: 0px;
 		}
+		.backImg{ /* web backgorund */
+			background-image: url("/img/back3.jpg");
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+		}
+		.home-top, .home-bottom {
+			background-color: rgba( 255, 255, 255, 0.6 );
+		}
+		.home-middle {
+			margin-top: 30px;
+		}
 	}
 	/* 상하단 바를 위한 필수 css */
-	.content{
-		/* min-height: 100vh;
-	    width: 100%;
-	    margin: 100px auto 10px;
-	    padding-top: 10px;
-	    padding-bottom: 10px; */
+	.login{
+		display: flex;
+		align-items: center;
 	}
-	
-	.home-top, .home-middle, .home-bottom {
+	.home-top, .home-bottom {
 		margin: 0 auto;
 		text-align: center;
-		position: relative;
 		border-radius: 5px;
 	}
 	
 	.home-top {
-		background-color: #fef0f0;
 		height: 180px;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+		display: flex;
+		align-items: center;
 	}
 	
 	.home-middle {
 		max-height: 250px;
 		overflow: hidden;
 		border-radius: 10px;
-		margin-top: 15px;
+		text-align: center;
+		border-radius: 5px;
 	}
 	
 	.home-bottom {
 		min-height: 10px;
 		padding: 10px 0;
-		background-color: #fef0f0;
 	}
 	
 	.home-top-upper {
 		height: 100px;
 		max-width: 400px;
+		display:flex;
+		align-items:center;
 		width: 80%;
 		margin: 0 auto;
-		position: relative;
 		border-radius: 5px;
 		box-shadow: 0px 5px 8px -3px #aaa;
 		background-color: white;
@@ -125,7 +161,6 @@
 	.home-top-inner-left {
 		text-align: left;
 		font-size: 18px;
-		position: relative;
 		top: 10px;
 		display: flex;
 		justify-content: space-around;
@@ -137,27 +172,45 @@
 		width: 100%;
 		text-align: left;
 	}
-	
-	#logoutBox {
-		width: 40px;
-		text-align: center;
-		font-weight: bold;
-		position: relative;
-		bottom: 14px;
-		left: 8px;
-		font-size: 24px;
-		color: var(--bnk-dark-red);
+	#dbIcon{
+		width:30px;
+		height:30px;
+		border-style:solid;
+		border-radius:10px;
+		border-color:#CB333B;
 	}
 	
 	.home-top-inner-right {
 		text-align: right;
 		font-size: 30px;
-		position: relative;
 		padding: 0 12px 0 0;
 		bottom: 8px;
 		font-weight: bold;
 		width: 100%;
 	}
+	
+	#chargeModal h4, #payModal h4{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	#chargeModal p, #payModal p{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
+	}
+	#chargebutton, #paybutton{
+		display:inline-block;
+		padding:4px 10px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		background-color:#53565A;
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
+	
 	
 	@media screen and (max-width: 330px) {  /* 작은폰 */
 		.home-top-inner-left { font-size: 15px; }
@@ -184,8 +237,9 @@
 	.button-style {
 	    line-height: 2.0;
 	    width: 100%;
-	    background-color: white;
-	    border: 0;
+	    background-color: #53565A;
+	    color:white;
+	    border-color:transparent;
 	    border-radius: 5px;
 	    font-size: 1rem;
 	    text-align: center;
@@ -197,18 +251,10 @@
 	    color: #fff;
 	}
 	
-	.button-style:active {
-	    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
-	                inset 2px 2px 3px rgba(0, 0, 0, .6);
-	}
-	
 	.blank { width: 20px; }
 	
 	.ud-center {
 		width: 100%;
-		position: absolute;
-		left: 50%; top: 50%;
-		transform: translate(-50%, -50%);
 	}
 	
 	.notice {
@@ -220,6 +266,12 @@
 		border-radius: 5px;
 		background-color: #fff;
 		box-shadow: 0px 5px 8px -3px #aaa;
+		cursor:pointer;
+	}
+	.notice {
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+		font-color: #53565A;
 	}
 	
 	.login {
@@ -250,6 +302,13 @@
 	
 	.carousel-control-prev { left: -7px; }
 	.carousel-control-next { right: -7px; }
+	
+	.carousel-item{
+		cursor:pointer;
+	}
+	.login-inner:hover{
+		cursor: pointer;
+	}
 
 </style>
 
@@ -285,18 +344,6 @@
 			console.log("login User NULL");
 		}
 		
-		$('#logoutBox').click(function() {
-			$.ajax({
-				type: 'post',
-				url: '/member/logout',
-				success: function(result) {
-					location.href = result;
-				},
-				error: function(e){ console.log(e); }
-			});
-			// 로그아웃 기능 수행.
-		})
-		
 		$('.login').click(function() {
 			location.href = "./login";
 			// 로그인 페이지로 이동
@@ -313,10 +360,8 @@
 		
 		for (var i=0; i<5; i++) {
 			let notice = noticeArr[i];
-			
 			// html tag 생성 form
 			<%-- <div class="notice">※ 공지사항 ※</div> --%>
-			
 			let divNotice = document.createElement('div');
 			divNotice.setAttribute('class', 'notice');
 			divNotice.append(notice);
@@ -324,9 +369,8 @@
 			$('.home-bottom').append(divNotice);
 		}
 		
-		
-		$('#chargemodal').on('click', chargepoint)
-		$('#paymodal').on('click', paypoint)
+		$('#chargebutton').on('click', chargepoint)
+		$('#paybutton').on('click', paypoint)
 	});
 
 	
@@ -368,13 +412,11 @@
 			}
 		});
 	}
-	
 </script>
-
 </head>
-<body>
 
-	<div>
+<body>
+	<div class="backImg">
 		<c:import url="../header/nav.jsp">
 			<%-- <c:param name="navSubTitle" value="조회222"/> --%>
 		</c:import>
@@ -393,9 +435,9 @@
 											<div class="ud-center">
 												<div class="home-top-inner-left">
 													<div id="titleBox">
+														<span><img id="dbIcon" src="/img/bank_db.png"></span>
 														<span id="userName"></span>님의 잔액
 													</div>
-													<div id="logoutBox">&#215;</div>
 												</div>
 												<div class="home-top-inner-right">
 													<span id="userMoney"></span>원
@@ -479,16 +521,16 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">포인트 충전</h4>
+					<h4 class="modal-title">포인트 충전하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body" align="center">
 					<p>
-						충전 할 포인트 : <input type="text" id="chargepoint" size="18"> 원
+						충전할 포인트 금액 : <input type="text" id="chargepoint" size="18"> 원
 					</p>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="충전" id="chargemodal" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+					<input type="submit" value="충전" id="chargebutton" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>
@@ -497,15 +539,15 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">포인트 결제</h4>
+					<h4 class="modal-title">포인트 결제하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body" align="center">
-					<p>결제 할 포인트 : <input type="text" id="paypoint" size="18"> 원</p>
-					<p>결제 할 가게명 : <input type="text" id="paystore" size="18"></p>
+					<p>결제할 포인트 금액 : <input type="text" id="paypoint" size="18"> 원</p>
+					<p>결제할 가게명 : <input type="text" id="paystore" size="18"></p>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="결제" id="paymodal" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+					<input type="submit" value="결제" id="paybutton" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>

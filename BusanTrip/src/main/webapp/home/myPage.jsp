@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 	/* all */
 	*{
@@ -65,14 +66,14 @@
 	.myInfo{
 		width:80%;
 		max-width:400px;
-		border-color:gray;
-		border-radius:5px;
-		border-style:solid;
 		padding:5px 20px 5px 20px;
+		border-radius:4px;
+		box-shadow:2px 3px 5px 2px lightgray;
 	}
 	.myInfo p{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
+		color:#53565A;
 	}
 	.userInfo{
 		margin:4px 0 4px 0;
@@ -120,22 +121,28 @@
 	 }
 	/* == second row == */
 	#second-row{
-		margin:10px 1px 20px 1px;
+		width:80%;
+		max-width:400px;
+		margin:10px auto;
 		display:flex;
-		justify-content:space-around;
+		justify-content:center;
 	}
-	.button3{
-		display:inline-block;
-		padding:4px 10px;
-		cursor:pointer;
-		font-size:inherit;
-		color:white;
-		text-align:center;
-		vertical-align:middle;
-		border-radius:10px;
-		border-color:transparent;
-		background-color:#53565A;
-		box-shadow: 0 3px 3px 0 #53565A;
+	#button1, #button2{
+		width: 40%;
+		min-width:90px;
+	    margin:0 5px 10px 5px;
+		line-height: 2.0;
+		font-size: 1rem;
+	    text-align: center;
+	    color:white;
+	    background-color: #53565A;
+	    border-color:transparent;
+	    border-radius: 5px;
+	    box-shadow: 0px 5px 8px -3px #aaa;
+	}
+	#button1:hover, #button2:hover{
+		background-color: #CB333B;
+	    color: white;
 	}
 	/* == third row == */
 	#whichPlace, #myPlace{
@@ -212,20 +219,44 @@
 	/* == fourth row == */
 	#fourth-row{
 		margin-top:20px;
+		display:flex;
+		justify-content:center;
 	}
 	#myPlaceList{
 		display:flex;
 		justify-content:center;
 		flex-wrap:wrap;
-		background-color:gray;
 		padding:5px;
+		border-style:solid;
+		border-radius:5px;
+		border-color:lightgray;
 	}
 	.myjjim{
 		display:flex;
-		justify-content:space-around;
+		justify-content:space-between;
+		align-items: center;
 		background-color:white;
-		border-radis:4px;
-		margin:4px;
+		border-radius:4px;
+		box-shadow:2px 3px 5px 2px lightgray;
+		margin:6px;
+		padding:5px;
+	}
+	.favorite-icon{
+		font-variation-settings:
+	  'FILL' 1,
+	  'wght' 600,
+	  'GRAD' 0,
+	  'opsz' 24;
+	  color:#eb4747;
+	  cursor:pointer;
+	}
+	.favorite-icon:hover{
+		color:#F08080;
+	}
+	.jjimname, .jjimaddr{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+		color:#53565A;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -243,6 +274,7 @@
 $(document).ready(function() {
 	var memberId = '<%= (String)session.getAttribute("memberId") %>';
 	var memberCharUrl = '';
+	findAllWishlist();
 	
 	$.ajax({
 		type:'post',
@@ -256,7 +288,7 @@ $(document).ready(function() {
 			$('.charIamge').attr("src", result.memberChar);
 		},
 		error: function(e){ console.log(e); }
-	});
+	}); // 회원 정보
 	
 	function updateChar() {
 		$.ajax({
@@ -264,11 +296,23 @@ $(document).ready(function() {
 			url:'/member/findMemberInfo',
 			data:{'memberId':memberId},
 			success:function(result){
+				let storeNameList = 
 				$('.charIamge').attr("src", result.memberChar);
 			},
 			error: function(e){ console.log(e); }
 		});
-	}
+	} // 캐릭터 이미지 수정 함수
+	
+	$('#button2').click(function() {
+		$.ajax({
+			type: 'post',
+			url: '/member/logout',
+			success: function(result) {
+				location.href = result;
+			},
+			error: function(e){ console.log(e); }
+		});
+	}) // 로그아웃
 	
 	var result = [
 		{
@@ -310,7 +354,7 @@ $(document).ready(function() {
 	$('.each-pic').on("click", function(e){
 		memberCharUrl = $(this).attr("src");
 		console.log(memberCharUrl)
-	});
+	}); // 캐릭터 이미지 선택
 	$('.charChangeOk').on("click", function(e){
 		$.ajax({
 			type:'post',
@@ -322,12 +366,9 @@ $(document).ready(function() {
 			},
 			error: function(e){ console.log(e); }
 		});
-	});
+	}); // 캐릭터 이미지 바꾸기
 	
 	refreshContent();
-
-    $(window).resize(function () {
-    });
 	
 	//this function define the size of the items
     function refreshContent() {
@@ -381,6 +422,42 @@ $(document).ready(function() {
     		});
     	}
     }
+	
+	function findAllWishlist() {
+		$.ajax({
+			type:'post',
+			url:'/store/findAllWishlist',
+			data:{'memberId':memberId},
+			success:function(result){
+				let i;
+				for(i=0; i<result.length; i++) {
+					console.log(result[i].storeName);
+					$('#myPlaceList').append("<div class='myjjim col-md-5' id='"+result[i].storeId+"'>"+
+							"<span class='material-symbols-outlined favorite-icon'>favorite</span>"+
+							"<span class='jjimname'>"+result[i].storeName+"</span>"+
+							"<span class='jjimaddr'>"+result[i].storeAddr.split(" ")[0]+"</span></div>")
+				}
+			}, error: function(e){ console.log(e); }
+		});
+	}
+	
+    function deletejjim(){
+    	$.ajax({
+    		type:'post',
+    		url:'/store/deleteWishlist',
+    		data:{'storeId':storeId, 'memberId':memberId},
+    		success:function(result){
+    		}, error:function(e) { console.log(e); }
+    	});
+    }
+	
+    var storeId = "";
+    $('#myPlaceList').on('click', '.favorite-icon', function(){
+    	//console.log($(this).parent().attr('id'));
+    	storeId = $(this).parent().attr('id');
+    	deletejjim();
+    	$(this).parent().remove();
+    })
 })
 	
 </script>
@@ -407,7 +484,8 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="row" id="second-row">
-			<button type="button" class="button3">정보 수정</button>
+			<button type="button" id="button1">정보 수정</button>
+			<button type="button" id="button2">로그아웃</button>
 		</div>
 		
 		<div class="swiperContent">
@@ -431,7 +509,6 @@ $(document).ready(function() {
 			<div class="col-12">
 				<h5>나의 플레이스 (찜 목록)</h5>
 				<div id="myPlaceList">
-					<div class="myjjim col-md-5 px-0"><span class="jjimname">가게이름</span><span class="jjimploc">위치</span></div>
 				</div>
 			</div>
 			

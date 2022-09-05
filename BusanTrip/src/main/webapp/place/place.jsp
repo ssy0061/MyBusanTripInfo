@@ -140,7 +140,6 @@
 		border: 2px solid var(--bnk-gray);
 		border-radius: 5px;
 	}
-
 	.info-left {
 		width: 80px;
 		font-weight: bold;
