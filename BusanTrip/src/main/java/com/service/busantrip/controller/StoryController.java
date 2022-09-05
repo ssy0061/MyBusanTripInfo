@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.busantrip.domain.Member;
+import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.domain.story.Diary;
+import com.service.busantrip.domain.story.DiaryTransaction;
+import com.service.busantrip.domain.story.Photo;
 import com.service.busantrip.domain.story.Story;
 import com.service.busantrip.model.MemberService;
 import com.service.busantrip.model.StoryService;
@@ -43,9 +46,9 @@ public class StoryController {
 	
 	@PostMapping("addStory")
 	@ResponseBody
-	public int addStory(String storyName, String memberId, Model model, HttpSession session) {
+	public String addStory(String storyName, String memberId, Model model, HttpSession session) {
 		memberListAll = "";
-		int storyId = storyService.addStory(storyName, memberId, memberId);
+		String storyId = storyService.addStory(storyName, memberId, memberId);
 		memberListAll += memberId+" ";
 		
 		return storyId;
@@ -114,5 +117,41 @@ public class StoryController {
 		//System.out.println("storyId:: " + storyId);
 		
 		return list;
+	}
+	
+	/////////////////////////////////////////////////////////////////
+	
+	@PostMapping("findAllDiaryTransaction")
+	@ResponseBody
+	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId) {
+		
+		return storyService.findAllDiaryTransaction(diaryId);
+	}
+
+	@PostMapping("findDiaryPhoto")
+	@ResponseBody
+	public List<Photo> findDiaryPhoto(String transactionId) {
+		return storyService.findDiaryPhoto(transactionId);
+	}
+	
+	@PostMapping("addDiaryTransaction")
+	@ResponseBody
+	public void addDiaryTransaction(Transaction transaction, String diaryId, String memberName) {
+		storyService.addDiaryTransaction(transaction, diaryId, memberName);
+		
+	}
+
+	@PostMapping("addPhotoToDiaryTransaction")
+	@ResponseBody
+	public void addPhotoToDiaryTransaction(String diaryTransactionId, String photoUrl) {
+		storyService.addPhotoToDiaryTransaction(diaryTransactionId, photoUrl);
+		
+	}
+
+	@PostMapping("deletePhotoToDiaryTransaction")
+	@ResponseBody
+	public void deletePhotoToDiaryTransaction(String photoId) {
+		storyService.deletePhotoToDiaryTransaction(photoId);
+		
 	}
 }

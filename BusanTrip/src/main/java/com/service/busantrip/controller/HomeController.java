@@ -53,8 +53,8 @@ public class HomeController {
 	public String diaryDetail(@PathVariable("storyId") String storyId) {
 		return "trip/diary_main";
 	}
-	@RequestMapping("trip/{storyId}/diary_detail")
-	public String diaryDetail2(@PathVariable("storyId") String storyId) {
+	@RequestMapping("trip/{storyId}/{diaryId}")
+	public String diaryDetail2(@PathVariable("storyId") String storyId, @PathVariable("diaryId") String diaryId) {
 		return "trip/diary_detail";
 
 	}

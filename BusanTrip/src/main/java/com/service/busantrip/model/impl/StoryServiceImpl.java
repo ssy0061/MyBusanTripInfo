@@ -24,12 +24,12 @@ public class StoryServiceImpl implements StoryService{
 	
 		
 	@Override
-	public int addStory(String storyName, String memberId, String subtitle) {
+	public String addStory(String storyName, String memberId, String subtitle) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("storyName", storyName);
 		map.put("subtitle", subtitle);
 		storyDAO.addStory(storyName, subtitle);
-		int storyId = storyDAO.findStoryId(storyName);
+		String storyId = storyDAO.findStoryId(storyName);
 	//	System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
 		String memberName = memberDAO.findMemberName(memberId);
 		
@@ -90,8 +90,8 @@ public class StoryServiceImpl implements StoryService{
 	}
 
 	@Override
-	public List<DiaryTransaction> findDiaryTransaction(DiaryTransaction diaryTransaction) {
-		return storyDAO.findDiaryTransaction(diaryTransaction);
+	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId) {
+		return storyDAO.findAllDiaryTransaction(diaryId);
 	}
 
 	@Override

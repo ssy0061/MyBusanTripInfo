@@ -33,8 +33,8 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 	
 	@Override
-	public int findStoryId(String storyName) {
-		int storyId = sqlSession.selectOne(NS+"findStoryId", storyName);	
+	public String findStoryId(String storyName) {
+		String storyId = sqlSession.selectOne(NS+"findStoryId", storyName);	
 		return storyId;
 	}
 	
@@ -45,7 +45,7 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 	
 	@Override
-	public void addStoryMemberLeader(int storyId, String memberId, String memberName) {
+	public void addStoryMemberLeader(String storyId, String memberId, String memberName) {
 		HashMap<String, Object> leaderMap = new HashMap<String, Object>();
 		leaderMap.put("storyId", storyId);
 		leaderMap.put("memberId", memberId);
@@ -114,9 +114,9 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 
 	@Override
-	public List<DiaryTransaction> findDiaryTransaction(DiaryTransaction diaryTransaction) {
+	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId) {
 	
-		return sqlSession.selectList(NS+"findDiaryTransaction", diaryTransaction);
+		return sqlSession.selectList(NS+"findAllDiaryTransaction", diaryId);
 	}
 
 	@Override
