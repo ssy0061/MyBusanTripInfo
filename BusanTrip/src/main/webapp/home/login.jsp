@@ -91,7 +91,7 @@
 		}
 		.backImg{ /* web backgorund */
 			background-image: url("/img/back-login3.jpg");
-			background-size: 100% auto;
+			background-size: 1920px 1024px;
 			background-repeat: no-repeat;
 		}
 	}
