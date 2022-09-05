@@ -35,4 +35,6 @@ public interface MemberService {
 	public void charge(String memberId, int amt); //계좌(포인트지갑) 잔액 충전
 	
 	public List<Map<String, Object>> findMemberVisitStats(String memberId);
+	
+	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr);
 }
