@@ -97,12 +97,14 @@
 	}
 	
 	.ranking {
-		border: 2px solid var(--bnk-gray);
 		border-radius: 5px;
-		margin: 8px 10px;
+		margin: 12px 10px;
 		display: flex;
 		justify-content: space-around;
-		padding: 1px 0;
+		padding: 3px 0;
+		box-shadow: 0px 5px 8px -3px #aaa;
+		background-color: #fefbd8;
+		font-weight: bold;
 	}
 	
 	.medal {
