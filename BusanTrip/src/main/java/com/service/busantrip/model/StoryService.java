@@ -21,7 +21,7 @@ public interface StoryService { // 쿼리문이나 메소드 결정해서 인자
 	public Member findStoryInviteMember(String memberId); //초대멤버검색.. 메소드명 다시 생각해보기
 	public void addDiary(String storyId, String diaryName);
 	public List<Diary> findAllDiaryList(String storyId);
-	public List<DiaryTransaction> findDiaryTransaction(DiaryTransaction diaryTransaction); 
+	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId); 
 	public List<Photo> findDiaryPhoto(String transactionId); 
 	public void addDiaryTransaction(Transaction transaction, String diaryId, String memberName);
 	public void addPhotoToDiaryTransaction(String diaryTransactionId, String photoUrl);

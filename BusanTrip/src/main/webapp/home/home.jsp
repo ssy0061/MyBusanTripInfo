@@ -57,6 +57,9 @@
 		.home-top, .home-middle, .home-bottom {
 			width: 92%;
 		}
+		.home-middle {
+			margin-top: 30px;
+		}
 		.web-container{
 			display: flex;
 			justify-content: space-around;
