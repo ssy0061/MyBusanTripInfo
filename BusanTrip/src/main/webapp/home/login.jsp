@@ -39,7 +39,7 @@
 		height: 150px;
 		position: relative;
 		border-radius: 10px;
-		border: 2px solid var(--bnk-gray);
+		box-shadow:2px 3px 5px 2px lightgray;
 	}
 	
 	.ud-center {
@@ -61,17 +61,31 @@
 		font-size: 20px;
 		margin: 0 5px;
 		width: 140px;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
 	}
 	
 	.form-box {
 		width: 160px;
 		margin: 0 5px;
 	}
-	
-	.form-login {
+
+	#loginbutton, #joinbutton{
 		width: 100%;
-		margin: 0 5px;
-		font-weight: bold;
+	    margin: 0 5px;
+		line-height: 2.0;
+		font-size: 1rem;
+	    text-align: center;
+	    color:white;
+	    font-weight: bold;
+	    background-color: #53565A;
+	    border-color:transparent;
+	    border-radius: 5px;
+	    box-shadow: 0px 5px 8px -3px #aaa;
+	}
+	#loginbutton:hover, #joinbutton:hover{
+		background-color: #CB333B;
+	    color: white;
 	}
 	
 </style>
@@ -104,25 +118,24 @@
 						<%-- 일단, login.do로 요청을 보내고 loginData라는 이름으로 요청 --%>
 						
 							<div class="login-box-inner">
-								<div class="inner-text">아이디: </div>
+								<div class="inner-text">아이디 : </div>
 								<input type="text" name="id" class="form-box" required="required">
 							</div>
 							
 							<div class="login-box-inner">
-								<div class="inner-text">비밀번호: </div>
+								<div class="inner-text">비밀번호 : </div>
 								<input type="password" name="pw" class="form-box" required="required">
 							</div>
 							
 							<div class="login-box-inner">
-								<input type="submit" class="form-login" value="로그인">
-								<input type="button" class="form-login" value="회원가입">
+								<input type="submit" class="form-login" id="loginbutton" value="로그인">
+								<input type="button" class="form-login" id="joinbutton" value="회원가입">
 							</div>
-							
+
 						</form>
 					</div>
 				</div>
 			</div>
-
 		</div>
 		
 		<c:import url="/footer/footer.jsp" />

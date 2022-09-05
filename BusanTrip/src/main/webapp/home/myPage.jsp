@@ -66,6 +66,7 @@
 	.myInfo{
 		width:80%;
 		max-width:400px;
+		min-width:225px;
 		padding:5px 20px 5px 20px;
 		border-radius:4px;
 		box-shadow:2px 3px 5px 2px lightgray;
@@ -135,6 +136,7 @@
 		font-size: 1rem;
 	    text-align: center;
 	    color:white;
+	    font-weight: bold;
 	    background-color: #53565A;
 	    border-color:transparent;
 	    border-radius: 5px;
