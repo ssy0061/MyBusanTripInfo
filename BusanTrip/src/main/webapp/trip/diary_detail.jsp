@@ -212,25 +212,25 @@
     }
 
     .swiper-slide img {
-      /* /* display: block; */ */
+      /* display: block; */
       /* width: 100%;
       height: 100%; */
       
     }
     .swiperContent>*{
-    	display: flex;
+    	/* display: flex;
 		flex-wrap: wrap;
-		align-content: space-between;;
+		align-content: space-between; */
     }
     
-    .card{
-    	height: 510px;
-    }  
+
     
     .card-header{
     	overflow: hidden;
     	height: 80%; 
     	padding: 0;
+    	display: flex;
+    	justify-content: center;
     }
     
     .card_img_row{
@@ -239,22 +239,38 @@
 	   flex-wrap: wrap;  */
 	   /* flex: 50%; */
 	  /*  height: 50%; */
-	  min-height: 100%;
+	  display: flex;
     }
     
-    .column {
-	 flex: 50%; 
-	  /* width: 50%; */
-	 /*  max-height: 50%; */
-	 	
-	 	width: 100%; 
+	.card{
+    	height: 20rem;
+    	width: 30rem;
+    } 
+    .card-img-colBox {
+		height: 13rem;
+	  	object-fit: cover;
 	}
-	
-	.card-img-top {
-	 display: block;
-	  width: 100%;
-	  height: 50%;
-	  object-fit: cover;
+	.card-col-6{
+		width: 49.5%;
+	}
+	.card-col-6-bar{
+		width: 1%;
+	}
+	.card-col-12>img{
+		width: 100%;
+	}
+	.card-img-rowBox {
+		width: 12rem;
+		height: 100%;
+	  	object-fit: cover;
+	}
+	.card-row-6{
+		height: 49.5%;
+	}
+	.card-row-6>img{
+	}
+	.card-row-6-bar{
+		height: 1%;
 	}
 	/* 상하단 바를 위한 필수 css */
 	.content{
@@ -268,11 +284,21 @@
 			padding-bottom: 80px;/* 하단바 80 */
 			min-height: calc(100vh - 80px);
 		}
+		
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
 			min-height: calc(100vh - 90px); /* 상단바 90px */
 	    	padding: 20px 0;
+		}
+		.card{
+	    	height: 25rem;
+	    } 
+	    .card-img-colBox {
+			height: 17.5rem;
+		}
+		.card-img-rowBox {
+			width: 15rem;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -365,7 +391,7 @@ $(document).ready(function () {
 			}
 		})	
 	}
-    
+	
     //this function define the size of the items
     function refreshContent() { // diary_detail 화면 띄우기
     	$.ajax({
@@ -376,13 +402,12 @@ $(document).ready(function () {
 			success: function(result) { // DiaryTransaction List
 				console.log("refreshContent result:: " + result)
 				transactionList = result;
-			
 				for(var i=0; i<transactionList.length; i++) { // for..transactionList
 					var memberId = transactionList[i].memberId;
 					var element = document.getElementById("user-"+memberId);
-
+		
 					findTransactionPhoto(transactionList[i].diarytransactionId); // 사진 목록 가져오기
-		    		var transactionStore = transactionList[i].transactionStore;
+					var transactionStore = transactionList[i].transactionStore;
 		    		var transactionAmt = transactionList[i].transactionAmt;
 		    		var transactionMemo = transactionList[i].transactionMemo;
 		    		
@@ -395,8 +420,7 @@ $(document).ready(function () {
 		    		var photoUrl4 = '/img/building.jpg';
 		    		
 		    		var len = photoList.length;
-		    		console.log("photo cnt: "+ len + "  0번째: " + JSON.stringify(photoList[0]));
-
+		    		
 		    		
 					if(element == null) { // 공간 생성 안된 사용자인 경우
 						// 사용자 별 스위퍼 공간 생성
@@ -411,7 +435,7 @@ $(document).ready(function () {
 					}	 
 
 		    		var swiper = new Swiper("#swiper-"+memberId, {
-		    			slidesPerView: 2.7,
+		    			slidesPerView: 1.8,
 		    	        spaceBetween: 10,
 		    	        grabCursor: true,
 		    	        navigation: {
@@ -425,10 +449,10 @@ $(document).ready(function () {
 		    	            	spaceBetween: 10
 		    	            },
 		    	            720: {
-		    	            	slidesPerView: 2.2,
+		    	            	slidesPerView: 1.4,
 		    	            },
 		    	            1200: {
-		    	            	slidesPerView: 2.5,
+		    	            	slidesPerView: 1.6,
 		    	            }
 		    	        },
 		    	        scrollbar: {
@@ -437,20 +461,55 @@ $(document).ready(function () {
 		    	        }
 		    		});
 		    		
+		    		var imgList = "";
+		    		if(len==0){
+		    			imgList = "<div class='card-col-12'>"+
+		    					  "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"
+		    		}else if(len==1){
+		    			imgList = "<div class='card-col-12'>"+
+		    					  "<img class='card-img-top card-img-colBox' src='"+photoList[0].photoUrl+"'></div>"
+		    		}else if(len==2){
+		    			imgList = "<div class='card-col-6'>"+
+		    				      "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"+
+		    				      "<div class='card-col-6-bar'></div>"+
+		    				      "<div class='card-col-6'>"+
+		    				      "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"
+		    		}else if(len==3){
+		    			imgList = "<div class='card-col-6'>"+
+		    					  "<img class='card-img-top card-img-colBox' src='"+photoList[0].photoUrl+"'></div>"+
+		    					  
+		    					  "<div class='card-col-6-bar'></div>"+
+		    					  
+		    					  "<div class='card-col-6'>"+
+		    					  "<div class='card-row-6'>"+
+		    					  "<img class='card-img-top card-img-rowBox' src='"+photoList[1].photoUrl+"'></div>"+
+		    					  "<div class='card-row-6-bar'></div>"+
+		    					  "<div class='card-row-6'>"+
+  				      			  "<img class='card-img-top card-img-rowBox' src='"+photoList[2].photoUrl+"'></div></div>"
+		    		}else if(len==4){
+		    			imgList = "<div class='card-col-6'>"+
+		    			          "<div class='card-row-6'>"+
+			  					  "<img class='card-img-top card-img-rowBox' src='"+photoList[0].photoUrl+"'></div>"+
+			  					  "<div class='card-row-6-bar'></div>"+
+			  					  "<div class='card-row-6'>"+
+					      		  "<img class='card-img-top card-img-rowBox' src='"+photoList[1].photoUrl+"'></div></div>"+
+					      		  
+					      		  "<div class='card-col-6-bar'></div>"+
+					      		  
+					      		  "<div class='card-col-6'>"+
+					      		  "<div class='card-row-6'>"+
+			  					  "<img class='card-img-top card-img-rowBox' src='"+photoList[2].photoUrl+"'></div>"+
+			  					  "<div class='card-row-6-bar'></div>"+
+			  					  "<div class='card-row-6'>"+
+					      		  "<img class='card-img-top card-img-rowBox' src='"+photoList[3].photoUrl+"'></div></div>"
+		    		}
 		    		// 스위퍼 내부 사진, 정보 등 채우기
 	    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
 	    				"<div class='swiper-slide'>"
 	    					+"<div class='card'>"
 		    					+ "<div class='card-header'>"
-		    						+ "<div class='row card_img_row'>" 
-		    					  		+ "<div class=column>" 
-			    							+ "<img class='card-img-top' src="+ photoUrl1 +">"
-			    							 + "<img class='card-img-top' src="+ photoUrl1 +">"  
-			    				 	 	 + "</div>" 
-			    				  		 + "<div class='column'>" 
-			    				  			+ "<img class='card-img-top' src="+ photoUrl1 +">"
-			    							+ "<img class='card-img-top' src="+ photoUrl1 +">" 
-			    				  		+ "</div>" 
+		    						+ "<div class='card_img_row'>"
+		    						+ imgList
 			    					+ "</div>" 
 		    					+ "</div>"
 		    					+ "<div class='card-body'>"
@@ -461,7 +520,6 @@ $(document).ready(function () {
 		    					+"</div>"
 	    				+"</div></div>"
 	    			);
-					
 				}// for..transactionList
 
 			}, // success
