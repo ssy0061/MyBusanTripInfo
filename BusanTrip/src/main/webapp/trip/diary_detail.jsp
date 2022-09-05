@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -158,7 +158,7 @@
 		background-color:#6c9dc6;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	#resetUpload, .addTransYes, .memberSearchOk, .playListOk{
+	#resetUpload, .addPhotoYes, .memberSearchOk, .playListOk{
 		display:inline-block;
 		padding:4px 10px;
 		cursor:pointer;
@@ -171,7 +171,7 @@
 		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	.addTransYes:hover, .memberSearchOk:hover, .playListOk:hover{
+	.addPhotoYes:hover, .memberSearchOk:hover, .playListOk:hover{
 		color:white;
 	}
 	/* responsive web */
@@ -476,7 +476,8 @@ $(document).ready(function () {
 		if(input.files) { // 인풋 태그에 파일들이 있는 경우
 			// 이미지 파일 검사 생략
 			console.log(input.files)
-			console.log(input.files.length)
+			var file_cnt = input.files.length;
+			console.log(file_cnt);
 			fileArr = Array.from(input.files) // forEach문으로 처리하기 위해 유사배열을 배열로 변환
 			const $colDiv = document.createElement('div')
 			fileArr.forEach((file, index) => {
@@ -559,6 +560,17 @@ $(document).ready(function () {
 	$('#btn_addPayList').on("click", function(e) {
 		// 결제내역 불러오기
 	})
+	
+	$('.addPhotoYes').on("click", function(e) {
+		// 같은 거래내역에 여러번에 걸쳐서 넣으면 4장 이상 들어갈듯.. 일단 구현
+		if(fileArr.length <= 4){
+			// 해당 거래내역에 photo 추가 코드 추가해야 함			
+			$('#transactionModal').modal('hide');
+		} else {
+			alert("최대 4장까지 등록 가능합니다.");
+		}
+			
+	})
 });
 </script>
 </head>
@@ -626,7 +638,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="확인" class="btn addTransYes" data-dismiss="modal"></input>
+						<input type="submit" value="확인" class="btn addPhotoYes" ></input>
 					</div>
 				</div>
 			</div>
