@@ -288,7 +288,7 @@
 		font-size: 15px;
 	}
 	
-	.payAmount {
+	.paySearchAmount {
 		text-align: right;
 		margin: 0 5px 0 0;
 		font-weight: bold;
@@ -464,17 +464,7 @@
 				total = 0;  // total 초기화
 				getTransaction(dayToString(startDay), dayToString(endDay))
 				$('#detailBox').html("");
-				//$('.periodBox-choiced').attr('class', 'periodBox');
-				
-				// 이미지랑 버튼 연결용 코드 
-				$('.searchBtn').click(function(){
-					alert('search!  ' + $(this).parent().parent().text());
-				});  // img click
-				$('.memoBtn').click(function(){
-					// alert('memo!  ' + $(this).parent().parent().text());
-					$('#memo-text').val('');  // 내용 초기화
-				});  // img click
-				
+				//$('.periodBox-choiced').attr('class', 'periodBox');		
 			} else {
 				// 날짜 관계가 역전된 경우.
 				alert('날짜의 입력이 잘못되었습니다.');
@@ -483,10 +473,21 @@
 		
 		
 		$('#memoSubmit').click( function() {
-			let memoText = $('#memo-text').val();  // 내용 추출
-			alert(memoText);
-			// memoText의 정보를 해당 요소에 적절히 담는 과정 need
-			// 별도의 파라미터 need.
+			let transactionMemo = $('#memo-text').val();
+			let transactionId = $(this).attr('transaction-id');
+
+			$.ajax({
+				type: 'post',
+				url: '/member/updateTransactionMemo',
+				data: {'transactionId': transactionId, 'transactionMemo': transactionMemo},
+				success: function(res){
+					document.getElementsByClassName('searchBox')[0].click();
+				},
+				error: function(e) {
+					console.log(e)
+				}
+			})
+			
 			
 			$('#memoModal').trigger({ type: "click" });  // modal 종료
 			// .modal('hide'); 가 적용되지 않아서 코드 수정.
@@ -511,10 +512,19 @@
 						
 					}, 300);
 				}
-				
-				
 			}
 		})
+		
+		// 이미지랑 버튼 연결용 코드 
+		$('#detailBox').on('click', '.searchBtn, .storeName', function(){
+			alert('search!  ' + $(this).parent());
+		})  // img click
+		
+		// 이미지랑 버튼 연결용 코드 
+		$('#detailBox').on('click', '.memoBtn', function(){
+			$('#memoSubmit').attr('transaction-id', $(this).attr('transaction-id'));
+			$('#memo-text').val('');  // 내용 초기화
+		})  // img click
 		
 		$('#toTop').on('click', function(){
 			window.scrollTo(0, 0);
@@ -548,12 +558,13 @@
 						'<span class="payDate">'+list[i].transactionTime.substring(0,10)+'</span>'+
 						'<div class="image-box d-flex justify-content-center align-items-center">'+
 						'<span class="memoBtn material-symbols-outlined mt-1"'+
-									 'data-toggle="modal" data-target="#memoModal">edit_square</span>'+
+									 'data-toggle="modal" data-target="#memoModal"'+
+									 'transaction-id='+list[i].transactionId+'>edit_square</span>'+
 						'</div></div>'+
 						'<div class="searchDetail-lower-box-inner">'+	
 						'<div class="d-flex align-items-center" style="width: 60%;"><span class="storeName">'+list[i].transactionStore+'</span>'+
 						'<span class="searchBtn material-symbols-outlined pt-2" style="width: 20px;">chevron_right</span></div>'+
-						'<span class="payAmount" style="width: 40%; color: #cb333b;">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
+						'<span class="paySearchAmount" style="width: 40%; color: #cb333b;">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
 						'</div>'+memo+'</div>'+line
 				);
 				
@@ -675,7 +686,7 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" id="memoSubmit">수정</button>
+						<button type="button" id="memoSubmit" transaction-id=0>수정</button>
 						<button type="button" id="memoClose" data-dismiss="modal">취소</button>
 					</div>
 				</div>
