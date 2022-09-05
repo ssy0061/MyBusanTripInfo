@@ -69,6 +69,7 @@
 	}
 	.footer-left, .footer-right{
 		margin: 0 10px;
+		height: 90px;
 	}
 	.footer-left{ width: 350px; }
 	.footer-right{ width: 100%; }
@@ -135,15 +136,20 @@
 				scrollNum = window.scrollY
 			}
 		})
+		
+		const path = window.location.pathname.split('/').pop(1);
+		/* console.log(path); */
+		
 		$(window).resize(function() {
 			if(matchMedia("screen and (max-width: 575px)").matches){
-				$('.footer-mobile').css("display", "block");
+				if(path!=='login' && path!=='register'){
+					console.log(path)
+					$('.footer-mobile').css("display", "block");
+				}
 			}else{
 				$('.footer-mobile').css("display", "none");
 			}
 		});
-		const path = window.location.pathname.split('/').pop(1);
-		/* console.log(path); */
 		if(path==='home'){
 			$('.bi-house-door').css({"display":"none"});
 			$('.bi-house-door-fill').css("display","block");
@@ -160,6 +166,8 @@
 			$('.bi-geo-alt').css("display","none");
 			$('.bi-geo-alt-fill').css("display","block");
 			$('.icon-place div').css("color", "black");
+		}else if(path==='login' || path==='register'){
+			$('.footer-mobile').css("display","none");
 		}
 		
 		$('.icon-home').click(function(){

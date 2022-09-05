@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;900&display=swap" rel="stylesheet">
 <%-- scroll 고정. --%>
 <script>history.scrollRestoration = "manual"</script>
@@ -28,6 +28,9 @@
 	  --bnk-lightgrey: #B3B38F;
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
+	}
+	.home-middle{
+		margin: 15px auto 0;
 	}
 	/* 상하단 바를 위한 필수 css */
 	.content{
@@ -73,12 +76,12 @@
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			padding-top: 50px;
-			min-height: calc(100vh - 260px);
+			padding-top: 10vh;
+			min-height: calc(100vh - 90px); /* 창 크기 - 상단바 90px*/
 		}
 		
 		.home-top, .home-middle, .home-bottom {
-			width: 92%;
+			width: 90%;
 		}
 		.web-container{
 			display: flex;
@@ -96,22 +99,18 @@
 			background-repeat: no-repeat;
 		}
 		.home-top, .home-bottom {
-			background-color: rgba( 255, 255, 255, 0.5 );
+			background-color: rgba( 255, 255, 255, 0.6 );
+		}
+		.home-middle {
+			margin-top: 30px;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
-	.content{
-		/* min-height: 100vh;
-	    width: 100%;
-	    margin: 100px auto 10px;
-	    padding-top: 10px;
-	    padding-bottom: 10px; */
-	}
 	.login{
 		display: flex;
 		align-items: center;
 	}
-	.home-top, .home-middle, .home-bottom {
+	.home-top, .home-bottom {
 		margin: 0 auto;
 		text-align: center;
 		border-radius: 5px;
@@ -129,7 +128,8 @@
 		max-height: 250px;
 		overflow: hidden;
 		border-radius: 10px;
-		margin-top: 15px;
+		text-align: center;
+		border-radius: 5px;
 	}
 	
 	.home-bottom {
@@ -305,6 +305,9 @@
 	
 	.carousel-item{
 		cursor:pointer;
+	}
+	.login-inner:hover{
+		cursor: pointer;
 	}
 
 </style>

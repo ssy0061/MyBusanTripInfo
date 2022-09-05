@@ -30,7 +30,7 @@
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 180px);
+			min-height: calc(100vh - 90px); /* 상단바 90px */
 	    	padding: 20px 0;
 		}
 	}

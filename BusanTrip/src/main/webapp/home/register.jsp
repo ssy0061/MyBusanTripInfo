@@ -214,7 +214,7 @@
 
 		</div>
 		
-		<%-- <c:import url="/footer/footer.jsp" /> --%>
+		<c:import url="/footer/footer.jsp" />
 	</div>
 </body>
 </body>
