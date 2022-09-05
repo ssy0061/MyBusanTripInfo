@@ -121,22 +121,28 @@
 	 }
 	/* == second row == */
 	#second-row{
-		margin:10px 1px 20px 1px;
+		width:80%;
+		max-width:400px;
+		margin:10px auto;
 		display:flex;
-		justify-content:space-around;
+		justify-content:center;
 	}
-	.button3{
-		display:inline-block;
-		padding:4px 10px;
-		cursor:pointer;
-		font-size:inherit;
-		color:white;
-		text-align:center;
-		vertical-align:middle;
-		border-radius:10px;
-		border-color:transparent;
-		background-color:#53565A;
-		box-shadow: 0 3px 3px 0 #53565A;
+	#button1, #button2{
+		width: 40%;
+		min-width:90px;
+	    margin:0 5px 10px 5px;
+		line-height: 2.0;
+		font-size: 1rem;
+	    text-align: center;
+	    color:white;
+	    background-color: #53565A;
+	    border-color:transparent;
+	    border-radius: 5px;
+	    box-shadow: 0px 5px 8px -3px #aaa;
+	}
+	#button1:hover, #button2:hover{
+		background-color: #CB333B;
+	    color: white;
 	}
 	/* == third row == */
 	#whichPlace, #myPlace{
@@ -291,7 +297,7 @@ $(document).ready(function() {
 		});
 	}
 	
-	$('#logoutBox').click(function() {
+	$('#button2').click(function() {
 		$.ajax({
 			type: 'post',
 			url: '/member/logout',
@@ -300,8 +306,7 @@ $(document).ready(function() {
 			},
 			error: function(e){ console.log(e); }
 		});
-		// 로그아웃 기능 수행.
-	})
+	}) // 로그아웃 기능 수행
 	
 	var result = [
 		{
@@ -423,8 +428,8 @@ $(document).ready(function() {
 			let i;
 			for(i=0; i<result.length; i++) {
 				console.log(result[i].storeName);
-				console.log(result[i].storeAddr.split(" ")[0]);
-				$('#myPlaceList').append("<div class='myjjim col-md-5'><span class='material-symbols-outlined favorite-icon'>favorite</span>"+
+				$('#myPlaceList').append("<div class='myjjim col-md-5' id='"+result[i].storeId+"'>"+
+						"<span class='material-symbols-outlined favorite-icon'>favorite</span>"+
 						"<span class='jjimname'>"+result[i].storeName+"</span>"+
 						"<span class='jjimaddr'>"+result[i].storeAddr.split(" ")[0]+"</span></div>")
 			}
@@ -444,7 +449,9 @@ $(document).ready(function() {
 	
     var storeId = "";
     $('#myPlaceList').on('click', '.favorite-icon', function(){
-    	$(this).parent().removeClass('myjjim')
+    	//console.log($(this).parent().attr('id'));
+    	storeId = $(this).parent().attr('id');
+    	deletejjim()
     })
 })
 	
@@ -472,7 +479,8 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="row" id="second-row">
-			<button type="button" class="button3">정보 수정</button>
+			<button type="button" id="button1">정보 수정</button>
+			<button type="button" id="button2">로그아웃</button>
 		</div>
 		
 		<div class="swiperContent">
