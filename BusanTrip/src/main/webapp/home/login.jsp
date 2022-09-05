@@ -34,12 +34,15 @@
 	
 	.login-box {
 		max-width: 400px;
+		min-height: 200px;
 		margin: 0 auto;
 		text-align: center;
 		height: 150px;
 		position: relative;
 		border-radius: 10px;
-		box-shadow:2px 3px 5px 2px lightgray;
+		box-shadow:2px 3px 15px 2px white;
+		background-color: white;
+		background-color: rgba( 255, 255, 255, 0.6 )
 	}
 	
 	.ud-center {
@@ -104,8 +107,8 @@
 	    	padding: 20px 0;
 		}
 		.backImg{ /* web backgorund */
-			background-image: url("/img/back-login3.jpg");
-			background-size: 1920px 1024px;
+			background-image: url("/img/back-login7.jpg");
+			background-size: 1920px 100%;
 			background-repeat: no-repeat;
 		}
 	}
