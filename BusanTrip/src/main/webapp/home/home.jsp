@@ -203,6 +203,7 @@
 		cursor:pointer;
 		font-size:inherit;
 		color:white;
+		font-weight: bold;
 		text-align:center;
 		vertical-align:middle;
 		border-radius:10px;

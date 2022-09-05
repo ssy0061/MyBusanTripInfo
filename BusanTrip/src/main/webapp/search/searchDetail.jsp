@@ -14,12 +14,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <%-- jquery ui 전용 import --%>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <%-- 구글 아이콘 --%>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<%-- 카카오 맵 --%>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55cec7f8be9f2d2a780ad76e59683837"></script>
 <style type="text/css">
 
 	:root {
@@ -288,7 +285,7 @@
 		font-size: 15px;
 	}
 	
-	.payAmount {
+	.paySearchAmount {
 		text-align: right;
 		margin: 0 5px 0 0;
 		font-weight: bold;
@@ -357,7 +354,6 @@
 			url: '/member/getBalance',
 			data: {'accountNumber': accountNumber},
 			success: function(res){
-				/* console.log(res) */
 				$('.accountNumber').text(accountNumber)
 				$('.amount').text(res.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원')
 			},
@@ -371,6 +367,7 @@
 		// 보여줄 아이템 수 10개
 		var nowPage = 1;
 		var totalPage = 1;
+		var chkPage = 1;
 		
 		// 1개월 조회(기본값)
 		getTransaction(getPastDay(1),getNowDay())
@@ -390,9 +387,10 @@
 					   'finishDay': finishDayPlus1},
 				
 				success: function(res){
-					console.log(res)
 					list = res;
 					totalPage = Math.ceil(list.length/10);
+					nowPage = 1;
+					chkPage = 1;  // 페이지 스크롤을 위해서 값 초기화
 					$('#startDate').val(startDay)
 					$('#endDate').val(finishDay)
 					/* total */
@@ -422,21 +420,8 @@
 				$('#startDate').val(start)
 				$('#endDate').val(end)
 				
-				// period - 기간. befDay - 시작점. nowDay - 끝점(오늘).
-				
-				/* $('#detailBox').html("");
-				getTransaction(start, end) */
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
-				
-				/* // 이미지랑 버튼 연결용 코드
-				$('.searchBtn').click(function(){
-					alert('search!  ' + $(this).parent().parent().text());
-				});  // img click
-				$('.memoBtn').click(function(){
-					// alert('memo!  ' + $(this).parent().parent().text());
-					$('#memo-text').val('');  // 내용 초기화
-				});  // img click */
 				
 			}  // if
 		});  // div click
@@ -463,18 +448,7 @@
 			if (startDay <= endDay) {
 				total = 0;  // total 초기화
 				getTransaction(dayToString(startDay), dayToString(endDay))
-				$('#detailBox').html("");
-				//$('.periodBox-choiced').attr('class', 'periodBox');
-				
-				// 이미지랑 버튼 연결용 코드 
-				$('.searchBtn').click(function(){
-					alert('search!  ' + $(this).parent().parent().text());
-				});  // img click
-				$('.memoBtn').click(function(){
-					// alert('memo!  ' + $(this).parent().parent().text());
-					$('#memo-text').val('');  // 내용 초기화
-				});  // img click
-				
+				$('#detailBox').html("");	
 			} else {
 				// 날짜 관계가 역전된 경우.
 				alert('날짜의 입력이 잘못되었습니다.');
@@ -483,16 +457,24 @@
 		
 		
 		$('#memoSubmit').click( function() {
-			let memoText = $('#memo-text').val();  // 내용 추출
-			alert(memoText);
-			// memoText의 정보를 해당 요소에 적절히 담는 과정 need
-			// 별도의 파라미터 need.
+			let transactionMemo = $('#memo-text').val();
+			let transactionId = $(this).attr('transaction-id');
+
+			$.ajax({
+				type: 'post',
+				url: '/member/updateTransactionMemo',
+				data: {'transactionId': transactionId, 'transactionMemo': transactionMemo},
+				success: function(res){
+					document.getElementsByClassName('searchBox')[0].click();
+				},
+				error: function(e) {
+					console.log(e)
+				}
+			})
 			
 			$('#memoModal').trigger({ type: "click" });  // modal 종료
-			// .modal('hide'); 가 적용되지 않아서 코드 수정.
 		});  // button click
 		
-		var chkPage = 1;
 		// 무한 스크롤
 		$(window).scroll(function(){
 			/* console.log($(document).height(), $(window).scrollTop() + $(window).height()) */
@@ -508,13 +490,21 @@
 						console.log(nowPage)
 						$('#scrollLoading').remove();
 						loadData(nowPage)
-						
 					}, 300);
 				}
-				
-				
 			}
 		})
+		
+		// 이미지랑 버튼 연결용 코드 
+		$('#detailBox').on('click', '.searchBtn, .storeName', function(){
+			searchModalChange($(this).parent().attr('store-id'));
+		})  // img click
+		
+		// 이미지랑 버튼 연결용 코드 
+		$('#detailBox').on('click', '.memoBtn', function(){
+			$('#memoSubmit').attr('transaction-id', $(this).attr('transaction-id'));
+			$('#memo-text').val('');  // 내용 초기화
+		})  // img click
 		
 		$('#toTop').on('click', function(){
 			window.scrollTo(0, 0);
@@ -548,16 +538,17 @@
 						'<span class="payDate">'+list[i].transactionTime.substring(0,10)+'</span>'+
 						'<div class="image-box d-flex justify-content-center align-items-center">'+
 						'<span class="memoBtn material-symbols-outlined mt-1"'+
-									 'data-toggle="modal" data-target="#memoModal">edit_square</span>'+
+									 'data-toggle="modal" data-target="#memoModal"'+
+									 'transaction-id='+list[i].transactionId+'>edit_square</span>'+
 						'</div></div>'+
 						'<div class="searchDetail-lower-box-inner">'+	
-						'<div class="d-flex align-items-center" style="width: 60%;"><span class="storeName">'+list[i].transactionStore+'</span>'+
-						'<span class="searchBtn material-symbols-outlined pt-2" style="width: 20px;">chevron_right</span></div>'+
-						'<span class="payAmount" style="width: 40%; color: #cb333b;">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
+						'<div class="d-flex align-items-center" style="width: 60%;" store-id='+list[i].storeId+'>'+
+						'<span class="storeName" data-toggle="modal" data-target="#searchModal">'+list[i].transactionStore+'</span>'+
+						'<span class="searchBtn material-symbols-outlined pt-2" style="width: 20px;" data-toggle="modal" data-target="#searchModal">chevron_right</span></div>'+
+						'<span class="paySearchAmount" style="width: 40%; color: #cb333b;">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
 						'</div>'+memo+'</div>'+line
 				);
-				
-			}// for
+			}  // for
 			
 			$('.totalAmount').html('<span><b>기간 합계</b></span><span><b>'+
 					               total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</b></span>');
@@ -567,12 +558,11 @@
 		        "border-bottom-width": "3px",
 		        "border-color": "black"
 			})
-			
 		}  // loadData
+		
 		$("#memoModal").on('show.bs.modal', function () {
 			
 		});
-		
 		
 		$('.periodBox:eq(0)').attr('class', 'periodBox-choiced');
 	});  // JQuery
@@ -659,44 +649,44 @@
 		</div>
 
 		<c:import url="../footer/footer.jsp" />
-		
-		<%-- Memo Modal --%>
-		<div class="modal fade" id="memoModal">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h6 class="modal-title">Memo</h6>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<form>
-							<label for="memo-text" class="col-form-label">[💌] 메모를 기입해주세요</label>
-							<textarea class="form-control" id="memo-text"></textarea>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" id="memoSubmit">수정</button>
-						<button type="button" id="memoClose" data-dismiss="modal">취소</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<%-- Store Modal --%>
-		<div class="modal fade" id="searchModal">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h6 class="modal-title">가게 상세 정보</h6>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<c:import url="/place/storeDetail.jsp" />
-					</div>
-				</div>
-			</div>
-		</div>
-		
 	</div>
-</body>
+	
+	<%-- Memo Modal --%>
+	<div class="modal fade" id="memoModal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Memo</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<label for="memo-text" class="col-form-label">[💌] 메모를 기입해주세요</label>
+						<textarea class="form-control" id="memo-text"></textarea>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="memoSubmit" transaction-id=0>수정</button>
+					<button type="button" id="memoClose" data-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<%-- Store Modal --%>
+	<div class="modal fade" id="searchModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">가게 상세 정보</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<c:import url="/place/storeDetail.jsp" />
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>
