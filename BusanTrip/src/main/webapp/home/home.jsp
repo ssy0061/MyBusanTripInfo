@@ -518,12 +518,12 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">포인트 충전</h4>
+					<h4 class="modal-title">포인트 충전하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body" align="center">
 					<p>
-						충전 할 포인트 : <input type="text" id="chargepoint" size="18"> 원
+						충전할 포인트 금액 : <input type="text" id="chargepoint" size="18"> 원
 					</p>
 				</div>
 				<div class="modal-footer">
@@ -536,7 +536,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">포인트 결제</h4>
+					<h4 class="modal-title">포인트 결제하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body" align="center">
