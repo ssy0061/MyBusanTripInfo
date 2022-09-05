@@ -164,4 +164,12 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectList(NS+"findMemberVisitStats", memberId);
 	}
 
+	@Override
+	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberPw", memberPw);
+		map.put("memberTele", memberTele);
+		map.put("memberAddr", memberAddr);
+		sqlSession.update(NS+"updateMemberInfo",map);
+	}
 }

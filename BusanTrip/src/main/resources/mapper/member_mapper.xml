@@ -134,4 +134,9 @@
 			ORDER BY CNT DESC)
 	</select>
 	
+	<update id="updateMemberInfo" parameterType="hashmap">
+		UPDATE MEMBER
+		SET (MEMBER_PW, MEMBER_TELE, MEMBER_ADDR)=(#{memberPw}, #{memberTele}, #{memberAddr})
+		WHERE MEMBER_ID=#{memberId}
+	</update>
 </mapper>
