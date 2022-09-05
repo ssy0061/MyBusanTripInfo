@@ -194,24 +194,30 @@ $(function() {
 				cardTitle = storyList[i].storyName;
 				cardSubtitle = storyList[i].storySubtitle;
 				
+				var leaderName = cardSubtitle.split(" ")[0];
+	
 				//console.log("공백 여부:: "+ cardSubtitle.search(" "));
 				var card = "<div id="+"\'"+ storyId +"\'"+" class=card>"
 							+"<div class=card-body onclick=location.href="+"\'/bnk/trip/"+ storyId +"\'>"
 							+"<h5 class=card-title>"+ cardTitle+"</h5>"
 							+"<p class=card-text>"+ cardSubtitle +"</p></div>"
+							
 				if(cardSubtitle.search(" ") == -1) { // 개인 머니 앨범이면
 					$('.myStorySpace .col-12').append(
 							card + "</div>"
 						 )
-				}else {
-					 $('.ourStorySpace .col-12').append(
-						card
-						+'<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
-						+'<span class="close material-symbols-outlined">close</span></button>'
-						+"</div>"
-					 ) 
+				} else { // 단체 앨범이면
+					
+					var code = "</div>"
+					if(currentMemberId == leaderName){ // 현재 계정이 리더인 스토리
+						code =  '<button type=\"button\" class=deleteStory data-toggle=\"modal\" data-target=\"#deleteStoryModal\">'
+								+'<span class="close material-symbols-outlined">close</span></button>'
+								+"</div>"	
+					}
+					$('.ourStorySpace .col-12').append(
+							card + code
+					) 
 				}
-				
 				
 			} 
 		},
