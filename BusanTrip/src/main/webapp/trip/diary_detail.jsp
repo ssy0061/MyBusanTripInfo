@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -158,7 +158,7 @@
 		background-color:#6c9dc6;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	#resetUpload, .addTransYes, .memberSearchOk, .playListOk{
+	#resetUpload, .addPhotoYes, .memberSearchOk, .playListOk{
 		display:inline-block;
 		padding:4px 10px;
 		cursor:pointer;
@@ -171,7 +171,7 @@
 		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	.addTransYes:hover, .memberSearchOk:hover, .playListOk:hover{
+	.addPhotoYes:hover, .memberSearchOk:hover, .playListOk:hover{
 		color:white;
 	}
 	/* modal - payList */
@@ -245,19 +245,16 @@
     }
 
     .swiperContent>*{
-    	display: flex;
+    	/* display: flex;
 		flex-wrap: wrap;
-		align-content: space-between;;
+		align-content: space-between; */
     }
-    
-    .card{
-    	height: 510px;
-    }  
-    
     .card-header{
     	overflow: hidden;
     	height: 80%; 
     	padding: 0;
+    	display: flex;
+    	justify-content: center;
     }
     
     .card_img_row{
@@ -266,22 +263,38 @@
 	   flex-wrap: wrap;  */
 	   /* flex: 50%; */
 	  /*  height: 50%; */
-	  min-height: 100%;
+	  display: flex;
     }
     
-    .column {
-	 flex: 50%; 
-	  /* width: 50%; */
-	 /*  max-height: 50%; */
-	 	
-	 	width: 100%; 
+	.card{
+    	height: 20rem;
+    	width: 30rem;
+    } 
+    .card-img-colBox {
+		height: 13rem;
+	  	object-fit: cover;
 	}
-	
-	.card-img-top {
-	 display: block;
-	  width: 100%;
-	  height: 50%;
-	  object-fit: cover;
+	.card-col-6{
+		width: 49.5%;
+	}
+	.card-col-6-bar{
+		width: 1%;
+	}
+	.card-col-12>img{
+		width: 100%;
+	}
+	.card-img-rowBox {
+		width: 12rem;
+		height: 100%;
+	  	object-fit: cover;
+	}
+	.card-row-6{
+		height: 49.5%;
+	}
+	.card-row-6>img{
+	}
+	.card-row-6-bar{
+		height: 1%;
 	}
 	/* 상하단 바를 위한 필수 css */
 	.content{
@@ -295,11 +308,21 @@
 			padding-bottom: 80px;/* 하단바 80 */
 			min-height: calc(100vh - 80px);
 		}
+		
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
 			min-height: calc(100vh - 90px); /* 상단바 90px */
 	    	padding: 20px 0;
+		}
+		.card{
+	    	height: 25rem;
+	    } 
+	    .card-img-colBox {
+			height: 17.5rem;
+		}
+		.card-img-rowBox {
+			width: 15rem;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -406,7 +429,7 @@ $(document).ready(function () {
 			}
 		})	
 	}
-    
+	
     //this function define the size of the items
     function refreshContent() { // diary_detail 화면 띄우기
     	$.ajax({
@@ -417,13 +440,12 @@ $(document).ready(function () {
 			success: function(result) { // DiaryTransaction List
 				console.log("refreshContent result:: " + result)
 				transactionList = result;
-			
 				for(var i=0; i<transactionList.length; i++) { // for..transactionList
 					var memberId = transactionList[i].memberId;
 					var element = document.getElementById("user-"+memberId);
-
+		
 					findTransactionPhoto(transactionList[i].diarytransactionId); // 사진 목록 가져오기
-		    		var transactionStore = transactionList[i].transactionStore;
+					var transactionStore = transactionList[i].transactionStore;
 		    		var transactionAmt = transactionList[i].transactionAmt;
 		    		var transactionMemo = transactionList[i].transactionMemo;
 		    		
@@ -436,9 +458,7 @@ $(document).ready(function () {
 		    		var photoUrl4 = '/img/building.jpg';
 		    		
 		    		var len = photoList.length;
-		    		console.log("photo cnt: "+ len + "  0번째: " + JSON.stringify(photoList[0]));
-					console.log(photoList);
-		    		
+
 					if(element == null) { // 공간 생성 안된 사용자인 경우
 						// 사용자 별 스위퍼 공간 생성
 			    		$('.swiperContent').append(
@@ -452,7 +472,7 @@ $(document).ready(function () {
 					}	 
 
 		    		var swiper = new Swiper("#swiper-"+memberId, {
-		    			slidesPerView: 2.7,
+		    			slidesPerView: 1.8,
 		    	        spaceBetween: 10,
 		    	        grabCursor: true,
 		    	        navigation: {
@@ -466,10 +486,10 @@ $(document).ready(function () {
 		    	            	spaceBetween: 10
 		    	            },
 		    	            720: {
-		    	            	slidesPerView: 2.2,
+		    	            	slidesPerView: 1.4,
 		    	            },
 		    	            1200: {
-		    	            	slidesPerView: 2.5,
+		    	            	slidesPerView: 1.6,
 		    	            }
 		    	        },
 		    	        scrollbar: {
@@ -478,20 +498,55 @@ $(document).ready(function () {
 		    	        }
 		    		});
 		    		
+		    		var imgList = "";
+		    		if(len==0){
+		    			imgList = "<div class='card-col-12'>"+
+		    					  "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"
+		    		}else if(len==1){
+		    			imgList = "<div class='card-col-12'>"+
+		    					  "<img class='card-img-top card-img-colBox' src='"+photoList[0].photoUrl+"'></div>"
+		    		}else if(len==2){
+		    			imgList = "<div class='card-col-6'>"+
+		    				      "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"+
+		    				      "<div class='card-col-6-bar'></div>"+
+		    				      "<div class='card-col-6'>"+
+		    				      "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"
+		    		}else if(len==3){
+		    			imgList = "<div class='card-col-6'>"+
+		    					  "<img class='card-img-top card-img-colBox' src='"+photoList[0].photoUrl+"'></div>"+
+		    					  
+		    					  "<div class='card-col-6-bar'></div>"+
+		    					  
+		    					  "<div class='card-col-6'>"+
+		    					  "<div class='card-row-6'>"+
+		    					  "<img class='card-img-top card-img-rowBox' src='"+photoList[1].photoUrl+"'></div>"+
+		    					  "<div class='card-row-6-bar'></div>"+
+		    					  "<div class='card-row-6'>"+
+  				      			  "<img class='card-img-top card-img-rowBox' src='"+photoList[2].photoUrl+"'></div></div>"
+		    		}else if(len==4){
+		    			imgList = "<div class='card-col-6'>"+
+		    			          "<div class='card-row-6'>"+
+			  					  "<img class='card-img-top card-img-rowBox' src='"+photoList[0].photoUrl+"'></div>"+
+			  					  "<div class='card-row-6-bar'></div>"+
+			  					  "<div class='card-row-6'>"+
+					      		  "<img class='card-img-top card-img-rowBox' src='"+photoList[1].photoUrl+"'></div></div>"+
+					      		  
+					      		  "<div class='card-col-6-bar'></div>"+
+					      		  
+					      		  "<div class='card-col-6'>"+
+					      		  "<div class='card-row-6'>"+
+			  					  "<img class='card-img-top card-img-rowBox' src='"+photoList[2].photoUrl+"'></div>"+
+			  					  "<div class='card-row-6-bar'></div>"+
+			  					  "<div class='card-row-6'>"+
+					      		  "<img class='card-img-top card-img-rowBox' src='"+photoList[3].photoUrl+"'></div></div>"
+		    		}
 		    		// 스위퍼 내부 사진, 정보 등 채우기
 	    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
 	    				"<div class='swiper-slide'>"
 	    					+"<div class='card'>"
 		    					+ "<div class='card-header'>"
-		    						+ "<div class='row card_img_row'>" 
-		    					  		+ "<div class=column>" 
-			    							+ "<img class='card-img-top' src="+ photoUrl1 +">"
-			    							 + "<img class='card-img-top' src="+ photoUrl1 +">"  
-			    				 	 	 + "</div>" 
-			    				  		 + "<div class='column'>" 
-			    				  			+ "<img class='card-img-top' src="+ photoUrl1 +">"
-			    							+ "<img class='card-img-top' src="+ photoUrl1 +">" 
-			    				  		+ "</div>" 
+		    						+ "<div class='card_img_row'>"
+		    						+ imgList
 			    					+ "</div>" 
 		    					+ "</div>"
 		    					+ "<div class='card-body'>"
@@ -502,7 +557,6 @@ $(document).ready(function () {
 		    					+"</div>"
 	    				+"</div></div>"
 	    			);
-					
 				}// for..transactionList
 
 			}, // success
@@ -520,7 +574,8 @@ $(document).ready(function () {
 		if(input.files) { // 인풋 태그에 파일들이 있는 경우
 			// 이미지 파일 검사 생략
 			console.log(input.files)
-			console.log(input.files.length)
+			var file_cnt = input.files.length;
+			console.log(file_cnt);
 			fileArr = Array.from(input.files) // forEach문으로 처리하기 위해 유사배열을 배열로 변환
 			const $colDiv = document.createElement('div')
 			fileArr.forEach((file, index) => {
@@ -603,6 +658,17 @@ $(document).ready(function () {
 	$('#btn_addPayList').on("click", function(e) {
 		// 결제내역 불러오기
 	})
+	
+	$('.addPhotoYes').on("click", function(e) {
+		// 같은 거래내역에 여러번에 걸쳐서 넣으면 4장 이상 들어갈듯.. 일단 구현
+		if(fileArr.length <= 4){
+			// 해당 거래내역에 photo 추가 코드 추가해야 함			
+			$('#transactionModal').modal('hide');
+		} else {
+			alert("최대 4장까지 등록 가능합니다.");
+		}
+			
+	})
 });
 </script>
 </head>
@@ -670,7 +736,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="확인" class="btn addTransYes" data-dismiss="modal"></input>
+						<input type="submit" value="확인" class="btn addPhotoYes" ></input>
 					</div>
 				</div>
 			</div>

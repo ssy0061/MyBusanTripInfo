@@ -118,6 +118,10 @@ public class StoryDAOImpl implements StoryDAO{
 	
 		return sqlSession.selectList(NS+"findAllDiaryTransaction", diaryId);
 	}
+	
+	public List<DiaryTransaction> findDiaryTransactionByMember(String memberId) {
+		return sqlSession.selectList(NS+"findDiaryTransactionByMember", memberId);
+	}
 
 	@Override
 	public List<Photo> findDiaryPhoto(String transactionId) {
