@@ -46,6 +46,11 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
+	public String findMemberName(String memberId) {
+		return sqlSession.selectOne(NS+"findMemberName",memberId);
+	}
+	
+	@Override
 	public Member login(Member member) {
 		return sqlSession.selectOne(NS+"login", member);
 	}
@@ -103,9 +108,18 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void addTransaction(Transaction transaction) {
 		sqlSession.insert(NS+"addTransaction", transaction);
+	}
+	
+	
+	@Override
+	public int findTotalVisit(Transaction transaction) {
 		int totalVisit = sqlSession.selectOne(NS+"getTotalVisit", transaction);
-		System.out.println(totalVisit);
 		totalVisit += 1;
+		return totalVisit;
+	}
+	
+	@Override
+	public void updateTotalVisit(Transaction transaction, int totalVisit) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("storeId", transaction.getStoreId());
 		map.put("totalVisit", totalVisit);
@@ -123,17 +137,17 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
-	public int getBalance(String accountNumber) {
-		return sqlSession.selectOne(NS+"getBalance", accountNumber);
+	public int findBalance(String accountNumber) {
+		return sqlSession.selectOne(NS+"findBalance", accountNumber);
 	}
 	
 	@Override
-	public int getPointBalance(String memberId) {
-		return sqlSession.selectOne(NS+"getPointBalance", memberId);
+	public int findPointBalance(String memberId) {
+		return sqlSession.selectOne(NS+"findPointBalance", memberId);
 	}
 
 	@Override
-	public String getPointAccount(String memberId) {
+	public String findPointAccount(String memberId) {
 		return sqlSession.selectOne(NS+"getPointAccount", memberId);
 	}
 	

@@ -139,9 +139,10 @@
 					var imageUrl = "/img/noimg.png";
 					for(var i=0; i<result.length; i++) {
 						diaryName = result[i].diaryName;
+						var diaryId = result[i].diaryId;
 						$('.diary-in-story').append(
 									'<div class="col-md-4 col-6 px-2">'
-									+'<div class="card" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/diary_detail\'\">"
+									+'<div class="card" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/"+ diaryId +"\'\">"
 										+ '<img class="card-img-top m-0" src=' + imageUrl +' alt="Card image" style="width:100%">'
 										+ '<div class="py-2">'
 											+ ' <div id="diaryName" class="card-content m-0" style="font-size: 1rem;">' + diaryName + '</div>'

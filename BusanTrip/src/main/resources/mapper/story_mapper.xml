@@ -21,11 +21,11 @@
 		WHERE STORY_ID = #{storyId}
 	</update>
 	
-	<select id="getStoryId" resultType="String">
+	<select id="findStoryId" resultType="String">
 		SELECT STORY_ID FROM STORY WHERE STORY_NAME= #{storyName}
 	</select>
 	
-	<select id="getStoryName" parameterType="String" resultType="String">
+	<select id="findStoryName" parameterType="String" resultType="String">
 		SELECT STORY_NAME FROM STORY WHERE STORY_ID= #{storyId}
 	</select>
 	
@@ -62,8 +62,8 @@
 		SELECT DIARY_ID, STORY_ID, DIARY_NAME, DIARY_MAKEDATE FROM DIARY WHERE STORY_ID = #{storyId}
 	</select>
 	
-	<select id="findDiaryTransaction" parameterType="diaryTransaction" resultType="diaryTransaction">
-		SELECT MEMBER_NAME, TRANSACTION_STORE, TRANSACTION_TIME, TRANSACTION_AMT
+	<select id="findAllDiaryTransaction" parameterType="int" resultType="diaryTransaction">
+		SELECT DIARYTRANSACTION_ID, MEMBER_ID, TRANSACTION_STORE, TRANSACTION_TIME, TRANSACTION_AMT, TRANSACTION_MEMO
 		FROM DIARYTRANSACTION
 		WHERE DIARY_ID = #{diaryId}
 	</select>
@@ -71,7 +71,7 @@
 	
 	<insert id="addDiaryTransaction" parameterType="List">
 		<foreach item="transactionId" collection="List">
-			INSERT INTO DIARYTRANSACTION(DIARYTRASNACTION_ID, DIARY_ID, MEMBER_NAME, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
+			INSERT INTO DIARYTRANSACTION(DIARYTRANSACTION_ID, DIARY_ID, MEMBER_NAME, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
 			VALUES(DIARYTRANSACTION_SEQ.nextval, #{diaryId}, #{memberName}, #{storeId}, #{transactionTime}, #{transactionAmt}, #{transactionMemo))	
 		</foreach>
 	</insert>
@@ -86,9 +86,9 @@
 	</delete>
 	
 	<select id="findDiaryPhoto" parameterType="String" resultType="photo">
-		SELECT PHOTO_URL
+		SELECT PHOTO_ID, PHOTO_URL, DIARYTRANSACTION_ID
 		FROM PHOTO
-		WHERE DIARYTRANSACTIONID = #{diaryTransactionId}
+		WHERE DIARYTRANSACTION_ID = #{diaryTransactionId}
 	</select>
 </mapper>
 

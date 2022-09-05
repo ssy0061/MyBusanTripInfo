@@ -217,168 +217,244 @@
     }
 
     .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      /* /* display: block; */ */
+      /* width: 100%;
+      height: 100%; */
+      
     }
     .swiperContent>*{
     	display: flex;
 		flex-wrap: wrap;
 		align-content: space-between;;
     }
+    
+    .card{
+    	height: 510px;
+    }  
+    
+    .card-header{
+    	overflow: hidden;
+    	height: 80%; 
+    	padding: 0;
+    }
+    
+    .card_img_row{
+	   /* display: flex; 
+	  -ms-flex-wrap: wrap;
+	   flex-wrap: wrap;  */
+	   /* flex: 50%; */
+	  /*  height: 50%; */
+	  min-height: 100%;
+    }
+    
+    .column {
+	 flex: 50%; 
+	  /* width: 50%; */
+	 /*  max-height: 50%; */
+	 	
+	 	width: 100%; 
+	}
+	
+	.card-img-top {
+	 display: block;
+	  width: 100%;
+	  height: 50%;
+	  object-fit: cover;
+	}
 
 </style>
 <script>
 $(document).ready(function () {
-	var result = [
-		{
-		'user': '사용자1',
-		'list': [
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름1',
-				'payment': '20000',
-				'memo': 'memo1'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름2',
-				'payment': '50000',
-				'memo': 'memo2'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름3',
-				'payment': '30000',
-				'memo': 'memo3'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름4',
-				'payment': '70000',
-				'memo': 'memo4'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름5',
-				'payment': '40000',
-				'memo': 'memo5'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름6',
-				'payment': '10000',
-				'memo': 'memo6'
-			}
-		]},
-		{
-		'user': '사용자2',
-		'list': [
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름1',
-				'payment': '20000',
-				'memo': 'memo1'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름2',
-				'payment': '50000',
-				'memo': 'memo2'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름3',
-				'payment': '30000',
-				'memo': 'memo3'
-			}]
-		}
-	];
-
-	refreshContent();
 
     $(window).resize(function () {
     });
     
 	var storyId = location.pathname.split("/")[3];
+	var diaryId = location.pathname.split("/")[4];
 	var memberList = [];
-	$.ajax({
-		type: 'post',
-		url: '/story/findStoryMember',
-		data: {'storyId' : storyId},
-		
-		success:function(result) {
-			console.log(result);
-			memberList = result;
-			for(var i=0; i<memberList.length; i++) {
-				$('.mem-id').append(
-					"<p align=center>"+memberList[i].memberId+"</p>"		
-				);
-				$('.mem-name').append(
-					"<p align=center>"+memberList[i].storymemberName+"</p>"	
-				);
-				
+	var transactionList = [];
+	var photoList = [];
+	var testVal=0;
+	
+
+	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
+	
+	refreshContent();
+	
+	function findStoryMember() { // 현재 스토리 멤버 리스트 조회
+		$.ajax({
+			type: 'post',
+			url: '/story/findStoryMember',
+			data: {'storyId' : storyId},
+			
+			success:function(result) {
+				console.log("findStoryMember result:: " + result);
+				memberList = result;
+				for(var i=0; i<memberList.length; i++) {
+					$('.mem-id').append(
+						"<p align=center>"+memberList[i].memberId+"</p>"		
+					);
+					$('.mem-name').append(
+						"<p align=center>"+memberList[i].storymemberName+"</p>"	
+					);
+					
+				}
+			},
+			error:function(e) {
+				console.log(e);
 			}
-		},
-		error:function(e) {
-			console.log(e);
-		}
-		
-	})
+		})
+	}
+	
+	
+	function findDiaryTransaction() { // 다이어리 내 거래내역 조회
+		$.ajax({
+			type: 'post',
+			url: '/story/findAllDiaryTransaction',
+			data: {"diaryId": diaryId},
+			
+			success: function(result) { // DiaryTransaction List
+				console.log("findDiaryTransaction result:: " + result)
+				transactionList = result;
+				
+				for(var i=0; i<transactionList.length; i++) {
+					var memberId = transactionList[i].memberId;
+					var transactionStore = transactionList[i].transactionStore;
+					var transactionAmt = transactionList[i].transactionAmt;
+					
+					$('#payListModal .modal-body').append(
+						'<p>' 
+							+ memberId + ' - ' + transactionStore + ' - ' + transactionAmt+'원'
+						+ '</p>'					)
+					}
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		})	
+	}
+	
+	function findTransactionPhoto(transactionId) { // 거래내역 당 사진 목록 가져오기
+		$.ajax({
+			type: 'post',
+			url: '/story/findDiaryPhoto',
+			data: {"transactionId": transactionId},
+			async: false,		// 이거 없으면 refreshContent가 실행된 후 findTransactionPhoto 실행돼서 photoList에 값 안들어감
+			
+			success: function(result) {	// Photo List
+				photoList = result;
+				testVal = 1;
+				console.log("findTransactionPhoto result:: " + JSON.stringify(photoList));
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		})	
+	}
     
     //this function define the size of the items
-    function refreshContent() {
-    	for(let i = 0; i<result.length; i++) {
-    		// 생성
-    		user = result[i].user;
-    		list = result[i].list;
-    		$('.swiperContent').append(
-    			"<div id='user-"+user+"'>"+
-    			"<h5 class='mt-3'>"+user+"</h5>"+
-    			"<div class='swiper' id='swiper-"+user+"'>"+
-    			"<div class='swiper-wrapper'>"+
-    			"</div><div class='swiper-pagination'></div>"+
-    			"<div class='swiper-scrollbar'></div></div></div>"
-    		);
-    		for(let i=0; i<list.length; i++){
-    			$('#swiper-'+user).children('.swiper-wrapper').append(
-    				"<div class='swiper-slide'><div class='card'>"+
-    				"<img class='card-img-top' src='"+list[i].url+"' style='width:100%'>"+
-    				"<div class='card-body'><h6 class='card-text'>결제일시</h6>"+
-    				"<div class='card-text pay-store'><h5 class='card-title'>"+list[i].storeName+"</h5></div>"+
-    				"<div class='card-text pay-price'><h5>"+list[i].payment+"</h5></div>"+
-    				"<h6>"+list[i].memo+"</h6></div></div></div>"
-    			);
-    		}
-    		
-    		var swiper = new Swiper("#swiper-"+user, {
-    			slidesPerView: 2.7,
-    	        spaceBetween: 10,
-    	        grabCursor: true,
-    	        navigation: {
-    	          nextEl: ".swiper-button-next",
-    	          prevEl: ".swiper-button-prev",
-    	        },
-    	        breakpoints: {
-    	            // when window width is >= 0px
-    	            0: {
-    	            	slidesPerView: 1.2,
-    	            	spaceBetween: 10
-    	            },
-    	            720: {
-    	            	slidesPerView: 2.2,
-    	            },
-    	            1200: {
-    	            	slidesPerView: 2.5,
-    	            }
-    	        },
-    	        scrollbar: {
-    	            el: ".swiper-scrollbar",
-    	            draggable: true,
-    	        }
-    		});
-    	}
+    function refreshContent() { // diary_detail 화면 띄우기
+    	$.ajax({
+			type: 'post',
+			url: '/story/findAllDiaryTransaction',
+			data: {"diaryId": diaryId},
+			
+			success: function(result) { // DiaryTransaction List
+				console.log("refreshContent result:: " + result)
+				transactionList = result;
+			
+				for(var i=0; i<transactionList.length; i++) { // for..transactionList
+					var memberId = transactionList[i].memberId;
+					var element = document.getElementById("user-"+memberId);
+
+					findTransactionPhoto(transactionList[i].diarytransactionId); // 사진 목록 가져오기
+		    		var transactionStore = transactionList[i].transactionStore;
+		    		var transactionAmt = transactionList[i].transactionAmt;
+		    		var transactionMemo = transactionList[i].transactionMemo;
+		    		
+		    		var transactionDate = transactionList[i].transactionTime.substring(0,10);
+					var transactionTime = transactionList[i].transactionTime.substring(11,19);
+
+		    		var photoUrl1 = '/img/cat.jpg';
+		    		var photoUrl2 = '/img/icecream.jpg';
+		    		var photoUrl3 = '/img/drink.jpg';
+		    		var photoUrl4 = '/img/building.jpg';
+		    		
+		    		var len = photoList.length;
+		    		console.log("photo cnt: "+ len + "  0번째: " + JSON.stringify(photoList[0]));
+
+		    		
+					if(element == null) { // 공간 생성 안된 사용자인 경우
+						// 사용자 별 스위퍼 공간 생성
+			    		$('.swiperContent').append(
+			    			"<div id='user-"+memberId+"'>"+
+			    			"<h5 class='mt-3'>"+memberId+"</h5>"+
+			    			"<div class='swiper' id='swiper-"+memberId+"'>"+
+			    			"<div class='swiper-wrapper'>"+
+			    			"</div><div class='swiper-pagination'></div>"+
+			    			"<div class='swiper-scrollbar'></div></div></div>"
+			    		);
+					}	 
+
+		    		var swiper = new Swiper("#swiper-"+memberId, {
+		    			slidesPerView: 2.7,
+		    	        spaceBetween: 10,
+		    	        grabCursor: true,
+		    	        navigation: {
+		    	          nextEl: ".swiper-button-next",
+		    	          prevEl: ".swiper-button-prev",
+		    	        },
+		    	        breakpoints: {
+		    	            // when window width is >= 0px
+		    	            0: {
+		    	            	slidesPerView: 1.2,
+		    	            	spaceBetween: 10
+		    	            },
+		    	            720: {
+		    	            	slidesPerView: 2.2,
+		    	            },
+		    	            1200: {
+		    	            	slidesPerView: 2.5,
+		    	            }
+		    	        },
+		    	        scrollbar: {
+		    	            el: ".swiper-scrollbar",
+		    	            draggable: true,
+		    	        }
+		    		});
+		    		
+		    		// 스위퍼 내부 사진, 정보 등 채우기
+	    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
+	    				"<div class='swiper-slide'>"
+	    					+"<div class='card'>"
+		    					+ "<div class='card-header'>"
+		    						+ "<div class='row card_img_row'>" 
+		    					  		+ "<div class=column>" 
+			    							+ "<img class='card-img-top' src="+ photoUrl1 +">"
+			    							 + "<img class='card-img-top' src="+ photoUrl1 +">"  
+			    				 	 	 + "</div>" 
+			    				  		 + "<div class='column'>" 
+			    				  			+ "<img class='card-img-top' src="+ photoUrl1 +">"
+			    							+ "<img class='card-img-top' src="+ photoUrl1 +">" 
+			    				  		+ "</div>" 
+			    					+ "</div>" 
+		    					+ "</div>"
+		    					+ "<div class='card-body'>"
+		    						+ "<h6 class='card-text'>결제일시 "+ transactionDate+' '+transactionTime+ "</h6>"
+		    						+ "<div class='card-text pay-store'><h5 class='card-title'>"+transactionStore+"</h5></div>"
+		    						+ "<div class='card-text pay-price'><h5>"+transactionAmt+"</h5></div>"
+		    						+ "<h6>"+transactionMemo+"</h6>"
+		    					+"</div>"
+	    				+"</div></div>"
+	    			);
+					
+				}// for..transactionList
+
+			}, // success
+			error: function(e) {
+				console.log("refreshContent error :: "+e)
+			}
+		})	
     } //refreshContent
     
     var fileArr = "";
@@ -460,6 +536,18 @@ $(document).ready(function () {
 		$(this).children().css("color", "#53565A")
 		$(this).css("background-color","white");
 	})
+	
+	$('#btn_findStoryMember').on("click", function(e) {
+		findStoryMember();
+	})
+	
+	$('#btn_findPayList').on("click", function(e) {
+		findDiaryTransaction();
+	})
+	
+	$('#btn_addPayList').on("click", function(e) {
+		// 결제내역 불러오기
+	})
 });
 </script>
 </head>
@@ -477,17 +565,17 @@ $(document).ready(function () {
 			<div class="col-6 row p-0" id="customizeButton" align="right">
 				<div class="col-12 p-0">
 					<a data-toggle="tooltip" data-placement="left" title="멤버 조회하기">
-					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
+					<button type="button" id="btn_findStoryMember" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
 						<span class="material-symbols-outlined group">group</span>
 					</button>
 					</a>
 					<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
-					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+					<button type="button" id="btn_findPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
 						<span class="material-symbols-outlined receipt_long">receipt_long</span>
 					</button>
 					</a>
 					<a data-toggle="tooltip" data-placement="left" title="결제내역  불러오기">
-					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+					<button type="button" id="btn_addPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
 						<span class="material-symbols-outlined receipt_long">assignment_add</span>
 					</button>
 					</a>

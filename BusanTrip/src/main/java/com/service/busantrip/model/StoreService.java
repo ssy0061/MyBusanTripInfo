@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.service.busantrip.domain.Store;
-import com.service.busantrip.domain.Transaction;
 
 public interface StoreService {
 

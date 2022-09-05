@@ -1,5 +1,6 @@
 package com.service.busantrip.model.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +12,34 @@ import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.DiaryTransaction;
 import com.service.busantrip.domain.story.Photo;
 import com.service.busantrip.domain.story.Story;
+import com.service.busantrip.model.MemberDAO;
 import com.service.busantrip.model.StoryDAO;
 import com.service.busantrip.model.StoryService;
 @Service
 public class StoryServiceImpl implements StoryService{
 	@Autowired
 	private StoryDAO storyDAO;
+	@Autowired
+	private MemberDAO memberDAO;
+	
 		
 	@Override
 	public String addStory(String storyName, String memberId, String subtitle) {
-		return storyDAO.addStory(storyName, memberId, subtitle);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("storyName", storyName);
+		map.put("subtitle", subtitle);
+		storyDAO.addStory(storyName, subtitle);
+		String storyId = storyDAO.findStoryId(storyName);
+	//	System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
+		String memberName = memberDAO.findMemberName(memberId);
 		
+		HashMap<String, Object> leaderMap = new HashMap<String, Object>();
+		leaderMap.put("storyId", storyId);
+		leaderMap.put("memberId", memberId);
+		leaderMap.put("memberName", memberName);
+		
+		storyDAO.addStoryMemberLeader(storyId, memberId, memberName);
+		return storyId;
 	}
 	
 	@Override
@@ -46,7 +64,8 @@ public class StoryServiceImpl implements StoryService{
 
 	@Override
 	public void addStoryMember(String storyId, String memberId) {
-		storyDAO.addStoryMember(storyId, memberId);
+		String memberName = memberDAO.findMemberName(memberId);
+		storyDAO.addStoryMember(storyId, memberId, memberName);
 		
 	}
 	
@@ -67,15 +86,12 @@ public class StoryServiceImpl implements StoryService{
 
 	@Override
 	public List<Diary> findAllDiaryList(String storyId) {
-		String storyName;
-		
-		
 		return storyDAO.findAllDiaryList(storyId);
 	}
 
 	@Override
-	public List<DiaryTransaction> findDiaryTransaction(DiaryTransaction diaryTransaction) {
-		return storyDAO.findDiaryTransaction(diaryTransaction);
+	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId) {
+		return storyDAO.findAllDiaryTransaction(diaryId);
 	}
 
 	@Override

@@ -1,10 +1,13 @@
 package com.service.busantrip.domain.story;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Photo {
 	private int photoId;
 	private String photoUrl;
 	private int diaryTransactionId;
 	
+	@JsonIgnore
 	private DiaryTransaction diaryTransaction;
 
 	public Photo() {
@@ -17,7 +20,6 @@ public class Photo {
 		this.diaryTransactionId = diaryTransactionId;
 	}
 
-	
 	
 	public int getDiaryTransactionId() {
 		return diaryTransactionId;
