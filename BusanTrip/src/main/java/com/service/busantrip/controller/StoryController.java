@@ -71,7 +71,7 @@ public class StoryController {
 		return count;
 	}
 	
-	@PostMapping("getStoryName")
+	@PostMapping("findStoryName")
 	@ResponseBody
 	public String findStoryName(String storyId) {
 		return storyService.findStoryName(storyId);
