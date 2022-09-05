@@ -32,7 +32,7 @@ public class StoryController {
 	@PostMapping("deleteStory")
 	@ResponseBody
 	public void deleteStory(int storyId, Model model, HttpSession session) {
-		System.out.println("deleteStory:: " + storyId);
+//		System.out.println("deleteStory:: " + storyId);
 		storyService.deleteStory(storyId);
 	}
 	
@@ -63,7 +63,7 @@ public class StoryController {
 			count+=1;
 		}
 		
-		System.out.println("str_memberList:: " + memberListAll);
+//		System.out.println("str_memberList:: " + memberListAll);
 		storyService.updateStory(memberListAll, Integer.parseInt(storyId));
 	
 		return count;
@@ -80,11 +80,11 @@ public class StoryController {
 	@PostMapping("findStoryMember")
 	@ResponseBody
 	public List<Member> findStoryMember(String storyId, Model model, HttpSession session){
-		//System.out.println("storyId:: " + storyId);
-		System.out.println("hhstoryId:: " + storyId);
+//		System.out.println("findStoryMember..storyId:: " + storyId);
+
 		List<Member> list = storyService.findStoryMember(storyId);
 		
-		System.out.println(list);
+//		System.out.println(list);
 		
 		return list;
 	}
