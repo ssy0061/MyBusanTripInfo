@@ -90,8 +90,8 @@ public class StoryServiceImpl implements StoryService{
 	}
 
 	@Override
-	public List<DiaryTransaction> findDiaryTransaction(DiaryTransaction diaryTransaction) {
-		return storyDAO.findDiaryTransaction(diaryTransaction);
+	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId) {
+		return storyDAO.findAllDiaryTransaction(diaryId);
 	}
 
 	@Override

@@ -114,9 +114,9 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 
 	@Override
-	public List<DiaryTransaction> findDiaryTransaction(DiaryTransaction diaryTransaction) {
+	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId) {
 	
-		return sqlSession.selectList(NS+"findDiaryTransaction", diaryTransaction);
+		return sqlSession.selectList(NS+"findAllDiaryTransaction", diaryId);
 	}
 
 	@Override

@@ -576,11 +576,15 @@
 						   '<div style="max-width: 720px; '+
 						   'border-bottom-color:#DCDCDC; '+
 						   'border-bottom-width: 2px; '+
-						   'border-bottom-style: solid;"></div> ' : ""
+						   'border-bottom-style: solid;"></div> ' : "";
+				
+				var transactionDate = list[i].transactionTime.substring(0,10);
+				var transactionTime = list[i].transactionTime.substring(11,19);
+						   
 				$('#detailBox').append(
 						'<div class="searchDetail-lower-box" id="lowerBox-'+i+'">'+
 						'<div class="searchDetail-lower-box-inner">'+
-						'<span class="payDate">'+list[i].transactionTime.substring(0,10)+'</span>'+
+						'<span class="payDate">'+ transactionDate+' '+transactionTime +'</span>'+
 						'<div class="image-box d-flex justify-content-center align-items-center">'+
 						'<span class="memoBtn material-symbols-outlined mt-1"'+
 									 'data-toggle="modal" data-target="#memoModal"'+
