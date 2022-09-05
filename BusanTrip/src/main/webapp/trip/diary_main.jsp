@@ -136,7 +136,7 @@
 					console.log(result)
 					
 					var diaryName;
-					var imageUrl = "/img/mountain.jpg";
+					var imageUrl = "/img/noimg.png";
 					for(var i=0; i<result.length; i++) {
 						diaryName = result[i].diaryName;
 						$('.diary-in-story').append(

@@ -33,7 +33,7 @@ public class StoryDAOImpl implements StoryDAO{
 		sqlSession.insert(NS+"addStory", map);
 		
 		String storyId = sqlSession.selectOne(NS+"getStoryId", storyName);
-	//	System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
+		System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
 	
 		String memberName = sqlSession.selectOne("sql.member.mapper."+"getMemberName", memberId);
 		

@@ -492,12 +492,15 @@
 		
 		$('#memo-text').keyup(function(e){
 			let content = $(this).val();
-			
 			// 글자 수 세기
 			if(content.length == 0 || content == ''){
 				$('#nowMemoLen').text('0자');
-			} else{
+			} else if(content.length >= 1 && content.length <= 40){
 				$('#nowMemoLen').text(content.length+'자');
+			}
+			// 글자 수 제한
+			if(content.length>40){
+				$(this).val($(this).val().substring(0,40)); // 41자부터는 타이핑되지 않도록
 			}
 		})
 		
@@ -711,7 +714,7 @@
 							<p class="memoLen mb-0"><span id="nowMemoLen">0자</span>
 							<span id="totalMemoLen">/40자</span></p>
 						</label>
-						<textarea class="form-control" id="memo-text"></textarea>
+						<textarea class="form-control" id="memo-text" maxlength="40"></textarea>
 					</form>
 				</div>
 				<div class="modal-footer">

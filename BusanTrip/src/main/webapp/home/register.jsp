@@ -40,9 +40,7 @@
 		height: 280px;
 		position: relative;
 		border-radius: 10px;
-		box-shadow:2px 3px 15px 2px white;
-		background-color: white;
-		background-color: rgba( 255, 255, 255, 0.6 )
+		box-shadow:2px 3px 5px 2px lightGray;
 	}
 	
 	.register-box-inner {
@@ -121,6 +119,11 @@
 			background-image: url("/img/back-login7.jpg");
 			background-size: 1920px 100%;
 			background-repeat: no-repeat;
+		}
+		.register-box{
+			box-shadow:2px 3px 15px 2px white;
+			background-color: transparent;
+			background-color: rgba( 255, 255, 255, 0.65 )
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
