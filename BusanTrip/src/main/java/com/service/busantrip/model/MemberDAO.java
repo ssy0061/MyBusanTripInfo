@@ -15,6 +15,9 @@ public interface MemberDAO {
 	public void addAccount(String memberId, String accountNumber); //회원가입시 자동생성계좌..
 	
 	public Member findMemberInfo(String memberId);
+	public String findMemberName(String memberId);
+	
+	
 	
 	public Member login(Member member); //로그인
 	public void logout(); //로그아웃
@@ -28,14 +31,15 @@ public interface MemberDAO {
 	//Service에서 두개 같이 불러야함
 	public void pay(String accountNumber, int balance); //결제 ==> 거래내역도 같이 반영시킴...
 	public void addTransaction(Transaction transaction);//거래내역 생성(결제시)
+	public int findTotalVisit(Transaction transaction);
+	public void updateTotalVisit(Transaction transaction, int totalVisit);
 	
 	public void updateTransactionMemo(Transaction transaction); //거래내역 메모 수정
 	
-
 	public List<Account> findAllAccount(String memberId); //내 계좌 조회
-	public int getBalance(String accountNumber); //계좌 잔액 조회
-	public int getPointBalance(String memberId); //계좌(포인트지갑) 잔액 조회
-	public String getPointAccount(String memberId); //내부 생성 계좌 번호 조회
+	public int findBalance(String accountNumber); //계좌 잔액 조회
+	public int findPointBalance(String memberId); //계좌(포인트지갑) 잔액 조회
+	public String findPointAccount(String memberId); //내부 생성 계좌 번호 조회
 	public int charge(String accountNumber, int balance); //계좌(포인트지갑) 잔액 충전
 	
 	public List<Map<String, Object>> findMemberVisitStats(String memberId);

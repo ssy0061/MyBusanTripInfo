@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.service.busantrip.domain.Store;
-import com.service.busantrip.domain.Transaction;
 import com.service.busantrip.model.StoreDAO;
 import com.service.busantrip.model.StoreService;
 

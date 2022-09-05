@@ -75,7 +75,7 @@
 		TRANSACTION(TRANSACTION_ID, ACCOUNT_NUMBER, MEMBER_ID, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT)
 		VALUES(TRANSACTION_SEQ.NEXTVAL, #{accountNumber}, #{memberId}, #{storeId}, #{transactionTime}, #{transactionStore}, #{transactionAmt})
 	</insert>
-	<select id="getTotalVisit" parameterType="String" resultType="int">
+	<select id="findTotalVisit" parameterType="String" resultType="int">
 		SELECT STORE_TOTALVISIT FROM STORE WHERE STORE_ID=#{storeId}
 	</select>
 	<update id="updateTotalVisit" parameterType="hashmap">
@@ -95,19 +95,19 @@
 		WHERE MEMBER_ID=#{memberId}
 	</select>
 	
-	<select id="getBalance" parameterType="String" resultType="int">
+	<select id="findBalance" parameterType="String" resultType="int">
 		SELECT account_balance
 		FROM ACCOUNT
 		WHERE ACCOUNT_NUMBER=#{accountNumber}
 	</select>
 	
-	<select id="getPointBalance" parameterType="String" resultType="int">
+	<select id="findPointBalance" parameterType="String" resultType="int">
 		SELECT account_balance
 		FROM ACCOUNT
 		WHERE MEMBER_ID=#{memberId} AND ACCOUNT_INNER='Y'
 	</select>
 	
-	<select id="getPointAccount" parameterType="String" resultType="String">
+	<select id="findPointAccount" parameterType="String" resultType="String">
 		SELECT ACCOUNT_NUMBER
 		FROM ACCOUNT
 		WHERE MEMBER_ID=#{memberId} AND ACCOUNT_INNER='Y'

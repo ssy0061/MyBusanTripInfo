@@ -38,7 +38,6 @@ public class MemberServiceImpl implements MemberService{
 		Date now = new Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
 		String nowDate = simpleDateFormat.format(now); 
-//		System.out.println(nowDate);
 		String memberId = member.getMemberId();
 		memberDAO.join(member);
 		memberDAO.addAccount(memberId, memberId+nowDate);
@@ -91,15 +90,17 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void pay(String memberId, int amt, String storeName) {	//
 		Date date = new Date();
-		String accountNumber = memberDAO.getPointAccount(memberId);
-		int pBalance = memberDAO.getBalance(accountNumber);
+		String accountNumber = memberDAO.findPointAccount(memberId);
+		int pBalance = memberDAO.findBalance(accountNumber);
 		int balance = pBalance-amt;
 		memberDAO.pay(accountNumber, balance);
-		System.out.println(storeName);
+		
 		String storeId = storeDAO.findStoreId(storeName);
-		System.out.println(storeId);
 		Transaction transaction = new Transaction(accountNumber, storeId, memberId, date, storeName, amt);
 		memberDAO.addTransaction(transaction);
+		
+		int totalVisit = memberDAO.findTotalVisit(transaction);
+		memberDAO.updateTotalVisit(transaction, totalVisit);
 	}
 
 	@Override
@@ -114,18 +115,18 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int getBalance(String accountNumber) {
-		return memberDAO.getBalance(accountNumber);
+		return memberDAO.findBalance(accountNumber);
 	}
 	
 	@Override
 	public int getPointBalance(String memberId) {
-		return memberDAO.getPointBalance(memberId);
+		return memberDAO.findPointBalance(memberId);
 	}
 
 	@Override
 	public void charge(String memberId, int amt) {	//
-		String accountNumber = memberDAO.getPointAccount(memberId);
-		int pBalance = memberDAO.getBalance(accountNumber);
+		String accountNumber = memberDAO.findPointAccount(memberId);
+		int pBalance = memberDAO.findBalance(accountNumber);
 		int balance = pBalance+amt;
 		memberDAO.charge(accountNumber, balance);
 	}
