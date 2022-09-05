@@ -25,6 +25,12 @@
 		WHERE MEMBER_ID = #{memberId}
 	</select>
 	
+	<select id="findMemberName" parameterType="String" resultType="String">
+		SELECT MEMBER_NAME
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
 	<select id="login" parameterType="hashmap" resultType="member">
 		SELECT MEMBER_ID, MEMBER_PW, MEMBER_CHAR FROM MEMBER
 		WHERE MEMBER_ID=#{memberId} AND MEMBER_PW=#{memberPw}

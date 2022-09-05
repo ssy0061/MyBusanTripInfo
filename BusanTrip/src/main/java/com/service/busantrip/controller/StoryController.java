@@ -46,9 +46,9 @@ public class StoryController {
 	
 	@PostMapping("addStory")
 	@ResponseBody
-	public int addStory(String storyName, String memberId, Model model, HttpSession session) {
+	public String addStory(String storyName, String memberId, Model model, HttpSession session) {
 		memberListAll = "";
-		int storyId = storyService.addStory(storyName, memberId, memberId);
+		String storyId = storyService.addStory(storyName, memberId, memberId);
 		memberListAll += memberId+" ";
 		
 		return storyId;
