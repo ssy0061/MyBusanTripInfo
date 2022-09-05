@@ -219,12 +219,17 @@
 	/* == fourth row == */
 	#fourth-row{
 		margin-top:20px;
+		display:flex;
+		justify-content:center;
 	}
 	#myPlaceList{
 		display:flex;
 		justify-content:center;
 		flex-wrap:wrap;
 		padding:5px;
+		border-style:solid;
+		border-radius:5px;
+		border-color:lightgray;
 	}
 	.myjjim{
 		display:flex;
@@ -269,6 +274,7 @@
 $(document).ready(function() {
 	var memberId = '<%= (String)session.getAttribute("memberId") %>';
 	var memberCharUrl = '';
+	findAllWishlist();
 	
 	$.ajax({
 		type:'post',
@@ -282,7 +288,7 @@ $(document).ready(function() {
 			$('.charIamge').attr("src", result.memberChar);
 		},
 		error: function(e){ console.log(e); }
-	});
+	}); // 회원 정보
 	
 	function updateChar() {
 		$.ajax({
@@ -295,7 +301,7 @@ $(document).ready(function() {
 			},
 			error: function(e){ console.log(e); }
 		});
-	}
+	} // 캐릭터 이미지 수정 함수
 	
 	$('#button2').click(function() {
 		$.ajax({
@@ -306,7 +312,7 @@ $(document).ready(function() {
 			},
 			error: function(e){ console.log(e); }
 		});
-	}) // 로그아웃 기능 수행
+	}) // 로그아웃
 	
 	var result = [
 		{
@@ -348,7 +354,7 @@ $(document).ready(function() {
 	$('.each-pic').on("click", function(e){
 		memberCharUrl = $(this).attr("src");
 		console.log(memberCharUrl)
-	});
+	}); // 캐릭터 이미지 선택
 	$('.charChangeOk').on("click", function(e){
 		$.ajax({
 			type:'post',
@@ -360,12 +366,9 @@ $(document).ready(function() {
 			},
 			error: function(e){ console.log(e); }
 		});
-	});
+	}); // 캐릭터 이미지 바꾸기
 	
 	refreshContent();
-
-    $(window).resize(function () {
-    });
 	
 	//this function define the size of the items
     function refreshContent() {
@@ -420,21 +423,23 @@ $(document).ready(function() {
     	}
     }
 	
-    $.ajax({
-		type:'post',
-		url:'/store/findAllWishlist',
-		data:{'memberId':memberId},
-		success:function(result){
-			let i;
-			for(i=0; i<result.length; i++) {
-				console.log(result[i].storeName);
-				$('#myPlaceList').append("<div class='myjjim col-md-5' id='"+result[i].storeId+"'>"+
-						"<span class='material-symbols-outlined favorite-icon'>favorite</span>"+
-						"<span class='jjimname'>"+result[i].storeName+"</span>"+
-						"<span class='jjimaddr'>"+result[i].storeAddr.split(" ")[0]+"</span></div>")
-			}
-		}, error: function(e){ console.log(e); }
-	});
+	function findAllWishlist() {
+		$.ajax({
+			type:'post',
+			url:'/store/findAllWishlist',
+			data:{'memberId':memberId},
+			success:function(result){
+				let i;
+				for(i=0; i<result.length; i++) {
+					console.log(result[i].storeName);
+					$('#myPlaceList').append("<div class='myjjim col-md-5' id='"+result[i].storeId+"'>"+
+							"<span class='material-symbols-outlined favorite-icon'>favorite</span>"+
+							"<span class='jjimname'>"+result[i].storeName+"</span>"+
+							"<span class='jjimaddr'>"+result[i].storeAddr.split(" ")[0]+"</span></div>")
+				}
+			}, error: function(e){ console.log(e); }
+		});
+	}
 	
     function deletejjim(){
     	$.ajax({
@@ -442,7 +447,6 @@ $(document).ready(function() {
     		url:'/store/deleteWishlist',
     		data:{'storeId':storeId, 'memberId':memberId},
     		success:function(result){
-    			document.location.reload();
     		}, error:function(e) { console.log(e); }
     	});
     }
@@ -451,7 +455,8 @@ $(document).ready(function() {
     $('#myPlaceList').on('click', '.favorite-icon', function(){
     	//console.log($(this).parent().attr('id'));
     	storeId = $(this).parent().attr('id');
-    	deletejjim()
+    	deletejjim();
+    	$(this).parent().remove();
     })
 })
 	
