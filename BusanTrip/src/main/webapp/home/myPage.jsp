@@ -12,7 +12,6 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<srcipt src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></srcipt>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -497,7 +496,37 @@ $(document).ready(function() {
     $("#editModal").on('hide.bs.modal', function () {/* 모달 닫힐 때 */
         $(".each-pic[src='"+tmpCharUrl+"']").css("filter","brightness(80%)")
     });
+	$("#updateModal").on('show.bs.modal', function () {/* 모달 열릴 때 */
+        $(".each-pic[src='"+memberCharUrl+"']").css("filter","brightness(100%)")
+    });
+    $("#updateModal").on('hide.bs.modal', function () {/* 모달 닫힐 때 */
+        $(".each-pic[src='"+tmpCharUrl+"']").css("filter","brightness(80%)")
+    });
+    
+    $('#updateButton').on('click', updateMemberInfo)
 })
+	
+	function updateMemberInfo(){
+		var memberPw = $('#memberPw').val();
+		var memberTele = $('#memberTele').val();
+		var memberAddr = $('#memberAddr').val();
+		var memberId = '<%= (String)session.getAttribute("memberId") %>';
+		console.log(memberPw +" "+ memberTele +" "+ memberAddr)
+
+		$.ajax({
+			type: 'post',
+			url: '/member/updateMemberInfo',
+			data: {'memberPw':memberPw, 'memberTele': memberTele, 'memberAddr':memberAddr, 'memberId':memberId},
+			
+			success:function(result) {
+				alert("정보 수정 완료하였습니다.")
+				location.href = '/bnk/myPage';
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
 	
 </script>
 </head>
@@ -522,7 +551,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="row" id="second-row">
-			<button type="button" id="button1">정보 수정</button>
+			<button type="button" id="button1" data-toggle="modal" data-target="#updateModal">정보 수정</button>
 			<button type="button" id="button2">로그아웃</button>
 		</div>
 		
@@ -595,5 +624,24 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="updateModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">회원 정보 수정</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" align="center">
+					<p>비밀번호 : <input type="text" id="memberPw" size="18"></p>
+					<p>전화번호 : <input type="text" id="memberTele" size="18"></p>
+					<p>주    소 : <input type="text" id="memberAddr" size="18"></p>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="정보 변경" id="updateButton" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>	
 </body>
 </html>

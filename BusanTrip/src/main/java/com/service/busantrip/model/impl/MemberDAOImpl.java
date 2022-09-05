@@ -165,11 +165,12 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr) {
+	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr, String memberId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberPw", memberPw);
 		map.put("memberTele", memberTele);
 		map.put("memberAddr", memberAddr);
+		map.put("memberId", memberId);
 		sqlSession.update(NS+"updateMemberInfo",map);
 	}
 }

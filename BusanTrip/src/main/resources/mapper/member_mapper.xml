@@ -136,7 +136,7 @@
 	
 	<update id="updateMemberInfo" parameterType="hashmap">
 		UPDATE MEMBER
-		SET (MEMBER_PW, MEMBER_TELE, MEMBER_ADDR)=(#{memberPw}, #{memberTele}, #{memberAddr})
+		SET MEMBER_PW = #{memberPw}, MEMBER_TELE = #{memberTele}, MEMBER_ADDR = #{memberAddr}
 		WHERE MEMBER_ID=#{memberId}
 	</update>
 </mapper>
