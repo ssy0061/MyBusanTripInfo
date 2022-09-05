@@ -220,7 +220,7 @@
     .swiperContent>*{
     	display: flex;
 		flex-wrap: wrap;
-		align-content: space-between;;
+		align-content: space-between;
     }
     
     .card{
@@ -394,10 +394,7 @@ $(document).ready(function () {
 		    		var photoUrl3 = '/img/drink.jpg';
 		    		var photoUrl4 = '/img/building.jpg';
 		    		
-		    		var len = photoList.length;
-		    		console.log("photo cnt: "+ len + "  0번째: " + JSON.stringify(photoList[0]));
 
-		    		
 					if(element == null) { // 공간 생성 안된 사용자인 경우
 						// 사용자 별 스위퍼 공간 생성
 			    		$('.swiperContent').append(

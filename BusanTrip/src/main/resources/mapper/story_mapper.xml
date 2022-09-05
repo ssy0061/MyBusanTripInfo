@@ -71,6 +71,12 @@
 		FROM DIARYTRANSACTION
 		WHERE DIARY_ID = #{diaryId}
 	</select>
+	
+	<select id="findDiaryTransactionByMember" parameterType="String" resultType="diaryTransaction">
+		SELECT DIARYTRANSACTION_ID, MEMBER_ID, TRANSACTION_STORE, TRANSACTION_TIME, TRANSACTION_AMT, TRANSACTION_MEMO
+		FROM DIARYTRANSACTION
+		WHERE MEMBER_ID = #{memberId}
+	</select>
 
 	
 	<insert id="addDiaryTransaction" parameterType="List">

@@ -21,6 +21,7 @@ public interface StoryService { // 쿼리문이나 메소드 결정해서 인자
 	public void addDiary(String storyId, String diaryName);
 	public List<Diary> findAllDiaryList(String storyId);
 	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId); 
+	public List<DiaryTransaction> findDiaryTransactionByMember(String memberId);
 	public List<Photo> findDiaryPhoto(String transactionId); 
 	public void addDiaryTransaction(Transaction transaction, String diaryId, String memberName);
 	public void addPhotoToDiaryTransaction(String diaryTransactionId, String photoUrl);

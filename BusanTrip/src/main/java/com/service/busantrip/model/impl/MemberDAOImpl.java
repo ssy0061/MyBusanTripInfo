@@ -113,7 +113,7 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	@Override
 	public int findTotalVisit(Transaction transaction) {
-		int totalVisit = sqlSession.selectOne(NS+"getTotalVisit", transaction);
+		int totalVisit = sqlSession.selectOne(NS+"findTotalVisit", transaction);
 		totalVisit += 1;
 		return totalVisit;
 	}
@@ -148,7 +148,7 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public String findPointAccount(String memberId) {
-		return sqlSession.selectOne(NS+"getPointAccount", memberId);
+		return sqlSession.selectOne(NS+"findPointAccount", memberId);
 	}
 	
 	@Override

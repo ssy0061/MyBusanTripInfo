@@ -93,6 +93,11 @@ public class StoryServiceImpl implements StoryService{
 	public List<DiaryTransaction> findAllDiaryTransaction(int diaryId) {
 		return storyDAO.findAllDiaryTransaction(diaryId);
 	}
+	
+	@Override
+	public List<DiaryTransaction> findDiaryTransactionByMember(String memberId) {
+		return storyDAO.findDiaryTransactionByMember(memberId);
+	}
 
 	@Override
 	public List<Photo> findDiaryPhoto(String transactionId) {
