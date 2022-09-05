@@ -63,7 +63,7 @@
 	
 	.search-box-inner {
 		max-width: 500px;
-		width: 95%;
+		width: 85%;
 		margin: 0 auto 15px;
 		height: 100px;
 		/* position: relative; */
@@ -112,9 +112,12 @@
 	}
 	
 	.bankName {
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
 	}
-	
 	.accountNumber {
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
 		color: gray;
 	}
 	
@@ -173,7 +176,7 @@
 					var goTo = '#account'
 					if(accountBank === '포인트') {
 						goTo = '#point';
-						icon = "/img/char.png";
+						icon = "/img/bank_db.png";
 					}
 					$(goTo).append(
 						'<div id="'+accountNumber+'" class="rounded-lg shadow bg-white search-box-inner">'+
@@ -183,7 +186,7 @@
 						'<img class="bankIcon" src="'+icon+'">'+
 						'<div class="upper-title">'+
 						'<div class="bankName">'+accountBank+'</div>'+
-						'<div class="accountNumber"><b>'+accountNumber+'</b></div></div></div>'+
+						'<div class="accountNumber">'+accountNumber+'</div></div></div>'+
 						
 						'<div class="search-box-inner-lower">'+
 						'<span class="amount">'+accountBalance+'</span>'+

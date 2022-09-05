@@ -316,7 +316,43 @@
 		display: flex;
 		justify-content: space-between;
 	}
-	
+	/* memo modal */
+	.material-symbols-outlined{
+		color:#53565A;
+	}
+	.modal-title h5{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	.col-form-label{
+		width:100%;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	}
+	.memoLen{
+		display:flex;
+		justify-content: flex-end;
+		color:gray;
+	}
+	#memoSubmit, #memoClose{
+		display:inline-block;
+		padding:4px 10px;
+		margin:0 5px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
+	#memoSubmit {
+		background-color:#6c9dc6;
+	}
+	#memoClose {
+		background-color:#53565A;
+	}
 
 </style>
 
@@ -347,7 +383,6 @@
 		
 		const accountNumber = '${accountNumber}'
 
-		
 		// 잔액 조회
 		$.ajax({
 			type: 'post',
@@ -455,6 +490,16 @@
 			} // if-else
 		});  // div click
 		
+		$('#memo-text').keyup(function(e){
+			let content = $(this).val();
+			
+			// 글자 수 세기
+			if(content.length == 0 || content == ''){
+				$('#nowMemoLen').text('0자');
+			} else{
+				$('#nowMemoLen').text(content.length+'자');
+			}
+		})
 		
 		$('#memoSubmit').click( function() {
 			let transactionMemo = $('#memo-text').val();
@@ -653,15 +698,19 @@
 	
 	<%-- Memo Modal --%>
 	<div class="modal fade" id="memoModal">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-dialog-centered modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h6 class="modal-title">Memo</h6>
+					<h5 class="modal-title">Memo</h5>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
 					<form>
-						<label for="memo-text" class="col-form-label">[💌] 메모를 기입해주세요</label>
+						<label for="memo-text" class="col-form-label">
+							<span class="memostatement">메모를 기입해주세요.</span>
+							<p class="memoLen mb-0"><span id="nowMemoLen">0자</span>
+							<span id="totalMemoLen">/40자</span></p>
+						</label>
 						<textarea class="form-control" id="memo-text"></textarea>
 					</form>
 				</div>
