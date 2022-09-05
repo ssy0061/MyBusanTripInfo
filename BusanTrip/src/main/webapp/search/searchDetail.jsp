@@ -502,7 +502,7 @@
 		
 		// 이미지랑 버튼 연결용 코드 
 		$('#detailBox').on('click', '.searchBtn, .storeName', function(){
-			alert('search!  ' + $(this).parent());
+			searchModalChange($(this).parent().attr('store-id'));
 		})  // img click
 		
 		// 이미지랑 버튼 연결용 코드 
@@ -547,8 +547,9 @@
 									 'transaction-id='+list[i].transactionId+'>edit_square</span>'+
 						'</div></div>'+
 						'<div class="searchDetail-lower-box-inner">'+	
-						'<div class="d-flex align-items-center" style="width: 60%;"><span class="storeName">'+list[i].transactionStore+'</span>'+
-						'<span class="searchBtn material-symbols-outlined pt-2" style="width: 20px;">chevron_right</span></div>'+
+						'<div class="d-flex align-items-center" style="width: 60%;" store-id='+list[i].storeId+'>'+
+						'<span class="storeName" data-toggle="modal" data-target="#searchModal">'+list[i].transactionStore+'</span>'+
+						'<span class="searchBtn material-symbols-outlined pt-2" style="width: 20px;" data-toggle="modal" data-target="#searchModal">chevron_right</span></div>'+
 						'<span class="paySearchAmount" style="width: 40%; color: #cb333b;">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
 						'</div>'+memo+'</div>'+line
 				);
@@ -675,6 +676,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<%-- Store Modal --%>
 		<div class="modal fade" id="searchModal">
 			<div class="modal-dialog modal-lg">

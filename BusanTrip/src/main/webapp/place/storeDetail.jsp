@@ -287,7 +287,7 @@
 			error: function(e){ console.log(e); }
 		});  // getMemberName end
 		
-		$(function() { $('#detailBox').html('<span class="title-box">최근 나의 방문 기록</span>'); });  // 기존에 출력된 거래내역 초기화
+		$(function() { $('#detailStoreBox').html('<span class="title-box">최근 나의 방문 기록</span>'); });  // 기존에 출력된 거래내역 초기화
 		
 		$.ajax({
 			type: 'post',
@@ -321,7 +321,7 @@
 					divDetailBoxBottomInner.append(spanVisitDate);
 					divDetailBoxBottomInner.append(spanPayAmount);
 					
-					$('#detailBox').append(divDetailBoxBottomInner);
+					$('#detailStoreBox').append(divDetailBoxBottomInner);
 				} // for
 			},
 			error: function(e){ console.log(e); }
@@ -384,7 +384,7 @@
 			
 			<%-- 로그인되어 있는 경우에만 최근 방문 기록 정보를 출력 --%>
 			<c:if test="${!empty loginUser}">
-				<div id="detailBox" class="rounded-lg storeDetail-box-bottom">
+				<div id="detailStoreBox" class="rounded-lg storeDetail-box-bottom">
 					<span class="title-box">최근 나의 방문 기록</span>
 					<%-- 
 					<div class="storeDetail-box-bottom-inner">
