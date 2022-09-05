@@ -11,9 +11,9 @@ import com.service.busantrip.domain.story.Story;
 
 public interface StoryDAO { // 쿼리문이나 메소드 결정해서 인자값 결정해야함
 	public void addStory(String storyName, String subtitle);
-	public int findStoryId(String storyName); 
+	public String findStoryId(String storyName); 
 	public String findMemberName(String memberId);
-	public void addStoryMemberLeader(int storyId, String memberId, String memberName);
+	public void addStoryMemberLeader(String storyId, String memberId, String memberName);
 	
 	public void deleteStory(int storyId);
 	public void updateStory(String memberList, int storyId);

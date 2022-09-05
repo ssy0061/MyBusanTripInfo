@@ -10,7 +10,7 @@ import com.service.busantrip.domain.story.Photo;
 import com.service.busantrip.domain.story.Story;
 
 public interface StoryService { // 쿼리문이나 메소드 결정해서 인자값 결정해야함
-	public int addStory(String storyName, String memberId, String subtitle);
+	public String addStory(String storyName, String memberId, String subtitle);
 	public void deleteStory(int storyId);
 	public void updateStory(String memberList, int storyId);
 	public String getStoryName(String storyId);
