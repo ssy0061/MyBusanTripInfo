@@ -26,7 +26,7 @@
         border-color:#cb333b;
         z-index: 99;
 	}
-	a{
+	nav a{
 		font-family: 'Noto Sans KR', sans-serif;
 	}
 	#nvaHomeMobileLogo{
