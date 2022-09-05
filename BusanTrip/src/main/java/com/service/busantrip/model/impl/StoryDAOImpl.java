@@ -3,7 +3,6 @@ package com.service.busantrip.model.impl;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,25 +25,32 @@ public class StoryDAOImpl implements StoryDAO{
 	
 	
 	@Override
-	public String addStory(String storyName, String memberId, String subtitle) {
+	public void addStory(String storyName, String subtitle) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("storyName", storyName);
 		map.put("subtitle", subtitle);
-		sqlSession.insert(NS+"addStory", map);
-		
-		String storyId = sqlSession.selectOne(NS+"getStoryId", storyName);
-	//	System.out.println("storyId:: " + storyId + ", storyName:: " + storyName);
+		sqlSession.insert(NS+"addStory", map);	
+	}
 	
-		String memberName = sqlSession.selectOne("sql.member.mapper."+"getMemberName", memberId);
-		
+	@Override
+	public int findStoryId(String storyName) {
+		int storyId = sqlSession.selectOne(NS+"findStoryId", storyName);	
+		return storyId;
+	}
+	
+	@Override
+	public String findMemberName(String memberId) {
+		String memberName = sqlSession.selectOne("sql.member.mapper."+"findMemberName", memberId);
+		return memberName;
+	}
+	
+	@Override
+	public void addStoryMemberLeader(int storyId, String memberId, String memberName) {
 		HashMap<String, Object> leaderMap = new HashMap<String, Object>();
 		leaderMap.put("storyId", storyId);
 		leaderMap.put("memberId", memberId);
 		leaderMap.put("memberName", memberName);
-		
 		sqlSession.insert(NS+"addStoryMemberLeader",leaderMap);
-		
-		return storyId;
 	}
 	
 	@Override
@@ -76,9 +82,7 @@ public class StoryDAOImpl implements StoryDAO{
 	}
 
 	@Override
-	public void addStoryMember(String storyId, String memberId) {
-		String memberName = sqlSession.selectOne("sql.member.mapper."+"getMemberName", memberId);
-		
+	public void addStoryMember(String storyId, String memberId, String memberName) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("storyId", storyId);
 		map.put("memberId", memberId);
@@ -115,9 +119,6 @@ public class StoryDAOImpl implements StoryDAO{
 		return sqlSession.selectList(NS+"findDiaryTransaction", diaryTransaction);
 	}
 
-	
-	
-	// 이밑으로 테스트 안되어있음
 	@Override
 	public List<Photo> findDiaryPhoto(String transactionId) {
 		return sqlSession.selectList(NS+"findDiaryPhoto", transactionId);

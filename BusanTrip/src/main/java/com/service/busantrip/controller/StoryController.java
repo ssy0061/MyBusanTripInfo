@@ -1,6 +1,5 @@
 package com.service.busantrip.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -44,9 +43,9 @@ public class StoryController {
 	
 	@PostMapping("addStory")
 	@ResponseBody
-	public String addStory(String storyName, String memberId, Model model, HttpSession session) {
+	public int addStory(String storyName, String memberId, Model model, HttpSession session) {
 		memberListAll = "";
-		String storyId = storyService.addStory(storyName, memberId, memberId);
+		int storyId = storyService.addStory(storyName, memberId, memberId);
 		memberListAll += memberId+" ";
 		
 		return storyId;
