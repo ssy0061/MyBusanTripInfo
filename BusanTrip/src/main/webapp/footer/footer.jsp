@@ -12,8 +12,16 @@
 <style type="text/css">
 	.footer-web{
 		width: 100%;
-		height: 170px;
+		height: 140px;
 		background-color: #545443;
+	}
+	.footer-wrapper {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 25px 50px;
+		margin: 0 auto;
+		max-width: 1200px;
 	}
 	@media screen and (max-width: 575px) {
 		.footer-web {
@@ -59,14 +67,9 @@
 	.bi{
 		height: 32px;
 	}
-	
-	.footer-wrapper{
-		padding: 30px 0;
-		display: flex;
-		justify-content: space-around;
-	}
 	.footer-left, .footer-right{
 		margin: 0 10px;
+		height: 90px;
 	}
 	.footer-left{ width: 350px; }
 	.footer-right{ width: 100%; }
@@ -79,7 +82,7 @@
 		margin: 5px 0 0;
 	}
 	.footer-icon-wrapper{
-		margin: 10px 0 0;
+		margin: 5px 0 0;
 	}
 	.footer-inner *{
 		line-height: 20px;
@@ -100,8 +103,8 @@
 		background-color: #545443;
 	}
 	.button img{
-		width: 50px;
-		height: 50px;
+		width: 40px;
+		height: 40px;
 		margin: 0;
 	}
 	.button:hover{ opacity: 1 }
@@ -133,15 +136,20 @@
 				scrollNum = window.scrollY
 			}
 		})
+		
+		const path = window.location.pathname.split('/').pop(1);
+		/* console.log(path); */
+		
 		$(window).resize(function() {
 			if(matchMedia("screen and (max-width: 575px)").matches){
-				$('.footer-mobile').css("display", "block");
+				if(path!=='login' && path!=='register'){
+					console.log(path)
+					$('.footer-mobile').css("display", "block");
+				}
 			}else{
 				$('.footer-mobile').css("display", "none");
 			}
 		});
-		const path = window.location.pathname.split('/').pop(1);
-		/* console.log(path); */
 		if(path==='home'){
 			$('.bi-house-door').css({"display":"none"});
 			$('.bi-house-door-fill').css("display","block");
@@ -158,6 +166,8 @@
 			$('.bi-geo-alt').css("display","none");
 			$('.bi-geo-alt-fill').css("display","block");
 			$('.icon-place div').css("color", "black");
+		}else if(path==='login' || path==='register'){
+			$('.footer-mobile').css("display","none");
 		}
 		
 		$('.icon-home').click(function(){
@@ -207,41 +217,39 @@
 				<div class="" align="center" style="color: #646464"><b>홈</b></div>
 			</div>
 			<div class="row icon icon-search">
-				<i class="bi bi-piggy-bank" style="font-size: 2rem; color: #646464""></i>
+				<i class="bi bi-piggy-bank" style="font-size: 2rem; color: #646464"></i>
 				<i class="bi bi-piggy-bank-fill" style="font-size: 2rem; display: none;"></i>
 				<div class="" align="center" style="color: #646464"><b>조회</b></div>
 			</div>
 			<div class="row icon icon-trip">
-				<i class="bi bi-image" style="font-size: 2rem; color: #646464""></i>
+				<i class="bi bi-image" style="font-size: 2rem; color: #646464"></i>
 				<i class="bi bi-image-fill" style="font-size: 2rem; display: none;"></i>
 				<div class="" align="center" style="color: #646464"><b>머니앨범</b></div>
 			</div>
 			<div class="row icon icon-place">
-				<i class="bi bi-geo-alt" style="font-size: 2rem; color: #646464""></i>
+				<i class="bi bi-geo-alt" style="font-size: 2rem; color: #646464"></i>
 				<i class="bi bi-geo-alt-fill" style="font-size: 2rem; display: none;"></i>
 				<div class="" align="center" style="color: #646464"><b>핫플</b></div>
 			</div>
 		</div>
 	</footer>
 	<footer class="footer-web">
-		<div class="container">
-			<div class="footer-wrapper col">
-				<div class="footer-left">
-					<div class="footer-title">
-						여행가실<span class="impact">부은 <i class="bi bi-airplane-fill" id="f-i"></i></span>
-					</div>
-					<div class="footer-icon-wrapper">
-						<button class="button"><img src="/img/foot_web_github.png" onclick="location.href='https://github.com/ssy0061/MyBusanTripInfo'"></button>
-						<button class="button"><img src="/img/foot_web_notion.png" onclick="location.href='https://www.notion.so/Web-Project-5948018eede144498ed4a67968dfafef'"></button>
-					</div>
+		<div class="footer-wrapper col">
+			<div class="footer-left">
+				<div class="footer-title">
+					여행가실<span class="impact">부은 <i class="bi bi-airplane-fill" id="f-i"></i></span>
 				</div>
-				<div class="footer-right">
-					<div class="footer-inner">
-						<div><b>조 명:</b> MBTI (2조)</div>
-						<div><b>Front-end:</b> 서상용, 장연정, 허수민</div>
-						<div><b>Back-end:</b> 곽효석, 조서영</div>
-						<div><b>프로젝트 진행 기간:</b> 2022. 08. 10. ~ 2022. 09. 08.</div>
-					</div>
+				<div class="footer-icon-wrapper">
+					<button class="button"><img src="/img/foot_web_github.png" onclick="location.href='https://github.com/ssy0061/MyBusanTripInfo'"></button>
+					<button class="button"><img src="/img/foot_web_notion.png" onclick="location.href='https://www.notion.so/Web-Project-5948018eede144498ed4a67968dfafef'"></button>
+				</div>
+			</div>
+			<div class="footer-right">
+				<div class="footer-inner">
+					<div><b>조 명:</b> MBTI (2조)</div>
+					<div><b>Front-end:</b> 서상용, 장연정, 허수민</div>
+					<div><b>Back-end:</b> 곽효석, 조서영</div>
+					<div><b>프로젝트 진행 기간:</b> 2022. 08. 10. ~ 2022. 09. 08.</div>
 				</div>
 			</div>
 		</div>
