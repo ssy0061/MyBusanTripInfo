@@ -371,6 +371,7 @@
 		// 보여줄 아이템 수 10개
 		var nowPage = 1;
 		var totalPage = 1;
+		var chkPage = 1;
 		
 		// 1개월 조회(기본값)
 		getTransaction(getPastDay(1),getNowDay())
@@ -393,6 +394,8 @@
 					console.log(res)
 					list = res;
 					totalPage = Math.ceil(list.length/10);
+					nowPage = 1;
+					chkPage = 1;  // 페이지 스크롤을 위해서 값 초기화
 					$('#startDate').val(startDay)
 					$('#endDate').val(finishDay)
 					/* total */
@@ -422,21 +425,8 @@
 				$('#startDate').val(start)
 				$('#endDate').val(end)
 				
-				// period - 기간. befDay - 시작점. nowDay - 끝점(오늘).
-				
-				/* $('#detailBox').html("");
-				getTransaction(start, end) */
 				$('.periodBox-choiced').attr('class', 'periodBox');
 				$(this).attr('class', 'periodBox-choiced');
-				
-				/* // 이미지랑 버튼 연결용 코드
-				$('.searchBtn').click(function(){
-					alert('search!  ' + $(this).parent().parent().text());
-				});  // img click
-				$('.memoBtn').click(function(){
-					// alert('memo!  ' + $(this).parent().parent().text());
-					$('#memo-text').val('');  // 내용 초기화
-				});  // img click */
 				
 			}  // if
 		});  // div click
@@ -463,8 +453,7 @@
 			if (startDay <= endDay) {
 				total = 0;  // total 초기화
 				getTransaction(dayToString(startDay), dayToString(endDay))
-				$('#detailBox').html("");
-				//$('.periodBox-choiced').attr('class', 'periodBox');		
+				$('#detailBox').html("");	
 			} else {
 				// 날짜 관계가 역전된 경우.
 				alert('날짜의 입력이 잘못되었습니다.');
@@ -488,12 +477,9 @@
 				}
 			})
 			
-			
 			$('#memoModal').trigger({ type: "click" });  // modal 종료
-			// .modal('hide'); 가 적용되지 않아서 코드 수정.
 		});  // button click
 		
-		var chkPage = 1;
 		// 무한 스크롤
 		$(window).scroll(function(){
 			/* console.log($(document).height(), $(window).scrollTop() + $(window).height()) */
@@ -509,7 +495,6 @@
 						console.log(nowPage)
 						$('#scrollLoading').remove();
 						loadData(nowPage)
-						
 					}, 300);
 				}
 			}
@@ -567,8 +552,7 @@
 						'<span class="paySearchAmount" style="width: 40%; color: #cb333b;">'+list[i].transactionAmt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' 원</span>'+
 						'</div>'+memo+'</div>'+line
 				);
-				
-			}// for
+			}  // for
 			
 			$('.totalAmount').html('<span><b>기간 합계</b></span><span><b>'+
 					               total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</b></span>');
@@ -578,12 +562,11 @@
 		        "border-bottom-width": "3px",
 		        "border-color": "black"
 			})
-			
 		}  // loadData
+		
 		$("#memoModal").on('show.bs.modal', function () {
 			
 		});
-		
 		
 		$('.periodBox:eq(0)').attr('class', 'periodBox-choiced');
 	});  // JQuery
