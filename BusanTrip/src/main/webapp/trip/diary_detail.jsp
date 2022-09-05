@@ -174,6 +174,39 @@
 	.addPhotoYes:hover, .memberSearchOk:hover, .playListOk:hover{
 		color:white;
 	}
+	/* modal - payList */
+	.modal-body.payListModalBody>.row, .payListAlert {
+		display:flex;
+		justify-content: center;
+	}
+	.one-pay{
+		display:flex;
+		margin-bottom:2px;
+		border-radius:20px;
+		box-shadow:2px 3px 5px 2px lightgray;
+	}
+	.payListInfo{
+		display:flex;
+		flex-direction: column;
+		padding:2px;
+	}
+	.payListInfo1, .payListInfo2{
+		display:flex;
+		justify-content: space-around;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	.payListInfo1{
+		font-weight: 400;
+		color:gray;
+	}
+	.payListInfo2{
+		font-weight: 500;
+	}
+	.payListCheckbox{
+		display:flex;
+		justify-content: center;
+		align-content: center;
+	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
 		.large {
@@ -211,12 +244,6 @@
       align-items: center;
     }
 
-    .swiper-slide img {
-      /* display: block; */
-      /* width: 100%;
-      height: 100%; */
-      
-    }
     .swiperContent>*{
     	/* display: flex;
 		flex-wrap: wrap;
@@ -303,16 +330,13 @@
 <script>
 $(document).ready(function () {
 
-    $(window).resize(function () {
-    });
-    
+    var memberId = '<%= (String)session.getAttribute("memberId") %>';
 	var storyId = location.pathname.split("/")[3];
 	var diaryId = location.pathname.split("/")[4];
 	var memberList = [];
 	var transactionList = [];
 	var photoList = [];
 	var testVal=0;
-	
 
 	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
 	
@@ -334,7 +358,6 @@ $(document).ready(function () {
 					$('.mem-name').append(
 						"<p align=center>"+memberList[i].storymemberName+"</p>"	
 					);
-					
 				}
 			},
 			error:function(e) {
@@ -343,6 +366,24 @@ $(document).ready(function () {
 		})
 	}
 	
+	var payList = [];
+	function findAllAccount() { // 가지고 있는 전체 계좌 조회
+		$.ajax({
+			type:'post',
+			url:'/member/findAllAccount',
+			data:{"memberId":memberId},
+			success:function(result){
+				//console.log(result);
+				payList = result;
+				
+				for(var i=0; i<payList[i].length; i++){
+					var accountNumber = payList[i].accountNumber;
+					var accountBank = payList[i].accountBank;
+				}
+			}
+		})
+	}
+	findAllAccount();
 	
 	function findDiaryTransaction() { // 다이어리 내 거래내역 조회
 		$.ajax({
@@ -709,7 +750,7 @@ $(document).ready(function () {
 					<h4 class="modal-title">멤버 조회하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body memberModalBody">
 					<div class="col-6 mem-id">
 						<p align="center">아이디</p>
 						<hr>
@@ -726,14 +767,31 @@ $(document).ready(function () {
 		</div>
 	</div>
 	<div class="modal fade pr-0" id="payListModal">
-		<div class="modal-dialog modal-fullsize modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content modal-content-ta">
 				<div class="modal-header">
-					<h3 class="modal-title"> 결제내역 조회하기</h3>
+					<h3 class="modal-title">결제내역 추가하기</h3>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<div class="modal-body">
-					
+				<div class="modal-body payListModalBody">
+					<div class="row">
+					<p class="payListAlert"><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>
+						<div class="col-11 one-pay mb-2">
+							<div class="col-10 payListInfo mx-0 my-0">
+									<p class="payListInfo1 my-0">
+										<small><span id="payListAccount">결제계좌</span></small>
+										<small><span id="payListDate">결제일시</span></small>
+									</p>
+									<p class="payListInfo2 my-0">
+										<span id="payListName">가게이름</span>
+										<span id="payListPrice">결제가격</span>
+									</p>
+							</div>
+							<div class="col-2 payListCheckbox my-0">
+								<input type="checkbox" id="checked"></label>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>

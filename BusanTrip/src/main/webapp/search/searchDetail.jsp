@@ -357,7 +357,6 @@
 </style>
 
 <script>
-
 	$(function() {
 		// 날짜
 		function dayToString(day){
@@ -440,11 +439,9 @@
 			})
 		}
 		
-		
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd',
 			beforeShow: function() { setTimeout(function(){ $('.ui-datepicker').css('z-index', 97); }, 0); }
 		});
-		
 		
 		$('.periodBox').click(function(){
 			if ($(this).attr('class') != 'periodBox-choiced') {
