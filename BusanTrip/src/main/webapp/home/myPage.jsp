@@ -227,6 +227,7 @@
 		border-style:solid;
 		border-radius:5px;
 		border-color:lightgray;
+		min-height: 60px;
 	}
 	.myjjim{
 		display:flex;
@@ -332,43 +333,8 @@ $(document).ready(function() {
 		});
 	}) // 로그아웃
 	
-	var result = [
-		{
-		'user': '사용자1',
-		'grcolor':['#F08080', '#66CDAA', '#FFA07A', '#6c9dc6'],
-		'list': [
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름1',
-				'memo': 'memo1'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름2',
-				'memo': 'memo2'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름3',
-				'memo': 'memo3'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름4',
-				'memo': 'memo4'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름5',
-				'memo': 'memo5'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름6',
-				'memo': 'memo6'
-			}
-		]}
-	];
+	var grcolor = ['#F08080', '#66CDAA', '#FFA07A', '#6c9dc6'];
+	
 	var tmpCharUrl = "";
 	$('.each-pic').on("click", function(e){
 		tmpCharUrl = $(this).attr("src");
@@ -382,8 +348,8 @@ $(document).ready(function() {
 				url:'/member/updateCharacter',
 				data:{'memberChar':tmpCharUrl, 'memberId':memberId},
 				success:function(result){
-					memberCharUrl = tmpCharUrl
-					console.log(result)
+					memberCharUrl = tmpCharUrl;
+					console.log(result);
 					updateChar()
 				},
 				error: function(e){ console.log(e); }
@@ -392,59 +358,101 @@ $(document).ready(function() {
 		
 	}); // 캐릭터 이미지 바꾸기
 	
+	
+	var photoList=[];
+	function findTransactionPhoto(transactionId) { // 거래내역 당 사진 목록 가져오기
+		$.ajax({
+			type: 'post',
+			url: '/story/findDiaryPhoto',
+			data: {"transactionId": transactionId},
+			async: false,		// 이거 없으면 refreshContent가 실행된 후 findTransactionPhoto 실행돼서 photoList에 값 안들어감
+			
+			success: function(result) {	// Photo List
+				photoList = result;
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		})	
+	}
+	
+	
 	refreshContent();
 	
 	//this function define the size of the items
     function refreshContent() {
+		$.ajax({
+			type: 'post',
+			url: '/story/findDiaryTransactionByMember',
+			data: {'memberId': memberId},
 		
-    	for(let i = 0; i<result.length; i++) {
-    		// 생성
-    		user = result[i].user;
-    		list = result[i].list;
-    		grcolor = result[i].grcolor;
-    		$('.swiperContent').append(
-    			"<div id='user-"+user+"'>"+
-    			"<div class='swiper' id='swiper-"+user+"'>"+
-    			"<div class='swiper-wrapper'>"+
-    			"</div><div class='swiper-pagination'></div>"+
-    			"<div class='swiper-scrollbar'></div></div></div>"
-    		);
-    		for(let i=0; i<list.length; i++){
-    			$('#swiper-'+user).children('.swiper-wrapper').append(
-    				"<div class='swiper-slide'><div class='bgGrad' "+
-    				"style='background-image:linear-gradient(to bottom, transparent, "+grcolor[(i%4)]+" 85%),url(\""+
-    				list[i].url+"\"); background-position:center center;'><h6>"+
-    				list[i].storeName+"<br><small>"+list[i].memo+"</small></h6></div>"
-    			);
-    		}
-    		
-    		var swiper = new Swiper("#swiper-"+user, {
-    			slidesPerView: 2.7,
-    	        spaceBetween: 10,
-    	        grabCursor: true,
-    	        navigation: {
-    	          nextEl: ".swiper-button-next",
-    	          prevEl: ".swiper-button-prev",
-    	        },
-    	        breakpoints: {
-    	        	// when window width is >= 0px
-    	            0: {
-    	            	slidesPerView: 2.3,
-    	            	spaceBetween: 10
-    	            },
-    	            720: {
-    	            	slidesPerView: 3.3,
-    	            },
-    	            1200: {
-    	            	slidesPerView: 3.5,
-    	            }
-    	        },
-    	        scrollbar: {
-    	            el: ".swiper-scrollbar",
-    	            draggable: true,
-    	        }
-    		});
-    	}
+			success: function(result){
+				console.log(result);
+				let transactionList = result;
+				
+				// 스위퍼 틀 생성
+				$('.swiperContent').append(
+		    			"<div id='user-"+memberId+"'>"+
+		    			"<div class='swiper' id='swiper-"+memberId+"'>"+
+		    			"<div class='swiper-wrapper'>"+
+		    			"</div><div class='swiper-pagination'></div>"+
+		    			"<div class='swiper-scrollbar'></div></div></div>"
+		    	);
+				
+				var swiper = new Swiper("#swiper-"+memberId, {
+	    			slidesPerView: 2.7,
+	    	        spaceBetween: 10,
+	    	        grabCursor: true,
+	    	        navigation: {
+	    	          nextEl: ".swiper-button-next",
+	    	          prevEl: ".swiper-button-prev",
+	    	        },
+	    	        breakpoints: {
+	    	        	// when window width is >= 0px
+	    	            0: {
+	    	            	slidesPerView: 2.3,
+	    	            	spaceBetween: 10
+	    	            },
+	    	            720: {
+	    	            	slidesPerView: 3.3,
+	    	            },
+	    	            1200: {
+	    	            	slidesPerView: 3.5,
+	    	            }
+	    	        },
+	    	        scrollbar: {
+	    	            el: ".swiper-scrollbar",
+	    	            draggable: true,
+	    	        }
+	    		});
+				
+				for(let i=0; i<transactionList.length; i++) {
+					findTransactionPhoto(transactionList[i].diarytransactionId); // 사진 목록 가져오기
+					if(photoList.length==0) break;		// 등록된 사진이 없으면 안가져옴
+					
+		    		let transactionStore = transactionList[i].transactionStore;
+		    		//let transactionAmt = transactionList[i].transactionAmt;
+		    		let transactionMemo = transactionList[i].transactionMemo;
+		    		
+		    		let transactionDate = transactionList[i].transactionTime.substring(0,10);
+		    		let transactionTime = transactionList[i].transactionTime.substring(11,19);
+		    		
+		    		let photoUrl = photoList[0].photoUrl; // 등록된 사진 중 첫번째 사진을 띄움
+		    		
+		    		$('#swiper-'+memberId).children('.swiper-wrapper').append(
+		    				"<div class='swiper-slide'><div class='bgGrad' "+
+		    				"style='background-image:linear-gradient(to bottom, transparent, "+grcolor[(i%4)]+" 85%),url(\""+
+		    				photoUrl+"\"); background-position:center center;'><h6>"+
+		    				transactionStore+"<br><small>"+ transactionDate +"</small></h6></div>"
+		    		);
+				}
+				
+			},
+			error: function(e){
+				console.log(e);
+			}
+		
+		})
     }
 	
 	function findAllWishlist() {
