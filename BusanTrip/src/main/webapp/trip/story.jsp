@@ -24,15 +24,6 @@
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
 	}
-	/* container */
-	.space100 {
-		height:100px;
-	}
-	.container{
-		width:90%;
-		max-width:800px;
-		margin: 20px auto;
-	}
 	#addbutton{
 		display:flex;
 		justify-content:center;
@@ -166,6 +157,27 @@
 	  'opsz' 48;
 	  font-size: 25px;
 	}
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	   	/*  margin-top: 90px; */
+	   	margin: 90px auto 0;
+	    max-width:800px;
+	    width:90%;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 80px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 
 <script>
@@ -359,8 +371,7 @@ $(function() {
 	<c:import url="/header/nav.jsp">
 		<c:param name="navTitle" value="머니앨범"/>
 	</c:import>
-	<div class="container">
-		<div class="space100"></div>
+	<div class="content container">
 		<div class="row myStorySpace ">
 			<div class="storyTitle col-12">
 				<h4>나의 머니앨범</h4>

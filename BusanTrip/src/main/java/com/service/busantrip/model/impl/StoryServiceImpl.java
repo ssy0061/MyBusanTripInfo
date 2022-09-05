@@ -53,8 +53,8 @@ public class StoryServiceImpl implements StoryService{
 	}
 	
 	@Override
-	public String getStoryName(String storyId) {
-		return storyDAO.getStoryName(storyId);
+	public String findStoryName(String storyId) {
+		return storyDAO.findStoryName(storyId);
 	}
 
 	@Override

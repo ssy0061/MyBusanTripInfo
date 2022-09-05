@@ -24,15 +24,6 @@
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
-	
-	.content{
-		min-height: 60vh;
-	    width: 100%;
-	    margin: 100px auto 10px;
-	    padding-top: 10px;
-	    padding-bottom: 10px;
-	}
-	
 	.place-upper, .place-lower {
 		max-width: 400px;
 		margin: 0 auto 20px;
@@ -199,6 +190,33 @@
 		left: 50%; top: 50%;
 		transform: translate(-50%, -50%);
 	}
+	.content{
+		/* min-height: 60vh;
+	    width: 100%;
+	    margin: 100px auto 10px;
+	    padding-top: 10px;
+	    padding-bottom: 10px; */
+	}
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	    width:90%;
+		max-width:800px;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 80px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 
 <script>
