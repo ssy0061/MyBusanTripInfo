@@ -40,6 +40,7 @@
 		.place-upper, .place-lower {
 			background-color: #fef0f0;
 			width: 90%;
+			margin: 0 auto 20px;
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
@@ -48,9 +49,18 @@
 			min-height: calc(100vh - 90px); /* 창 크기 - 상단바 90px*/
 		}
 		
+		.web-container {
+			display: flex;
+			justify-content: space-around;
+		}
+		
 		.place-upper, .place-lower {
 			background-color: rgba( 255, 255, 255, 0.6 );
+			width: 90%;
+			margin: 0 15px;
 		}
+		
+		
 		.backImg{ /* web backgorund */
 			background-image: url("/img/back4.jpg");
 			background-size: 100% auto;
@@ -60,11 +70,15 @@
 	
 	.place-upper, .place-lower {
 		max-width: 720px;
-		margin: 0 auto 20px;
 		text-align: center;
 		min-height: 10vh;
 		padding: 15px 0;
 		border-radius: 5px;
+	}
+	
+	.place-upper {
+		display: flex;
+    	align-items: center;
 	}
 	
 	.place-upper-inner {
@@ -545,39 +559,40 @@
 		</c:import>
 		
 		<div class="content container">
-		
-			<%-- 로그인되어 있는 경우에만 My핫플 정보를 출력 --%>
-			<c:if test="${!empty loginUser}">
-				<div class="place-upper">
-					<div class="place-upper-inner">
-						<div class="place-upper-inner-title">
-							<span id="nowMonth"></span>의 My핫플
-						</div>
-						<div class="place-upper-inner-contents">
-							<div class="ranking">
-								<img class="medal" src="/img/medal1.png">
-								<span class="storeName"></span>
-								<span class="visitCount"></span>
+			<div class="web-container">
+				<%-- 로그인되어 있는 경우에만 My핫플 정보를 출력 --%>
+				<c:if test="${!empty loginUser}">
+					<div class="place-upper">
+						<div class="place-upper-inner">
+							<div class="place-upper-inner-title">
+								<span id="nowMonth"></span>의 My핫플
 							</div>
-							
-							<div class="ranking">
-								<img class="medal" src="/img/medal2.png">
-								<span class="storeName"></span>
-								<span class="visitCount"></span>
-							</div>
-							
-							<div class="ranking">
-								<img class="medal" src="/img/medal3.png">
-								<span class="storeName"></span>
-								<span class="visitCount"></span>
+							<div class="place-upper-inner-contents">
+								<div class="ranking">
+									<img class="medal" src="/img/medal1.png">
+									<span class="storeName"></span>
+									<span class="visitCount"></span>
+								</div>
+								
+								<div class="ranking">
+									<img class="medal" src="/img/medal2.png">
+									<span class="storeName"></span>
+									<span class="visitCount"></span>
+								</div>
+								
+								<div class="ranking">
+									<img class="medal" src="/img/medal3.png">
+									<span class="storeName"></span>
+									<span class="visitCount"></span>
+								</div>
 							</div>
 						</div>
 					</div>
+				</c:if>
+				
+				<div class="place-lower">
+					<%-- 여기에 상단 주석에 넣어놓은 코드가 (유사 구조로) 들어감 --%>
 				</div>
-			</c:if>
-			
-			<div class="place-lower">
-				<%-- 여기에 상단 주석에 넣어놓은 코드가 (유사 구조로) 들어감 --%>
 			</div>
 			
 		</div>
