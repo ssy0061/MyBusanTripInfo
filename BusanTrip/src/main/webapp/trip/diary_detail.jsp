@@ -470,15 +470,79 @@ $(document).ready(function () {
 			}, error:function(e) { console.log(e) }
 		})	
 	}
-
-	function addDiaryTransaction() {
+	
+	
+	var memberInfo;
+	var memberName;
+	function findMemberInfo(memberId) {
 		$.ajax({
 			type: 'post',
-			url: '/story/',
-			data: {"diaryId": diaryId},
+			url: '/member/findMemberInfo',
+			data: {"memberId": memberId},
+			async: false,
+			success: function(result) { // member VO
+				console.log(result);
+				memberInfo = result;
+				memberName = memberInfo.memberName;
+			},
+			error: function(e) {
+				
+			}
 		})
-		
 	}
+	console.log(memberName)
+	
+	/* function findTransaction(transactionId) { // transaction 찾기
+		console.log("::::: " + transactionId);
+		
+		$.ajax({
+			type: 'post',
+			url: '/member/findTransactionByTransactionId',
+			data: {"transactionId": transactionId},
+			
+			success: function(result) {
+				var transaction = result;
+				console.log(transaction);
+				addDiaryTransaction(transaction);
+				// transactionId로 transaction vo 찾기
+				// addDiary에 저장
+				
+			},
+			error: function(e) {
+				
+			}
+		})
+	} */
+	
+	function addDiaryTransaction(transactionId) { // addDiaryTransaction
+		findMemberInfo(memberId);
+	
+		console.log("transactionId:: " +transactionId + "diaryId:: "+ diaryId + " " + "memberName :: " + memberName);
+		
+		/* var param = {
+				"transaction": transaction,
+				"diaryId": diaryId,
+				"memberName": memberName
+		} */
+		
+		$.ajax({
+			type: 'post',
+			url: '/story/addDiaryTransactionMap',
+			dataType: 'json',
+			data: {"transactionId": transactionId,
+					"diaryId": diaryId,
+					"memberName": memberName},
+			async: false,
+			success: function(result) {
+	
+			},
+			error: function(e) {
+				
+			}
+		})
+	}
+
+	
 
 	function findDiaryTransaction(appendTo) { // 다이어리 내 거래내역 조회
 		$.ajax({
@@ -810,12 +874,27 @@ $(document).ready(function () {
 	
 	$('#payListModalOK').on("click", function(){
 		$("input:checkbox[name=addCheckBox]:checked").each(function(index, item){
-			checkTransactionList.push($(item).attr("data-num"));
+			let flag = 0;
+			
+			/* for(let i=0; i<transactionList.length; i++) {
+				if(transactionList[i] == $(item).attr("data-num")) {
+					console.log("exist!");
+					flag = 1;
+					break;
+				}
+			} */
+			
+			if(flag == 0) {
+				checkTransactionList.push($(item).attr("data-num"));
+				console.log($(item).attr("data-num"));
+			}
 		});
-		for(let i=0; i<checkTransactionList.length; i++) {
-			console.log("item:: " + checkTransactionList);
-		}
 		
+		for(let i=0; i<checkTransactionList.length; i++) {
+			console.log("item:: " + checkTransactionList[i]);
+			addDiaryTransaction(checkTransactionList[i]);
+		}
+		checkTransactionList = [];
 	})
 	
 });

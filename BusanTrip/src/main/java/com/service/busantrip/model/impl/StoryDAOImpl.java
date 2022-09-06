@@ -135,8 +135,28 @@ public class StoryDAOImpl implements StoryDAO{
 
 	@Override
 	public void addDiaryTransaction(Transaction transaction, String diaryId, String memberName) {
-		DiaryTransactionReqDTO dto = new DiaryTransactionReqDTO(transaction, diaryId, memberName);
-		sqlSession.insert(NS+"addDiaryTransaction", dto);
+		System.out.println("daoimpl");
+		System.out.println(transaction);
+		System.out.println(diaryId);
+		System.out.println(memberName);
+		/*
+		 * DiaryTransactionReqDTO dto = new DiaryTransactionReqDTO(transaction, diaryId,
+		 * memberName); System.out.println("dto:: " + dto);
+		 */
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("diaryId", Integer.parseInt(diaryId));
+		map.put("memberId", transaction.getMemberId());
+		map.put("storeId", transaction.getStoreId());
+		map.put("transactionTime", transaction.getTransactionTime());
+		map.put("transactionStore", transaction.getTransactionStore());
+		map.put("transactionAmt", transaction.getTransactionAmt());
+		map.put("transactionMemo", transaction.getTransactionMemo());
+		
+		System.out.println(map);
+
+		sqlSession.insert(NS+"addDiaryTransaction", map);
 	}
 
 	@Override

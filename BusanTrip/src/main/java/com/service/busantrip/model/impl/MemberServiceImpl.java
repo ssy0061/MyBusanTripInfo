@@ -68,6 +68,11 @@ public class MemberServiceImpl implements MemberService{
 	public List<Transaction> findAllTransaction(String accountNumber) {	//
 		return memberDAO.findAllTransaction(accountNumber);
 	}
+	
+	@Override
+	public Transaction findTransactionByTransactionId(int transactionId) {
+		return memberDAO.findTransactionByTransactionId(transactionId);
+	}
 
 	@Override
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, 	//

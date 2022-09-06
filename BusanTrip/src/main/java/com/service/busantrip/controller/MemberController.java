@@ -155,6 +155,13 @@ public class MemberController {
 		List<Transaction> allTransactionList = memberService.findAllTransaction(accountNumber);
 		return allTransactionList;
 	}
+	
+	@PostMapping("findTransactionByTransactionId")
+	@ResponseBody
+	public Transaction findTransactionByTransactionId(int transactionId) {
+		return memberService.findTransactionByTransactionId(transactionId);
+	}
+	
 	@PostMapping("findTransactionBySpecificPeriod")
 	@ResponseBody
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay, Model model, HttpSession session) {

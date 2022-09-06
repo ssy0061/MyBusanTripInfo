@@ -47,6 +47,12 @@
 		ORDER BY TRANSACTION_TIME DESC
 	</select>
 	
+	<select id="findTransactionByTransactionId" parameterType="int" resultType="transaction">
+		SELECT TRANSACTION_ID, ACCOUNT_NUMBER, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO, MEMBER_ID
+		FROM TRANSACTION
+		WHERE TRANSACTION_ID = #{transactionId}
+	</select>
+	
 	<select id="findTransactionBySpecificPeriod" parameterType="hashmap" resultType="transaction">
 		SELECT TRANSACTION_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, STORE_ID, TRANSACTION_MEMO
 		FROM TRANSACTION
