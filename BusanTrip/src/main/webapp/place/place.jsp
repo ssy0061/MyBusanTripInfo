@@ -16,12 +16,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 	:root {
-	  --bnk-red: #E60000;
-	  --bnk-dark-red: #BE0000;
-	  --bnk-gray: #545443;
-	  --bnk-grey: #545443;
-	  --bnk-lightgray: #B3B38F;
-	  --bnk-lightgrey: #B3B38F;
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
@@ -31,6 +25,17 @@
 	    margin-top: 90px;
 	    padding: 20px 0;
 	}
+	/* font */
+	.placeName{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	.location{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+		color:#53565A;
+	}
+	
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
 			margin-top: 70px; /* 상단바 70*/
@@ -44,11 +49,12 @@
 			margin: 0 auto 20px;
 		}
 		
-		.suggestBox, .suggestBox-choiced { font-size: 15px; }
+		.suggestBox, .suggestBox-choiced { font-size: 15px; cursor:pointer; }
 		.title-left { font-size: 16px; }
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
+			margin-top:40px;
 			padding-top: 10vh;
 			min-height: calc(100vh - 90px); /* 창 크기 - 상단바 90px*/
 		}
@@ -61,20 +67,20 @@
 		.place-upper, .place-lower {
 			background-color: rgba( 255, 255, 255, 0.6 );
 			width: 90%;
-			margin: 0 15px;
-			height: 380px;
+			margin: 0 10px;
+			height: 710px;
 		}
 		
 		.place-lower { overflow: auto; }
 		
-		.suggestBox, .suggestBox-choiced { font-size: 13px; }
+		.suggestBox, .suggestBox-choiced { font-size: 13px; cursor:pointer; }
 		.title-left { font-size: 13px; }
 		
 		.backImg { /* web backgorund */
 			background-image:
-				linear-gradient(rgba(128, 128, 128, 0.5), rgba(128, 128, 128, 0.5)),
-				url("/img/back4.jpg");
-			background-size: 100% auto;
+				linear-gradient(rgba(256, 256, 256, 0.4), rgba(256, 256, 256, 0.4)),
+				url("/img/back-login-register.png");
+			background-size: auto 100%;
 			background-repeat: no-repeat;
 		}
 	}
@@ -104,7 +110,7 @@
 		padding: 8px;
 		position: relative;
 		border-radius: 5px;
-		background-color: white;
+		background-color: #a6a6a6;
 		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
@@ -114,10 +120,11 @@
 		text-align: left;
 		padding: 0 0 0 10px;
 		margin: 5px 0 0;
+		color:white;
 	}
 	
 	#nowMonth{
-		color: var(--bnk-red);
+		color: #CB333B;
 	}
 	
 	.place-upper-inner-contents {
@@ -130,9 +137,8 @@
 		margin: 15px 10px;
 		display: flex;
 		justify-content: space-around;
-		padding: 3px 0;
-		box-shadow: 0px 5px 8px -3px #aaa;
-		background-color: #fefbd8;
+		padding: 5px 0;
+		background-color: white; /*#FAFAD2*/
 		font-weight: bold;
 	}
 	
@@ -184,35 +190,59 @@
 	.moreBtn {
 		border: 0;
 	    background-color: white;
-		color: var(--bnk-dark-red);
+		color: #CB333B;
+	}
+	
+	.placeNameAddr{
+		display:flex;
+		flex-direction: column;
+		padding-left:20px;
 	}
 	
 	.regionName, .periodName, .categoryName {
-		color: var(--bnk-red);
+		color: #CB333B;
 	}
 	
 	.place-lower-box-info {
 		margin: 5px 10px 13px;
 		display: flex;
 		justify-content: space-around;
+		align-contents: center;
 		border-radius: 15px;
 		overflow: hidden;
-		box-shadow: 0px 5px 8px -3px #aaa;
 	}
+	.place-ilcafe{ box-shadow: 0px 5px 8px -3px #a25fce; }
+	.place-ilfood{ box-shadow: 0px 5px 8px -3px #F08080; }
+	.place-iltour { box-shadow: 0px 5px 8px -3px #4682B4; }
 	
 	.info-left {
-		width: 80%;
+		width: 60%;
 		font-weight: bold;
-		position: relative;
+		display:flex;
+		justify-content: center;
+		align-contents: center;
 		font-size: 15px;
-		border-right: 4px solid var(--bnk-gray);
 	}
-	.ilcafe { background-color: #e6ccff; }
-	.ilfood { background-color: #ffd480; }
-	.iltour { background-color: #c1f0cd; }
+	.category{
+		display:flex;
+		justify-content: center;
+		align-contents: center;
+		padding-top:10px;
+		padding-left:3px;
+	}
+	.ilcafe { background-color: #a25fce; } /*#e7d5fb*/
+	.ilfood { background-color: #F08080; } /*#ffdd99*/ 
+	.iltour { background-color: #4682B4; } /*#c1f0c1*/
+	.material-symbols-outlined{
+		color:white;
+	}
+	.right-arrow.material-symbols-outlined{
+		padding-top:10px;
+		color:#53565A;
+	}
 	
 	.info-right {
-		width: 220%;
+		width: 240%;
 	}
 	
 	.right-arrow {
@@ -249,13 +279,6 @@
 		font-size: 13px;
 		line-height: 130%
 	}
-	
-	.ud-center {
-		width: 100%;
-		position: absolute;
-		left: 50%; top: 50%;
-		transform: translate(-50%, -50%);
-	}
 
 	.suggestBoxWrap{
 		display: flex;
@@ -277,7 +300,7 @@
 		background-color: white;
 		width: 100px;
 		border-radius: 10px;
-		border: 3px solid #ff6666;
+		border: 3px solid #CB333B;
 		font-weight: bold;
 		margin: 0 1px 1px;
 	}
@@ -290,13 +313,10 @@
 	    background-color: var(--button-active);
 	}
 	
-	.category {
-		
-	}
-	
-	.category-icon {
-		position: relative;
-		top: 4px;
+	/* modal */
+	.modal-header>h6{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
 	}
 </style>
 
@@ -385,13 +405,13 @@
 						categoryIcon = '<span class="category-icon material-symbols-outlined">festival</span>';
 					}
 					
-					let recommendBox = '<div class="place-lower-box-info';
+					let recommendBox = '<div class="place-lower-box-info place-'+categoryCss;
 					if (s.storeId != null)
 						recommendBox += ' searchBtn" store-id='+s.storeId+' data-toggle="modal" data-target="#searchModal';
-					recommendBox += '"><div class="info-left '+categoryCss+'"><div class="ud-center">'+
-								'<span class="category">'+categoryIcon+'</span></div></div><div class="info-right">'+
-								'<div class="info-right-upper"><div class="placeName">'+s.storeName+'</div></div>'+
-								'<div class="info-right-lower"><span class="location">'+s.storeAddr+'</span></div></div>';
+					recommendBox += '"><div class="info-left '+categoryCss+'">'+
+								'<span class="category">'+categoryIcon+'</span></div><div class="info-right">'+
+								'<div class="row placeNameAddr"><div class="info-right-upper"><div class="placeName">'+s.storeName+'</div></div>'+
+								'<div class="info-right-lower"><span class="location">'+s.storeAddr.split(" ")[0]+'</span></div></div></div>';
 					if (s.storeId != null)
 						recommendBox += '<div class="right-arrow material-symbols-outlined">chevron_right</div>';
 					recommendBox += '</div>';
@@ -436,7 +456,7 @@
 					<div class="place-upper">
 						<div class="place-upper-inner">
 							<div class="place-upper-inner-title">
-								<span id="nowMonth"></span>My<span class="important">핫플</span>
+								<span style="color:#CB333B">My</span><span> 핫플</span>
 							</div>
 							<div class="place-upper-inner-contents">
 								<div class="ranking">
@@ -465,7 +485,7 @@
 					<div class="place-lower-box">
 						<div class="suggestBoxWrap">
 							<span class="suggestBox" method="Region" value="기장">기장</span>
-							<span class="suggestBox" method="Period" value="">일년</span>
+							<span class="suggestBox" method="Period" value="일년">일년</span>
 							<span class="suggestBox" method="Category" value="카페">카페</span>
 							<span class="suggestBox" method="Category" value="음식점">음식</span>
 							<span class="suggestBox" method="Category" value="관광지">관광</span>
@@ -490,7 +510,7 @@
 	
 	<%-- Modal --%>
 	<div class="modal fade" id="searchModal">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h6 class="modal-title">가게 상세 정보</h6>
