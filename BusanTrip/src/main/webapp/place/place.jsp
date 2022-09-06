@@ -12,7 +12,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-</head>
+<%-- 구글 아이콘 --%>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 	:root {
 	  --bnk-red: #E60000;
@@ -24,24 +25,82 @@
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
+
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	    padding: 20px 0;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;
+			min-height: calc(100vh - 70px);
+		}
+		
+		.place-upper, .place-lower {
+			background-color: #fef0f0;
+			width: 90%;
+			margin: 0 auto 20px;
+		}
+		
+		.suggestBox, .suggestBox-choiced { font-size: 15px; }
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			padding-top: 10vh;
+			min-height: calc(100vh - 90px); /* 창 크기 - 상단바 90px*/
+		}
+		
+		.web-container {
+			display: flex;
+			justify-content: space-around;
+		}
+		
+		.place-upper, .place-lower {
+			background-color: rgba( 255, 255, 255, 0.6 );
+			width: 90%;
+			margin: 0 15px;
+			height: 380px;
+		}
+		
+		.place-lower { overflow: auto; }
+		
+		.suggestBox, .suggestBox-choiced { font-size: 13px; }
+		
+		.backImg{ /* web backgorund */
+			background-image: url("/img/back4.jpg");
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+		}
+	}
+	@media screen and (min-width: 768.1px) { /* Bigger Web */
+		.suggestBox, .suggestBox-choiced { font-size: 15px; }
+	}
+	
 	.place-upper, .place-lower {
-		max-width: 400px;
-		margin: 0 auto 20px;
+		max-width: 720px;
 		text-align: center;
 		min-height: 10vh;
-		padding: 10px;
+		padding: 15px 0;
 		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
+	}
+	
+	.place-upper {
+		display: flex;
+    	align-items: center;
 	}
 	
 	.place-upper-inner {
+		max-width: 400px;
+		width: 80%;
 		min-height: 150px;
-		max-width: 300px;
 		margin: 15px auto;
 		padding: 3px 0;
 		position: relative;
-		border: 1px solid var(--bnk-gray);
 		border-radius: 5px;
+		background-color: white;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.place-upper-inner-title {
@@ -62,12 +121,14 @@
 	}
 	
 	.ranking {
-		border: 2px solid var(--bnk-gray);
 		border-radius: 5px;
-		margin: 8px 10px;
+		margin: 12px 10px;
 		display: flex;
 		justify-content: space-around;
-		padding: 1px 0;
+		padding: 3px 0;
+		box-shadow: 0px 5px 8px -3px #aaa;
+		background-color: #fefbd8;
+		font-weight: bold;
 	}
 	
 	.medal {
@@ -77,11 +138,10 @@
 	}
 	
 	.storeName {
-		width: 200px;
+		width: 100%;
 		text-align: left;
-		padding: 0 0 0 5px;
+		padding: 0 0 0 10px;
 		font-size: 15px;
-		
 	}
 	
 	.visitCount {
@@ -94,12 +154,14 @@
 	}
 	
 	.place-lower-box {
+		max-width: 400px;
+		width: 80%;
 		min-height: 50px;
-		max-width: 300px;
 		margin: 15px auto;
 		padding: 3px 0;
-		border: 1px solid var(--bnk-gray);
 		border-radius: 5px;
+		background-color: white;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.place-lower-box-title {
@@ -113,7 +175,7 @@
 	
 	.title-left { width: 100%; }
 	.title-right { width: 40px; }
-	
+
 	.moreBtn {
 		border: 0;
 	    background-color: white;
@@ -128,20 +190,28 @@
 		margin: 5px 10px 10px;
 		display: flex;
 		justify-content: space-around;
-		border: 2px solid var(--bnk-gray);
-		border-radius: 5px;
-	}
-	.info-left {
-		width: 80px;
-		font-weight: bold;
-		position: relative;
-		border-right: 1px solid var(--bnk-gray);
-		font-size: 15px;
-		background-color: #FFFFD4;
+		border-radius: 15px;
+		overflow: hidden;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
+	.info-left {
+		width: 80%;
+		font-weight: bold;
+		position: relative;
+		font-size: 15px;
+		border-right: 4px solid var(--bnk-gray);
+	}
+	.ilcafe { background-color: #e6ccff; }
+	.ilfood { background-color: #ffd480; }
+	.iltour { background-color: #c1f0cd; }
+	
 	.info-right {
-		width: 220px;
+		width: 220%;
+	}
+	
+	.right-arrow {
+		width: 25px;
 	}
 	
 	.info-right-upper {
@@ -171,53 +241,54 @@
 		line-height: 130%
 	}
 	
-	.searchBtnDiv {
-		margin: 0 3px 0 0;
-		width: 25px;
-	}
-	
-	.searchBtn {
-		width: 20px;
-		height: 20px;
-		position: absolute;
-		bottom: 2px;
-		right: 0;
-	}
-	
 	.ud-center {
 		width: 100%;
 		position: absolute;
 		left: 50%; top: 50%;
 		transform: translate(-50%, -50%);
 	}
-	.content{
-		/* min-height: 60vh;
-	    width: 100%;
-	    margin: 100px auto 10px;
-	    padding-top: 10px;
-	    padding-bottom: 10px; */
+
+	.suggestBoxWrap{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 3px 0 0;
 	}
-	/* 상하단 바를 위한 필수 css */
-	.content{
-	    margin-top: 90px;
-	    width:90%;
-		max-width:800px;
-		padding: 20px 0;
+	
+	.suggestBox {
+		background-color: white;
+		border-radius: 10px;
+		border: 3px solid lightGray;
+		font-weight: bold;
+		width: 100px;
+		margin: 0 1px 1px;
 	}
-	@media screen and (max-width: 575px) { /* mobile */
-		.content{
-			margin-top: 70px; /* 상단바 70*/
-			padding-bottom: 80px;/* 하단바 80 */
-			min-height: calc(100vh - 70px);
-		}
+	
+	.suggestBox-choiced {
+		background-color: white;
+		width: 100px;
+		border-radius: 10px;
+		border: 3px solid #ff6666;
+		font-weight: bold;
+		margin: 0 1px 1px;
 	}
-	@media screen and (min-width: 575.1px) { /* Web */
-		.content{
-			min-height: calc(100vh - 90px); /* 상단바 90px */
-	    	padding: 20px 0;
-		}
+	
+	.suggestBox:hover{
+	    background-color: var(--button-hover);
 	}
-	/* 상하단 바를 위한 필수 css */
+	
+	.suggestBox:active{
+	    background-color: var(--button-active);
+	}
+	
+	.category {
+		
+	}
+	
+	.category-icon {
+		position: relative;
+		top: 4px;
+	}
 </style>
 
 <script>
@@ -236,8 +307,8 @@
 						storeNameList[i].append(result[i].TRANSACTION_STORE);
 						visitCountList[i].append(result[i].CNT + '회');
 					}  // 3곳 이상 방문한 경우 여기서 종료
-					if (i<2) {
-						for (; i<2; i++) {
+					if (i<3) {
+						for (; i<3; i++) {
 							storeNameList[i].append('-');
 						}
 					}  // 두 곳 이하 방문한 경우 여기를 돌아서 빈 값을 채운다
@@ -250,104 +321,73 @@
 			});  // findStorePopularByPersonal end
 		};  // if
 		
+		$('.suggestBox').click(function(){
+			if ($(this).attr('class') != 'suggestBox-choiced') {
+				let suggestMethod = $(this).attr('method');
+				let suggestValue = $(this).attr('value');
+				
+				$('.suggestBox-choiced').attr('class', 'suggestBox');
+				$(this).attr('class', 'suggestBox-choiced');
+				
+				findStorePopularBy(suggestMethod, suggestValue);
+			}  // if
+		});  // div click
 		
-		// html tag 생성 form
-		<%--
-		<div class="place-lower-box">
-			<div class="place-lower-box-title">
-				<div class="title-left">
-					* <span class="regionName">부산</span>의 인기 장소
-				</div>
-				<div class="title-right">
-					<button type="button" class="moreBtn" data-target="#랜덤시드값">▼</button>
-				</div>
-			</div>
-			<div class="place-lower-box-lower" id="랜덤시드값">
-				<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
-					<div class="info-left">
-						<div class="ud-center">
-							<span class="category">관광지</span>
-						</div>
-					</div>
-					<div class="info-right">
-						<div class="info-right-upper">
-							<div class="placeName">오륙도 스카이워크</div>
-						</div>
-						<div class="info-right-lower">
-							<span class="location">부산 남구</span>
-							<div class="searchBtnDiv">
-								<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
-									data-toggle="modal" data-target="#searchModal">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		--%>
-		
-		<%-- 지역별 컨텐츠 --%>
-		let regionArr = ["기장"];
-		
-		for (var j=0; j<regionArr.length; j++) {
-			let region = regionArr[j];
-			
-			$.ajax({
-				type: 'post',
-				url: '/store/findStorePopularByRegion',
-				data: {'region': region},
-				success: function(result) {
-					let spanRegionName = document.createElement('span');
-					spanRegionName.setAttribute('class', 'regionName');
-					spanRegionName.append(region);
-					
-					let divTitleLeft = document.createElement('div');
-					divTitleLeft.setAttribute('class', 'title-left');
-					divTitleLeft.append("* ");
-					divTitleLeft.append(spanRegionName);
-					divTitleLeft.append("의 인기 장소");
-					
-					addContents(divTitleLeft, result);  // 함수 호출
-					
-					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
-					// collapse 버튼 연결용 코드
-					$('.moreBtn').off('click').click(function(){
-						let targetId = $(this).attr('data-target');
-						$(targetId).collapse('toggle');
-					});  // button click
-					
-					// img 버튼 연결용 코드
-					$('.searchBtn').off('click').click(function(){
-						searchModalChange($(this).attr('store-id'));
-					});  // img click
-					
-				},  // ajax success end
-				error: function(e){ console.log(e); }
-			});  // findStorePopularByRegion end
-		}  // for - 지역별 컨텐츠
-		
-		
-		<%-- 기간별 컨텐츠 --%>
-		let period = "일년";
-		
+		// 첫 페이지 들어올 시 맨 처음 요소를 클릭
+		$('.suggestBox:eq(0)').click();
+	});  // JQuery
+	
+	function findStorePopularBy(suggestMethod, suggestValue) {
+		let dataMapper = {'Region': 'region', 'Period': '', 'Category': 'category'};
+		let keydata = dataMapper[suggestMethod];
+		<%-- 왜 카테고리만 string으로 집어넣으면 안 되는 것인가 특이하네.. category로 하니까 매핑이 되고..--%>
+
 		$.ajax({
 			type: 'post',
-			url: '/store/findStorePopularByPeriod',
-			success: function(result) {
-				// * 최근 <span class="periodName">일주일</span> 인기 장소
-				let spanPeriodName = document.createElement('span');
-				spanPeriodName.setAttribute('class', 'periodName');
-				spanPeriodName.append(period);
+			url: '/store/findStorePopularBy' + suggestMethod,
+			data: {keydata: suggestValue},
+			success: function(res) {
+				let titleElem = generateEmoji();
+				if (suggestMethod == "Region")
+					titleElem += ' <span class="regionName">'+suggestValue+'</span>의 인기 장소';
+				if (suggestMethod == "Period")
+					titleElem += ' 최근 <span class="periodName">일년</span> 인기 장소';
+				if (suggestMethod == "Category")
+					titleElem += ' 인기 <span class="categoryName">'+suggestValue+'</span>';
+				$('.title-left').html(titleElem)
+				$('.place-lower-box-lower').html('');  // 초기화
 				
-				let divTitleLeft = document.createElement('div');
-				divTitleLeft.setAttribute('class', 'title-left');
-				divTitleLeft.append("* 최근 ");
-				divTitleLeft.append(spanPeriodName);
-				divTitleLeft.append(" 인기 장소");
+				for (var i=0; i<res.length; i++) {
+					let s = res[i];
+
+					let categoryCss = "", categoryIcon = "";
+					if (s.storeCategory == "카페") {
+						categoryCss = "ilcafe";
+						categoryIcon = '<span class="category-icon material-symbols-outlined">coffee</span>';
+					}
+					else if (s.storeCategory == "음식점") {
+						categoryCss = "ilfood";
+						categoryIcon = '<span class="category-icon material-symbols-outlined">dining</span>';
+					}
+					else if (s.storeCategory == "관광지") {
+						categoryCss = "iltour";
+						categoryIcon = '<span class="category-icon material-symbols-outlined">festival</span>';
+					}
+					
+					let recommendBox = '<div class="place-lower-box-info';
+					if (s.storeId != null)
+						recommendBox += ' searchBtn" store-id='+s.storeId+' data-toggle="modal" data-target="#searchModal';
+					recommendBox += '"><div class="info-left '+categoryCss+'"><div class="ud-center">'+
+								'<span class="category">'+categoryIcon+'</span></div></div><div class="info-right">'+
+								'<div class="info-right-upper"><div class="placeName">'+s.storeName+'</div></div>'+
+								'<div class="info-right-lower"><span class="location">'+s.storeAddr+'</span></div></div>';
+					if (s.storeId != null)
+						recommendBox += '<div class="right-arrow material-symbols-outlined">chevron_right</div>';
+					recommendBox += '</div>';
+					
+					$('.place-lower-box-lower').append(recommendBox);
+				}  // for end
 				
-				addContents(divTitleLeft, result);  // 함수 호출
-				
-				<%-- .off()를 써서 기존 중복 설정을 제거. --%>
 				// collapse 버튼 연결용 코드
 				$('.moreBtn').off('click').click(function(){
 					let targetId = $(this).attr('data-target');
@@ -358,211 +398,84 @@
 				$('.searchBtn').off('click').click(function(){
 					searchModalChange($(this).attr('store-id'));
 				});  // img click
-		
 			},  // ajax success end
 			error: function(e){ console.log(e); }
-		});  // findStorePopularByRegion end - period
-		
-		
-		<%-- 범주별 컨텐츠 --%>
-		let categoryArr = ["카페", "음식점", "관광지"];
-		
-		for (var j=0; j<categoryArr.length; j++) {
-			let category = categoryArr[j];
-			
-			$.ajax({
-				type: 'post',
-				url: '/store/findStorePopularByCategory',
-				data: {'category': category},
-				success: function(result) {
-					// * 인기 <span class="categoryName">카페</span>
-					let spanCategoryName = document.createElement('span');
-					spanCategoryName.setAttribute('class', 'categoryName');
-					spanCategoryName.append(category);
-					
-					let divTitleLeft = document.createElement('div');
-					divTitleLeft.setAttribute('class', 'title-left');
-					divTitleLeft.append("* 인기 ");
-					divTitleLeft.append(spanCategoryName);
-					
-					addContents(divTitleLeft, result);  // 함수 호출
-					
-					<%-- .off()를 써서 기존 중복 설정을 제거. --%>
-					// collapse 버튼 연결용 코드
-					$('.moreBtn').off('click').click(function(){
-						let targetId = $(this).attr('data-target');
-						$(targetId).collapse('toggle');
-					});  // button click
-					
-					// img 버튼 연결용 코드
-					$('.searchBtn').off('click').click(function(){
-						searchModalChange($(this).attr('store-id'));
-						
-					});  // img click
-					
-				},  // ajax success end
-				error: function(e){ console.log(e); }
-			});  // findStorePopularByCategory end
-		}  // for - 범주별 컨텐츠
-	});  // JQuery
+		});  // ajax end
+	}  // findStorePopularBy end
 	
-	function generateId() {
-		let id = '', randInt;
-		for (let i = 0; i < 32; i++) {
-			randInt = parseInt(Math.random()*36)
-			if (randInt < 10) id += randInt;
-			else id +=String.fromCharCode(randInt+87);
-		}
-		return id;
+	function generateEmoji() {
+		let emojiList = "✈️🛫🛩🏖🏕🚝🚘🚗🚙🚌🥂☀️🐾🍀";
+		let randPos = parseInt(Math.random()*emojiList.length/2);
+		emoji = emojiList.substring(2*randPos, 2*randPos+2);
+		return emoji;
 	}
-	
-	function addContents(divTitleLeft, result) {
-		let contentsId = generateId();
-		
-		let moreBtn = document.createElement('button');
-		moreBtn.setAttribute('type', 'button');
-		moreBtn.setAttribute('class', 'moreBtn');
-		moreBtn.setAttribute('data-target', '#' + contentsId);
-		moreBtn.append("▼");
-		
-		let divTitleRight = document.createElement('div');
-		divTitleRight.setAttribute('class', 'title-right');
-		divTitleRight.append(moreBtn);
-		
-		
-		let divPlaceLowerBoxTitle = document.createElement('div');
-		divPlaceLowerBoxTitle.setAttribute('class', 'place-lower-box-title');
-		divPlaceLowerBoxTitle.append(divTitleLeft);
-		divPlaceLowerBoxTitle.append(divTitleRight);
-		
-		
-		let divPlaceLowerBoxLower = document.createElement('div');
-		divPlaceLowerBoxLower.setAttribute('class', 'place-lower-box-lower collapse');
-		divPlaceLowerBoxLower.setAttribute('id', contentsId);
-		
-		for (var i=0; i<result.length; i++) {
-			let store = result[i];
-			let id = store.storeId;
-			let category = store.storeCategory;
-			let placeName = store.storeName;
-			let location = store.storeAddr;
-			let hasId = (id != null);
-			
-			let spanCategory = document.createElement('span');
-			spanCategory.setAttribute('class', 'category');
-			spanCategory.append(category);
-			
-			let divUdCenter = document.createElement('div');
-			divUdCenter.setAttribute('class', 'ud-center');
-			divUdCenter.append(spanCategory);
-			
-			let divInfoLeft = document.createElement('div');
-			divInfoLeft.setAttribute('class', 'info-left');
-			divInfoLeft.append(divUdCenter);
-			
-			
-			let divPlaceName = document.createElement('div');
-			divPlaceName.setAttribute('class', 'placeName');
-			divPlaceName.append(placeName);
-			
-			let divInfoRightUpper = document.createElement('div');
-			divInfoRightUpper.setAttribute('class', 'info-right-upper');
-			divInfoRightUpper.append(divPlaceName);
-			
-			
-			let spanLocation = document.createElement('span');
-			spanLocation.setAttribute('class', 'location');
-			spanLocation.append(location);
-			
-			let divSearchBtnDiv;
-			if (hasId) {  // hasId
-				var imgSearchBtn = document.createElement('img');
-				imgSearchBtn.setAttribute('class', 'searchBtn');
-				imgSearchBtn.setAttribute('src', '/img/search.png');
-				imgSearchBtn.setAttribute('store-id', id);
-				imgSearchBtn.setAttribute('data-toggle', "modal");
-				imgSearchBtn.setAttribute('data-target', "#searchModal");
-				
-				divSearchBtnDiv = document.createElement('div');
-				divSearchBtnDiv.setAttribute('class', 'searchBtnDiv');
-				divSearchBtnDiv.append(imgSearchBtn);
-			}
-			
-			let divInfoRightLower = document.createElement('div');
-			divInfoRightLower.setAttribute('class', 'info-right-lower');
-			divInfoRightLower.append(spanLocation);
-			if (hasId) divInfoRightLower.append(divSearchBtnDiv);
-			
-			
-			let divInfoRight = document.createElement('div');
-			divInfoRight.setAttribute('class', 'info-right');
-			divInfoRight.append(divInfoRightUpper);
-			divInfoRight.append(divInfoRightLower);
-	
-			let divPlaceLowerBoxInfo = document.createElement('div');
-			divPlaceLowerBoxInfo.setAttribute('class', 'place-lower-box-info');
-			divPlaceLowerBoxInfo.append(divInfoLeft);
-			divPlaceLowerBoxInfo.append(divInfoRight);
-			
-			divPlaceLowerBoxLower.append(divPlaceLowerBoxInfo);
-			
-		}  // for
-		
-		let divPlaceLowerBox = document.createElement('div');
-		divPlaceLowerBox.setAttribute('class', 'place-lower-box');
-		divPlaceLowerBox.append(divPlaceLowerBoxTitle);
-		divPlaceLowerBox.append(divPlaceLowerBoxLower);
-		
-		let divPlaceLower = $('.place-lower');
-		divPlaceLower.append(divPlaceLowerBox);
-	}
-	
 </script>
+</head>
 
 <body>
-	<c:import url="../header/nav.jsp">
-		<c:param name="navTitle" value="핫플"/>
-	</c:import>
-	
-	<div class="content container">
-	
-		<%-- 로그인되어 있는 경우에만 My핫플 정보를 출력 --%>
-		<c:if test="${!empty loginUser}">
-			<div class="place-upper">
-				<div class="place-upper-inner">
-					<div class="place-upper-inner-title">
-						<span id="nowMonth"></span>의 My핫플
+	<div class="backImg">
+		<c:import url="../header/nav.jsp">
+			<c:param name="navTitle" value="핫플"/>
+		</c:import>
+		
+		<div class="content container">
+			<div class="web-container">
+				<%-- 로그인되어 있는 경우에만 My핫플 정보를 출력 --%>
+				<c:if test="${!empty loginUser}">
+					<div class="place-upper">
+						<div class="place-upper-inner">
+							<div class="place-upper-inner-title">
+								<span id="nowMonth"></span>의 My핫플
+							</div>
+							<div class="place-upper-inner-contents">
+								<div class="ranking">
+									<img class="medal" src="/img/medal1.png">
+									<span class="storeName"></span>
+									<span class="visitCount"></span>
+								</div>
+								
+								<div class="ranking">
+									<img class="medal" src="/img/medal2.png">
+									<span class="storeName"></span>
+									<span class="visitCount"></span>
+								</div>
+								
+								<div class="ranking">
+									<img class="medal" src="/img/medal3.png">
+									<span class="storeName"></span>
+									<span class="visitCount"></span>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="place-upper-inner-contents">
-						<div class="ranking">
-							<img class="medal" src="/img/medal1.png">
-							<span class="storeName"></span>
-							<span class="visitCount"></span>
+				</c:if>
+				
+				<div class="place-lower">
+					<div class="place-lower-box">
+						<div class="suggestBoxWrap">
+							<span class="suggestBox" method="Region" value="기장">기장</span>
+							<span class="suggestBox" method="Period" value="">일년</span>
+							<span class="suggestBox" method="Category" value="카페">카페</span>
+							<span class="suggestBox" method="Category" value="음식점">음식</span>
+							<span class="suggestBox" method="Category" value="관광지">관광</span>
 						</div>
-						
-						<div class="ranking">
-							<img class="medal" src="/img/medal2.png">
-							<span class="storeName"></span>
-							<span class="visitCount"></span>
+						<div class="place-lower-box-title">
+							<div class="title-left">
+								<%-- 제목 요소 --%>
+							</div>
+							<div class="title-right"></div>
 						</div>
-						
-						<div class="ranking">
-							<img class="medal" src="/img/medal3.png">
-							<span class="storeName"></span>
-							<span class="visitCount"></span>
+						<div class="place-lower-box-lower">
+							<%-- 여기에 각 contents들이 생성 --%>
 						</div>
 					</div>
 				</div>
 			</div>
-		</c:if>
-		
-		<div class="place-lower">
-			<%-- 여기에 상단 주석에 넣어놓은 코드가 (유사 구조로) 들어감 --%>
+			
 		</div>
 		
+		<c:import url="/footer/footer.jsp" />
 	</div>
-	
-	<c:import url="/footer/footer.jsp" />
 	
 	<%-- Modal --%>
 	<div class="modal fade" id="searchModal">
