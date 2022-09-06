@@ -348,13 +348,13 @@
 			url: '/store/findStorePopularBy' + suggestMethod,
 			data: {keydata: suggestValue},
 			success: function(res) {
-				let titleElem = "";
+				let titleElem = generateEmoji();
 				if (suggestMethod == "Region")
-					titleElem = '✈️ <span class="regionName">'+suggestValue+'</span>의 인기 장소';
+					titleElem += ' <span class="regionName">'+suggestValue+'</span>의 인기 장소';
 				if (suggestMethod == "Period")
-					titleElem = '✈️ 최근 <span class="periodName">일년</span> 인기 장소';
+					titleElem += ' 최근 <span class="periodName">일년</span> 인기 장소';
 				if (suggestMethod == "Category")
-					titleElem = '✈️ 인기 <span class="categoryName">'+suggestValue+'</span>';
+					titleElem += ' 인기 <span class="categoryName">'+suggestValue+'</span>';
 				$('.title-left').html(titleElem)
 				$('.place-lower-box-lower').html('');  // 초기화
 				
@@ -403,6 +403,13 @@
 			error: function(e){ console.log(e); }
 		});  // ajax end
 	}  // findStorePopularBy end
+	
+	function generateEmoji() {
+		let emojiList = "✈️🛫🛩🏖🏕🚝🚘🚗🚙🚌🥂☀️🐾🍀";
+		let randPos = parseInt(Math.random()*emojiList.length/2);
+		emoji = emojiList.substring(2*randPos, 2*randPos+2);
+		return emoji;
+	}
 </script>
 </head>
 
