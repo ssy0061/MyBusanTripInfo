@@ -333,7 +333,24 @@ $(document).ready(function () {
 	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
 	
 	refreshContent();
-	//findStoryName();
+	findDiaryName();
+	
+	function findDiaryName() {
+		$.ajax({
+			type: 'post',
+			url: '/story/findDiaryName',
+			data: {'diaryId' : diaryId},
+			
+			success: function(result) {
+				console.log(result);
+				$('.albumTitle h3').append( result )
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		})
+		
+	}
 	
 	function findStoryMember() { // 현재 스토리 멤버 리스트 조회
 		$('.member_val').text("");
