@@ -435,7 +435,7 @@ $(function() {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-				<p align="center">해당 머니앨범을 정말 삭제하겠습니까?</p>
+				<p align="center">머니앨범은 생성자만 삭제 가능합니다.<br>머니앨범을 정말 삭제하겠습니까?</p>
 				</div>
 				<div class="modal-footer">
 					<input type="submit" value="삭제" class="btn btn-secondary deleteStoryYes" data-dismiss="modal"></input>

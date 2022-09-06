@@ -765,7 +765,7 @@ $(document).ready(function () {
 				<div class="col-12 mt-1 p-0">
 					<a data-toggle="tooltip" data-placement="left" title="피드 추가하기">
 					<button type="button" class="btn btn-outline-secondary custom-button buttonWithText" data-toggle="modal" data-target="#transactionModal">
-						<span class="material-symbols-outlined add_photo_alternate">add_photo_alternate</span><span class="addFeed">피드 추가하기</span>
+						<span class="material-symbols-outlined add_photo_alternate">add_photo_alternate</span><span class="addFeed"><small>피드 추가하기</small></span>
 					</button>
 					</a>
 				</div>
@@ -777,7 +777,26 @@ $(document).ready(function () {
 	</div>
 	<c:import url="/footer/footer.jsp" />
 	<!-- The Modal -->
-	  <!-- 거래 내역 추가 modal -->
+	<!-- 결제 내역 추가 modal -->
+	<div class="modal fade pr-0" id="payListModal">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content modal-content-ta">
+				<div class="modal-header">
+					<h3 class="modal-title">결제내역 불러오기</h3>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body payListModalBody">
+					<div class="row payListRow">
+					<p class="payListAlert"><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 피드 추가 modal -->
 	<div class="modal fade" id="transactionModal">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
@@ -824,24 +843,6 @@ $(document).ready(function () {
 				</div>
 				<div class="modal-footer">
 					<input type="submit" value="확인" class="btn memberSearchOk" data-dismiss="modal"></input>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade pr-0" id="payListModal">
-		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-			<div class="modal-content modal-content-ta">
-				<div class="modal-header">
-					<h3 class="modal-title">결제내역 불러오기</h3>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body payListModalBody">
-					<div class="row payListRow">
-					<p class="payListAlert"><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>
