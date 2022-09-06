@@ -192,16 +192,17 @@ public class StoryController {
 		System.out.println("MultipartFile... " + mFile);
 		
 		if(mFile.isEmpty()!=true) { //업로드 된 파일이 있다면
-			System.out.println("파일의 사이즈 " + mFile.getSize());
 			System.out.println("업로드한 파일명 " + mFile.getOriginalFilename());
-			System.out.println("getName()?? " + mFile.getName());
 		}
 		
-		String root = request.getSession().getServletContext().getRealPath("/img");
+		String root = ("/img");
 		System.out.println("root " + root);
 		
 		String path = root + "\\diaryphoto\\";
+		
+		//우리가 쓸려고 만든 변수
 		String photoUrl = path+mFile.getOriginalFilename();
+		
 		File copyFile = new File(path + mFile.getOriginalFilename());
 		
 		try {
