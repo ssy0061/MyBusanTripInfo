@@ -18,6 +18,7 @@ public interface StoryDAO { // 쿼리문이나 메소드 결정해서 인자값 
 	public void deleteStory(int storyId);
 	public void updateStory(String memberList, int storyId);
 	public String findStoryName(String storyId);
+	public String findDiaryName(String diaryId);
 	public List<Member> findStoryMember(String storyId);
 	public void addStoryMember(String storyId, String memberId, String memberName);
 	public List<Story> findAllStoryList(String memberId);
