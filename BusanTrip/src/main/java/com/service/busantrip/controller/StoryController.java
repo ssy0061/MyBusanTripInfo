@@ -1,8 +1,11 @@
 package com.service.busantrip.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.service.busantrip.domain.Member;
 import com.service.busantrip.domain.Transaction;
@@ -182,9 +186,34 @@ public class StoryController {
 
 	@PostMapping("addPhotoToDiaryTransaction")
 	@ResponseBody
-	public void addPhotoToDiaryTransaction(String diaryTransactionId, String photoUrl) {
+	public void addPhotoToDiaryTransaction(Photo photo ,String diaryTransactionId, HttpServletRequest request) {
+		
+		MultipartFile mFile = photo.getUploadFile();
+		System.out.println("MultipartFile... " + mFile);
+		
+		if(mFile.isEmpty()!=true) { //업로드 된 파일이 있다면
+			System.out.println("업로드한 파일명 " + mFile.getOriginalFilename());
+		}
+		
+		String root = ("/img");
+		System.out.println("root " + root);
+		
+		String path = root + "\\diaryphoto\\";
+		
+		//우리가 쓸려고 만든 변수
+		String photoUrl = path+mFile.getOriginalFilename();
+		
+		File copyFile = new File(path + mFile.getOriginalFilename());
+		
+		try {
+			mFile.transferTo(copyFile);
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		System.out.println("path " + path);
+		
 		storyService.addPhotoToDiaryTransaction(diaryTransactionId, photoUrl);
-
 	}
 
 	@PostMapping("deletePhotoToDiaryTransaction")
