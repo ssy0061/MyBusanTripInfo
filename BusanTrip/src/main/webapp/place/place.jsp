@@ -323,24 +323,63 @@
 		
 		$('.suggestBox').click(function(){
 			if ($(this).attr('class') != 'suggestBox-choiced') {
-				let period = $(this).attr('value');
+				let suggestMethod = $(this).attr('method');
+				let suggestValue = $(this).attr('value');
 				
 				$('.suggestBox-choiced').attr('class', 'suggestBox');
 				$(this).attr('class', 'suggestBox-choiced');
+				
+				findStorePopularBy(suggestMethod, suggestValue);
 			}  // if
 		});  // div click
 		
 	});  // JQuery
 	
-	function generateId() {
-		let id = '', randInt;
-		for (let i = 0; i < 32; i++) {
-			randInt = parseInt(Math.random()*36)
-			if (randInt < 10) id += randInt;
-			else id +=String.fromCharCode(randInt+87);
-		}
-		return id;
-	}
+	function findStorePopularBy(suggestMethod, suggestValue) {
+		let dataMapper = {'Region': 'region', 'Period': '', 'Category': 'category'};
+		let category = dataMapper[suggestMethod];
+		<%-- 왜 카테고리만 string으로 집어넣으면 안 되는 것인가 특이하네.. category로 하니까 매핑이 되고..--%>
+
+		$.ajax({
+			type: 'post',
+			url: '/store/findStorePopularBy' + suggestMethod,
+			data: {category: suggestValue},
+			success: function(res) {
+				$('.place-lower-box-lower').html('');  // 초기화
+				
+				for (var i=0; i<res.length; i++) {
+					let s = res[i];
+					
+					let categoryCss = "";
+					if (s.storeCategory == "카페") categoryCss = "ilcafe";
+					else if (s.storeCategory == "음식점") categoryCss = "ilfood";
+					else if (s.storeCategory == "관광지") categoryCss = "iltour";
+					
+					let recommendBox = '<div class="place-lower-box-info"><div class="info-left '+categoryCss+'"><div class="ud-center">'+
+								'<span class="category">'+s.storeCategory+'</span></div></div><div class="info-right">'+
+								'<div class="info-right-upper"><div class="placeName">'+s.storeName+'</div></div>'+
+								'<div class="info-right-lower"><span class="location">'+s.storeAddr+'</span><div class="searchBtnDiv">';
+					if (s.storeId != null)
+						recommendBox += '<img class="searchBtn" src="/img/search.png" store-id='+s.storeId+' data-toggle="modal" data-target="#searchModal">';
+					recommendBox += '</div></div></div></div>';
+					
+					$('.place-lower-box-lower').append(recommendBox);
+				}  // for end
+				
+				// collapse 버튼 연결용 코드
+				$('.moreBtn').off('click').click(function(){
+					let targetId = $(this).attr('data-target');
+					$(targetId).collapse('toggle');
+				});  // button click
+				
+				// img 버튼 연결용 코드
+				$('.searchBtn').off('click').click(function(){
+					searchModalChange($(this).attr('store-id'));
+				});  // img click
+			},  // ajax success end
+			error: function(e){ console.log(e); }
+		});  // ajax end
+	}  // findStorePopularBy end
 	
 </script>
 
@@ -385,11 +424,11 @@
 				<div class="place-lower">
 					<div class="place-lower-box">
 						<div class="suggestBoxWrap">
-							<span class="suggestBox" method="findStorePopularByRegion" value="기장">기장</span>
-							<span class="suggestBox" method="findStorePopularByPeriod" value="">일년</span>
-							<span class="suggestBox" method="findStorePopularByCategory" value="카페">카페</span>
-							<span class="suggestBox" method="findStorePopularByCategory" value="음식점">음식</span>
-							<span class="suggestBox" method="findStorePopularByCategory" value="관광지">관광</span>
+							<span class="suggestBox" method="Region" value="기장">기장</span>
+							<span class="suggestBox" method="Period" value="">일년</span>
+							<span class="suggestBox" method="Category" value="카페">카페</span>
+							<span class="suggestBox" method="Category" value="음식점">음식</span>
+							<span class="suggestBox" method="Category" value="관광지">관광</span>
 						</div>
 						<div class="place-lower-box-title">
 							<div class="title-left">
@@ -399,120 +438,6 @@
 						</div>
 						<div class="place-lower-box-lower">
 							<%-- 여기에 각 contents들이 생성 --%>
-							<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
-								<div class="info-left">
-									<div class="ud-center">
-										<span class="category">관광지</span>
-									</div>
-								</div>
-								<div class="info-right">
-									<div class="info-right-upper">
-										<div class="placeName">오륙도 스카이워크</div>
-									</div>
-									<div class="info-right-lower">
-										<span class="location">부산 남구</span>
-										<div class="searchBtnDiv">
-											<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
-												data-toggle="modal" data-target="#searchModal">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
-								<div class="info-left">
-									<div class="ud-center">
-										<span class="category">관광지</span>
-									</div>
-								</div>
-								<div class="info-right">
-									<div class="info-right-upper">
-										<div class="placeName">오륙도 스카이워크</div>
-									</div>
-									<div class="info-right-lower">
-										<span class="location">부산 남구</span>
-										<div class="searchBtnDiv">
-											<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
-												data-toggle="modal" data-target="#searchModal">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
-								<div class="info-left">
-									<div class="ud-center">
-										<span class="category">관광지</span>
-									</div>
-								</div>
-								<div class="info-right">
-									<div class="info-right-upper">
-										<div class="placeName">오륙도 스카이워크</div>
-									</div>
-									<div class="info-right-lower">
-										<span class="location">부산 남구</span>
-										<div class="searchBtnDiv">
-											<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
-												data-toggle="modal" data-target="#searchModal">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
-								<div class="info-left">
-									<div class="ud-center">
-										<span class="category">관광지</span>
-									</div>
-								</div>
-								<div class="info-right">
-									<div class="info-right-upper">
-										<div class="placeName">오륙도 스카이워크</div>
-									</div>
-									<div class="info-right-lower">
-										<span class="location">부산 남구</span>
-										<div class="searchBtnDiv">
-											<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
-												data-toggle="modal" data-target="#searchModal">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
-								<div class="info-left">
-									<div class="ud-center">
-										<span class="category">관광지</span>
-									</div>
-								</div>
-								<div class="info-right">
-									<div class="info-right-upper">
-										<div class="placeName">오륙도 스카이워크</div>
-									</div>
-									<div class="info-right-lower">
-										<span class="location">부산 남구</span>
-										<div class="searchBtnDiv">
-											<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
-												data-toggle="modal" data-target="#searchModal">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="place-lower-box-info">  <!-- 이게 여러개 생성 -->
-								<div class="info-left">
-									<div class="ud-center">
-										<span class="category">관광지</span>
-									</div>
-								</div>
-								<div class="info-right">
-									<div class="info-right-upper">
-										<div class="placeName">오륙도 스카이워크</div>
-									</div>
-									<div class="info-right-lower">
-										<span class="location">부산 남구</span>
-										<div class="searchBtnDiv">
-											<img class="searchBtn" src="/img/search.png" store-id="가게id기입"
-												data-toggle="modal" data-target="#searchModal">
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
