@@ -39,6 +39,7 @@
 		.search-box{
 			padding-top: 10px;
 			padding-bottom: 10px;
+			background-color: #fef0f0;
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
@@ -49,6 +50,14 @@
 			padding-top: 50px;
 			padding-bottom: 50px;
 			min-height: calc(100vh - 170px);
+			background-color: rgba( 255, 255, 255, 0.6 );
+		}
+		.backImg { /* web backgorund */
+			/*background-image:
+				linear-gradient(rgba(256, 256, 256, 0.3), rgba(256, 256, 256, 0.3)),
+				url("/img/back-login5.jpg");
+			background-size: cover;
+			background-repeat: no-repeat;*/
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -57,7 +66,6 @@
 		max-width: 720px;
 		margin: 0 auto;
 		text-align: center;
-		background-color: #fef0f0;
 		border-radius: 10px;
 	}
 	
@@ -197,8 +205,32 @@
 				console.log(e);
 			}
 		})
-	});  // JQuery
-	
+		
+		function addCssFunction(x) {
+			if (x.matches) { // If media query matches
+				let imageUrl;
+				let nowDay = new Date();
+				let hours = nowDay.getHours();
+				
+				if (hours >= 19) imageUrl = "/img/back-batch-1904.jpg";
+				else if (hours >= 16) imageUrl = "/img/back-batch-1619.jpg";
+				else if (hours >= 7) imageUrl = "/img/back-batch-0716.jpg";
+				else if (hours >= 4) imageUrl = "/img/back-batch-0407.jpg";
+				else imageUrl = "/img/back-batch-1904.jpg";
+				
+				$('.backImg').css({
+					'background-image': 'linear-gradient(rgba(256, 256, 256, 0.2), rgba(256, 256, 256, 0.2)), url("'+imageUrl+'")',
+					'background-size': 'cover', 'background-repeat': 'no-repeat'});
+			} else {
+				$('.backImg').css('background-image', 'url("")')
+			}
+		}
+
+		var x = window.matchMedia("(min-width: 575.1px)")
+		addCssFunction(x) // Call listener function at run time
+		x.addListener(addCssFunction) // Attach listener function on state changes
+
+	}); // JQuery
 </script>
 
 </head>

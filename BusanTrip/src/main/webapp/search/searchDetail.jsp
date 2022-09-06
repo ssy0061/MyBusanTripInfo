@@ -56,6 +56,11 @@
 			min-height: calc(100vh - 290px);
 		}
 	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.backImg{ /* web backgorund */
+ 			background-image: url("/img/pattern1.png");
+		}
+	}
 	@media screen and (max-width: 768px) {
 		.collapseInnerWrap{
 			display: flex;
@@ -85,11 +90,6 @@
 		}
 		.searchDetail-upper-bottom-inner{
 			padding-left: 12px;
-		}
-		.backImg{ /* web backgorund */
-/* 			background-image: url("/img/back3.jpg");
-			background-size: 1500px 4000px;
-			background-repeat: no-repeat; */
 		}
 	}
 	
@@ -134,6 +134,7 @@
 		margin: 0 auto;
 		text-align: center;
 		background-color: white;
+		overflow: hidden;
 	}
 	.searchDetail-upper {
 		width: 100%;
