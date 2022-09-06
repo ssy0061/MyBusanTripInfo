@@ -45,6 +45,7 @@
 		}
 		
 		.suggestBox, .suggestBox-choiced { font-size: 15px; }
+		.title-left { font-size: 16px; }
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
@@ -67,15 +68,19 @@
 		.place-lower { overflow: auto; }
 		
 		.suggestBox, .suggestBox-choiced { font-size: 13px; }
+		.title-left { font-size: 13px; }
 		
-		.backImg{ /* web backgorund */
-			background-image: url("/img/back4.jpg");
+		.backImg { /* web backgorund */
+			background-image:
+				linear-gradient(rgba(128, 128, 128, 0.5), rgba(128, 128, 128, 0.5)),
+				url("/img/back4.jpg");
 			background-size: 100% auto;
 			background-repeat: no-repeat;
 		}
 	}
 	@media screen and (min-width: 768.1px) { /* Bigger Web */
 		.suggestBox, .suggestBox-choiced { font-size: 15px; }
+		.title-left { font-size: 16px; }
 	}
 	
 	.place-upper, .place-lower {
@@ -96,7 +101,7 @@
 		width: 80%;
 		min-height: 150px;
 		margin: 15px auto;
-		padding: 3px 0;
+		padding: 8px;
 		position: relative;
 		border-radius: 5px;
 		background-color: white;
@@ -111,7 +116,7 @@
 		margin: 5px 0 0;
 	}
 	
-	#nowMonth {
+	#nowMonth{
 		color: var(--bnk-red);
 	}
 	
@@ -122,7 +127,7 @@
 	
 	.ranking {
 		border-radius: 5px;
-		margin: 12px 10px;
+		margin: 15px 10px;
 		display: flex;
 		justify-content: space-around;
 		padding: 3px 0;
@@ -158,7 +163,7 @@
 		width: 80%;
 		min-height: 50px;
 		margin: 15px auto;
-		padding: 3px 0;
+		padding: 8px;
 		border-radius: 5px;
 		background-color: white;
 		box-shadow: 0px 5px 8px -3px #aaa;
@@ -187,7 +192,7 @@
 	}
 	
 	.place-lower-box-info {
-		margin: 5px 10px 10px;
+		margin: 5px 10px 13px;
 		display: flex;
 		justify-content: space-around;
 		border-radius: 15px;
@@ -317,9 +322,11 @@
 						}
 					}  // 두 곳 이하 방문한 경우 여기를 돌아서 빈 값을 채운다
 					
+					/*
 					let nowDay = new Date();
 					let nowMonth = nowDay.getMonth() + 1;
-					$('#nowMonth').append(nowMonth+'월');
+					$('#nowMonth').append(nowMonth+'월 ');
+					*/
 				},
 				error: function(e){ console.log(e); }
 			});  // findStorePopularByPersonal end
@@ -429,7 +436,7 @@
 					<div class="place-upper">
 						<div class="place-upper-inner">
 							<div class="place-upper-inner-title">
-								<span id="nowMonth"></span>의 My핫플
+								<span id="nowMonth"></span>My<span class="important">핫플</span>
 							</div>
 							<div class="place-upper-inner-contents">
 								<div class="ranking">
