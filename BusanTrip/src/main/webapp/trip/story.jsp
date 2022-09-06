@@ -163,12 +163,13 @@
 	   	margin: 90px auto 0;
 	    max-width:800px;
 	    width:90%;
+	    padding: 20px 0;
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
 			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;/* 하단바 80 */
-			min-height: calc(100vh - 80px);
+			min-height: calc(100vh - 70px);
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */

@@ -98,6 +98,9 @@
 			padding-bottom: 80px;/* 하단바 80 */
 			min-height: calc(100vh - 80px);
 		}
+		.ud-center{
+			padding: 0 10px;
+		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
