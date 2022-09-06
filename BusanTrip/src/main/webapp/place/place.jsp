@@ -280,6 +280,16 @@
 	.suggestBox:active{
 	    background-color: var(--button-active);
 	}
+	
+	.category {
+		
+	}
+	
+	.category-icon {
+		position: relative;
+		top: 4px;
+	}
+
 </style>
 
 <script>
@@ -351,16 +361,25 @@
 				for (var i=0; i<res.length; i++) {
 					let s = res[i];
 
-					let categoryCss = "";
-					if (s.storeCategory == "카페") categoryCss = "ilcafe";
-					else if (s.storeCategory == "음식점") categoryCss = "ilfood";
-					else if (s.storeCategory == "관광지") categoryCss = "iltour";
+					let categoryCss = "", categoryIcon = "";
+					if (s.storeCategory == "카페") {
+						categoryCss = "ilcafe";
+						categoryIcon = '<span class="category-icon material-symbols-outlined">coffee</span>';
+					}
+					else if (s.storeCategory == "음식점") {
+						categoryCss = "ilfood";
+						categoryIcon = '<span class="category-icon material-symbols-outlined">dining</span>';
+					}
+					else if (s.storeCategory == "관광지") {
+						categoryCss = "iltour";
+						categoryIcon = '<span class="category-icon material-symbols-outlined">festival</span>';
+					}
 					
 					let recommendBox = '<div class="place-lower-box-info';
 					if (s.storeId != null)
 						recommendBox += ' searchBtn" store-id='+s.storeId+' data-toggle="modal" data-target="#searchModal';
 					recommendBox += '"><div class="info-left '+categoryCss+'"><div class="ud-center">'+
-								'<span class="category">'+s.storeCategory+'</span></div></div><div class="info-right">'+
+								'<span class="category">'+categoryIcon+'</span></div></div><div class="info-right">'+
 								'<div class="info-right-upper"><div class="placeName">'+s.storeName+'</div></div>'+
 								'<div class="info-right-lower"><span class="location">'+s.storeAddr+'</span></div></div>';
 					if (s.storeId != null)
