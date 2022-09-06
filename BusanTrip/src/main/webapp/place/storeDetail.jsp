@@ -36,13 +36,13 @@
 	    padding-bottom: 10px;
 	}
 	
-	@media screen and (min-width: 575.1px) { /* Web */
+	/*@media screen and (min-width: 575.1px) { // Web
 		.inner-content{
 			background-image: url("/img/back_space.jpg");
 			background-size: 100% auto;
 			background-repeat: no-repeat;
 		}
-	}
+	}*/
 	
 	.storeDetail-box {
 		max-width: 400px;
@@ -50,16 +50,18 @@
 		text-align: center;
 		min-height: 10vh;
 		padding: 10px;
-		border-radius: 5px;
-		border: 1px solid var(--bnk-gray);
-		background-color: white;
+		border-style:solid;
+		border-radius:5px;
+		border-color:lightgray;
 	}
 	
 	.storeDetail-box-top, .storeDetail-box-middle, .storeDetail-box-bottom {
 		max-width: 300px;
 		margin: 10px auto;
 		padding: 5px 0;
-		border: 1px solid var(--bnk-lightgray);
+		border-style:solid;
+		border-radius:5px;
+		border-color:lightgray;;
 	}
 	
 	.storeDetail-box-middle {
@@ -79,7 +81,7 @@
 	.index-box {
 		width: 100px;
 		max-width: 70px;
-		text-align: left;
+		text-align: center;
 		margin: 0 0 0 5px;
 		font-size: 14px;
 		font-weight: bold;
@@ -87,7 +89,6 @@
 		border-right-width: 1px;
 		border-right-style: solid;
 		background-color: #FFFFD4;
-		padding: 0 0 0 2px;
 	}
 	
 	.contents-box {

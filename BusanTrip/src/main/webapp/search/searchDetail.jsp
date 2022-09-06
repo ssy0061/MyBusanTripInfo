@@ -353,6 +353,11 @@
 	#memoClose {
 		background-color:#53565A;
 	}
+	/* store detail modal */
+	.store-modal>h6{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
 
 </style>
 
@@ -728,9 +733,9 @@
 	
 	<%-- Store Modal --%>
 	<div class="modal fade" id="searchModal">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-header store-modal">
 					<h6 class="modal-title">가게 상세 정보</h6>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
