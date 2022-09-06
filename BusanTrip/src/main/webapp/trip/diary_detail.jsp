@@ -357,45 +357,84 @@ $(document).ready(function () {
 			}
 		})
 	}
-	
-	function findStoryName() {
-		$.ajax({
-			type: 'post',
-			url: '/story/findStoryName',
-			data: {'storyId': storyId},
-			
-			success: function(result) {
-				var storyName = result;
-				console.log("storyName:: " +storyName);
-				$('.albumTitle h3').append(
-					storyName 		
-				)
-			},
-			error: function(e) {
-				console.log(e);
-			}
-		})
+	function dayToString(day){
+		let year = day.getFullYear();
+		let month = day.getMonth() + 1;
+		let date = day.getDate();
+		return year + '-' + ('00' + month).slice(-2)
+				+ '-' + ('00' + date).slice(-2);
 	}
-	
-	var payList = [];
-	function findAllAccount() { // 가지고 있는 전체 계좌 조회
+	function getNowDay(){
+		let nowDay = new Date();
+		return dayToString(nowDay);
+	}
+	function getPastDay(m){
+		let nowDay = new Date();
+		let nowMonth = nowDay.getMonth()
+		let nowDate = nowDay.getDate()
+		let day = new Date();
+		day.setMonth(nowMonth-m);
+		day.setDate(nowDate+1);
+		return dayToString(day);
+	}
+	var findTransactionList = [];
+    var startDay = getPastDay(3);
+    var finishDay = getNowDay();
+	function findAllTransaction() { // 회원이 가지고 있는 전체 계좌의 전체 거래내역 조회
 		$.ajax({
 			type:'post',
 			url:'/member/findAllAccount',
 			data:{"memberId":memberId},
 			success:function(result){
-				//console.log(result);
-				payList = result;
-				
-				for(var i=0; i<payList.length; i++){
-					var accountNumber = payList[i].accountNumber;
-					var accountBank = payList[i].accountBank;
+				var accountList = result;
+				for(var i=0; i<accountList.length; i++){ // 계좌 개수만큼 계좌번호 불러오기
+					//console.log("findAllAccountNumber :: "+accountNumberList);
+					findTransactionBySpecificPeriod(accountList[i].accountNumber)
 				}
-			}
+				console.log(findTransactionList)
+				findTransactionList.sort(function(a, b){
+					var a_val = a.transactionTime.substring(0,10)+" "+a.transactionTime.substring(11,19);
+					var b_val = b.transactionTime.substring(0,10)+" "+b.transactionTime.substring(11,19);
+					if(a_val < b_val) return 1;
+					else if(a_val > b_val) return -1;
+					else return 0;
+				})
+				console.log(findTransactionList)
+				for(var j=0; j<findTransactionList.length; j++){
+					var transactionAccountNumber = findTransactionList[j].accountNumber;
+					var transactionId = findTransactionList[j].transactionId;
+					var transactionStore = findTransactionList[j].transactionStore;
+					var transactionAmt = findTransactionList[j].transactionAmt;
+					var transactionTime = findTransactionList[j].transactionTime.substring(0,10)+" "+findTransactionList[j].transactionTime.substring(11,19);
+					$('.payListRow').append("<div class='col-11 one-pay mb-2'><div class='col-10 payListInfo mx-0 my-0'><p class='payListInfo1 my-0'><small><span id='payListAccount'>"
+							+transactionAccountNumber+"</span></small><small><span id='payListDate'>"+transactionTime
+							+"</span></small></p><p class='payListInfo2 my-0'><span id='payListName'>"
+							+transactionStore+"</span><span id='payListPrice'>"+transactionAmt+"</span></p></div>"
+							+"<div class='col-2 payListCheckbox my-0'><input type='checkbox' id='checked'></label></div></div>")
+				}
+			}, error: function(e) { console.log(e) }
 		})
 	}
-	findAllAccount();
 	
+	function findTransactionBySpecificPeriod(accountNumber) {
+		$.ajax({
+			type:'post',
+			url:'/member/findTransactionBySpecificPeriod',
+			data:{"accountNumber":accountNumber, "startDay":startDay, "finishDay":finishDay},
+			async: false,
+			success:function(result){
+				for(var i=0;i<result.length;i++) {
+					result[i].accountNumber = accountNumber;
+					findTransactionList.push(result[i]);
+				}
+				//console.log("findTransactionStore :: "+findTransactionStoreList);
+				//console.log("findTransactionAmt :: "+findTransactionAmtList);
+				//console.log("findTransactionTime :: "+findTransactionTimeList);
+			}, error:function(e) { console.log(e) }
+		})	
+	}
+	findAllTransaction();
+
 	function findDiaryTransaction() { // 다이어리 내 거래내역 조회
 		$.ajax({
 			type: 'post',
@@ -702,9 +741,9 @@ $(document).ready(function () {
 			</div>
 			<div class="col-6 row p-0" id="customizeButton" align="right">
 				<div class="col-12 p-0">
-					<a data-toggle="tooltip" data-placement="left" title="멤버 조회하기">
-					<button type="button" id="btn_findStoryMember" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
-						<span class="material-symbols-outlined group">group</span>
+					<a data-toggle="tooltip" data-placement="left" title="결제내역  불러오기">
+					<button type="button" id="btn_addPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+						<span class="material-symbols-outlined receipt_long">assignment_add</span>
 					</button>
 					</a>
 					<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
@@ -712,9 +751,9 @@ $(document).ready(function () {
 						<span class="material-symbols-outlined receipt_long">receipt_long</span>
 					</button>
 					</a>
-					<a data-toggle="tooltip" data-placement="left" title="결제내역  불러오기">
-					<button type="button" id="btn_addPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
-						<span class="material-symbols-outlined receipt_long">assignment_add</span>
+					<a data-toggle="tooltip" data-placement="left" title="멤버 조회하기">
+					<button type="button" id="btn_findStoryMember" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
+						<span class="material-symbols-outlined group">group</span>
 					</button>
 					</a>
 				</div>
@@ -788,27 +827,12 @@ $(document).ready(function () {
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content modal-content-ta">
 				<div class="modal-header">
-					<h3 class="modal-title">결제내역 추가하기</h3>
+					<h3 class="modal-title">결제내역 불러오기</h3>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body payListModalBody">
-					<div class="row">
+					<div class="row payListRow">
 					<p class="payListAlert"><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>
-						<div class="col-11 one-pay mb-2">
-							<div class="col-10 payListInfo mx-0 my-0">
-									<p class="payListInfo1 my-0">
-										<small><span id="payListAccount">결제계좌</span></small>
-										<small><span id="payListDate">결제일시</span></small>
-									</p>
-									<p class="payListInfo2 my-0">
-										<span id="payListName">가게이름</span>
-										<span id="payListPrice">결제가격</span>
-									</p>
-							</div>
-							<div class="col-2 payListCheckbox my-0">
-								<input type="checkbox" id="checked"></label>
-							</div>
-						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
