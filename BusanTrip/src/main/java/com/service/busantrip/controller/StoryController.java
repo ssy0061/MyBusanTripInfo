@@ -77,8 +77,12 @@ public class StoryController {
 		return storyService.findStoryName(storyId);
 	}
 	
-	
-	
+	@PostMapping("findDiaryName")
+	@ResponseBody
+	public String findDiaryName(String diaryId) {
+		return storyService.findDiaryName(diaryId);
+	}
+
 	@PostMapping("findStoryMember")
 	@ResponseBody
 	public List<Member> findStoryMember(String storyId, Model model, HttpSession session){

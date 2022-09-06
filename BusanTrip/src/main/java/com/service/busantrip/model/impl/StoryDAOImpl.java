@@ -74,6 +74,11 @@ public class StoryDAOImpl implements StoryDAO{
 	public String findStoryName(String storyId) {
 		return sqlSession.selectOne(NS+"findStoryName", storyId);
 	}
+	
+	@Override
+	public String findDiaryName(String diaryId) {
+		return sqlSession.selectOne(NS+"findDiaryName", diaryId);
+	}
 
 	@Override
 	public List<Member> findStoryMember(String storyId) {

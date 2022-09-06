@@ -21,9 +21,9 @@
 		WHERE STORY_ID = #{storyId}
 	</update>
 	
-	<select id="getStoryName" parameterType="string" resultType="String">
+	<!-- <select id="getStoryName" parameterType="string" resultType="String">
 		SELECT STORY_NAME FROM STORY WHERE STORY_NAME= #{storyId}
-	</select>
+	</select> -->
 	
 	<select id="findStoryId" resultType="String">
 		SELECT STORY_ID FROM STORY WHERE STORY_NAME= #{storyName}
@@ -65,6 +65,10 @@
 	
 	<select id="findAllDiaryList" parameterType="String" resultType="diary">
 		SELECT DIARY_ID, STORY_ID, DIARY_NAME, DIARY_MAKEDATE FROM DIARY WHERE STORY_ID = #{storyId}
+	</select>
+	
+	<select id="findDiaryName" parameterType="String" resultType="String">
+		SELECT DIARY_NAME FROM DIARY WHERE DIARY_ID= #{diaryId}
 	</select>
 	
 	<select id="findAllDiaryTransaction" parameterType="int" resultType="diaryTransaction">

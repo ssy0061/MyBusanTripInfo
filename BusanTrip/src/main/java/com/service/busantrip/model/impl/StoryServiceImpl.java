@@ -58,6 +58,11 @@ public class StoryServiceImpl implements StoryService{
 	}
 
 	@Override
+	public String findDiaryName(String diaryId) {
+		return storyDAO.findDiaryName(diaryId);
+	}
+	
+	@Override
 	public List<Member> findStoryMember(String storyId) {
 		return storyDAO.findStoryMember(storyId);
 	}
