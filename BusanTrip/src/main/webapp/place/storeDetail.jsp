@@ -36,6 +36,14 @@
 	    padding-bottom: 10px;
 	}
 	
+	@media screen and (min-width: 575.1px) { /* Web */
+		.inner-content{
+			background-image: url("/img/back_space.jpg");
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+		}
+	}
+	
 	.storeDetail-box {
 		max-width: 400px;
 		margin: 0 auto;
@@ -44,6 +52,7 @@
 		padding: 10px;
 		border-radius: 5px;
 		border: 1px solid var(--bnk-gray);
+		background-color: white;
 	}
 	
 	.storeDetail-box-top, .storeDetail-box-middle, .storeDetail-box-bottom {
