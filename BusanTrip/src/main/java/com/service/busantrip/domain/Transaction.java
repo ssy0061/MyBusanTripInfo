@@ -2,6 +2,8 @@ package com.service.busantrip.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Transaction {
 	
 	private int transactionId;
@@ -15,7 +17,9 @@ public class Transaction {
 	private int transactionAmt;
 	private String transactionMemo;
 
+	@JsonIgnore
 	private Account account;
+	@JsonIgnore
 	private Store store;
 
 	public Transaction() {

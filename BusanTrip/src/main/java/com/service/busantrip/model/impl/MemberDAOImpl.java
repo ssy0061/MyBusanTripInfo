@@ -72,6 +72,11 @@ public class MemberDAOImpl implements MemberDAO{
 	public List<Transaction> findAllTransaction(String accountNumber) {
 		return sqlSession.selectList(NS+"findAllTransaction", accountNumber);
 	}
+	
+	@Override
+	public Transaction findTransactionByTransactionId(int transactionId) {
+		return sqlSession.selectOne(NS+"findTransactionByTransactionId", transactionId);
+	}
 
 	@Override
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay) {

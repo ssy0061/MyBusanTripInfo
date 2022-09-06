@@ -16,6 +16,7 @@ public class DiaryTransactionReqDTO {
 		this.memberName = memberName;
 	}
 
+	
 	public Transaction getTransaction() {
 		return transaction;
 	}

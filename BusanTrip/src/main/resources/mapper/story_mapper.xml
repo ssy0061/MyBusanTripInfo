@@ -85,11 +85,11 @@
 	</select>
 
 	
-	<insert id="addDiaryTransaction" parameterType="List">
-		<foreach item="transactionId" collection="List">
-			INSERT INTO DIARYTRANSACTION(DIARYTRANSACTION_ID, DIARY_ID, MEMBER_NAME, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
-			VALUES(DIARYTRANSACTION_SEQ.nextval, #{diaryId}, #{memberName}, #{storeId}, #{transactionTime}, #{transactionAmt}, #{transactionMemo))	
-		</foreach>
+	<insert id="addDiaryTransaction" parameterType="hashmap">
+		INSERT INTO DIARYTRANSACTION(DIARYTRANSACTION_ID, DIARY_ID, MEMBER_ID, STORE_ID, TRANSACTION_TIME, TRANSACTION_STORE, TRANSACTION_AMT, TRANSACTION_MEMO)
+		VALUES(DIARYTRANSACTION_SEQ.nextval, #{diaryId}, #{memberId}, 
+				#{storeId}, #{transactionTime}, #{transactionStore},
+				#{transactionAmt}, #{transactionMemo})	
 	</insert>
 	
 	<insert id="addPhotoToDiaryTransaction" parameterType="hashmap">

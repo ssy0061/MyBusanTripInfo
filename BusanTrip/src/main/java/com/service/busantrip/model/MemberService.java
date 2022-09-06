@@ -17,6 +17,7 @@ public interface MemberService {
 	public void logout(); //로그아웃
 	public void updateCharacter(String memberChar, String memberId); //캐릭터 교체 
 	public List<Transaction> findAllTransaction(String accountNumber); //사용자 전체 거래내역 조회
+	public Transaction findTransactionByTransactionId(int transactionId);
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay); //사용자 지정기간 거래내역 조회
 	public List<Transaction> findTransactionByMonthPeriod(String accountNumber, int month);// 사용자 지정기간 거래내역 조회
 	
