@@ -322,6 +322,7 @@ $(document).ready(function () {
 	var memberList = [];
 	var transactionList = [];
 	var photoList = [];
+	var checkTransactionList = [];
 	var testVal=0;
 	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
 	
@@ -335,7 +336,7 @@ $(document).ready(function () {
 			data: {'diaryId' : diaryId},
 			
 			success: function(result) {
-				console.log(result);
+				/* console.log(result); */
 				$('.albumTitle h3').append( result )
 			},
 			error: function(e) {
@@ -353,7 +354,7 @@ $(document).ready(function () {
 			data: {'storyId' : storyId},
 			
 			success:function(result) {
-				console.log("findStoryMember result:: " + result);
+				/* console.log("findStoryMember result:: " + result); */
 				memberList = result;
 				for(var i=0; i<memberList.length; i++) {
 					$('.mem-id').append(
@@ -399,11 +400,12 @@ $(document).ready(function () {
 			data:{"memberId":memberId},
 			success:function(result){
 				var accountList = result;
+				$('.payListRow').html("<p class=payListAlert><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>");
 				for(var i=0; i<accountList.length; i++){ // 계좌 개수만큼 계좌번호 불러오기
 					//console.log("findAllAccountNumber :: "+accountNumberList);
 					findTransactionBySpecificPeriod(accountList[i].accountNumber)
 				}
-				console.log(findTransactionList)
+				/* console.log(findTransactionList) */
 				findTransactionList.sort(function(a, b){
 					var a_val = a.transactionTime.substring(0,10)+" "+a.transactionTime.substring(11,19);
 					var b_val = b.transactionTime.substring(0,10)+" "+b.transactionTime.substring(11,19);
@@ -411,18 +413,18 @@ $(document).ready(function () {
 					else if(a_val > b_val) return -1;
 					else return 0;
 				})
-				console.log(findTransactionList)
+				/* console.log(findTransactionList) */
 				for(var j=0; j<findTransactionList.length; j++){
 					var transactionAccountNumber = findTransactionList[j].accountNumber;
 					var transactionId = findTransactionList[j].transactionId;
 					var transactionStore = findTransactionList[j].transactionStore;
 					var transactionAmt = findTransactionList[j].transactionAmt;
 					var transactionTime = findTransactionList[j].transactionTime.substring(0,10)+" "+findTransactionList[j].transactionTime.substring(11,19);
-					$('.payListRow').append("<div class='col-11 one-pay mb-2'><div class='col-10 payListInfo mx-0 my-0'><p class='payListInfo1 my-0'><small><span id='payListAccount'>"
+					$('.payListRow').append("<div class='col-11 one-pay mb-2' id='outer'><div class='col-10 payListInfo mx-0 my-0'><p class='payListInfo1 my-0'><small><span id='payListAccount'>"
 							+transactionAccountNumber+"</span></small><small><span id='payListDate'>"+transactionTime
 							+"</span></small></p><p class='payListInfo2 my-0'><span id='payListName'>"
 							+transactionStore+"</span><span id='payListPrice'>"+transactionAmt+"</span></p></div>"
-							+"<div class='col-2 payListCheckbox my-0'><input type='checkbox' id='checked'></label></div></div>")
+							+"<div class='col-2 payListCheckbox my-0'><input type='checkbox' name='addCheckBox' id='checked' data-num="+transactionId+"></div></div>")
 				}
 			}, error: function(e) { console.log(e) }
 		})
@@ -435,6 +437,7 @@ $(document).ready(function () {
 			data:{"accountNumber":accountNumber, "startDay":startDay, "finishDay":finishDay},
 			async: false,
 			success:function(result){
+				findTransactionList = [];
 				for(var i=0;i<result.length;i++) {
 					result[i].accountNumber = accountNumber;
 					findTransactionList.push(result[i]);
@@ -445,7 +448,17 @@ $(document).ready(function () {
 			}, error:function(e) { console.log(e) }
 		})	
 	}
-	findAllTransaction();
+	
+	function addDiaryTransaction() {
+		$.ajax({
+			type: 'post',
+			url: '/story/',
+			data: {"diaryId": diaryId},
+		})
+		
+	}
+	
+	
 	function findDiaryTransaction() { // 다이어리 내 거래내역 조회
 		$.ajax({
 			type: 'post',
@@ -499,7 +512,7 @@ $(document).ready(function () {
 			data: {"diaryId": diaryId},
 			
 			success: function(result) { // DiaryTransaction List
-				console.log("refreshContent result:: " + result)
+				/* console.log("refreshContent result:: " + result) */
 				transactionList = result;
 				for(var i=0; i<transactionList.length; i++) { // for..transactionList
 					var memberId = transactionList[i].memberId;
@@ -642,7 +655,7 @@ $(document).ready(function () {
 			// 이미지 파일 검사 생략
 			console.log(input.files)
 			var file_cnt = input.files.length;
-			console.log(file_cnt);
+			/* console.log(file_cnt); */
 			fileArr = Array.from(input.files) // forEach문으로 처리하기 위해 유사배열을 배열로 변환
 			const $colDiv = document.createElement('div')
 			fileArr.forEach((file, index) => {
@@ -722,7 +735,7 @@ $(document).ready(function () {
 	})
 	
 	$('#btn_addPayList').on("click", function(e) {
-		// 결제내역 불러오기
+		findAllTransaction();
 	})
 	
 	$('.addPhotoYes').on("click", function(e) {
@@ -733,8 +746,18 @@ $(document).ready(function () {
 		} else {
 			alert("최대 4장까지 등록 가능합니다.");
 		}
-			
 	})
+	
+	$('#payListModalOK').on("click", function(){
+		$("input:checkbox[name=addCheckBox]:checked").each(function(index, item){
+			checkTransactionList.push($(item).attr("data-num"));
+		});
+		for(let i=0; i<checkTransactionList.length; i++) {
+			console.log("item:: " + checkTransactionList);
+		}
+		
+	})
+	
 });
 </script>
 </head>
@@ -791,11 +814,12 @@ $(document).ready(function () {
 				</div>
 				<div class="modal-body payListModalBody">
 					<div class="row payListRow">
-					<p class="payListAlert"><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>
+						
+						
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>
+					<input type="submit" id="payListModalOK" value="확인" class="btn playListOk" data-dismiss="modal"></input>
 				</div>
 			</div>
 		</div>
