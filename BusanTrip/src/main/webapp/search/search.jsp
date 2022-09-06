@@ -39,6 +39,7 @@
 		.search-box{
 			padding-top: 10px;
 			padding-bottom: 10px;
+			background-color: #fef0f0;
 		}
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
@@ -49,6 +50,14 @@
 			padding-top: 50px;
 			padding-bottom: 50px;
 			min-height: calc(100vh - 170px);
+			background-color: rgba( 255, 255, 255, 0.6 );
+		}
+		.backImg { /* web backgorund */
+			background-image:
+				linear-gradient(rgba(256, 256, 256, 0.3), rgba(256, 256, 256, 0.3)),
+				url("/img/back-login5.jpg");
+			background-size: cover;
+			background-repeat: no-repeat;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -57,7 +66,6 @@
 		max-width: 720px;
 		margin: 0 auto;
 		text-align: center;
-		background-color: #fef0f0;
 		border-radius: 10px;
 	}
 	
