@@ -296,12 +296,13 @@
 	    margin-top: 90px;
 	    width:90%;
 		max-width:800px;
+		padding: 20px 0;
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
 			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;/* 하단바 80 */
-			min-height: calc(100vh - 80px);
+			min-height: calc(100vh - 70px);
 		}
 		
 	}
@@ -693,7 +694,7 @@ $(document).ready(function () {
 		<c:param name="navTitle" value="여행"/>
 	</c:import>
 	<div class="content container">
-		<div class="row mt-4 mb-4 ">
+		<div class="row mb-4 ">
 			<div class="albumTitle col-6 pr-0 ">
 				<h3></h3>
 				<h5></h5>

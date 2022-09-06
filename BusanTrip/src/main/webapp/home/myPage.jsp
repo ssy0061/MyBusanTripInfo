@@ -271,6 +271,7 @@
 	    margin-top: 90px;
 	    width:80%;
 		max-width:800px;
+		padding: 20px 0;
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
