@@ -206,7 +206,6 @@
 							'<div id="navUserImgWrap">'+
 							'<img src="'+res.memberChar+'" id=navUserImg></div>'
 					)
-					$('.nav-mobile').children('#navUserImg').attr("src", );
 				}
 			})
 		}
@@ -218,6 +217,7 @@
 		
 		$('.back').click(function(){
 			/* window.history.back(); */
+			if(path==="login") return location.href="/bnk/home";
 			location.href=document.referrer;
 		})
 		$('.navMenusButton').click(function(){

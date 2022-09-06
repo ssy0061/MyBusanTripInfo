@@ -36,12 +36,15 @@
 		font-weight: 400;
 	}
 	.pay-store{
-		width:50%;
+		width:100%;
 		float:left;
 	}
 	.pay-price{
-		width:50%;
+		width:40%;
 		float:right;
+	}
+	.card-body{
+		padding: 0.5rem;
 	}
 	.card-body>h6{
 		width:100%;
@@ -258,20 +261,17 @@
     }
     
     .card_img_row{
-	   /* display: flex; 
-	  -ms-flex-wrap: wrap;
-	   flex-wrap: wrap;  */
-	   /* flex: 50%; */
-	  /*  height: 50%; */
+	  width: 100%;
 	  display: flex;
+	  justify-content: center;
     }
     
 	.card{
     	height: 20rem;
-    	width: 30rem;
-    } 
-    .card-img-colBox {
-		height: 13rem;
+    	width: 25rem;
+    }
+    .card-img-box {
+		height:100%;
 	  	object-fit: cover;
 	}
 	.card-col-6{
@@ -282,11 +282,6 @@
 	}
 	.card-col-12>img{
 		width: 100%;
-	}
-	.card-img-rowBox {
-		width: 12rem;
-		height: 100%;
-	  	object-fit: cover;
 	}
 	.card-row-6{
 		height: 49.5%;
@@ -301,12 +296,13 @@
 	    margin-top: 90px;
 	    width:90%;
 		max-width:800px;
+		padding: 20px 0;
 	}
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
 			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;/* 하단바 80 */
-			min-height: calc(100vh - 80px);
+			min-height: calc(100vh - 70px);
 		}
 		
 	}
@@ -318,12 +314,6 @@
 		.card{
 	    	height: 25rem;
 	    } 
-	    .card-img-colBox {
-			height: 17.5rem;
-		}
-		.card-img-rowBox {
-			width: 15rem;
-		}
 	}
 	/* 상하단 바를 위한 필수 css */
 </style>
@@ -341,8 +331,10 @@ $(document).ready(function () {
 	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
 	
 	refreshContent();
+	findStoryName();
 	
 	function findStoryMember() { // 현재 스토리 멤버 리스트 조회
+		$('.member_val').text("");
 		$.ajax({
 			type: 'post',
 			url: '/story/findStoryMember',
@@ -353,10 +345,10 @@ $(document).ready(function () {
 				memberList = result;
 				for(var i=0; i<memberList.length; i++) {
 					$('.mem-id').append(
-						"<p align=center>"+memberList[i].memberId+"</p>"		
+						"<p class='member_val' align=center>"+memberList[i].memberId+"</p>"		
 					);
 					$('.mem-name').append(
-						"<p align=center>"+memberList[i].storymemberName+"</p>"	
+						"<p class='member_val' align=center>"+memberList[i].storymemberName+"</p>"	
 					);
 				}
 			},
@@ -490,6 +482,7 @@ $(document).ready(function () {
 	
     //this function define the size of the items
     function refreshContent() { // diary_detail 화면 띄우기
+
     	$.ajax({
 			type: 'post',
 			url: '/story/findAllDiaryTransaction',
@@ -509,6 +502,7 @@ $(document).ready(function () {
 		    		
 		    		var transactionDate = transactionList[i].transactionTime.substring(0,10);
 					var transactionTime = transactionList[i].transactionTime.substring(11,19);
+					
 
 		    		var photoUrl1 = '/img/cat.jpg';
 		    		var photoUrl2 = '/img/icecream.jpg';
@@ -530,7 +524,7 @@ $(document).ready(function () {
 					}	 
 
 		    		var swiper = new Swiper("#swiper-"+memberId, {
-		    			slidesPerView: 1.8,
+		    			slidesPerView: 2.2,
 		    	        spaceBetween: 10,
 		    	        grabCursor: true,
 		    	        navigation: {
@@ -544,10 +538,10 @@ $(document).ready(function () {
 		    	            	spaceBetween: 10
 		    	            },
 		    	            720: {
-		    	            	slidesPerView: 1.4,
+		    	            	slidesPerView: 1.8,
 		    	            },
-		    	            1200: {
-		    	            	slidesPerView: 1.6,
+		    	            1024: {
+		    	            	slidesPerView: 2.2,
 		    	            }
 		    	        },
 		    	        scrollbar: {
@@ -559,44 +553,44 @@ $(document).ready(function () {
 		    		var imgList = "";
 		    		if(len==0){
 		    			imgList = "<div class='card-col-12'>"+
-		    					  "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"
+		    					  "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"
 		    		}else if(len==1){
 		    			imgList = "<div class='card-col-12'>"+
-		    					  "<img class='card-img-top card-img-colBox' src='"+photoList[0].photoUrl+"'></div>"
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"
 		    		}else if(len==2){
 		    			imgList = "<div class='card-col-6'>"+
-		    				      "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"+
+		    				      "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"+
 		    				      "<div class='card-col-6-bar'></div>"+
 		    				      "<div class='card-col-6'>"+
-		    				      "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"
+		    				      "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"
 		    		}else if(len==3){
 		    			imgList = "<div class='card-col-6'>"+
-		    					  "<img class='card-img-top card-img-colBox' src='"+photoList[0].photoUrl+"'></div>"+
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"+
 		    					  
 		    					  "<div class='card-col-6-bar'></div>"+
 		    					  
 		    					  "<div class='card-col-6'>"+
 		    					  "<div class='card-row-6'>"+
-		    					  "<img class='card-img-top card-img-rowBox' src='"+photoList[1].photoUrl+"'></div>"+
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[1].photoUrl+"'></div>"+
 		    					  "<div class='card-row-6-bar'></div>"+
 		    					  "<div class='card-row-6'>"+
-  				      			  "<img class='card-img-top card-img-rowBox' src='"+photoList[2].photoUrl+"'></div></div>"
+  				      			  "<img class='card-img-top card-img-box' src='"+photoList[2].photoUrl+"'></div></div>"
 		    		}else if(len==4){
 		    			imgList = "<div class='card-col-6'>"+
 		    			          "<div class='card-row-6'>"+
-			  					  "<img class='card-img-top card-img-rowBox' src='"+photoList[0].photoUrl+"'></div>"+
+			  					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"+
 			  					  "<div class='card-row-6-bar'></div>"+
 			  					  "<div class='card-row-6'>"+
-					      		  "<img class='card-img-top card-img-rowBox' src='"+photoList[1].photoUrl+"'></div></div>"+
+					      		  "<img class='card-img-top card-img-box' src='"+photoList[1].photoUrl+"'></div></div>"+
 					      		  
 					      		  "<div class='card-col-6-bar'></div>"+
 					      		  
 					      		  "<div class='card-col-6'>"+
 					      		  "<div class='card-row-6'>"+
-			  					  "<img class='card-img-top card-img-rowBox' src='"+photoList[2].photoUrl+"'></div>"+
+			  					  "<img class='card-img-top card-img-box' src='"+photoList[2].photoUrl+"'></div>"+
 			  					  "<div class='card-row-6-bar'></div>"+
 			  					  "<div class='card-row-6'>"+
-					      		  "<img class='card-img-top card-img-rowBox' src='"+photoList[3].photoUrl+"'></div></div>"
+					      		  "<img class='card-img-top card-img-box' src='"+photoList[3].photoUrl+"'></div></div>"
 		    		}
 		    		// 스위퍼 내부 사진, 정보 등 채우기
 	    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
@@ -608,15 +602,20 @@ $(document).ready(function () {
 			    					+ "</div>" 
 		    					+ "</div>"
 		    					+ "<div class='card-body'>"
-		    						+ "<h6 class='card-text'>결제일시 "+ transactionDate+' '+transactionTime+ "</h6>"
-		    						+ "<div class='card-text pay-store'><h5 class='card-title'>"+transactionStore+"</h5></div>"
-		    						+ "<div class='card-text pay-price'><h5>"+transactionAmt+"</h5></div>"
+		    						+ "<div class='card-text' style='font-size:1rem;font-weight: 500;'>"+ transactionDate+' '+transactionTime+ "</div>"
+		    						+ "<div class='card-text pay-store' style='font-size:1.2rem;font-weight: 500;'>"+transactionStore+"</div>"
 		    						+ "<h6>"+transactionMemo+"</h6>"
 		    					+"</div>"
 	    				+"</div></div>"
 	    			);
 				}// for..transactionList
-
+				
+				let listLen = transactionList.length;
+				$('.albumTitle h5').append(
+						transactionList[0].transactionTime.substring(0,10)
+						+ ' ~ ' 
+						+ transactionList[listLen-1].transactionTime.substring(0,10) 		
+				)
 			}, // success
 			error: function(e) {
 				console.log("refreshContent error :: "+e)
@@ -735,10 +734,10 @@ $(document).ready(function () {
 		<c:param name="navTitle" value="여행"/>
 	</c:import>
 	<div class="content container">
-		<div class="row mt-4 mb-4 ">
+		<div class="row mb-4 ">
 			<div class="albumTitle col-6 pr-0 ">
-				<h3>ㅇㅇ여행</h3>
-				<h5>2022.08.13 ~ 2022.08.15</h5>
+				<h3></h3>
+				<h5></h5>
 			</div>
 			<div class="col-6 row p-0" id="customizeButton" align="right">
 				<div class="col-12 p-0">
@@ -806,7 +805,7 @@ $(document).ready(function () {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">멤버 조회하기</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button type="button" class="close btn" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body memberModalBody">
 					<div class="col-6 mem-id">
