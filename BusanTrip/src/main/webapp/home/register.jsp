@@ -25,11 +25,11 @@
 	}
 	
 	.content{
-		min-height: 66.5vh;
+/* 		min-height: 66.5vh;
 	    width: 100%;
 	    margin: 100px auto 10px;
 	    padding-top: 10px;
-	    padding-bottom: 10px;
+	    padding-bottom: 10px; */
 	    position: relative;
 	}
 	
@@ -40,7 +40,7 @@
 		height: 280px;
 		position: relative;
 		border-radius: 10px;
-		box-shadow:2px 3px 5px 2px lightgray;
+		box-shadow:2px 3px 5px 2px lightGray;
 	}
 	
 	.register-box-inner {
@@ -99,7 +99,37 @@
 		left: 50%; top: 50%;
 		transform: translate(-50%, -50%);
 	}
-
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 80px);
+		}
+		.ud-center{
+			padding: 0 10px;
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+		.backImg{ /* web backgorund */
+			background-image: url("/img/back-login7.jpg");
+			background-size: 1920px 100%;
+			background-repeat: no-repeat;
+		}
+		.register-box{
+			box-shadow:2px 3px 15px 2px white;
+			background-color: transparent;
+			background-color: rgba( 255, 255, 255, 0.65 )
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 
 <script>
@@ -167,7 +197,7 @@
 
 </head>
 <body> 
-	<div>
+	<div class="backImg">
 		<c:import url="/header/nav.jsp">
 			<%-- param 없으면 home log 출력--%>
 			<%-- <c:param name="navTitle" value="주요기능"/> --%>

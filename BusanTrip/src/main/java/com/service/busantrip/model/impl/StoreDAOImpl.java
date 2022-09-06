@@ -23,7 +23,6 @@ public class StoreDAOImpl implements StoreDAO{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberId", memberId);
 		map.put("storeId", storeId);
-		System.out.println(memberId + " " +storeId);
 		return sqlsession.selectList(NS+"findStoreTransaction", map);
 	}
 
@@ -35,7 +34,6 @@ public class StoreDAOImpl implements StoreDAO{
 
 	@Override
 	public String findStoreId(String storeName) {
-		System.out.println(storeName + "sdds");
 		return sqlsession.selectOne(NS+"findStoreId", storeName);
 	}
 	
@@ -84,7 +82,6 @@ public class StoreDAOImpl implements StoreDAO{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("storeId", storeId);
 		map.put("memberId", memberId);
-		
 		return (sqlsession.selectOne(NS+"findExistWishlist", map) != null) ? 1 : 0;
 		
 	}

@@ -12,7 +12,6 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<srcipt src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></srcipt>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -24,11 +23,6 @@
 	}
 	.space85 {
 		height:85px;
-	}
-	.container{
-		width:80%;
-		max-width:800px;
-		margin: 20px auto;
 	}
 	.swiperContent h5, .myPlace h5{
 		font-family: 'Noto Sans KR', sans-serif;
@@ -232,6 +226,7 @@
 		border-style:solid;
 		border-radius:5px;
 		border-color:lightgray;
+		min-height: 60px;
 	}
 	.myjjim{
 		display:flex;
@@ -271,6 +266,27 @@
 		  display: none;
 		}
 	}
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	    width:80%;
+		max-width:800px;
+		padding: 20px 0;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 80px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 <script>
 $(document).ready(function() {
@@ -288,6 +304,7 @@ $(document).ready(function() {
 			$('#userTele').append(result.memberTele);
 			$('#userAddr').append(result.memberAddr);
 			$('.charIamge').attr("src", result.memberChar);
+			memberCharUrl = result.memberChar;
 		},
 		error: function(e){ console.log(e); }
 	}); // 회원 정보
@@ -316,113 +333,126 @@ $(document).ready(function() {
 		});
 	}) // 로그아웃
 	
-	var result = [
-		{
-		'user': '사용자1',
-		'grcolor':['#F08080', '#66CDAA', '#FFA07A', '#6c9dc6'],
-		'list': [
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름1',
-				'memo': 'memo1'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름2',
-				'memo': 'memo2'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름3',
-				'memo': 'memo3'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름4',
-				'memo': 'memo4'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름5',
-				'memo': 'memo5'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름6',
-				'memo': 'memo6'
-			}
-		]}
-	];
+	var grcolor = ['#F08080', '#66CDAA', '#FFA07A', '#6c9dc6'];
+	
+	var tmpCharUrl = "";
 	$('.each-pic').on("click", function(e){
-		memberCharUrl = $(this).attr("src");
-		console.log(memberCharUrl)
+		tmpCharUrl = $(this).attr("src");
+		$(".each-pic").css("filter","brightness(80%)");
+		$(this).css("filter","brightness(100%)")
 	}); // 캐릭터 이미지 선택
 	$('.charChangeOk').on("click", function(e){
-		$.ajax({
-			type:'post',
-			url:'/member/updateCharacter',
-			data:{'memberChar':memberCharUrl, 'memberId':memberId},
-			success:function(result){
-				console.log(result)
-				updateChar()
-			},
-			error: function(e){ console.log(e); }
-		});
+		if(tmpCharUrl!==memberCharUrl){
+			$.ajax({
+				type:'post',
+				url:'/member/updateCharacter',
+				data:{'memberChar':tmpCharUrl, 'memberId':memberId},
+				success:function(result){
+					memberCharUrl = tmpCharUrl;
+					console.log(result);
+					updateChar()
+				},
+				error: function(e){ console.log(e); }
+			});
+		}
+		
 	}); // 캐릭터 이미지 바꾸기
+	
+	
+	var photoList=[];
+	function findTransactionPhoto(transactionId) { // 거래내역 당 사진 목록 가져오기
+		$.ajax({
+			type: 'post',
+			url: '/story/findDiaryPhoto',
+			data: {"transactionId": transactionId},
+			async: false,		// 이거 없으면 refreshContent가 실행된 후 findTransactionPhoto 실행돼서 photoList에 값 안들어감
+			
+			success: function(result) {	// Photo List
+				photoList = result;
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		})	
+	}
+	
 	
 	refreshContent();
 	
 	//this function define the size of the items
     function refreshContent() {
+		$.ajax({
+			type: 'post',
+			url: '/story/findDiaryTransactionByMember',
+			data: {'memberId': memberId},
 		
-    	for(let i = 0; i<result.length; i++) {
-    		// 생성
-    		user = result[i].user;
-    		list = result[i].list;
-    		grcolor = result[i].grcolor;
-    		$('.swiperContent').append(
-    			"<div id='user-"+user+"'>"+
-    			"<div class='swiper' id='swiper-"+user+"'>"+
-    			"<div class='swiper-wrapper'>"+
-    			"</div><div class='swiper-pagination'></div>"+
-    			"<div class='swiper-scrollbar'></div></div></div>"
-    		);
-    		for(let i=0; i<list.length; i++){
-    			$('#swiper-'+user).children('.swiper-wrapper').append(
-    				"<div class='swiper-slide'><div class='bgGrad' "+
-    				"style='background-image:linear-gradient(to bottom, transparent, "+grcolor[(i%4)]+" 85%),url(\""+
-    				list[i].url+"\"); background-position:center center;'><h6>"+
-    				list[i].storeName+"<br><small>"+list[i].memo+"</small></h6></div>"
-    			);
-    		}
-    		
-    		var swiper = new Swiper("#swiper-"+user, {
-    			slidesPerView: 2.7,
-    	        spaceBetween: 10,
-    	        grabCursor: true,
-    	        navigation: {
-    	          nextEl: ".swiper-button-next",
-    	          prevEl: ".swiper-button-prev",
-    	        },
-    	        breakpoints: {
-    	        	// when window width is >= 0px
-    	            0: {
-    	            	slidesPerView: 2.3,
-    	            	spaceBetween: 10
-    	            },
-    	            720: {
-    	            	slidesPerView: 3.3,
-    	            },
-    	            1200: {
-    	            	slidesPerView: 3.5,
-    	            }
-    	        },
-    	        scrollbar: {
-    	            el: ".swiper-scrollbar",
-    	            draggable: true,
-    	        }
-    		});
-    	}
+			success: function(result){
+				console.log(result);
+				let transactionList = result;
+				
+				// 스위퍼 틀 생성
+				$('.swiperContent').append(
+		    			"<div id='user-"+memberId+"'>"+
+		    			"<div class='swiper' id='swiper-"+memberId+"'>"+
+		    			"<div class='swiper-wrapper'>"+
+		    			"</div><div class='swiper-pagination'></div>"+
+		    			"<div class='swiper-scrollbar'></div></div></div>"
+		    	);
+				
+				var swiper = new Swiper("#swiper-"+memberId, {
+	    			slidesPerView: 2.7,
+	    	        spaceBetween: 10,
+	    	        grabCursor: true,
+	    	        navigation: {
+	    	          nextEl: ".swiper-button-next",
+	    	          prevEl: ".swiper-button-prev",
+	    	        },
+	    	        breakpoints: {
+	    	        	// when window width is >= 0px
+	    	            0: {
+	    	            	slidesPerView: 2.3,
+	    	            	spaceBetween: 10
+	    	            },
+	    	            720: {
+	    	            	slidesPerView: 3.3,
+	    	            },
+	    	            1200: {
+	    	            	slidesPerView: 3.5,
+	    	            }
+	    	        },
+	    	        scrollbar: {
+	    	            el: ".swiper-scrollbar",
+	    	            draggable: true,
+	    	        }
+	    		});
+				
+				for(let i=0; i<transactionList.length; i++) {
+					findTransactionPhoto(transactionList[i].diarytransactionId); // 사진 목록 가져오기
+					if(photoList.length==0) break;		// 등록된 사진이 없으면 안가져옴
+					
+		    		let transactionStore = transactionList[i].transactionStore;
+		    		//let transactionAmt = transactionList[i].transactionAmt;
+		    		let transactionMemo = transactionList[i].transactionMemo;
+		    		
+		    		let transactionDate = transactionList[i].transactionTime.substring(0,10);
+		    		let transactionTime = transactionList[i].transactionTime.substring(11,19);
+		    		
+		    		let photoUrl = photoList[0].photoUrl; // 등록된 사진 중 첫번째 사진을 띄움
+		    		
+		    		$('#swiper-'+memberId).children('.swiper-wrapper').append(
+		    				"<div class='swiper-slide'><div class='bgGrad' "+
+		    				"style='background-image:linear-gradient(to bottom, transparent, "+grcolor[(i%4)]+" 85%),url(\""+
+		    				photoUrl+"\"); background-position:center center;'><h6>"+
+		    				transactionStore+"<br><small>"+ transactionDate +"</small></h6></div>"
+		    		);
+				}
+				
+			},
+			error: function(e){
+				console.log(e);
+			}
+		
+		})
     }
 	
 	function findAllWishlist() {
@@ -460,20 +490,56 @@ $(document).ready(function() {
     	deletejjim();
     	$(this).parent().remove();
     })
+    
+    $("#editModal").on('show.bs.modal', function () {/* 모달 열릴 때 */
+        $(".each-pic[src='"+memberCharUrl+"']").css("filter","brightness(100%)")
+    });
+    $("#editModal").on('hide.bs.modal', function () {/* 모달 닫힐 때 */
+        $(".each-pic[src='"+tmpCharUrl+"']").css("filter","brightness(80%)")
+    });
+	$("#updateModal").on('show.bs.modal', function () {/* 모달 열릴 때 */
+        $(".each-pic[src='"+memberCharUrl+"']").css("filter","brightness(100%)")
+    });
+    $("#updateModal").on('hide.bs.modal', function () {/* 모달 닫힐 때 */
+        $(".each-pic[src='"+tmpCharUrl+"']").css("filter","brightness(80%)")
+    });
+    
+    $('#updateButton').on('click', updateMemberInfo)
 })
+	
+	function updateMemberInfo(){
+		var memberPw = $('#memberPw').val();
+		var memberTele = $('#memberTele').val();
+		var memberAddr = $('#memberAddr').val();
+		var memberId = '<%= (String)session.getAttribute("memberId") %>';
+		console.log(memberPw +" "+ memberTele +" "+ memberAddr)
+
+		$.ajax({
+			type: 'post',
+			url: '/member/updateMemberInfo',
+			data: {'memberPw':memberPw, 'memberTele': memberTele, 'memberAddr':memberAddr, 'memberId':memberId},
+			
+			success:function(result) {
+				alert("정보 수정 완료하였습니다.")
+				location.href = '/bnk/myPage';
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
 	
 </script>
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
-		<c:param name="navTitle" value="마이페이지" />
+		<c:param name="navSubTitle" value="마이페이지" />
 	</c:import>
-	<div class="container">
-		<div class="space85"></div>
+	<div class="content container">
 		<div class="row" id="fisrt-row">
 			<div class="col-12">
 				<div class="charPlace">
-					<img class="charIamge" src="/img/character_01.png" data-toggle="modal" data-target="#editModal">
+					<img class="charIamge" src="" data-toggle="modal" data-target="#editModal">
 				</div>
 				<div class="infoPlace">
 					<div class="myInfo">
@@ -486,7 +552,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="row" id="second-row">
-			<button type="button" id="button1">정보 수정</button>
+			<button type="button" id="button1" data-toggle="modal" data-target="#updateModal">정보 수정</button>
 			<button type="button" id="button2">로그아웃</button>
 		</div>
 		
@@ -515,7 +581,6 @@ $(document).ready(function() {
 			</div>
 			
 		</div>
-		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
 	<!-- Modal -->
@@ -560,5 +625,24 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="updateModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">회원 정보 수정</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" align="center">
+					<p>비밀번호 : <input type="text" id="memberPw" size="18"></p>
+					<p>전화번호 : <input type="text" id="memberTele" size="18"></p>
+					<p>주    소 : <input type="text" id="memberAddr" size="18"></p>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="정보 변경" id="updateButton" class="btn btn-secondary modal-button" data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>	
 </body>
 </html>

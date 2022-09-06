@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -35,18 +35,16 @@
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 400;
 	}
-	/* container */
-	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
-	.space100 {
-		height:100px;
-	}
 	.pay-store{
-		width:50%;
+		width:100%;
 		float:left;
 	}
 	.pay-price{
-		width:50%;
+		width:40%;
 		float:right;
+	}
+	.card-body{
+		padding: 0.5rem;
 	}
 	.card-body>h6{
 		width:100%;
@@ -163,7 +161,7 @@
 		background-color:#6c9dc6;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	#resetUpload, .addTransYes, .memberSearchOk, .playListOk{
+	#resetUpload, .addPhotoYes, .memberSearchOk, .playListOk{
 		display:inline-block;
 		padding:4px 10px;
 		cursor:pointer;
@@ -176,8 +174,41 @@
 		background-color:#53565A;
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	.addTransYes:hover, .memberSearchOk:hover, .playListOk:hover{
+	.addPhotoYes:hover, .memberSearchOk:hover, .playListOk:hover{
 		color:white;
+	}
+	/* modal - payList */
+	.modal-body.payListModalBody>.row, .payListAlert {
+		display:flex;
+		justify-content: center;
+	}
+	.one-pay{
+		display:flex;
+		margin-bottom:2px;
+		border-radius:20px;
+		box-shadow:2px 3px 5px 2px lightgray;
+	}
+	.payListInfo{
+		display:flex;
+		flex-direction: column;
+		padding:2px;
+	}
+	.payListInfo1, .payListInfo2{
+		display:flex;
+		justify-content: space-around;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	.payListInfo1{
+		font-weight: 400;
+		color:gray;
+	}
+	.payListInfo2{
+		font-weight: 500;
+	}
+	.payListCheckbox{
+		display:flex;
+		justify-content: center;
+		align-content: center;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) {
@@ -216,169 +247,341 @@
       align-items: center;
     }
 
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
     .swiperContent>*{
-    	display: flex;
+    	/* display: flex;
 		flex-wrap: wrap;
-		align-content: space-between;;
+		align-content: space-between; */
     }
-
+    .card-header{
+    	overflow: hidden;
+    	height: 80%; 
+    	padding: 0;
+    	display: flex;
+    	justify-content: center;
+    }
+    
+    .card_img_row{
+	  width: 100%;
+	  display: flex;
+	  justify-content: center;
+    }
+    
+	.card{
+    	height: 20rem;
+    	width: 25rem;
+    }
+    .card-img-box {
+		height:100%;
+	  	object-fit: cover;
+	}
+	.card-col-6{
+		width: 49.5%;
+	}
+	.card-col-6-bar{
+		width: 1%;
+	}
+	.card-col-12>img{
+		width: 100%;
+	}
+	.card-row-6{
+		height: 49.5%;
+	}
+	.card-row-6>img{
+	}
+	.card-row-6-bar{
+		height: 1%;
+	}
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	    width:90%;
+		max-width:800px;
+		padding: 20px 0;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 70px);
+		}
+		
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+		.card{
+	    	height: 25rem;
+	    } 
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 <script>
 $(document).ready(function () {
-	var result = [
-		{
-		'user': '사용자1',
-		'list': [
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름1',
-				'payment': '20000',
-				'memo': 'memo1'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름2',
-				'payment': '50000',
-				'memo': 'memo2'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름3',
-				'payment': '30000',
-				'memo': 'memo3'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름4',
-				'payment': '70000',
-				'memo': 'memo4'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름5',
-				'payment': '40000',
-				'memo': 'memo5'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름6',
-				'payment': '10000',
-				'memo': 'memo6'
-			}
-		]},
-		{
-		'user': '사용자2',
-		'list': [
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름1',
-				'payment': '20000',
-				'memo': 'memo1'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름2',
-				'payment': '50000',
-				'memo': 'memo2'
-			},
-			{
-				'url': 'https://www.visitbusan.net/uploadImgs/files/cntnts/20191216135832825_thumbL',
-				'storeName': '가게이름3',
-				'payment': '30000',
-				'memo': 'memo3'
-			}]
-		}
-	];
 
-	refreshContent();
-
-    $(window).resize(function () {
-    });
-    
+    var memberId = '<%= (String)session.getAttribute("memberId") %>';
 	var storyId = location.pathname.split("/")[3];
+	var diaryId = location.pathname.split("/")[4];
 	var memberList = [];
-	$.ajax({
-		type: 'post',
-		url: '/story/findStoryMember',
-		data: {'storyId' : storyId},
-		
-		success:function(result) {
-			console.log(result);
-			memberList = result;
-			for(var i=0; i<memberList.length; i++) {
-				$('.mem-id').append(
-					"<p align=center>"+memberList[i].memberId+"</p>"		
-				);
-				$('.mem-name').append(
-					"<p align=center>"+memberList[i].storymemberName+"</p>"	
-				);
-				
+	var transactionList = [];
+	var photoList = [];
+	var testVal=0;
+
+	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
+	
+	refreshContent();
+	findStoryName();
+	
+	function findStoryMember() { // 현재 스토리 멤버 리스트 조회
+		$('.member_val').text("");
+		$.ajax({
+			type: 'post',
+			url: '/story/findStoryMember',
+			data: {'storyId' : storyId},
+			
+			success:function(result) {
+				console.log("findStoryMember result:: " + result);
+				memberList = result;
+				for(var i=0; i<memberList.length; i++) {
+					$('.mem-id').append(
+						"<p class='member_val' align=center>"+memberList[i].memberId+"</p>"		
+					);
+					$('.mem-name').append(
+						"<p class='member_val' align=center>"+memberList[i].storymemberName+"</p>"	
+					);
+				}
+			},
+			error:function(e) {
+				console.log(e);
 			}
-		},
-		error:function(e) {
-			console.log(e);
-		}
-		
-	})
-    
+		})
+	}
+	
+	function findStoryName() {
+		$.ajax({
+			type: 'post',
+			url: '/story/findStoryName',
+			data: {'storyId': storyId},
+			
+			success: function(result) {
+				var storyName = result;
+				console.log("storyName:: " +storyName);
+				$('.albumTitle h3').append(
+					storyName 		
+				)
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		})
+	}
+	
+	var payList = [];
+	function findAllAccount() { // 가지고 있는 전체 계좌 조회
+		$.ajax({
+			type:'post',
+			url:'/member/findAllAccount',
+			data:{"memberId":memberId},
+			success:function(result){
+				//console.log(result);
+				payList = result;
+				
+				for(var i=0; i<payList.length; i++){
+					var accountNumber = payList[i].accountNumber;
+					var accountBank = payList[i].accountBank;
+				}
+			}
+		})
+	}
+	findAllAccount();
+	
+	function findDiaryTransaction() { // 다이어리 내 거래내역 조회
+		$.ajax({
+			type: 'post',
+			url: '/story/findAllDiaryTransaction',
+			data: {"diaryId": diaryId},
+			
+			success: function(result) { // DiaryTransaction List
+				console.log("findDiaryTransaction result:: " + result)
+				transactionList = result;
+				
+				for(var i=0; i<transactionList.length; i++) {
+					var memberId = transactionList[i].memberId;
+					var transactionStore = transactionList[i].transactionStore;
+					var transactionAmt = transactionList[i].transactionAmt;
+					
+					$('#payListModal .modal-body').append(
+						'<p>' 
+							+ memberId + ' - ' + transactionStore + ' - ' + transactionAmt+'원'
+						+ '</p>'					)
+					}
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		})	
+	}
+	
+	function findTransactionPhoto(transactionId) { // 거래내역 당 사진 목록 가져오기
+		$.ajax({
+			type: 'post',
+			url: '/story/findDiaryPhoto',
+			data: {"transactionId": transactionId},
+			async: false,		// 이거 없으면 refreshContent가 실행된 후 findTransactionPhoto 실행돼서 photoList에 값 안들어감
+			
+			success: function(result) {	// Photo List
+				photoList = result;
+				testVal = 1;
+				console.log("findTransactionPhoto result:: " + JSON.stringify(photoList));
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		})	
+	}
+	
     //this function define the size of the items
-    function refreshContent() {
-    	for(let i = 0; i<result.length; i++) {
-    		// 생성
-    		user = result[i].user;
-    		list = result[i].list;
-    		$('.swiperContent').append(
-    			"<div id='user-"+user+"'>"+
-    			"<h5 class='mt-3'>"+user+"</h5>"+
-    			"<div class='swiper' id='swiper-"+user+"'>"+
-    			"<div class='swiper-wrapper'>"+
-    			"</div><div class='swiper-pagination'></div>"+
-    			"<div class='swiper-scrollbar'></div></div></div>"
-    		);
-    		for(let i=0; i<list.length; i++){
-    			$('#swiper-'+user).children('.swiper-wrapper').append(
-    				"<div class='swiper-slide'><div class='card'>"+
-    				"<img class='card-img-top' src='"+list[i].url+"' style='width:100%'>"+
-    				"<div class='card-body'><h6 class='card-text'>결제일시</h6>"+
-    				"<div class='card-text pay-store'><h5 class='card-title'>"+list[i].storeName+"</h5></div>"+
-    				"<div class='card-text pay-price'><h5>"+list[i].payment+"</h5></div>"+
-    				"<h6>"+list[i].memo+"</h6></div></div></div>"
-    			);
-    		}
-    		
-    		var swiper = new Swiper("#swiper-"+user, {
-    			slidesPerView: 2.7,
-    	        spaceBetween: 10,
-    	        grabCursor: true,
-    	        navigation: {
-    	          nextEl: ".swiper-button-next",
-    	          prevEl: ".swiper-button-prev",
-    	        },
-    	        breakpoints: {
-    	            // when window width is >= 0px
-    	            0: {
-    	            	slidesPerView: 1.2,
-    	            	spaceBetween: 10
-    	            },
-    	            720: {
-    	            	slidesPerView: 2.2,
-    	            },
-    	            1200: {
-    	            	slidesPerView: 2.5,
-    	            }
-    	        },
-    	        scrollbar: {
-    	            el: ".swiper-scrollbar",
-    	            draggable: true,
-    	        }
-    		});
-    	}
+    function refreshContent() { // diary_detail 화면 띄우기
+
+    	$.ajax({
+			type: 'post',
+			url: '/story/findAllDiaryTransaction',
+			data: {"diaryId": diaryId},
+			
+			success: function(result) { // DiaryTransaction List
+				console.log("refreshContent result:: " + result)
+				transactionList = result;
+				for(var i=0; i<transactionList.length; i++) { // for..transactionList
+					var memberId = transactionList[i].memberId;
+					var element = document.getElementById("user-"+memberId);
+		
+					findTransactionPhoto(transactionList[i].diarytransactionId); // 사진 목록 가져오기
+					var transactionStore = transactionList[i].transactionStore;
+		    		var transactionAmt = transactionList[i].transactionAmt;
+		    		var transactionMemo = transactionList[i].transactionMemo;
+		    		
+		    		var transactionDate = transactionList[i].transactionTime.substring(0,10);
+					var transactionTime = transactionList[i].transactionTime.substring(11,19);
+					
+
+		    		var photoUrl1 = '/img/cat.jpg';
+		    		var photoUrl2 = '/img/icecream.jpg';
+		    		var photoUrl3 = '/img/drink.jpg';
+		    		var photoUrl4 = '/img/building.jpg';
+		    		
+		    		var len = photoList.length;
+
+					if(element == null) { // 공간 생성 안된 사용자인 경우
+						// 사용자 별 스위퍼 공간 생성
+			    		$('.swiperContent').append(
+			    			"<div id='user-"+memberId+"'>"+
+			    			"<h5 class='mt-3'>"+memberId+"</h5>"+
+			    			"<div class='swiper' id='swiper-"+memberId+"'>"+
+			    			"<div class='swiper-wrapper'>"+
+			    			"</div><div class='swiper-pagination'></div>"+
+			    			"<div class='swiper-scrollbar'></div></div></div>"
+			    		);
+					}	 
+
+		    		var swiper = new Swiper("#swiper-"+memberId, {
+		    			slidesPerView: 2.2,
+		    	        spaceBetween: 10,
+		    	        grabCursor: true,
+		    	        navigation: {
+		    	          nextEl: ".swiper-button-next",
+		    	          prevEl: ".swiper-button-prev",
+		    	        },
+		    	        breakpoints: {
+		    	            // when window width is >= 0px
+		    	            0: {
+		    	            	slidesPerView: 1.2,
+		    	            	spaceBetween: 10
+		    	            },
+		    	            720: {
+		    	            	slidesPerView: 1.8,
+		    	            },
+		    	            1024: {
+		    	            	slidesPerView: 2.2,
+		    	            }
+		    	        },
+		    	        scrollbar: {
+		    	            el: ".swiper-scrollbar",
+		    	            draggable: true,
+		    	        }
+		    		});
+		    		
+		    		var imgList = "";
+		    		if(len==0){
+		    			imgList = "<div class='card-col-12'>"+
+		    					  "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"
+		    		}else if(len==1){
+		    			imgList = "<div class='card-col-12'>"+
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"
+		    		}else if(len==2){
+		    			imgList = "<div class='card-col-6'>"+
+		    				      "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"+
+		    				      "<div class='card-col-6-bar'></div>"+
+		    				      "<div class='card-col-6'>"+
+		    				      "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"
+		    		}else if(len==3){
+		    			imgList = "<div class='card-col-6'>"+
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"+
+		    					  
+		    					  "<div class='card-col-6-bar'></div>"+
+		    					  
+		    					  "<div class='card-col-6'>"+
+		    					  "<div class='card-row-6'>"+
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[1].photoUrl+"'></div>"+
+		    					  "<div class='card-row-6-bar'></div>"+
+		    					  "<div class='card-row-6'>"+
+  				      			  "<img class='card-img-top card-img-box' src='"+photoList[2].photoUrl+"'></div></div>"
+		    		}else if(len==4){
+		    			imgList = "<div class='card-col-6'>"+
+		    			          "<div class='card-row-6'>"+
+			  					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"+
+			  					  "<div class='card-row-6-bar'></div>"+
+			  					  "<div class='card-row-6'>"+
+					      		  "<img class='card-img-top card-img-box' src='"+photoList[1].photoUrl+"'></div></div>"+
+					      		  
+					      		  "<div class='card-col-6-bar'></div>"+
+					      		  
+					      		  "<div class='card-col-6'>"+
+					      		  "<div class='card-row-6'>"+
+			  					  "<img class='card-img-top card-img-box' src='"+photoList[2].photoUrl+"'></div>"+
+			  					  "<div class='card-row-6-bar'></div>"+
+			  					  "<div class='card-row-6'>"+
+					      		  "<img class='card-img-top card-img-box' src='"+photoList[3].photoUrl+"'></div></div>"
+		    		}
+		    		// 스위퍼 내부 사진, 정보 등 채우기
+	    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
+	    				"<div class='swiper-slide'>"
+	    					+"<div class='card'>"
+		    					+ "<div class='card-header'>"
+		    						+ "<div class='card_img_row'>"
+		    						+ imgList
+			    					+ "</div>" 
+		    					+ "</div>"
+		    					+ "<div class='card-body'>"
+		    						+ "<div class='card-text' style='font-size:1rem;font-weight: 500;'>"+ transactionDate+' '+transactionTime+ "</div>"
+		    						+ "<div class='card-text pay-store' style='font-size:1.2rem;font-weight: 500;'>"+transactionStore+"</div>"
+		    						+ "<h6>"+transactionMemo+"</h6>"
+		    					+"</div>"
+	    				+"</div></div>"
+	    			);
+				}// for..transactionList
+				
+				let listLen = transactionList.length;
+				$('.albumTitle h5').append(
+						transactionList[0].transactionTime.substring(0,10)
+						+ ' ~ ' 
+						+ transactionList[listLen-1].transactionTime.substring(0,10) 		
+				)
+			}, // success
+			error: function(e) {
+				console.log("refreshContent error :: "+e)
+			}
+		})	
     } //refreshContent
     
     var fileArr = "";
@@ -389,7 +592,8 @@ $(document).ready(function () {
 		if(input.files) { // 인풋 태그에 파일들이 있는 경우
 			// 이미지 파일 검사 생략
 			console.log(input.files)
-			console.log(input.files.length)
+			var file_cnt = input.files.length;
+			console.log(file_cnt);
 			fileArr = Array.from(input.files) // forEach문으로 처리하기 위해 유사배열을 배열로 변환
 			const $colDiv = document.createElement('div')
 			fileArr.forEach((file, index) => {
@@ -460,6 +664,29 @@ $(document).ready(function () {
 		$(this).children().css("color", "#53565A")
 		$(this).css("background-color","white");
 	})
+	
+	$('#btn_findStoryMember').on("click", function(e) {
+		findStoryMember();
+	})
+	
+	$('#btn_findPayList').on("click", function(e) {
+		findDiaryTransaction();
+	})
+	
+	$('#btn_addPayList').on("click", function(e) {
+		// 결제내역 불러오기
+	})
+	
+	$('.addPhotoYes').on("click", function(e) {
+		// 같은 거래내역에 여러번에 걸쳐서 넣으면 4장 이상 들어갈듯.. 일단 구현
+		if(fileArr.length <= 4){
+			// 해당 거래내역에 photo 추가 코드 추가해야 함			
+			$('#transactionModal').modal('hide');
+		} else {
+			alert("최대 4장까지 등록 가능합니다.");
+		}
+			
+	})
 });
 </script>
 </head>
@@ -467,27 +694,26 @@ $(document).ready(function () {
 	<c:import url="/header/nav.jsp">
 		<c:param name="navTitle" value="여행"/>
 	</c:import>
-	<div class="container">
-		<div class="space100"></div>
-		<div class="row mt-4 mb-4 ">
+	<div class="content container">
+		<div class="row mb-4 ">
 			<div class="albumTitle col-6 pr-0 ">
-				<h3>ㅇㅇ여행</h3>
-				<h5>2022.08.13 ~ 2022.08.15</h5>
+				<h3></h3>
+				<h5></h5>
 			</div>
 			<div class="col-6 row p-0" id="customizeButton" align="right">
 				<div class="col-12 p-0">
 					<a data-toggle="tooltip" data-placement="left" title="멤버 조회하기">
-					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
+					<button type="button" id="btn_findStoryMember" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
 						<span class="material-symbols-outlined group">group</span>
 					</button>
 					</a>
 					<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
-					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+					<button type="button" id="btn_findPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
 						<span class="material-symbols-outlined receipt_long">receipt_long</span>
 					</button>
 					</a>
 					<a data-toggle="tooltip" data-placement="left" title="결제내역  불러오기">
-					<button type="button" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+					<button type="button" id="btn_addPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
 						<span class="material-symbols-outlined receipt_long">assignment_add</span>
 					</button>
 					</a>
@@ -504,10 +730,6 @@ $(document).ready(function () {
 		<div class="swiperContent">
 
 		</div>
-		
-		
-	
-		<div class="space100"></div>
 	</div>
 	<c:import url="/footer/footer.jsp" />
 	<!-- The Modal -->
@@ -532,7 +754,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="확인" class="btn addTransYes" data-dismiss="modal"></input>
+						<input type="submit" value="확인" class="btn addPhotoYes" ></input>
 					</div>
 				</div>
 			</div>
@@ -544,9 +766,9 @@ $(document).ready(function () {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">멤버 조회하기</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button type="button" class="close btn" data-dismiss="modal">&times;</button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body memberModalBody">
 					<div class="col-6 mem-id">
 						<p align="center">아이디</p>
 						<hr>
@@ -563,14 +785,31 @@ $(document).ready(function () {
 		</div>
 	</div>
 	<div class="modal fade pr-0" id="payListModal">
-		<div class="modal-dialog modal-fullsize modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content modal-content-ta">
 				<div class="modal-header">
-					<h3 class="modal-title"> 결제내역 조회하기</h3>
+					<h3 class="modal-title">결제내역 추가하기</h3>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<div class="modal-body">
-					
+				<div class="modal-body payListModalBody">
+					<div class="row">
+					<p class="payListAlert"><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>
+						<div class="col-11 one-pay mb-2">
+							<div class="col-10 payListInfo mx-0 my-0">
+									<p class="payListInfo1 my-0">
+										<small><span id="payListAccount">결제계좌</span></small>
+										<small><span id="payListDate">결제일시</span></small>
+									</p>
+									<p class="payListInfo2 my-0">
+										<span id="payListName">가게이름</span>
+										<span id="payListPrice">결제가격</span>
+									</p>
+							</div>
+							<div class="col-2 payListCheckbox my-0">
+								<input type="checkbox" id="checked"></label>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>

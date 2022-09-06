@@ -44,7 +44,7 @@
 		.content{
 			margin-top: 70px; /* 상단바 70*/
 			padding-bottom: 80px;
-			min-height: calc(100vh - 80px);
+			min-height: calc(100vh - 70px);
 			padding-left: 0;
 			padding-right: 0;
 		}
@@ -95,7 +95,7 @@
 	
 	@media screen and (min-width: 575.1px) { /* Web box */
 		.content{
-			min-height: calc(100vh - 190px); /*상하단바 190px */
+			min-height: calc(100vh - 90px); /*상단바 90px */
 			padding: 20px 0;
 		}
 		#toTop{
@@ -316,12 +316,47 @@
 		display: flex;
 		justify-content: space-between;
 	}
-	
+	/* memo modal */
+	.material-symbols-outlined{
+		color:#53565A;
+	}
+	.modal-title h5{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	.col-form-label{
+		width:100%;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+	}
+	.memoLen{
+		display:flex;
+		justify-content: flex-end;
+		color:gray;
+	}
+	#memoSubmit, #memoClose{
+		display:inline-block;
+		padding:4px 10px;
+		margin:0 5px;
+		cursor:pointer;
+		font-size:inherit;
+		color:white;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:10px;
+		border-color:transparent;
+		box-shadow: 0 3px 3px 0 #53565A;
+	}
+	#memoSubmit {
+		background-color:#6c9dc6;
+	}
+	#memoClose {
+		background-color:#53565A;
+	}
 
 </style>
 
 <script>
-
 	$(function() {
 		// 날짜
 		function dayToString(day){
@@ -347,7 +382,6 @@
 		
 		const accountNumber = '${accountNumber}'
 
-		
 		// 잔액 조회
 		$.ajax({
 			type: 'post',
@@ -405,11 +439,9 @@
 			})
 		}
 		
-		
 		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd',
 			beforeShow: function() { setTimeout(function(){ $('.ui-datepicker').css('z-index', 97); }, 0); }
 		});
-		
 		
 		$('.periodBox').click(function(){
 			if ($(this).attr('class') != 'periodBox-choiced') {
@@ -455,6 +487,19 @@
 			} // if-else
 		});  // div click
 		
+		$('#memo-text').keyup(function(e){
+			let content = $(this).val();
+			// 글자 수 세기
+			if(content.length == 0 || content == ''){
+				$('#nowMemoLen').text('0자');
+			} else if(content.length >= 1 && content.length <= 40){
+				$('#nowMemoLen').text(content.length+'자');
+			}
+			// 글자 수 제한
+			if(content.length>40){
+				$(this).val($(this).val().substring(0,40)); // 41자부터는 타이핑되지 않도록
+			}
+		})
 		
 		$('#memoSubmit').click( function() {
 			let transactionMemo = $('#memo-text').val();
@@ -531,11 +576,15 @@
 						   '<div style="max-width: 720px; '+
 						   'border-bottom-color:#DCDCDC; '+
 						   'border-bottom-width: 2px; '+
-						   'border-bottom-style: solid;"></div> ' : ""
+						   'border-bottom-style: solid;"></div> ' : "";
+				
+				var transactionDate = list[i].transactionTime.substring(0,10);
+				var transactionTime = list[i].transactionTime.substring(11,19);
+						   
 				$('#detailBox').append(
 						'<div class="searchDetail-lower-box" id="lowerBox-'+i+'">'+
 						'<div class="searchDetail-lower-box-inner">'+
-						'<span class="payDate">'+list[i].transactionTime.substring(0,10)+'</span>'+
+						'<span class="payDate">'+ transactionDate+' '+transactionTime +'</span>'+
 						'<div class="image-box d-flex justify-content-center align-items-center">'+
 						'<span class="memoBtn material-symbols-outlined mt-1"'+
 									 'data-toggle="modal" data-target="#memoModal"'+
@@ -653,16 +702,20 @@
 	
 	<%-- Memo Modal --%>
 	<div class="modal fade" id="memoModal">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-dialog-centered modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h6 class="modal-title">Memo</h6>
+					<h5 class="modal-title">Memo</h5>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
 					<form>
-						<label for="memo-text" class="col-form-label">[💌] 메모를 기입해주세요</label>
-						<textarea class="form-control" id="memo-text"></textarea>
+						<label for="memo-text" class="col-form-label">
+							<span class="memostatement">메모를 기입해주세요.</span>
+							<p class="memoLen mb-0"><span id="nowMemoLen">0자</span>
+							<span id="totalMemoLen">/40자</span></p>
+						</label>
+						<textarea class="form-control" id="memo-text" maxlength="40"></textarea>
 					</form>
 				</div>
 				<div class="modal-footer">

@@ -30,6 +30,16 @@ public class DiaryTransaction {
 		this.diaryId = diaryId;
 	}
 	
+//	public DiaryTransaction(int diarytransactionId, String memberId,
+//			String transactionStore, int transactionAmt, String transactionMemo) {
+//		super();
+//		this.diarytransactionId = diarytransactionId;
+//		this.memberId = memberId;
+//		this.transactionStore = transactionStore;
+//		this.transactionAmt = transactionAmt;
+//		this.transactionMemo = transactionMemo;
+//	}
+	
 
 	public int getDiaryId() {
 		return diaryId;

@@ -25,7 +25,7 @@
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
-	
+
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
@@ -247,7 +247,7 @@
 		left: 50%; top: 50%;
 		transform: translate(-50%, -50%);
 	}
-	
+
 	.suggestBoxWrap{
 		display: flex;
 		justify-content: space-between;
@@ -289,7 +289,6 @@
 		position: relative;
 		top: 4px;
 	}
-
 </style>
 
 <script>

@@ -43,7 +43,7 @@
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
-			min-height: calc(100vh - 170px);
+			min-height: calc(100vh - 90px);
 		}
 		.search-box{
 			padding-top: 50px;
@@ -63,7 +63,7 @@
 	
 	.search-box-inner {
 		max-width: 500px;
-		width: 95%;
+		width: 85%;
 		margin: 0 auto 15px;
 		height: 100px;
 		/* position: relative; */
@@ -112,9 +112,12 @@
 	}
 	
 	.bankName {
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
 	}
-	
 	.accountNumber {
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
 		color: gray;
 	}
 	
@@ -127,7 +130,6 @@
 		right: 10px;
 		font-weight: bold;
 	}
-
 
 </style>
 
@@ -173,7 +175,7 @@
 					var goTo = '#account'
 					if(accountBank === '포인트') {
 						goTo = '#point';
-						icon = "/img/char.png";
+						icon = "/img/bank_db.png";
 					}
 					$(goTo).append(
 						'<div id="'+accountNumber+'" class="rounded-lg shadow bg-white search-box-inner">'+
@@ -183,7 +185,7 @@
 						'<img class="bankIcon" src="'+icon+'">'+
 						'<div class="upper-title">'+
 						'<div class="bankName">'+accountBank+'</div>'+
-						'<div class="accountNumber"><b>'+accountNumber+'</b></div></div></div>'+
+						'<div class="accountNumber">'+accountNumber+'</div></div></div>'+
 						
 						'<div class="search-box-inner-lower">'+
 						'<span class="amount">'+accountBalance+'</span>'+
@@ -201,21 +203,23 @@
 
 </head>
 <body>
-	<c:import url="/header/nav.jsp">
-		<c:param name="navTitle" value="계좌"/>
-	</c:import>
-		
-	<div class="content container">
-		<div id="searchBox" class="search-box">
-			<div id="point">
+	<div class="backImg">
+		<c:import url="/header/nav.jsp">
+			<c:param name="navTitle" value="계좌"/>
+		</c:import>
 			
-			</div>
-			<div id="account">
-			
+		<div class="content container">
+			<div id="searchBox" class="search-box">
+				<div id="point">
+				
+				</div>
+				<div id="account">
+				
+				</div>
 			</div>
 		</div>
+		
+		<c:import url="/footer/footer.jsp" />
 	</div>
-	
-	<c:import url="/footer/footer.jsp" />
 </body>
 </html>

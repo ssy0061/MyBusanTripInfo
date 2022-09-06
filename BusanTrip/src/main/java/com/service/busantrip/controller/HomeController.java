@@ -3,7 +3,6 @@ package com.service.busantrip.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -54,8 +53,8 @@ public class HomeController {
 	public String diaryDetail(@PathVariable("storyId") String storyId) {
 		return "trip/diary_main";
 	}
-	@RequestMapping("trip/{storyId}/diary_detail")
-	public String diaryDetail2(@PathVariable("storyId") String storyId) {
+	@RequestMapping("trip/{storyId}/{diaryId}")
+	public String diaryDetail2(@PathVariable("storyId") String storyId, @PathVariable("diaryId") String diaryId) {
 		return "trip/diary_detail";
 
 	}

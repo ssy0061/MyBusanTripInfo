@@ -1,6 +1,5 @@
 package com.service.busantrip.controller;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -171,5 +170,11 @@ public class MemberController {
 	public List<Map<String, Object>> findMemberVisitStats(String memberId, Model model, HttpSession session) {
 		List<Map<String, Object>> memberVisitStats = memberService.findMemberVisitStats(memberId);
 		return memberVisitStats;
+	}
+	
+	@PostMapping("updateMemberInfo")
+	@ResponseBody
+	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr, String memberId) {
+		memberService.updateMemberInfo(memberPw, memberTele, memberAddr, memberId);
 	}
 }

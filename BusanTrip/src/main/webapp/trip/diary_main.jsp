@@ -22,16 +22,6 @@
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
 	}
-	/* container */
-	/*background:linear-gradient(90deg, #ffe6e6, #e6e6e6);*/
-	.space100 {
-		height:100px;
-	}
-	.container{
-		width:90%;
-		max-width:800px;
-		margin: 20px auto;
-	}
 	#addbutton{
 		display:flex;
 		justify-content:center;
@@ -99,18 +89,39 @@
 		  display: none;
 		}
 	}
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	    width:90%;
+		max-width:800px;
+		padding: 20px 0;
+	}
+	@media screen and (max-width: 575px) { /* mobile */
+		.content{
+			margin-top: 70px; /* 상단바 70*/
+			padding-bottom: 80px;/* 하단바 80 */
+			min-height: calc(100vh - 70px);
+		}
+	}
+	@media screen and (min-width: 575.1px) { /* Web */
+		.content{
+			min-height: calc(100vh - 90px); /* 상단바 90px */
+	    	padding: 20px 0;
+		}
+	}
+	/* 상하단 바를 위한 필수 css */
 </style>
 <script type="text/javascript">
 	$(function(){
 		var storyId = location.pathname.substring(10)	
 		
-		getStoryName(storyId);
+		findStoryName(storyId);
 		getDiaryList();
 		
-		function getStoryName(storyId) {
+		function findStoryName(storyId) {
 			$.ajax({
 				type: 'post',
-				url: '/story/getStoryName',
+				url: '/story/findStoryName',
 				data: {"storyId": storyId},
 				
 				success:function(result) {
@@ -136,12 +147,13 @@
 					console.log(result)
 					
 					var diaryName;
-					var imageUrl = "/img/mountain.jpg";
+					var imageUrl = "/img/noimg.png";
 					for(var i=0; i<result.length; i++) {
 						diaryName = result[i].diaryName;
+						var diaryId = result[i].diaryId;
 						$('.diary-in-story').append(
 									'<div class="col-md-4 col-6 px-2">'
-									+'<div class="card" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/diary_detail\'\">"
+									+'<div class="card" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/"+ diaryId +"\'\">"
 										+ '<img class="card-img-top m-0" src=' + imageUrl +' alt="Card image" style="width:100%">'
 										+ '<div class="py-2">'
 											+ ' <div id="diaryName" class="card-content m-0" style="font-size: 1rem;">' + diaryName + '</div>'
@@ -193,7 +205,7 @@
 	<c:import url="/header/nav.jsp">
 		<c:param name="navSubTitle" value="여행"/>
 	</c:import>
-	<div class="container">
+	<div class="content container">
 		<div class="space100"></div>
 		<div class="row">
 			<div class="diaryTitle col-6">
