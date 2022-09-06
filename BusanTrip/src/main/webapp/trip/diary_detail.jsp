@@ -724,22 +724,24 @@ $(document).ready(function () {
 			  					  "<div class='card-row-6'>"+
 					      		  "<img class='card-img-top card-img-box' src='"+photoList[3].photoUrl+"'></div></div>"
 		    		}
-		    		// 스위퍼 내부 사진, 정보 등 채우기
-	    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
-	    				"<div class='swiper-slide'>"
-	    					+"<div class='card'>"
-		    					+ "<div class='card-header'>"
-		    						+ "<div class='card_img_row'>"
-		    						+ imgList
-			    					+ "</div>" 
-		    					+ "</div>"
-		    					+ "<div class='card-body'>"
-		    						+ "<div class='card-text' style='font-size:1rem;font-weight: 500;'>"+ transactionDate+' '+transactionTime+ "</div>"
-		    						+ "<div class='card-text pay-store' style='font-size:1.2rem;font-weight: 500;'>"+transactionStore+"</div>"
-		    						+ "<h6>"+transactionMemo+"</h6>"
-		    					+"</div>"
-	    				+"</div></div>"
-	    			);
+		    		if(len>0){
+		    			// 스위퍼 내부 사진, 정보 등 채우기
+		    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
+		    				"<div class='swiper-slide'>"
+		    					+"<div class='card'>"
+			    					+ "<div class='card-header'>"
+			    						+ "<div class='card_img_row'>"
+			    						+ imgList
+				    					+ "</div>" 
+			    					+ "</div>"
+			    					+ "<div class='card-body'>"
+			    						+ "<div class='card-text' style='font-size:1rem;font-weight: 500;'>"+ transactionDate+' '+transactionTime+ "</div>"
+			    						+ "<div class='card-text pay-store' style='font-size:1.2rem;font-weight: 500;'>"+transactionStore+"</div>"
+			    						+ "<h6>"+transactionMemo+"</h6>"
+			    					+"</div>"
+		    				+"</div></div>"
+		    			);
+		    		}
 				}// for..transactionList
 				
 				let listLen = transactionList.length;
@@ -886,12 +888,18 @@ $(document).ready(function () {
 			console.log(diarytransactionId);
 			console.log(fileArr);
 			for(var i=0;i<fileArr.length;i++){
+				var data = new FormData();
+				data.append("photo", fileArr[i]);
+				data.append("diaryTransactionId", diarytransactionId);
+				console.log(data)
 				$.ajax({
 					type: 'post',
 					url: '/story/addPhotoToDiaryTransaction',
+					enctype: 'multipart/form-data',
 					async: false,
-					data: {'diaryTransactionId': diarytransactionId,
-							'photo': fileArr[0]},
+					processData: false,
+					contentType: false,
+					data: data,
 					success:function(result){
 						console.log(result);
 					},
