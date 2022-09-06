@@ -542,7 +542,20 @@ $(document).ready(function () {
 		})
 	}
 
-	
+	function addPhotoToDiaryTransaction() {
+		$.ajax({
+			type: 'post',
+			url: '/story/addPhotoToDiaryTransaction',
+			data: {},
+			
+			success:function(result) {
+				console.log(result);
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		})
+	}
 
 	function findDiaryTransaction(appendTo) { // 다이어리 내 거래내역 조회
 		$.ajax({

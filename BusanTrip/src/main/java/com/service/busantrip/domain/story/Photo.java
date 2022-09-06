@@ -1,5 +1,7 @@
 package com.service.busantrip.domain.story;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Photo {
@@ -9,7 +11,16 @@ public class Photo {
 	
 	@JsonIgnore
 	private DiaryTransaction diaryTransaction;
-
+	
+	
+	private MultipartFile uploadFile;
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+	
 	public Photo() {
 	}
 
