@@ -36,12 +36,15 @@
 		font-weight: 400;
 	}
 	.pay-store{
-		width:50%;
+		width:100%;
 		float:left;
 	}
 	.pay-price{
-		width:50%;
+		width:40%;
 		float:right;
+	}
+	.card-body{
+		padding: 0.5rem;
 	}
 	.card-body>h6{
 		width:100%;
@@ -258,20 +261,17 @@
     }
     
     .card_img_row{
-	   /* display: flex; 
-	  -ms-flex-wrap: wrap;
-	   flex-wrap: wrap;  */
-	   /* flex: 50%; */
-	  /*  height: 50%; */
+	  width: 100%;
 	  display: flex;
+	  justify-content: center;
     }
     
 	.card{
     	height: 20rem;
-    	width: 30rem;
-    } 
-    .card-img-colBox {
-		height: 13rem;
+    	width: 25rem;
+    }
+    .card-img-box {
+		height:100%;
 	  	object-fit: cover;
 	}
 	.card-col-6{
@@ -282,11 +282,6 @@
 	}
 	.card-col-12>img{
 		width: 100%;
-	}
-	.card-img-rowBox {
-		width: 12rem;
-		height: 100%;
-	  	object-fit: cover;
 	}
 	.card-row-6{
 		height: 49.5%;
@@ -318,12 +313,6 @@
 		.card{
 	    	height: 25rem;
 	    } 
-	    .card-img-colBox {
-			height: 17.5rem;
-		}
-		.card-img-rowBox {
-			width: 15rem;
-		}
 	}
 	/* 상하단 바를 위한 필수 css */
 </style>
@@ -376,7 +365,7 @@ $(document).ready(function () {
 				//console.log(result);
 				payList = result;
 				
-				for(var i=0; i<payList[i].length; i++){
+				for(var i=0; i<payList.length; i++){
 					var accountNumber = payList[i].accountNumber;
 					var accountBank = payList[i].accountBank;
 				}
@@ -472,7 +461,7 @@ $(document).ready(function () {
 					}	 
 
 		    		var swiper = new Swiper("#swiper-"+memberId, {
-		    			slidesPerView: 1.8,
+		    			slidesPerView: 2.2,
 		    	        spaceBetween: 10,
 		    	        grabCursor: true,
 		    	        navigation: {
@@ -486,10 +475,10 @@ $(document).ready(function () {
 		    	            	spaceBetween: 10
 		    	            },
 		    	            720: {
-		    	            	slidesPerView: 1.4,
+		    	            	slidesPerView: 1.8,
 		    	            },
-		    	            1200: {
-		    	            	slidesPerView: 1.6,
+		    	            1024: {
+		    	            	slidesPerView: 2.2,
 		    	            }
 		    	        },
 		    	        scrollbar: {
@@ -501,44 +490,44 @@ $(document).ready(function () {
 		    		var imgList = "";
 		    		if(len==0){
 		    			imgList = "<div class='card-col-12'>"+
-		    					  "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"
+		    					  "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"
 		    		}else if(len==1){
 		    			imgList = "<div class='card-col-12'>"+
-		    					  "<img class='card-img-top card-img-colBox' src='"+photoList[0].photoUrl+"'></div>"
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"
 		    		}else if(len==2){
 		    			imgList = "<div class='card-col-6'>"+
-		    				      "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"+
+		    				      "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"+
 		    				      "<div class='card-col-6-bar'></div>"+
 		    				      "<div class='card-col-6'>"+
-		    				      "<img class='card-img-top card-img-colBox' src='"+photoUrl1+"'></div>"
+		    				      "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"
 		    		}else if(len==3){
 		    			imgList = "<div class='card-col-6'>"+
-		    					  "<img class='card-img-top card-img-colBox' src='"+photoList[0].photoUrl+"'></div>"+
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"+
 		    					  
 		    					  "<div class='card-col-6-bar'></div>"+
 		    					  
 		    					  "<div class='card-col-6'>"+
 		    					  "<div class='card-row-6'>"+
-		    					  "<img class='card-img-top card-img-rowBox' src='"+photoList[1].photoUrl+"'></div>"+
+		    					  "<img class='card-img-top card-img-box' src='"+photoList[1].photoUrl+"'></div>"+
 		    					  "<div class='card-row-6-bar'></div>"+
 		    					  "<div class='card-row-6'>"+
-  				      			  "<img class='card-img-top card-img-rowBox' src='"+photoList[2].photoUrl+"'></div></div>"
+  				      			  "<img class='card-img-top card-img-box' src='"+photoList[2].photoUrl+"'></div></div>"
 		    		}else if(len==4){
 		    			imgList = "<div class='card-col-6'>"+
 		    			          "<div class='card-row-6'>"+
-			  					  "<img class='card-img-top card-img-rowBox' src='"+photoList[0].photoUrl+"'></div>"+
+			  					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"+
 			  					  "<div class='card-row-6-bar'></div>"+
 			  					  "<div class='card-row-6'>"+
-					      		  "<img class='card-img-top card-img-rowBox' src='"+photoList[1].photoUrl+"'></div></div>"+
+					      		  "<img class='card-img-top card-img-box' src='"+photoList[1].photoUrl+"'></div></div>"+
 					      		  
 					      		  "<div class='card-col-6-bar'></div>"+
 					      		  
 					      		  "<div class='card-col-6'>"+
 					      		  "<div class='card-row-6'>"+
-			  					  "<img class='card-img-top card-img-rowBox' src='"+photoList[2].photoUrl+"'></div>"+
+			  					  "<img class='card-img-top card-img-box' src='"+photoList[2].photoUrl+"'></div>"+
 			  					  "<div class='card-row-6-bar'></div>"+
 			  					  "<div class='card-row-6'>"+
-					      		  "<img class='card-img-top card-img-rowBox' src='"+photoList[3].photoUrl+"'></div></div>"
+					      		  "<img class='card-img-top card-img-box' src='"+photoList[3].photoUrl+"'></div></div>"
 		    		}
 		    		// 스위퍼 내부 사진, 정보 등 채우기
 	    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
@@ -550,9 +539,8 @@ $(document).ready(function () {
 			    					+ "</div>" 
 		    					+ "</div>"
 		    					+ "<div class='card-body'>"
-		    						+ "<h6 class='card-text'>결제일시 "+ transactionDate+' '+transactionTime+ "</h6>"
-		    						+ "<div class='card-text pay-store'><h5 class='card-title'>"+transactionStore+"</h5></div>"
-		    						+ "<div class='card-text pay-price'><h5>"+transactionAmt+"</h5></div>"
+		    						+ "<div class='card-text' style='font-size:1rem;font-weight: 500;'>"+ transactionDate+' '+transactionTime+ "</div>"
+		    						+ "<div class='card-text pay-store' style='font-size:1.2rem;font-weight: 500;'>"+transactionStore+"</div>"
 		    						+ "<h6>"+transactionMemo+"</h6>"
 		    					+"</div>"
 	    				+"</div></div>"
