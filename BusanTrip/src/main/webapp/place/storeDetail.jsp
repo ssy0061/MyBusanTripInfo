@@ -18,12 +18,6 @@
 --%>
 <style>
 	:root {
-	  --bnk-red: #E60000;
-	  --bnk-dark-red: #BE0000;
-	  --bnk-gray: #545443;
-	  --bnk-grey: #545443;
-	  --bnk-lightgray: #B3B38F;
-	  --bnk-lightgrey: #B3B38F;
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
@@ -55,17 +49,20 @@
 		border-color:lightgray;
 	}
 	
-	.storeDetail-box-top, .storeDetail-box-middle, .storeDetail-box-bottom {
+	.storeDetail-box-top, .storeDetail-box-pic, .storeDetail-box-map, .storeDetail-box-bottom {
 		max-width: 300px;
 		margin: 10px auto;
 		padding: 5px 0;
+	}
+	.storeDetail-box-top, .storeDetail-box-bottom {
 		border-style:solid;
 		border-radius:5px;
-		border-color:lightgray;;
+		border-color:lightgray;
+		border-width:2px;
 	}
-	
-	.storeDetail-box-middle {
+	.storeDetail-box-map {
 		padding: 0;
+		border-radius:5px;
 	}
 	
 	#storeName {
@@ -84,19 +81,26 @@
 		text-align: center;
 		margin: 0 0 0 5px;
 		font-size: 14px;
-		font-weight: bold;
-		border-right-color: var(--bnk-lightgray);
-		border-right-width: 1px;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
+		line-height: 1.5;
+		border-right-color: lightgray;
+		border-right-width: 2px;
 		border-right-style: solid;
-		background-color: #FFFFD4;
 	}
 	
 	.contents-box {
 		width: 200px;
 		text-align: left;
 		margin: 0 5px 0 0;
-		font-size: 12px;
+		font-size: 13px;
 		padding: 0 0 0 2px;
+		line-height: 1.5;
+	}
+	#contact, #address, #openHour, #holiday{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
+		color:#53565A;
 	}
 	
 	.title-box {
@@ -104,9 +108,15 @@
 		font-weight: bold;
 		display: block;
 		padding: 0 0 4px;
-		border-bottom-color: var(--bnk-lightgray);
+		border-bottom-color: lightgray;
 		border-bottom-width: 2px;
 		border-bottom-style: solid;
+	}
+	
+	#pic{
+		width:100%;
+		height:auto;
+		border-radius:5px;
 	}
 	
 	.storeDetail-box-bottom-inner {
@@ -119,8 +129,8 @@
 		margin: 0 0 0 10px;
 		padding: 1px 0;
 		font-size: 15px;
-		color: var(--bnk-gray);
-		border-bottom-color: var(--bnk-lightgray);
+		color: #53565A;
+		border-bottom-color: #53565A;
 		border-bottom-width: 1px;
 		border-bottom-style: solid;
 	}
@@ -131,7 +141,7 @@
 		margin: 0 10px 0 0;
 		font-size: 15px;
 		font-weight: bold;
-		border-bottom-color: var(--bnk-lightgray);
+		border-bottom-color: #53565A;
 		border-bottom-width: 1px;
 		border-bottom-style: solid;
 	}
@@ -292,6 +302,12 @@
 				$('#holiday').text(result.storeHoliday);
 				$('#searchModal').attr('latitude', result.storeLatitude);
 				$('#searchModal').attr('longitude', result.storeLongitude);
+				if(result.storeCategory === "카페"){
+					$('.storeDetail-box-pic').hide();
+				} else{
+					$('.storeDetail-box-pic').show();
+					document.getElementById("pic").src = ""+result.storeThumbnail+"";
+				}
 			},
 			error: function(e){ console.log(e); }
 		});  // getMemberName end
@@ -370,7 +386,7 @@
 			</div>
 			
 			<div class="rounded-lg storeDetail-box-top">
-				<div class="storeDetail-box-top-inner">
+				<div class="storeDetail-box-top-inner mt-0">
 					<span class="index-box">연락처</span>
 					<span class="contents-box" id="contact">051) 0150-5484</span>
 				</div>
@@ -382,13 +398,13 @@
 					<span class="index-box">영업시간</span>
 					<span class="contents-box" id="openHour">00:00 ~ 00:00</span>
 				</div>
-				<div class="storeDetail-box-top-inner">
+				<div class="storeDetail-box-top-inner mb-0">
 					<span class="index-box">휴일</span>
 					<span class="contents-box" id="holiday">연중무휴</span>
 				</div>
 			</div>
-			
-			<div id="map" class="storeDetail-box-middle" style="height:280px;">
+			<div class="storeDetail-box-pic"><img id="pic" src=""></div>
+			<div id="map" class="storeDetail-box-map" style="height:280px;">
 			</div>
 			
 			<%-- 로그인되어 있는 경우에만 최근 방문 기록 정보를 출력 --%>
