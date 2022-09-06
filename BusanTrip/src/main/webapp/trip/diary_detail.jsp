@@ -64,8 +64,10 @@
 	  'wght' 600,
 	  'GRAD' 0,
 	  'opsz' 24;
-	  margin:4px 0;
 	  color:#53565A;
+	}
+	.material-btn{
+		margin:4px 0;
 	}
 	.buttonWithText{
 		display:flex;
@@ -331,7 +333,7 @@ $(document).ready(function () {
 	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
 	
 	refreshContent();
-	findStoryName();
+	//findStoryName();
 	
 	function findStoryMember() { // 현재 스토리 멤버 리스트 조회
 		$('.member_val').text("");
@@ -611,11 +613,14 @@ $(document).ready(function () {
 				}// for..transactionList
 				
 				let listLen = transactionList.length;
-				$('.albumTitle h5').append(
-						transactionList[0].transactionTime.substring(0,10)
-						+ ' ~ ' 
-						+ transactionList[listLen-1].transactionTime.substring(0,10) 		
-				)
+				if(listLen){
+					var diaryDate = transactionList[0].transactionTime.substring(0,10);
+					if(diaryDate !== transactionList[listLen-1].transactionTime.substring(0,10) ){
+						diaryDate += ' ~ ' + transactionList[listLen-1].transactionTime.substring(0,10)
+					}
+					$('.albumTitle h5').append(diaryDate)
+				}
+				
 			}, // success
 			error: function(e) {
 				console.log("refreshContent error :: "+e)
@@ -731,7 +736,7 @@ $(document).ready(function () {
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
-		<c:param name="navTitle" value="여행"/>
+		<c:param name="navSubTitle" value="다이어리"/>
 	</c:import>
 	<div class="content container">
 		<div class="row mb-4 ">
@@ -743,17 +748,17 @@ $(document).ready(function () {
 				<div class="col-12 p-0">
 					<a data-toggle="tooltip" data-placement="left" title="결제내역  불러오기">
 					<button type="button" id="btn_addPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
-						<span class="material-symbols-outlined receipt_long">assignment_add</span>
+						<span class="material-btn material-symbols-outlined receipt_long">assignment_add</span>
 					</button>
 					</a>
 					<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
 					<button type="button" id="btn_findPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
-						<span class="material-symbols-outlined receipt_long">receipt_long</span>
+						<span class="material-btn material-symbols-outlined receipt_long">receipt_long</span>
 					</button>
 					</a>
 					<a data-toggle="tooltip" data-placement="left" title="멤버 조회하기">
 					<button type="button" id="btn_findStoryMember" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#memberModal">
-						<span class="material-symbols-outlined group">group</span>
+						<span class="material-btn material-symbols-outlined group">group</span>
 					</button>
 					</a>
 				</div>
