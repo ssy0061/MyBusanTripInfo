@@ -45,8 +45,8 @@ public class StoreController {
 	
 	@PostMapping("findStorePopularByRegion") //지역별 인기가게
 	@ResponseBody
-	public List<Store> findStorePopularByRegion(String region) {
-		List<Store> storePopularByRegion = storeService.findStorePopularByRegion(region);
+	public List<Store> findStorePopularByRegion(String keydata) {
+		List<Store> storePopularByRegion = storeService.findStorePopularByRegion(keydata);
 		return storePopularByRegion;
 	}
 	
@@ -59,8 +59,8 @@ public class StoreController {
 	
 	@PostMapping("findStorePopularByCategory") //카테고리별 인기가게
 	@ResponseBody
-	public List<Store> findStorePopularByCategory(String category) {
-		List<Store> storePopularByCategory = storeService.findStorePopularByCategory(category);
+	public List<Store> findStorePopularByCategory(String keydata) {
+		List<Store> storePopularByCategory = storeService.findStorePopularByCategory(keydata);
 		return storePopularByCategory;
 	}
 	

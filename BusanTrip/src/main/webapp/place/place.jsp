@@ -340,13 +340,13 @@
 	
 	function findStorePopularBy(suggestMethod, suggestValue) {
 		let dataMapper = {'Region': 'region', 'Period': '', 'Category': 'category'};
-		let category = dataMapper[suggestMethod];
+		let keydata = dataMapper[suggestMethod];
 		<%-- 왜 카테고리만 string으로 집어넣으면 안 되는 것인가 특이하네.. category로 하니까 매핑이 되고..--%>
 
 		$.ajax({
 			type: 'post',
 			url: '/store/findStorePopularBy' + suggestMethod,
-			data: {category: suggestValue},
+			data: {keydata: suggestValue},
 			success: function(res) {
 				let titleElem = "";
 				if (suggestMethod == "Region")
