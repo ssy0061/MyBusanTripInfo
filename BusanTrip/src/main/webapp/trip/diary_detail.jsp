@@ -82,7 +82,6 @@
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
 	
-
 /* 	.modal-dialog.modal-fullsize {
 	  width: auto;
 	  height: 100%;
@@ -101,7 +100,6 @@
 	.modal-content-ta {
 	  min-height: 80vh;
 	}
-
 	/* modal - pic */
 	.modal-header, .modal-footer{
 		width:100%;
@@ -228,12 +226,10 @@
         width: 100%;
         height: 100%;
       }
-
     .swiper-slide {
       text-align: center;
       font-size: 18px;
       background: #fff;
-
       /* Center slide text vertically */
       display: -webkit-box;
       display: -ms-flexbox;
@@ -248,7 +244,6 @@
       -webkit-align-items: center;
       align-items: center;
     }
-
     .swiperContent>*{
     	/* display: flex;
 		flex-wrap: wrap;
@@ -321,7 +316,6 @@
 </style>
 <script>
 $(document).ready(function () {
-
     var memberId = '<%= (String)session.getAttribute("memberId") %>';
 	var storyId = location.pathname.split("/")[3];
 	var diaryId = location.pathname.split("/")[4];
@@ -329,7 +323,6 @@ $(document).ready(function () {
 	var transactionList = [];
 	var photoList = [];
 	var testVal=0;
-
 	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
 	
 	refreshContent();
@@ -453,7 +446,6 @@ $(document).ready(function () {
 		})	
 	}
 	findAllTransaction();
-
 	function findDiaryTransaction() { // 다이어리 내 거래내역 조회
 		$.ajax({
 			type: 'post',
@@ -469,7 +461,7 @@ $(document).ready(function () {
 					var transactionStore = transactionList[i].transactionStore;
 					var transactionAmt = transactionList[i].transactionAmt;
 					
-					$('#payListModal .modal-body').append(
+					$('#findPayListModal .modal-body').append(
 						'<p>' 
 							+ memberId + ' - ' + transactionStore + ' - ' + transactionAmt+'원'
 						+ '</p>'					)
@@ -501,7 +493,6 @@ $(document).ready(function () {
 	
     //this function define the size of the items
     function refreshContent() { // diary_detail 화면 띄우기
-
     	$.ajax({
 			type: 'post',
 			url: '/story/findAllDiaryTransaction',
@@ -522,14 +513,12 @@ $(document).ready(function () {
 		    		var transactionDate = transactionList[i].transactionTime.substring(0,10);
 					var transactionTime = transactionList[i].transactionTime.substring(11,19);
 					
-
 		    		var photoUrl1 = '/img/cat.jpg';
 		    		var photoUrl2 = '/img/icecream.jpg';
 		    		var photoUrl3 = '/img/drink.jpg';
 		    		var photoUrl4 = '/img/building.jpg';
 		    		
 		    		var len = photoList.length;
-
 					if(element == null) { // 공간 생성 안된 사용자인 경우
 						// 사용자 별 스위퍼 공간 생성
 			    		$('.swiperContent').append(
@@ -541,7 +530,6 @@ $(document).ready(function () {
 			    			"<div class='swiper-scrollbar'></div></div></div>"
 			    		);
 					}	 
-
 		    		var swiper = new Swiper("#swiper-"+memberId, {
 		    			slidesPerView: 2.2,
 		    	        spaceBetween: 10,
@@ -698,7 +686,6 @@ $(document).ready(function () {
 	function deleteFile(obj){
 		obj.parent().remove();
 	}
-
 	$('#resetUpload').hide();
 	$('#resetUpload').click(function(){
 		$('#multiContainer').children().remove();
@@ -769,7 +756,7 @@ $(document).ready(function () {
 					</button>
 					</a>
 					<a data-toggle="tooltip" data-placement="left" title="결제내역 조회하기">
-					<button type="button" id="btn_findPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#payListModal">
+					<button type="button" id="btn_findPayList" class="btn btn-outline-secondary custom-button"  data-toggle="modal" data-target="#findPayListModal">
 						<span class="material-btn material-symbols-outlined receipt_long">receipt_long</span>
 					</button>
 					</a>
@@ -805,6 +792,25 @@ $(document).ready(function () {
 				<div class="modal-body payListModalBody">
 					<div class="row payListRow">
 					<p class="payListAlert"><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 결제 내역 조회 modal -->
+	<div class="modal fade pr-0" id="findPayListModal">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content modal-content-ta">
+				<div class="modal-header">
+					<h3 class="modal-title">결제내역 조회하기</h3>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body payListModalBody">
+					<div class="row payListRow">
+					<p class="payListAlert"><small>조회하기</small></p>
 					</div>
 				</div>
 				<div class="modal-footer">
