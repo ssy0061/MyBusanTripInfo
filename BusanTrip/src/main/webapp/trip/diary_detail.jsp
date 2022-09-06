@@ -861,12 +861,31 @@ $(document).ready(function () {
 		$('#multiContainer').html("")
 		$('#resetUpload').trigger("click");
 	});
-	
+	var diarytransactionId = "";
 	$('.addPhotoYes').on("click", function(e) {
 		// 같은 거래내역에 여러번에 걸쳐서 넣으면 4장 이상 들어갈듯.. 일단 구현
+		console.log(fileArr)
+		if(fileArr.length < 1) return alert("사진을 추가해주세요");
 		if(fileArr.length <= 4){
 			// 해당 거래내역에 photo 추가 코드 추가해야 함			
 			$('#transactionModal').modal('hide');
+			diarytransactionId = $(".one-pay-noneClick").attr("id").substring(19);
+			console.log(diarytransactionId);
+			console.log(fileArr);
+			for(var i=0;i<fileArr.length;i++){
+				$.ajax({
+					type: 'post',
+					url: '/story/addPhotoToDiaryTransaction',
+					data: {'diaryTransactionId': diarytransactionId,
+							'photo': fileArr[0]},
+					success:function(result){
+						console.log(result);
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			}
 		} else {
 			alert("최대 4장까지 등록 가능합니다.");
 		}
