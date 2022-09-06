@@ -203,7 +203,7 @@
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
-		<c:param name="navSubTitle" value="여행"/>
+		<c:param name="navSubTitle" value="머니앨범"/>
 	</c:import>
 	<div class="content container">
 		<div class="space100"></div>
