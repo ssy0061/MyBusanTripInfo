@@ -92,6 +92,7 @@
 		}
 		.web-left, .web-right{
 			width: 100%;
+			height: 20em;
 		}
 		.web-right{
 			margin-top: 0px;
@@ -106,6 +107,22 @@
 		}
 		.home-middle {
 			margin-top: 30px;
+		}
+		.home-bottom {
+			height: 100%;
+			overflow: auto;
+		}
+	}
+	@media screen and (min-width: 768.1px) { /* Bigger Web */
+		.web-left, .web-right{
+			height: auto;
+		}
+		.home-bottom {
+			overflow: visible;
+		}
+		.notice-box {
+			height: 88%;
+			border: 1px solid red;
 		}
 	}
 	/* 상하단 바를 위한 필수 css */
@@ -370,7 +387,7 @@
 			divNotice.setAttribute('class', 'notice');
 			divNotice.append(notice);
 			
-			$('.home-bottom').append(divNotice);
+			$('.notice-box').append(divNotice);
 		}
 		
 		$('#chargebutton').on('click', chargepoint)
@@ -510,7 +527,7 @@
 				<div class="web-right">
 					<div class="home-bottom slideUp3">
 						<div style="font-size: 18px; font-weight: bold; margin: 10px 0;">[ 공지사항 ]</div>
-						<%-- <div class="notice">※ 공지사항 ※</div> --%>
+						<div class="notice-box"><%-- <div class="notice">※ 공지사항 ※</div> --%></div>
 					</div>
 				</div>
 				
