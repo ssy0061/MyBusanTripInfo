@@ -233,6 +233,10 @@
 		bottom: 1px;
 	}
 	
+	.searchBtn {
+		cursor: pointer;
+	}
+	
 	.location {
 		width: 100%;
 		text-align: left;
