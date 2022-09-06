@@ -344,6 +344,7 @@ $(document).ready(function () {
 	findStoryName();
 	
 	function findStoryMember() { // 현재 스토리 멤버 리스트 조회
+		$('.member_val').text("");
 		$.ajax({
 			type: 'post',
 			url: '/story/findStoryMember',
@@ -354,10 +355,10 @@ $(document).ready(function () {
 				memberList = result;
 				for(var i=0; i<memberList.length; i++) {
 					$('.mem-id').append(
-						"<p align=center>"+memberList[i].memberId+"</p>"		
+						"<p class='member_val' align=center>"+memberList[i].memberId+"</p>"		
 					);
 					$('.mem-name').append(
-						"<p align=center>"+memberList[i].storymemberName+"</p>"	
+						"<p class='member_val' align=center>"+memberList[i].storymemberName+"</p>"	
 					);
 				}
 			},
@@ -776,7 +777,7 @@ $(document).ready(function () {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">멤버 조회하기</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button type="button" class="close btn" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body memberModalBody">
 					<div class="col-6 mem-id">
