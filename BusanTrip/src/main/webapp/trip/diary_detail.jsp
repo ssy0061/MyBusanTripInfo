@@ -341,6 +341,7 @@ $(document).ready(function () {
 	console.log("storyId::"+storyId+"  diaryId::"+diaryId);
 	
 	refreshContent();
+	findStoryName();
 	
 	function findStoryMember() { // 현재 스토리 멤버 리스트 조회
 		$.ajax({
@@ -361,6 +362,25 @@ $(document).ready(function () {
 				}
 			},
 			error:function(e) {
+				console.log(e);
+			}
+		})
+	}
+	
+	function findStoryName() {
+		$.ajax({
+			type: 'post',
+			url: '/story/findStoryName',
+			data: {'storyId': storyId},
+			
+			success: function(result) {
+				var storyName = result;
+				console.log("storyName:: " +storyName);
+				$('.albumTitle h3').append(
+					storyName 		
+				)
+			},
+			error: function(e) {
 				console.log(e);
 			}
 		})
@@ -432,6 +452,7 @@ $(document).ready(function () {
 	
     //this function define the size of the items
     function refreshContent() { // diary_detail 화면 띄우기
+
     	$.ajax({
 			type: 'post',
 			url: '/story/findAllDiaryTransaction',
@@ -451,6 +472,7 @@ $(document).ready(function () {
 		    		
 		    		var transactionDate = transactionList[i].transactionTime.substring(0,10);
 					var transactionTime = transactionList[i].transactionTime.substring(11,19);
+					
 
 		    		var photoUrl1 = '/img/cat.jpg';
 		    		var photoUrl2 = '/img/icecream.jpg';
@@ -558,7 +580,13 @@ $(document).ready(function () {
 	    				+"</div></div>"
 	    			);
 				}// for..transactionList
-
+				
+				let listLen = transactionList.length;
+				$('.albumTitle h5').append(
+						transactionList[0].transactionTime.substring(0,10)
+						+ ' ~ ' 
+						+ transactionList[listLen-1].transactionTime.substring(0,10) 		
+				)
 			}, // success
 			error: function(e) {
 				console.log("refreshContent error :: "+e)
@@ -679,8 +707,8 @@ $(document).ready(function () {
 	<div class="content container">
 		<div class="row mt-4 mb-4 ">
 			<div class="albumTitle col-6 pr-0 ">
-				<h3>ㅇㅇ여행</h3>
-				<h5>2022.08.13 ~ 2022.08.15</h5>
+				<h3></h3>
+				<h5></h5>
 			</div>
 			<div class="col-6 row p-0" id="customizeButton" align="right">
 				<div class="col-12 p-0">
