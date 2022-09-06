@@ -61,8 +61,9 @@
 			width: 90%;
 			margin: 0 15px;
 			height: 380px;
-			overflow: scroll;
 		}
+		
+		.place-lower { overflow: auto; }
 		
 		.suggestBox, .suggestBox-choiced { font-size: 13px; }
 		
@@ -259,6 +260,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin: 3px 0 0;
 	}
 	
 	.suggestBox {
@@ -307,8 +309,8 @@
 						storeNameList[i].append(result[i].TRANSACTION_STORE);
 						visitCountList[i].append(result[i].CNT + '회');
 					}  // 3곳 이상 방문한 경우 여기서 종료
-					if (i<2) {
-						for (; i<2; i++) {
+					if (i<3) {
+						for (; i<3; i++) {
 							storeNameList[i].append('-');
 						}
 					}  // 두 곳 이하 방문한 경우 여기를 돌아서 빈 값을 채운다
@@ -333,6 +335,8 @@
 			}  // if
 		});  // div click
 		
+		// 첫 페이지 들어올 시 맨 처음 요소를 클릭
+		$('.suggestBox:eq(0)').click();
 	});  // JQuery
 	
 	function findStorePopularBy(suggestMethod, suggestValue) {
@@ -345,6 +349,14 @@
 			url: '/store/findStorePopularBy' + suggestMethod,
 			data: {category: suggestValue},
 			success: function(res) {
+				let titleElem = "";
+				if (suggestMethod == "Region")
+					titleElem = '✈️ <span class="regionName">'+suggestValue+'</span>의 인기 장소';
+				if (suggestMethod == "Period")
+					titleElem = '✈️ 최근 <span class="periodName">일년</span> 인기 장소';
+				if (suggestMethod == "Category")
+					titleElem = '✈️ 인기 <span class="categoryName">'+suggestValue+'</span>';
+				$('.title-left').html(titleElem)
 				$('.place-lower-box-lower').html('');  // 초기화
 				
 				for (var i=0; i<res.length; i++) {
@@ -432,7 +444,7 @@
 						</div>
 						<div class="place-lower-box-title">
 							<div class="title-left">
-								* <span class="regionName">부산</span>의 인기 장소
+								<%-- 제목 요소 --%>
 							</div>
 							<div class="title-right"></div>
 						</div>
