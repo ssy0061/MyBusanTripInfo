@@ -195,15 +195,18 @@
 	}
 	.payListInfo1, .payListInfo2{
 		display:flex;
-		justify-content: space-around;
 		font-family: 'Noto Sans KR', sans-serif;
 	}
 	.payListInfo1{
+		justify-content: space-around;
 		font-weight: 400;
 		color:gray;
 	}
 	.payListInfo2{
+		justify-content: space-between;
 		font-weight: 500;
+		padding-left: 8px;
+		padding-right: 8px;
 	}
 	.payListCheckbox{
 		display:flex;
@@ -446,7 +449,7 @@ $(document).ready(function () {
 		})	
 	}
 	findAllTransaction();
-	function findDiaryTransaction() { // 다이어리 내 거래내역 조회
+	function findDiaryTransaction(appendTo) { // 다이어리 내 거래내역 조회
 		$.ajax({
 			type: 'post',
 			url: '/story/findAllDiaryTransaction',
@@ -455,16 +458,27 @@ $(document).ready(function () {
 			success: function(result) { // DiaryTransaction List
 				console.log("findDiaryTransaction result:: " + result)
 				transactionList = result;
+				console.log(result)
 				
+				// 초기화
+				$(appendTo).html("");
+				// 데이터 출력
 				for(var i=0; i<transactionList.length; i++) {
+					var diarytransactionId = transactionList[i].diarytransactionId;
 					var memberId = transactionList[i].memberId;
 					var transactionStore = transactionList[i].transactionStore;
 					var transactionAmt = transactionList[i].transactionAmt;
+					var transactionTime = transactionList[i].transactionTime.substring(0,10)+" "+transactionList[i].transactionTime.substring(11,19);
 					
-					$('#findPayListModal .modal-body').append(
-						'<p>' 
-							+ memberId + ' - ' + transactionStore + ' - ' + transactionAmt+'원'
-						+ '</p>'					)
+					$(appendTo).append(
+							"<div id='diarytransactionId-"+diarytransactionId+"' class='col-12 one-pay mb-2'>"+
+							"<div class='col-12 payListInfo mx-0 my-0'>"+
+							
+							"<p class='payListInfo1 my-0'><small><span id='payListMember'>"+memberId+"</span></small>"+
+							"<small><span id='payListDate'>"+transactionTime+"</span></small></p>"+
+							
+							"<p class='payListInfo2 my-0'><span id='payListName'>"+transactionStore+"</span>"+
+							"<span id='payListPrice'>"+transactionAmt+"</span></p></div></div>");
 					}
 			},
 			error: function(e) {
@@ -718,7 +732,7 @@ $(document).ready(function () {
 	})
 	
 	$('#btn_findPayList').on("click", function(e) {
-		findDiaryTransaction();
+		findDiaryTransaction('#findPayListModal .modal-body');
 	})
 	
 	$('#btn_addPayList').on("click", function(e) {
@@ -809,8 +823,8 @@ $(document).ready(function () {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body payListModalBody">
-					<div class="row payListRow">
-					<p class="payListAlert"><small>조회하기</small></p>
+					<div class="row findPayListRow">
+					
 					</div>
 				</div>
 				<div class="modal-footer">
