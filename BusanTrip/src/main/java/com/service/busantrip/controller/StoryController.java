@@ -186,9 +186,12 @@ public class StoryController {
 
 	@PostMapping("addPhotoToDiaryTransaction")
 	@ResponseBody
-	public void addPhotoToDiaryTransaction(Photo photo ,String diaryTransactionId, HttpServletRequest request) {
-		
-		MultipartFile mFile = photo.getUploadFile();
+	public void addPhotoToDiaryTransaction(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+		MultipartFile mFile = (MultipartFile) param.get("photo");
+		String diaryTransactionId = (String) param.get("diaryTransactionId");
+		System.out.println(mFile);
+		System.out.println(diaryTransactionId);
+		/* MultipartFile mFile = photo.getUploadFile(); */
 		System.out.println("MultipartFile... " + mFile);
 		
 		if(mFile.isEmpty()!=true) { //업로드 된 파일이 있다면

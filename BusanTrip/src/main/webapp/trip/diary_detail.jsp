@@ -724,22 +724,24 @@ $(document).ready(function () {
 			  					  "<div class='card-row-6'>"+
 					      		  "<img class='card-img-top card-img-box' src='"+photoList[3].photoUrl+"'></div></div>"
 		    		}
-		    		// 스위퍼 내부 사진, 정보 등 채우기
-	    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
-	    				"<div class='swiper-slide'>"
-	    					+"<div class='card'>"
-		    					+ "<div class='card-header'>"
-		    						+ "<div class='card_img_row'>"
-		    						+ imgList
-			    					+ "</div>" 
-		    					+ "</div>"
-		    					+ "<div class='card-body'>"
-		    						+ "<div class='card-text' style='font-size:1rem;font-weight: 500;'>"+ transactionDate+' '+transactionTime+ "</div>"
-		    						+ "<div class='card-text pay-store' style='font-size:1.2rem;font-weight: 500;'>"+transactionStore+"</div>"
-		    						+ "<h6>"+transactionMemo+"</h6>"
-		    					+"</div>"
-	    				+"</div></div>"
-	    			);
+		    		if(len>0){
+		    			// 스위퍼 내부 사진, 정보 등 채우기
+		    			$('#swiper-'+memberId).children('.swiper-wrapper').append(
+		    				"<div class='swiper-slide'>"
+		    					+"<div class='card'>"
+			    					+ "<div class='card-header'>"
+			    						+ "<div class='card_img_row'>"
+			    						+ imgList
+				    					+ "</div>" 
+			    					+ "</div>"
+			    					+ "<div class='card-body'>"
+			    						+ "<div class='card-text' style='font-size:1rem;font-weight: 500;'>"+ transactionDate+' '+transactionTime+ "</div>"
+			    						+ "<div class='card-text pay-store' style='font-size:1.2rem;font-weight: 500;'>"+transactionStore+"</div>"
+			    						+ "<h6>"+transactionMemo+"</h6>"
+			    					+"</div>"
+		    				+"</div></div>"
+		    			);
+		    		}
 				}// for..transactionList
 				
 				let listLen = transactionList.length;
@@ -874,12 +876,38 @@ $(document).ready(function () {
 		$('#multiContainer').html("")
 		$('#resetUpload').trigger("click");
 	});
-	
+	var diarytransactionId = "";
 	$('.addPhotoYes').on("click", function(e) {
 		// 같은 거래내역에 여러번에 걸쳐서 넣으면 4장 이상 들어갈듯.. 일단 구현
+		console.log(fileArr)
+		if(fileArr.length < 1) return alert("사진을 추가해주세요");
 		if(fileArr.length <= 4){
 			// 해당 거래내역에 photo 추가 코드 추가해야 함			
 			$('#transactionModal').modal('hide');
+			diarytransactionId = $(".one-pay-noneClick").attr("id").substring(19);
+			console.log(diarytransactionId);
+			console.log(fileArr);
+			for(var i=0;i<fileArr.length;i++){
+				var data = new FormData();
+				data.append("photo", fileArr[i]);
+				data.append("diaryTransactionId", diarytransactionId);
+				console.log(data)
+				$.ajax({
+					type: 'post',
+					url: '/story/addPhotoToDiaryTransaction',
+					enctype: 'multipart/form-data',
+					async: false,
+					processData: false,
+					contentType: false,
+					data: data,
+					success:function(result){
+						console.log(result);
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			}
 		} else {
 			alert("최대 4장까지 등록 가능합니다.");
 		}
