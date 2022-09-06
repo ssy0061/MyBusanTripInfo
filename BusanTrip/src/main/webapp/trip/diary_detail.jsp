@@ -178,12 +178,20 @@
 		color:white;
 	}
 	/* modal - payList */
-	.modal-body.payListModalBody>.row, .payListAlert {
+	.modal-body.payListModalBody>.row, .payListAlert, #transactionStr{
 		display:flex;
 		justify-content: center;
 	}
 	.one-pay{
 		display:flex;
+		justify-content: center;
+		margin-bottom:2px;
+		border-radius:20px;
+		box-shadow:2px 3px 5px 2px lightgray;
+	}
+	.one-pay-noneClick{
+		display:flex;
+		justify-content: center;
 		margin-bottom:2px;
 		border-radius:20px;
 		box-shadow:2px 3px 5px 2px lightgray;
@@ -198,9 +206,11 @@
 		font-family: 'Noto Sans KR', sans-serif;
 	}
 	.payListInfo1{
-		justify-content: space-around;
+		justify-content: space-between;
 		font-weight: 400;
 		color:gray;
+		padding-left: 8px;
+		padding-right: 8px;
 	}
 	.payListInfo2{
 		justify-content: space-between;
@@ -252,6 +262,15 @@
 		flex-wrap: wrap;
 		align-content: space-between; */
     }
+    #transactionModal .one-pay:hover{
+    	cursor: pointer;
+    }
+    .uploadImg {
+    	display: flex;
+    	flex-direction: column;
+    	align-items: center;
+    }
+    /* card */
     .card-header{
     	overflow: hidden;
     	height: 80%; 
@@ -423,9 +442,9 @@ $(document).ready(function () {
 					var transactionStore = findTransactionList[j].transactionStore;
 					var transactionAmt = findTransactionList[j].transactionAmt;
 					var transactionTime = findTransactionList[j].transactionTime.substring(0,10)+" "+findTransactionList[j].transactionTime.substring(11,19);
-					$('.payListRow').append("<div class='col-11 one-pay mb-2' id='outer'><div class='col-10 payListInfo mx-0 my-0'><p class='payListInfo1 my-0'><small><span id='payListAccount'>"
+					$('.payListRow').append("<div class='col-11 one-pay mb-2' id='outer'><div class='col-10 payListInfo mx-0 mt-1 mb-0'><p class='payListInfo1 my-0'><small><span id='payListAccount'>"
 							+transactionAccountNumber+"</span></small><small><span id='payListDate'>"+transactionTime
-							+"</span></small></p><p class='payListInfo2 my-0'><span id='payListName'>"
+							+"</span></small></p><p class='payListInfo2 my-1'><span id='payListName'>"
 							+transactionStore+"</span><span id='payListPrice'>"+transactionAmt+"</span></p></div>"
 							+"<div class='col-2 payListCheckbox my-0'><input type='checkbox' name='addCheckBox' id='checked' data-num="+transactionId+"></div></div>")
 				}
@@ -476,27 +495,30 @@ $(document).ready(function () {
 				$(appendTo).html("");
 				// 데이터 출력
 				for(var i=0; i<transactionList.length; i++) {
-					var diarytransactionId = transactionList[i].diarytransactionId;
-					var memberId = transactionList[i].memberId;
-					var transactionStore = transactionList[i].transactionStore;
-					var transactionAmt = transactionList[i].transactionAmt;
-					var transactionTime = transactionList[i].transactionTime.substring(0,10)+" "+transactionList[i].transactionTime.substring(11,19);
-					
-					$(appendTo).append(
-							"<div id='diarytransactionId-"+diarytransactionId+"' class='col-12 one-pay mb-2'>"+
-							"<div class='col-12 payListInfo mx-0 my-0'>"+
-							
-							"<p class='payListInfo1 my-0'><small><span id='payListMember'>"+memberId+"</span></small>"+
-							"<small><span id='payListDate'>"+transactionTime+"</span></small></p>"+
-							
-							"<p class='payListInfo2 my-0'><span id='payListName'>"+transactionStore+"</span>"+
-							"<span id='payListPrice'>"+transactionAmt+"</span></p></div></div>");
-					}
+					appendTransactionTo(transactionList[i], appendTo);
+				}
 			},
 			error: function(e) {
 				console.log(e)
 			}
 		})	
+	}
+	function appendTransactionTo(transaction, appendTo){
+		var diarytransactionId = transaction.diarytransactionId;
+		var memberId = transaction.memberId;
+		var transactionStore = transaction.transactionStore;
+		var transactionAmt = transaction.transactionAmt;
+		var transactionTime = transaction.transactionTime.substring(0,10)+" "+transaction.transactionTime.substring(11,19);
+		
+		$(appendTo).append(
+				"<div id='diarytransactionId-"+diarytransactionId+"' class='col-12 one-pay mb-2'>"+
+				"<div class='col-10 payListInfo mx-0 my-0'>"+
+				
+				"<p class='payListInfo1 mt-1 mb-0'><small><span id='payListMember'>"+memberId+"</span></small>"+
+				"<small><span id='payListDate'>"+transactionTime+"</span></small></p>"+
+				
+				"<p class='payListInfo2 my-1'><span id='payListName'>"+transactionStore+"</span>"+
+				"<span id='payListPrice'>"+transactionAmt+"</span></p></div></div>");
 	}
 	
 	function findTransactionPhoto(transactionId) { // 거래내역 당 사진 목록 가져오기
@@ -750,6 +772,31 @@ $(document).ready(function () {
 	$('#btn_addPayList').on("click", function(e) {
 		findAllTransaction();
 	})
+	$('#btn_addFeed').on("click", function(e) {
+		$('#transactionStr').show();
+		$('#transactionModal .modal-body').show();
+		$('.uploadImg').hide();
+		$('#transactionModal .modal-footer').hide();
+		findDiaryTransaction('#transactionModal .modal-body');
+	})
+	$('#transactionModal .modal-body').on("click", ".one-pay", function(){
+		$('#transactionStr').hide();
+		$(this).addClass("one-pay-noneClick");
+		$(this).removeClass("one-pay");
+		var diarytransactionId = $(this).attr("id").substring(19);
+		$('#transactionModal .one-pay').each(function(){
+			if($(this).attr("id").substring(19)!==diarytransactionId) {
+				$(this).remove()
+			}
+		})
+		
+		$('.uploadImg').show();
+		$('#transactionModal .modal-footer').show();
+	})
+	$("#transactionModal").on('hide.bs.modal', function () {
+		$('#multiContainer').html("")
+		$('#resetUpload').trigger("click");
+	});
 	
 	$('.addPhotoYes').on("click", function(e) {
 		// 같은 거래내역에 여러번에 걸쳐서 넣으면 4장 이상 들어갈듯.. 일단 구현
@@ -804,7 +851,7 @@ $(document).ready(function () {
 				</div>
 				<div class="col-12 mt-1 p-0">
 					<a data-toggle="tooltip" data-placement="left" title="피드 추가하기">
-					<button type="button" class="btn btn-outline-secondary custom-button buttonWithText" data-toggle="modal" data-target="#transactionModal">
+					<button type="button" id="btn_addFeed" class="btn btn-outline-secondary custom-button buttonWithText" data-toggle="modal" data-target="#transactionModal">
 						<span class="material-symbols-outlined add_photo_alternate">add_photo_alternate</span><span class="addFeed"><small>피드 추가하기</small></span>
 					</button>
 					</a>
@@ -846,9 +893,6 @@ $(document).ready(function () {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body payListModalBody">
-					<div class="row findPayListRow">
-					
-					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="submit" value="확인" class="btn playListOk" data-dismiss="modal"></input>
@@ -864,21 +908,18 @@ $(document).ready(function () {
 					<h4 class="modal-title">피드 추가하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
+				<div id="transactionStr" class="mt-3"><small>거래내역 하나를 선택해주세요</small></div>
 				<div class="modal-body" align="center">
-					<p>
-						결제내역 불러오기 <input type="text"></input>
-					</p>
-					<div class="row py-2">
-						<div class="mx-auto picture-btn-re">
-							<label id="input-label" for="upload">사진 추가</label> <input
-								id="upload" type="file" accept="image/*" multiple> <input
-								type="button" id="resetUpload" value="초기화">
-							<div id="multiContainer" class="image-area mt-4"></div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="submit" value="확인" class="btn addPhotoYes" ></input>
-					</div>
+				
+				</div>
+				<div class="uploadImg mx-auto picture-btn-re py-2">
+					<label id="input-label" for="upload">사진 추가</label> <input
+						id="upload" type="file" accept="image/*" multiple> <input
+						type="button" id="resetUpload" value="초기화">
+					<div id="multiContainer" class="image-area mt-4"></div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="확인" class="btn addPhotoYes" ></input>
 				</div>
 			</div>
 		</div>
