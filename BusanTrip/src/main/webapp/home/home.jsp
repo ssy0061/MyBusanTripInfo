@@ -73,6 +73,8 @@
 			display:flex;
 			justify-content: center;
 		}
+		.notice{ margin: 15px auto; padding: 5px 5px; }
+		.noticeTitle{ font-size: 20px; }
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
@@ -92,6 +94,7 @@
 		}
 		.web-left, .web-right{
 			width: 100%;
+			height: 20em;
 		}
 		.web-right{
 			margin-top: 0px;
@@ -107,6 +110,25 @@
 		.home-middle {
 			margin-top: 30px;
 		}
+		.home-bottom {
+			height: 100%;
+			overflow: auto;
+		}
+		.notice{ margin: 15px auto; padding: 5px 5px; }
+		.noticeTitle{ font-size: 20px; }
+	}
+	@media screen and (min-width: 768px) { /* Big Web */
+		.web-left, .web-right{ height: auto; }
+		.home-bottom { overflow: visible; }
+		.notice-box { height: 88%; }
+		.notice{ margin: 20px auto; }
+	}
+	@media screen and (min-width: 992px) { /* Bigger Web */
+		.notice{ margin: 22px auto; padding: 8px; }
+		.noticeTitle{ font-size: 22px; }
+	}
+	@media screen and (min-width: 1200px) { /* Biggest Web */
+		.notice{ margin: 25px auto; padding: 10px auto; padding: 10px; }
 	}
 	/* 상하단 바를 위한 필수 css */
 	.login{
@@ -262,10 +284,8 @@
 	}
 	
 	.notice {
-		margin: 15px auto;
 		max-width: 400px;
 		width: 80%;
-		padding: 5px 5px;
 		font-size: 15px;
 		border-radius: 5px;
 		background-color: #fff;
@@ -370,7 +390,7 @@
 			divNotice.setAttribute('class', 'notice');
 			divNotice.append(notice);
 			
-			$('.home-bottom').append(divNotice);
+			$('.notice-box').append(divNotice);
 		}
 		
 		$('#chargebutton').on('click', chargepoint)
@@ -509,8 +529,8 @@
 
 				<div class="web-right">
 					<div class="home-bottom slideUp3">
-						<div style="font-size: 18px; font-weight: bold; margin: 10px 0;">[ 공지사항 ]</div>
-						<%-- <div class="notice">※ 공지사항 ※</div> --%>
+						<div class="noticeTitle" style="font-weight: bold; margin: 10px 0;">[ 공지사항 ]</div>
+						<div class="notice-box"><%-- <div class="notice">※ 공지사항 ※</div> --%></div>
 					</div>
 				</div>
 				
