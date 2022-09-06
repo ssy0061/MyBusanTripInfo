@@ -136,6 +136,11 @@
 		background-color: white;
 		overflow: hidden;
 	}
+	.searchPeriodText{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
+		
+	}
 	.searchDetail-upper {
 		width: 100%;
 		max-width: 720px;
@@ -236,6 +241,10 @@
 	
 	.periodBox:hover, .searchBox:hover {
 	    background-color: var(--button-hover);
+	    cursor:pointer;
+	}
+	.periodBox-choiced:hover{
+		cursor:pointer;
 	}
 	
 	.periodBox:active, .searchBox:active {
@@ -277,6 +286,9 @@
 		margin: 0 2px;
 		width: 20px;
 		z-index: 96;
+	}
+	.searchBtn:hover, .memoBtn:hover{
+		cursor:pointer;
 	}
 	
 	.storeName {
@@ -646,7 +658,7 @@
 					<div>
 						<a data-toggle="collapse" href="#conditionCollpase" 
 						   style="text-decoration: none; color: black;"
-						   class="d-flex justify-content-end  align-items-center">
+						   class="d-flex justify-content-end align-items-center searchPeriodText">
 							<span>최신순</span><span class="mx-2 mb-1">|</span>
 							<span id="state">1개월</span>
 							<span class="conditon-btn material-symbols-outlined">
