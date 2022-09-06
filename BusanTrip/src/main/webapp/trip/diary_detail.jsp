@@ -876,6 +876,7 @@ $(document).ready(function () {
 				$.ajax({
 					type: 'post',
 					url: '/story/addPhotoToDiaryTransaction',
+					async: false,
 					data: {'diaryTransactionId': diarytransactionId,
 							'photo': fileArr[0]},
 					success:function(result){
