@@ -12,7 +12,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-</head>
+<%-- 구글 아이콘 --%>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 	:root {
 	  --bnk-red: #E60000;
@@ -174,7 +175,7 @@
 	
 	.title-left { width: 100%; }
 	.title-right { width: 40px; }
-	
+
 	.moreBtn {
 		border: 0;
 	    background-color: white;
@@ -209,6 +210,10 @@
 		width: 220%;
 	}
 	
+	.right-arrow {
+		width: 25px;
+	}
+	
 	.info-right-upper {
 		text-align: left;
 		margin: 0 0 0 5px;
@@ -234,19 +239,6 @@
 		margin: 4px 0 0 5px;
 		font-size: 13px;
 		line-height: 130%
-	}
-	
-	.searchBtnDiv {
-		margin: 0 3px 0 0;
-		width: 25px;
-	}
-	
-	.searchBtn {
-		width: 20px;
-		height: 20px;
-		position: absolute;
-		bottom: 2px;
-		right: 0;
 	}
 	
 	.ud-center {
@@ -288,9 +280,6 @@
 	.suggestBox:active{
 	    background-color: var(--button-active);
 	}
-	
-	
-	
 </style>
 
 <script>
@@ -361,19 +350,22 @@
 				
 				for (var i=0; i<res.length; i++) {
 					let s = res[i];
-					
+
 					let categoryCss = "";
 					if (s.storeCategory == "카페") categoryCss = "ilcafe";
 					else if (s.storeCategory == "음식점") categoryCss = "ilfood";
 					else if (s.storeCategory == "관광지") categoryCss = "iltour";
 					
-					let recommendBox = '<div class="place-lower-box-info"><div class="info-left '+categoryCss+'"><div class="ud-center">'+
+					let recommendBox = '<div class="place-lower-box-info';
+					if (s.storeId != null)
+						recommendBox += ' searchBtn" store-id='+s.storeId+' data-toggle="modal" data-target="#searchModal';
+					recommendBox += '"><div class="info-left '+categoryCss+'"><div class="ud-center">'+
 								'<span class="category">'+s.storeCategory+'</span></div></div><div class="info-right">'+
 								'<div class="info-right-upper"><div class="placeName">'+s.storeName+'</div></div>'+
-								'<div class="info-right-lower"><span class="location">'+s.storeAddr+'</span><div class="searchBtnDiv">';
+								'<div class="info-right-lower"><span class="location">'+s.storeAddr+'</span></div></div>';
 					if (s.storeId != null)
-						recommendBox += '<img class="searchBtn" src="/img/search.png" store-id='+s.storeId+' data-toggle="modal" data-target="#searchModal">';
-					recommendBox += '</div></div></div></div>';
+						recommendBox += '<div class="right-arrow material-symbols-outlined">chevron_right</div>';
+					recommendBox += '</div>';
 					
 					$('.place-lower-box-lower').append(recommendBox);
 				}  // for end
@@ -392,8 +384,8 @@
 			error: function(e){ console.log(e); }
 		});  // ajax end
 	}  // findStorePopularBy end
-	
 </script>
+</head>
 
 <body>
 	<div class="backImg">
