@@ -195,7 +195,7 @@
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		
 		
-		var path = window.location.pathname.split('/').pop(1);
+		var path = window.location.pathname.split('/')[2];
 		if(loginUser!='null' && path!=='myPage') {
 			$.ajax({
 				type: 'post',
@@ -214,10 +214,19 @@
 		if(memberId==='null' || loginUser==='null') {
 			$('.needLogin').children('a').attr('href', loginUrl)
 		}
-		
+		var totalPath = window.location.pathname.split('/');
+		/* console.log(totalPath) */
 		$('.back').click(function(){
 			/* window.history.back(); */
+			
 			if(path==="login") return location.href="/bnk/home";
+			else if(path==="trip") {
+				if(totalPath.length === 4) {
+					return location.href="/bnk/trip/";
+				}else if(totalPath.length === 5) {
+					return location.href="/bnk/trip/"+totalPath[3];
+				}
+			}
 			location.href=document.referrer;
 		})
 		$('.navMenusButton').click(function(){
