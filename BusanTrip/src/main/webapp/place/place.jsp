@@ -49,8 +49,12 @@
 			margin: 0 auto 20px;
 		}
 		
+		.place-upper { height: auto; }
+		
 		.suggestBox, .suggestBox-choiced { font-size: 15px; cursor:pointer; }
 		.title-left { font-size: 16px; }
+		.place-upper-inner { min-height: 210px; }
+		.place-upper-image { height: 0px; visibility: hidden; }
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
@@ -71,6 +75,7 @@
 			height: 710px;
 		}
 		
+		.place-upper { display: flex; }
 		.place-lower { overflow: auto; }
 		
 		.suggestBox, .suggestBox-choiced { font-size: 13px; cursor:pointer; }
@@ -83,10 +88,14 @@
 			background-size: auto 100%;
 			background-repeat: no-repeat;
 		}
+		
+		.place-upper-image{ height: 100%; }
+		.place-upper-inner { min-height: 230px; }
 	}
 	@media screen and (min-width: 768.1px) { /* Bigger Web */
 		.suggestBox, .suggestBox-choiced { font-size: 15px; }
 		.title-left { font-size: 16px; }
+		.place-upper-inner { min-height: 210px; }
 	}
 	
 	.place-upper, .place-lower {
@@ -98,14 +107,13 @@
 	}
 	
 	.place-upper {
-		display: flex;
-    	align-items: center;
+		flex-direction: column;
+    	justify-content: center;
 	}
 	
 	.place-upper-inner {
 		max-width: 400px;
 		width: 80%;
-		min-height: 150px;
 		margin: 15px auto;
 		padding: 8px;
 		position: relative;
@@ -164,7 +172,7 @@
 		font-weight: bold;
 	}
 	
-	.place-lower-box {
+	.place-lower-box, .place-upper-image-inner {
 		max-width: 400px;
 		width: 80%;
 		min-height: 50px;
@@ -313,6 +321,42 @@
 	    background-color: var(--button-active);
 	}
 	
+	.place-upper-image-inner{
+		height: 405px;
+		display: flex;
+		flex-direction: column;
+    	justify-content: center;
+	}
+	
+	.image-inner-wrapper{
+		margin: 10px;
+		border-radius: 5px;
+		box-shadow: 0px 5px 8px -3px #77dd77;
+		overflow: hidden;
+		height: 70px;
+	}
+	
+	.image-title{
+		font-weight: bold;
+		font-size: 15px;
+		background-color: #77dd77;
+		padding: 2px;
+	}
+	
+	.image-name{
+		font-weight: bold;
+		font-size: 17px;
+	}
+	
+	#recommImg{
+		width: 90%;
+		height: 100%;
+		margin: 10px auto 15px;
+		border-radius: 10px;
+		box-shadow: 0px 5px 8px -3px #777777;
+		object-fit: cover;
+	}
+	
 	/* modal */
 	.modal-header>h6{
 		font-family: 'Noto Sans KR', sans-serif;
@@ -322,7 +366,28 @@
 
 <script>
 	$(function() {
+		let tmpIcn = generateEmoji();
+		$('.image-title').text(tmpIcn + ' ' + $('.image-title').text() + ' ' + tmpIcn);
+		
 		if (memberId != 'null') {
+			// 랜덤 이미지 정보 도출
+			let imageInfo = {
+				'오륙도 스카이워크': '/img/back-login5.jpg',
+				'다대포 해수욕장': '/img/back-batch-1619.jpg',
+				'기장 죽성교회': '/img/back-batch-0407.jpg',
+				'광안대교': '/img/back-login-register.png'
+			};
+			
+			let imageInfoKeys = Object.keys(imageInfo);
+			let randInt = parseInt(Math.random()*imageInfoKeys.length);
+			
+			let imgName = imageInfoKeys[randInt];
+			let imgLink = imageInfo[imgName];
+			
+			$('#recommImgTitle').text(imgName);
+			$('#recommImg').attr('src', imgLink);
+			
+			
 			$.ajax({
 				type: 'post',
 				url: '/store/findStorePopularByPersonal',
@@ -476,6 +541,15 @@
 									<span class="storeName"></span>
 									<span class="visitCount"></span>
 								</div>
+							</div>
+						</div>
+						<div class="place-upper-image">
+							<div class="place-upper-image-inner">
+								<div class="image-inner-wrapper">
+									<div class="image-title">추천 관광명소</div>
+									<div class="image-name" id="recommImgTitle"></div>
+								</div>
+								<img src="/img/noimg.png" id="recommImg">
 							</div>
 						</div>
 					</div>
