@@ -33,7 +33,7 @@ public class MemberController {
 	public String login(String id, String pw, Model model, HttpSession session) {
 		try {
 			Member member = new Member(id, pw);
-			System.out.println(member);
+			//System.out.println(member);
 			Member loginData = memberService.login(member);
 			//String loginData = "hello";
 			if(loginData != null) {
@@ -162,13 +162,13 @@ public class MemberController {
 		return memberService.findTransactionByTransactionId(transactionId);
 	}
 	
-	@PostMapping("findTransactionBySpecificPeriod")
+	@PostMapping("findTransactionBySpecifiㄹcPeriod")
 	@ResponseBody
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay, Model model, HttpSession session) {
 		List<Transaction> allTransactionListByPeriod = memberService.findTransactionBySpecificPeriod(accountNumber, startDay, finishDay);
-		 System.out.println("finday :: " + finishDay+" 23:59");
+		//System.out.println("finday :: " + finishDay+" 23:59");
 		
-		System.out.println("현재:: " + LocalTime.now());
+		//System.out.println("현재:: " + LocalTime.now());
 		return allTransactionListByPeriod;
 	}
 	

@@ -480,8 +480,8 @@ $(document).ready(function () {
 				for(var i=0; i<accountList.length; i++){ // 계좌 개수만큼 계좌번호 불러오기
 					//console.log("findAllAccountNumber :: "+accountNumberList);
 					findTransactionBySpecificPeriod(accountList[i].accountNumber)
-					console.log(accountList[i])
-					console.log(findTransactionList)
+					//console.log(accountList[i])
+					//console.log(findTransactionList)
 				}
 				/* console.log(findTransactionList) */
 				findTransactionList.sort(function(a, b){
@@ -536,7 +536,7 @@ $(document).ready(function () {
 			data: {"memberId": memberId},
 			async: false,
 			success: function(result) { // member VO
-				console.log(result);
+				//console.log(result);
 				memberInfo = result;
 				memberName = memberInfo.memberName;
 			},
@@ -545,7 +545,7 @@ $(document).ready(function () {
 			}
 		})
 	}
-	console.log(memberName)
+	//console.log(memberName)
 	
 	/* function findTransaction(transactionId) { // transaction 찾기
 		console.log("::::: " + transactionId);
@@ -572,7 +572,7 @@ $(document).ready(function () {
 	function addDiaryTransaction(transactionId) { // addDiaryTransaction
 		findMemberInfo(memberId);
 	
-		console.log("transactionId:: " +transactionId + "diaryId:: "+ diaryId + " " + "memberName :: " + memberName);
+		//console.log("transactionId:: " +transactionId + "diaryId:: "+ diaryId + " " + "memberName :: " + memberName);
 		
 		/* var param = {
 				"transaction": transaction,
@@ -604,7 +604,7 @@ $(document).ready(function () {
 			data: {},
 			
 			success:function(result) {
-				console.log(result);
+				//console.log(result);
 			},
 			error: function(e) {
 				console.log(e);
@@ -619,9 +619,9 @@ $(document).ready(function () {
 			data: {"diaryId": diaryId},
 			
 			success: function(result) { // DiaryTransaction List
-				console.log("findDiaryTransaction result:: " + result)
+				//console.log("findDiaryTransaction result:: " + result)
 				transactionList = result;
-				console.log(result)
+				//console.log(result)
 				
 				// 초기화
 				$(appendTo).html("");
@@ -663,7 +663,7 @@ $(document).ready(function () {
 			success: function(result) {	// Photo List
 				photoList = result;
 				testVal = 1;
-				console.log("findTransactionPhoto result:: " + JSON.stringify(photoList));
+				//console.log("findTransactionPhoto result:: " + JSON.stringify(photoList));
 			},
 			error: function(e) {
 				console.log(e)
@@ -824,7 +824,7 @@ $(document).ready(function () {
 		
 		if(input.files) { // 인풋 태그에 파일들이 있는 경우
 			// 이미지 파일 검사 생략
-			console.log(input.files)
+			//console.log(input.files)
 			var file_cnt = input.files.length;
 			/* console.log(file_cnt); */
 			fileArr = Array.from(input.files) // forEach문으로 처리하기 위해 유사배열을 배열로 변환
@@ -1005,7 +1005,7 @@ $(document).ready(function () {
 </head>
 <body>
 	<c:import url="/header/nav.jsp">
-		<c:param name="navSubTitle" value="다이어리"/>
+		<c:param name="navSubTitle" value="머니앨범"/>
 	</c:import>
 	<div class="content container">
 		<div class="row mb-4 ">

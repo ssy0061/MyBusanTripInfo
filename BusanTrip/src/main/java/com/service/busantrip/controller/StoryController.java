@@ -160,16 +160,6 @@ public class StoryController {
 
 	}
 
-	
-	/*
-	 * @PostMapping("addDiaryTransactionDTO")
-	 * 
-	 * @ResponseBody public void addDiaryTransactionDTO(@RequestBody
-	 * DiaryTransactionReqDTO dto){
-	 * storyService.addDiaryTransaction(dto.getTransaction(), dto.getDiaryId(),
-	 * dto.getMemberName()); }
-	 */
-	
 	@PostMapping("addDiaryTransactionMap")
 	 @ResponseBody public void addDiaryTransactionDTO(@RequestParam Map<String, Object> param){
 		/* System.out.println("in ctr:: " + (Transaction)param.get("transaction")); */
@@ -177,7 +167,7 @@ public class StoryController {
 		int transactionId = Integer.parseInt((String)param.get("transactionId"));
 		Transaction transaction = memberService.findTransactionByTransactionId(transactionId);
 		
-		System.out.println("in ctr:: " + transaction);
+		//System.out.println("in ctr:: " + transaction);
 		
 		 storyService.addDiaryTransaction(transaction, 
 				 						(String)param.get("diaryId"), 
@@ -190,21 +180,21 @@ public class StoryController {
 	public void addPhotoToDiaryTransaction(@RequestPart(value = "photo", required = false) MultipartFile mFile, 
 										   @RequestPart(value = "diaryTransactionId") String diaryTransactionId, 
 										   HttpServletRequest request) {
-		System.out.println(mFile);
-		System.out.println(diaryTransactionId);
+		//System.out.println(mFile);
+		//System.out.println(diaryTransactionId);
 		/* MultipartFile mFile = photo.getUploadFile(); */
-		System.out.println("MultipartFile... " + mFile);
+		//System.out.println("MultipartFile... " + mFile);
 		
 		if(mFile.isEmpty()!=true) { //업로드 된 파일이 있다면
 			System.out.println("업로드한 파일명 " + mFile.getOriginalFilename());
 		}
 		
 		String root = request.getSession().getServletContext().getRealPath("/");
-		System.out.println("root " + root);
+		//System.out.println("root " + root);
 		
 		/* String path = root + "\\diaryphoto\\"; */
 		String path = root+"img\\diaryphoto\\";
-		System.out.println("path: "+path);
+		//System.out.println("path: "+path);
 		
 		//우리가 쓸려고 만든 변수
 		String photoUrl = "/img/diaryphoto/"+mFile.getOriginalFilename();

@@ -133,7 +133,7 @@
 				data: {"storyId": storyId},
 				
 				success:function(result) {
-					console.log(result);
+					//console.log(result);
 					$('.diaryTitle').append(
 						'<h4>' + result + '</h4>'		
 					)
@@ -152,7 +152,7 @@
 				data: {'storyId': storyId},
 				
 				success:function(result) {
-					console.log(result)
+					//console.log(result)
 					
 					var diaryName;
 					var imageUrlList = ['/img/diaryImg1.jpg', '/img/diaryImg2.jpg', '/img/diaryImg04.jpg'
@@ -190,7 +190,7 @@
 				
 				success:function(result) {
 					alert(diaryName + " 다이어리 추가 완료");
-					console.log(result);
+					//console.log(result);
 					$('.diary-in-story').html("");
 					$('#newDiaryName').val("");
 					getDiaryList();	// 생성된 다이어리 반영하기 위해 새로고침
