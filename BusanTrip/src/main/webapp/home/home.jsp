@@ -291,8 +291,7 @@
 		background-color: #fff;
 		box-shadow: 0px 5px 8px -3px #aaa;
 		cursor:pointer;
-	}
-	.notice {
+		
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 400;
 		font-color: #53565A;
@@ -341,6 +340,7 @@
 	$(function() {
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		var memberId = '<%= (String)session.getAttribute("memberId") %>';
+		var rightr = 'than';
 		if (memberId != 'null') {
 			$.ajax({
 				type: 'post',
@@ -395,6 +395,38 @@
 		
 		$('#chargebutton').on('click', chargepoint)
 		$('#paybutton').on('click', paypoint)
+		
+		var tnc = 0, trg = true;
+		$('.notice').on('click', function() {
+			tnc += 1;
+			if (tnc >= 7+1+8 && trg) {
+				trg = false;
+				rightr += 'ks';
+				$('.notice-box').html("");
+				$('.noticeTitle').text("[ " + leftl + " " + rightr +" ]");
+				let nA = [
+					"%ED%95%98%EC%8A%B9%ED%98%84%20%EA%"+
+					"B0%95%EC%82%AC%EB%8B%98",
+					"%EA%B9%80%EB%AF%B8%EC%A7%80%20%EB%A7"+
+					"%A4%EB%8B%88%EC%A0%80%EB%8B%98",
+					"%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%20%EC%97%B0%EC%88%9"+
+					"8%EC%9B%90%20%EB%82%B4%20%EC%8B%9C%EC%84%A4%2"+
+					"0%EA%B4%80%EB%A6%AC%20%EC%A7%81%EC%9B%90%EB%B6%84%EB%93%A4",
+					"%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%20%EC%9D%B8%ED%84%B4%EC%8B%A"+
+					"D%20%EC%9D%B8%EC%82%AC%EB%8B%B4%EB%8B%B9%EC"+
+					"%9E%90%20%EC%A7%81%EC%9B%90%EB%B6%84%EB%93%A4",
+					"%EA%B7%B8%EB%A6%AC%EA%B3%A0%20%EC%9D%B4%20%EA%B8%80%EC%9D%"+
+					"84%20%EB%B3%B4%EA%B3%A0%20%E"+
+					"C%9E%88%EB%8A%94%20%EC%97%AC%EB%9F%AC%EB%B6%84"
+				];
+				for (let p=0; p<5; p++) {
+					let ne = decodeURI(nA[p]); let dN = document.createElement('div');
+					dN.setAttribute('class', 'notice'); dN.append(ne);
+					$('.notice-box').append(dN);
+				}
+			}
+		});
+		var leftl = "Special";
 	});
 
 	
