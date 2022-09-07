@@ -23,6 +23,7 @@
 	.storyTitle h4{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
+		color:#53565A;
 	}
 	#addbutton{
 		display:flex;
@@ -44,6 +45,10 @@
 	}
 	.card{
 		margin:10px 0;
+	}
+	.card-title{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
 	}
 	.card-body:hover{
 		cursor:pointer;
@@ -375,12 +380,12 @@ $(function() {
 	<div class="content container">
 		<div class="row myStorySpace ">
 			<div class="storyTitle col-12">
-				<h4>나의 머니앨범</h4>
+				<h4>나만의 공간</h4>
 			</div>
 		</div>
 		<div class="row ourStorySpace mt-4">
 			<div class="storyTitle col-9">
-				<h4>모임 머니앨범</h4>
+				<h4>모임</h4>
 			</div>
 			<div class="col-3" align="right">
 				<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
@@ -399,11 +404,11 @@ $(function() {
 	   <div class="modal-dialog modal-dialog-centered">
 	     <div class="modal-content">
 	     	<div class="modal-header">
-	     		<h4 class="modal-title">머니앨범 생성하기</h4>
+	     		<h4 class="modal-title">모임 생성하기</h4>
 	     		<button type="button" id="closebutton" class="close" data-dismiss="modal">&times;</button>
 	     	</div>
 	     	<div class="modal-body" align="center">
-	       		<p>머니앨범 이름 : <input type="text" id="storyname" size="18"></p>
+	       		<p>모임 이름 : <input type="text" id="storyname" size="18"></p>
 	       		<p class="modal-body-second">
 					<i class="bi bi-person-bounding-box" style="font-size: 1.2rem;"></i>&nbsp;
 	       			<input type="text" id="newmember" placeholder="추가할 멤버 아이디 검색하기" size="23">
@@ -422,7 +427,7 @@ $(function() {
 	       		</p>
 	     	</div>
 	        <div class="modal-footer">
-	        	<input type="submit" value="추가" class="btn btn-secondary addStoryYes" data-dismiss="modal"></input>
+	        	<input type="submit" value="생성" class="btn btn-secondary addStoryYes" data-dismiss="modal"></input>
 	     	</div>
 	      </div>
 	    </div>
@@ -431,11 +436,11 @@ $(function() {
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">머니앨범 삭제하기</h4>
+					<h4 class="modal-title">모임 삭제하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-				<p align="center">머니앨범은 생성자만 삭제 가능합니다.<br>머니앨범을 정말 삭제하겠습니까?</p>
+				<p align="center">모임은 생성자만 삭제 가능합니다.<br>이 모임을 정말 삭제하겠습니까?</p>
 				</div>
 				<div class="modal-footer">
 					<input type="submit" value="삭제" class="btn btn-secondary deleteStoryYes" data-dismiss="modal"></input>

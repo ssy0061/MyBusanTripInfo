@@ -61,6 +61,14 @@
 		font-weight: 400;
 	}
 	/* modal */
+	#storyModal h4{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	#storyModal p{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
+	}
 	#membersearch{
 		border-color:transparent;
 		border-radius:2px;
@@ -228,14 +236,14 @@
 	   <div class="modal-dialog modal-dialog-centered">
 	     <div class="modal-content">
 	     	<div class="modal-header">
-	     		<h4 class="modal-title">다이어리 생성하기</h4>
+	     		<h4 class="modal-title">머니앨범 생성하기</h4>
 	     		<button type="button" class="close" data-dismiss="modal">&times;</button>
 	     	</div>
 	     	<div class="modal-body" align="center">
-	     		<p>다이어리 이름 : <input type="text" id="newDiaryName" size="18"></p>
+	     		<p>머니앨범 이름 : <input type="text" id="newDiaryName" size="18"></p>
 	     	</div>
 	        <div class="modal-footer">
-	        	<input type="submit" value="추가" class="btn btn-secondary addDiaryYes" data-dismiss="modal"></input>
+	        	<input type="submit" value="생성" class="btn btn-secondary addDiaryYes" data-dismiss="modal"></input>
 	     	</div>
 	      </div>
 	    </div>
