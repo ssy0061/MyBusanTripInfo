@@ -499,6 +499,7 @@
 								<li data-target="#eventSlide" data-slide-to="1"></li>
 								<li data-target="#eventSlide" data-slide-to="2"></li>
 								<li data-target="#eventSlide" data-slide-to="3"></li>
+								<li data-target="#eventSlide" data-slide-to="4"></li>
 							</ul>
 
 							<!-- The slideshow -->
@@ -514,6 +515,9 @@
 								</div>
 								<div class="carousel-item">
 									<img src="/img/event4.png" width="100%">
+								</div>
+								<div class="carousel-item">
+									<img src="/img/event5.png" width="100%">
 								</div>
 							</div>
 
