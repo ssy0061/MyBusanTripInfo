@@ -194,6 +194,7 @@
 		var memberId = '<%= session.getAttribute("memberId") %>';
 		var loginUser = '<%= session.getAttribute("loginUser") %>';
 		
+		$('html>head>title').text('여행가실부은✈️');  // 타이틀 이름
 		
 		var path = window.location.pathname.split('/')[2];
 		if(loginUser!='null' && path!=='myPage') {
