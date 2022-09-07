@@ -181,7 +181,7 @@
 					
 					accountBalance = accountBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  + " 원"
 					var goTo = '#account'
-					if(accountBank === '포인트') {
+					if(accountBank === '포인트' || accountBank === '동백전') {
 						goTo = '#point';
 						icon = "/img/bank_db.png";
 					}

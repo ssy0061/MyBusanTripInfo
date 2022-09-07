@@ -1095,9 +1095,9 @@ $(document).ready(function () {
 				
 				</div>
 				<div class="uploadImg mx-auto picture-btn-re py-2">
-					<label id="input-label" for="upload">사진 추가</label> <input
-						id="upload" type="file" accept="image/*" multiple> <input
-						type="button" id="resetUpload" value="초기화">
+					<label id="input-label" for="upload">사진 추가</label>
+					<input id="upload" type="file" accept="image/png, image/jpeg, image/jpg" multiple>
+					<input type="button" id="resetUpload" value="초기화">
 					<div id="multiContainer" class="image-area mt-4"></div>
 				</div>
 				<div class="modal-footer">
