@@ -365,6 +365,9 @@
 		max-width:800px;
 		padding: 20px 0;
 	}
+	
+	
+	
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
 			margin-top: 70px; /* 상단바 70*/
@@ -382,6 +385,8 @@
 	    	height: 25rem;
 	    } 
 	}
+	
+	
 	/* 상하단 바를 위한 필수 css */
 </style>
 <script>
@@ -700,7 +705,7 @@ $(document).ready(function () {
 						// 사용자 별 스위퍼 공간 생성
 			    		$('.swiperContent').append(
 			    			"<div id='user-"+memberId+"'>"+
-			    			"<h5 class='mt-3'>"+memberId+"</h5>"+
+			    			"<h4 class='mt-5' style='color: #191970; text-shadow: 2px 2px 2px #ffccd5'}>"+memberId+"</h4>"+
 			    			"<div class='swiper' id='swiper-"+memberId+"'>"+
 			    			"<div class='swiper-wrapper'>"+
 			    			"</div><div class='swiper-pagination'></div>"+
