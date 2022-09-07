@@ -1,10 +1,26 @@
-<center>2022년도 BNK부산은행 D-IT Tech-Internship 1기 프로젝트</center>
+# 2022년도 BNK부산은행 D-IT Tech-Internship 1기 프로젝트
+
+## 목차
+
+- [1. 프로젝트 구상](#1.-프로젝트-구상)
+    - [1-1. ]()
+- [2. 프로젝트 분석](#2.-프로젝트-분석)
+    - [2-1. ]()
+- [3. 프로젝트 설계](#3.-프로젝트-설계)
+    - [3-1. ]()
+- [4. 프로젝트 구현](#4.-프로젝트-구현)
+    - [4-1. ]()
+- [5. 프로젝트 정보](#5.-프로젝트-정보)
+    - [5-1. 팀 및 서비스 이름](#5-1.-팀-및-서비스-이름)
+    - [5-2. 프로젝트 구성원](#5-2.-프로젝트-구성원)
+    - [5-3. 프로젝트 기간](#5-3.-프로젝트-기간)
 
 ***
 
 # 여행가실부은✈️
-<center><img src="docImage/mbti.png"/></center><br>
-[🛠 Github link↗](https://github.com/ssy0061/MyBusanTripInfo)
+![로고이미지](./docImage/mbti.png)
+
+🛠 [Github link↗](https://github.com/ssy0061/MyBusanTripInfo)
 
 
 ## 1. 프로젝트 구상
