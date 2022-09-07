@@ -626,6 +626,7 @@ $(document).ready(function () {
 			success: function(result) { // DiaryTransaction List
 				/* console.log("refreshContent result:: " + result) */
 				transactionList = result;
+				$('.swiperContent').html("")
 				for(var i=0; i<transactionList.length; i++) { // for..transactionList
 					var memberId = transactionList[i].memberId;
 					var element = document.getElementById("user-"+memberId);
@@ -691,10 +692,10 @@ $(document).ready(function () {
 		    					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"
 		    		}else if(len==2){
 		    			imgList = "<div class='card-col-6'>"+
-		    				      "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"+
+		    				      "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"+
 		    				      "<div class='card-col-6-bar'></div>"+
 		    				      "<div class='card-col-6'>"+
-		    				      "<img class='card-img-top card-img-box' src='"+photoUrl1+"'></div>"
+		    				      "<img class='card-img-top card-img-box' src='"+photoList[1].photoUrl+"'></div>"
 		    		}else if(len==3){
 		    			imgList = "<div class='card-col-6'>"+
 		    					  "<img class='card-img-top card-img-box' src='"+photoList[0].photoUrl+"'></div>"+
@@ -743,12 +744,12 @@ $(document).ready(function () {
 		    			);
 		    		}
 				}// for..transactionList
-				
+				$('.albumTitle h5').html("")
 				let listLen = transactionList.length;
 				if(listLen){
-					var diaryDate = transactionList[0].transactionTime.substring(0,10);
-					if(diaryDate !== transactionList[listLen-1].transactionTime.substring(0,10) ){
-						diaryDate += ' ~ ' + transactionList[listLen-1].transactionTime.substring(0,10)
+					var diaryDate = transactionList[listLen-1].transactionTime.substring(0,10);
+					if(diaryDate !== transactionList[0].transactionTime.substring(0,10) ){
+						diaryDate += ' ~ ' + transactionList[0].transactionTime.substring(0,10)
 					}
 					$('.albumTitle h5').append(diaryDate)
 				}
@@ -875,6 +876,7 @@ $(document).ready(function () {
 	$("#transactionModal").on('hide.bs.modal', function () {
 		$('#multiContainer').html("")
 		$('#resetUpload').trigger("click");
+		refreshContent();
 	});
 	var diarytransactionId = "";
 	$('.addPhotoYes').on("click", function(e) {
