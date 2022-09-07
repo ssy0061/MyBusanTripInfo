@@ -456,10 +456,13 @@ $(document).ready(function () {
 			data:{"memberId":memberId},
 			success:function(result){
 				var accountList = result;
+				findTransactionList = [];
 				$('.payListRow').html("<p id=payListStr><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>");
 				for(var i=0; i<accountList.length; i++){ // 계좌 개수만큼 계좌번호 불러오기
 					//console.log("findAllAccountNumber :: "+accountNumberList);
 					findTransactionBySpecificPeriod(accountList[i].accountNumber)
+					console.log(accountList[i])
+					console.log(findTransactionList)
 				}
 				/* console.log(findTransactionList) */
 				findTransactionList.sort(function(a, b){
@@ -493,7 +496,6 @@ $(document).ready(function () {
 			data:{"accountNumber":accountNumber, "startDay":startDay, "finishDay":finishDay},
 			async: false,
 			success:function(result){
-				findTransactionList = [];
 				for(var i=0;i<result.length;i++) {
 					result[i].accountNumber = accountNumber;
 					findTransactionList.push(result[i]);
@@ -668,7 +670,8 @@ $(document).ready(function () {
 					findTransactionPhoto(transactionList[i].diarytransactionId); // 사진 목록 가져오기
 					var transactionStore = transactionList[i].transactionStore;
 		    		var transactionAmt = transactionList[i].transactionAmt;
-		    		var transactionMemo = transactionList[i].transactionMemo;
+		    		var transactionMemo = "　";
+		    		if(transactionList[i].transactionMemo) transactionMemo = transactionList[i].transactionMemo;
 		    		
 		    		var transactionDate = transactionList[i].transactionTime.substring(0,10);
 					var transactionTime = transactionList[i].transactionTime.substring(11,19);
