@@ -442,7 +442,7 @@ $(document).ready(function() {
 			    		
 			    		$('#swiper-'+memberId).children('.swiper-wrapper').append(
 			    				"<div class='swiper-slide'><div class='bgGrad' "+
-			    				"style='background-image:linear-gradient(to bottom, transparent, "+grcolor[(i%4)]+" 85%),url(\""+
+			    				"style='background-image:linear-gradient(to bottom, transparent, transparent, "+grcolor[(i%4)]+" 95%),url(\""+
 			    				photoUrl+"\"); background-position:center center;'><h6>"+
 			    				transactionStore+"<br><small>"+ transactionDate +"</small></h6></div>"
 			    		);
