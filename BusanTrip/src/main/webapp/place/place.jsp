@@ -49,10 +49,12 @@
 			margin: 0 auto 20px;
 		}
 		
+		.place-upper { height: auto; }
+		
 		.suggestBox, .suggestBox-choiced { font-size: 15px; cursor:pointer; }
 		.title-left { font-size: 16px; }
 		.place-upper-inner { min-height: 210px; }
-		.place-upper-image { visibility: hidden; }
+		.place-upper-image { height: 0px; visibility: hidden; }
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
@@ -73,6 +75,7 @@
 			height: 710px;
 		}
 		
+		.place-upper { display: flex; }
 		.place-lower { overflow: auto; }
 		
 		.suggestBox, .suggestBox-choiced { font-size: 13px; cursor:pointer; }
@@ -86,6 +89,7 @@
 			background-repeat: no-repeat;
 		}
 		
+		.place-upper-image{ height: 100%; }
 		.place-upper-inner { min-height: 230px; }
 	}
 	@media screen and (min-width: 768.1px) { /* Bigger Web */
@@ -103,7 +107,6 @@
 	}
 	
 	.place-upper {
-		display: flex;
 		flex-direction: column;
     	justify-content: center;
 	}
@@ -318,10 +321,6 @@
 	    background-color: var(--button-active);
 	}
 	
-	.place-upper-image{
-		height: 100%;
-	}
-	
 	.place-upper-image-inner{
 		height: 405px;
 		display: flex;
@@ -329,17 +328,19 @@
     	justify-content: center;
 	}
 	
-	.place-upper-image-inner * {
-		border: 1px solid red;
-	}
-	
 	.image-inner-wrapper{
 		margin: 10px;
+		border-radius: 5px;
+		box-shadow: 0px 5px 8px -3px #77dd77;
+		overflow: hidden;
+		height: 70px;
 	}
 	
 	.image-title{
 		font-weight: bold;
 		font-size: 15px;
+		background-color: #77dd77;
+		padding: 2px;
 	}
 	
 	.image-name{
@@ -348,9 +349,12 @@
 	}
 	
 	#recommImg{
-		width: 92%;
+		width: 90%;
 		height: 100%;
-		margin: 10px auto 10px;
+		margin: 10px auto 15px;
+		border-radius: 10px;
+		box-shadow: 0px 5px 8px -3px #777777;
+		object-fit: cover;
 	}
 	
 	/* modal */
@@ -366,6 +370,24 @@
 		$('.image-title').text(tmpIcn + ' ' + $('.image-title').text() + ' ' + tmpIcn);
 		
 		if (memberId != 'null') {
+			// 랜덤 이미지 정보 도출
+			let imageInfo = {
+				'오륙도 스카이워크': '/img/back-login5.jpg',
+				'다대포 해수욕장': '/img/back-batch-1619.jpg',
+				'기장 죽성교회': '/img/back-batch-0407.jpg',
+				'광안대교': '/img/back-login-register.png'
+			};
+			
+			let imageInfoKeys = Object.keys(imageInfo);
+			let randInt = parseInt(Math.random()*imageInfoKeys.length);
+			
+			let imgName = imageInfoKeys[randInt];
+			let imgLink = imageInfo[imgName];
+			
+			$('#recommImgTitle').text(imgName);
+			$('#recommImg').attr('src', imgLink);
+			
+			
 			$.ajax({
 				type: 'post',
 				url: '/store/findStorePopularByPersonal',
@@ -525,9 +547,9 @@
 							<div class="place-upper-image-inner">
 								<div class="image-inner-wrapper">
 									<div class="image-title">추천 관광명소</div>
-									<div class="image-name">광안리</div>
+									<div class="image-name" id="recommImgTitle"></div>
 								</div>
-								<img src="/img/back-login.jpg" id="recommImg">
+								<img src="/img/noimg.png" id="recommImg">
 							</div>
 						</div>
 					</div>
