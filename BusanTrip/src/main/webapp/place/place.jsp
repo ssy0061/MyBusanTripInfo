@@ -51,6 +51,8 @@
 		
 		.suggestBox, .suggestBox-choiced { font-size: 15px; cursor:pointer; }
 		.title-left { font-size: 16px; }
+		.place-upper-inner { min-height: 210px; }
+		.place-upper-image { visibility: hidden; }
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
@@ -83,10 +85,13 @@
 			background-size: auto 100%;
 			background-repeat: no-repeat;
 		}
+		
+		.place-upper-inner { min-height: 230px; }
 	}
 	@media screen and (min-width: 768.1px) { /* Bigger Web */
 		.suggestBox, .suggestBox-choiced { font-size: 15px; }
 		.title-left { font-size: 16px; }
+		.place-upper-inner { min-height: 210px; }
 	}
 	
 	.place-upper, .place-lower {
@@ -99,13 +104,13 @@
 	
 	.place-upper {
 		display: flex;
-    	align-items: center;
+		flex-direction: column;
+    	justify-content: center;
 	}
 	
 	.place-upper-inner {
 		max-width: 400px;
 		width: 80%;
-		min-height: 150px;
 		margin: 15px auto;
 		padding: 8px;
 		position: relative;
@@ -164,7 +169,7 @@
 		font-weight: bold;
 	}
 	
-	.place-lower-box {
+	.place-lower-box, .place-upper-image-inner {
 		max-width: 400px;
 		width: 80%;
 		min-height: 50px;
@@ -313,6 +318,41 @@
 	    background-color: var(--button-active);
 	}
 	
+	.place-upper-image{
+		height: 100%;
+	}
+	
+	.place-upper-image-inner{
+		height: 405px;
+		display: flex;
+		flex-direction: column;
+    	justify-content: center;
+	}
+	
+	.place-upper-image-inner * {
+		border: 1px solid red;
+	}
+	
+	.image-inner-wrapper{
+		margin: 10px;
+	}
+	
+	.image-title{
+		font-weight: bold;
+		font-size: 15px;
+	}
+	
+	.image-name{
+		font-weight: bold;
+		font-size: 17px;
+	}
+	
+	#recommImg{
+		width: 92%;
+		height: 100%;
+		margin: 10px auto 10px;
+	}
+	
 	/* modal */
 	.modal-header>h6{
 		font-family: 'Noto Sans KR', sans-serif;
@@ -322,6 +362,9 @@
 
 <script>
 	$(function() {
+		let tmpIcn = generateEmoji();
+		$('.image-title').text(tmpIcn + ' ' + $('.image-title').text() + ' ' + tmpIcn);
+		
 		if (memberId != 'null') {
 			$.ajax({
 				type: 'post',
@@ -476,6 +519,15 @@
 									<span class="storeName"></span>
 									<span class="visitCount"></span>
 								</div>
+							</div>
+						</div>
+						<div class="place-upper-image">
+							<div class="place-upper-image-inner">
+								<div class="image-inner-wrapper">
+									<div class="image-title">추천 관광명소</div>
+									<div class="image-name">광안리</div>
+								</div>
+								<img src="/img/back-login.jpg" id="recommImg">
 							</div>
 						</div>
 					</div>
