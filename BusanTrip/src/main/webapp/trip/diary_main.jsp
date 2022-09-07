@@ -155,7 +155,8 @@
 					console.log(result)
 					
 					var diaryName;
-					var imageUrlList = ['/img/diaryImg1.jpg', '/img/diaryImg2.jpg', '/img/diaryImg3.jpg', '/img/diaryImg4.jpg'];
+					var imageUrlList = ['/img/diaryImg1.jpg', '/img/diaryImg2.jpg', '/img/diaryImg03.jpg', '/img/diaryImg04.jpg'
+										, '/img/diaryImg05.jpg', '/img/diaryImg06.jpg', '/img/diaryImg07.jpg'];
 					var imageUrl = "/img/noimg.png";
 					for(var i=0; i<result.length; i++) {
 						diaryName = result[i].diaryName;
@@ -163,7 +164,7 @@
 						$('.diary-in-story').append(
 									'<div class="col-md-4 col-6 px-2">'
 									+'<div class="card" onclick=' + '\"location.href=' + "\'/bnk/trip/"+ storyId + "/"+ diaryId +"\'\">"
-										+ '<img class="card-img-top m-0" src=' + imageUrlList[i] +' alt="Card image" style="width:100%">'
+										+ '<img class="card-img-top m-0" src=' + imageUrlList[i%7] +' alt="Card image" style="width:100%">'
 										+ '<div class="py-2">'
 											+ ' <div id="diaryName" class="card-content m-0" style="font-size: 1rem;">' + diaryName + '</div>'
 										+ '</div>'
