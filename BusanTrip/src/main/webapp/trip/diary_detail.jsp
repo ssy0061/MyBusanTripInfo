@@ -90,21 +90,6 @@
 	.modal-footer>input{
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	
-/* 	.modal-dialog.modal-fullsize {
-	  width: auto;
-	  height: 100%;
-	  min-width: 100%;
-	  max-width: 768px;
-	  margin: 0;
-	  padding: 0;
-	} */
-	
-	.modal-fullsize {
-	  width: 100%;
-	  max-width: 720px;	  
-	  border-radius: 0;
-	}
 	.modal-header h4{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
@@ -1046,7 +1031,7 @@ $(document).ready(function () {
 	</div>
 	<!-- 피드 추가 modal -->
 	<div class="modal fade" id="transactionModal">
-		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">피드 추가하기</h4>
