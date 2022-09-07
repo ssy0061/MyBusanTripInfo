@@ -29,11 +29,13 @@
 	}
 	.albumTitle h3{
 		font-family: 'Noto Sans KR', sans-serif;
-		font-weight: 500;
+		font-weight: 700;
 	}
 	.albumTitle h5{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 400;
+		line-height:1;
+		color:#53565A;
 	}
 	.pay-store{
 		width:100%;
@@ -67,7 +69,14 @@
 	  color:#53565A;
 	}
 	.material-btn{
-		margin:4px 0;
+		margin:3px 0;
+	}
+	.addFeed{
+		display:flex;
+		justify-content: center;
+		align-items:center;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 400;
 	}
 	.buttonWithText{
 		display:flex;
@@ -81,22 +90,20 @@
 	.modal-footer>input{
 		box-shadow: 0 3px 3px 0 #53565A;
 	}
-	
-/* 	.modal-dialog.modal-fullsize {
-	  width: auto;
-	  height: 100%;
-	  min-width: 100%;
-	  max-width: 768px;
-	  margin: 0;
-	  padding: 0;
-	} */
-	
-	.modal-fullsize {
-	  width: 100%;
-	  max-width: 720px;	  
-	  border-radius: 0;
+	.modal-header h4{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
 	}
-	
+	#transactionStr, #payListStr {
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
+		font-size:18px;
+		color:#6c9dc6;
+	}
+	#memberModal p{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
+	}
 	.modal-content-ta {
 	  min-height: 80vh;
 	}
@@ -422,7 +429,7 @@ $(document).ready(function () {
 			data:{"memberId":memberId},
 			success:function(result){
 				var accountList = result;
-				$('.payListRow').html("<p class=payListAlert><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>");
+				$('.payListRow').html("<p id=payListStr><small>최근 3개월의 결제내역을 추가할 수 있습니다.</small></p>");
 				for(var i=0; i<accountList.length; i++){ // 계좌 개수만큼 계좌번호 불러오기
 					//console.log("findAllAccountNumber :: "+accountNumberList);
 					findTransactionBySpecificPeriod(accountList[i].accountNumber)
@@ -974,7 +981,7 @@ $(document).ready(function () {
 				<div class="col-12 mt-1 p-0">
 					<a data-toggle="tooltip" data-placement="left" title="피드 추가하기">
 					<button type="button" id="btn_addFeed" class="btn btn-outline-secondary custom-button buttonWithText" data-toggle="modal" data-target="#transactionModal">
-						<span class="material-symbols-outlined add_photo_alternate">add_photo_alternate</span><span class="addFeed"><small>피드 추가하기</small></span>
+						<span class="material-symbols-outlined add_photo_alternate">add_photo_alternate</span><span class="addFeed"><small>&nbsp;피드 추가하기</small></span>
 					</button>
 					</a>
 				</div>
@@ -991,7 +998,7 @@ $(document).ready(function () {
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content modal-content-ta">
 				<div class="modal-header">
-					<h3 class="modal-title">결제내역 불러오기</h3>
+					<h4 class="modal-title">결제내역 불러오기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body payListModalBody">
@@ -1011,7 +1018,7 @@ $(document).ready(function () {
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content modal-content-ta">
 				<div class="modal-header">
-					<h3 class="modal-title">결제내역 조회하기</h3>
+					<h4 class="modal-title">결제내역 조회하기</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body payListModalBody">
@@ -1024,7 +1031,7 @@ $(document).ready(function () {
 	</div>
 	<!-- 피드 추가 modal -->
 	<div class="modal fade" id="transactionModal">
-		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">피드 추가하기</h4>

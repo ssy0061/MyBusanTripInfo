@@ -207,6 +207,12 @@ class BusanTripApplicationTests {
 	
 	/***** StoryDAOImpl Unit test ******/
 	
+	@Test
+	void findDiaryTransactionByMember() {
+		System.out.println(storyDAO.findDiaryTransactionByMember("jang444"));
+		
+	}
+	
 //	@Test
 //	void addStory() {
 //		 storyDAO.addStory("testStory", "gwak222");

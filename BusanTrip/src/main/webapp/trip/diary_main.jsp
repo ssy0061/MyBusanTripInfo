@@ -20,7 +20,7 @@
 	}
 	.diaryTitle h4{
 		font-family: 'Noto Sans KR', sans-serif;
-		font-weight: 500;
+		font-weight: 700;
 	}
 	#addbutton{
 		display:flex;

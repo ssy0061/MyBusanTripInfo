@@ -426,27 +426,28 @@ $(document).ready(function() {
 	    	        }
 	    		});
 				
+				console.log("length:: " + transactionList.length);
 				for(let i=0; i<transactionList.length; i++) {
 					findTransactionPhoto(transactionList[i].diarytransactionId); // 사진 목록 가져오기
-					if(photoList.length==0) break;		// 등록된 사진이 없으면 안가져옴
-					
-		    		let transactionStore = transactionList[i].transactionStore;
-		    		//let transactionAmt = transactionList[i].transactionAmt;
-		    		let transactionMemo = transactionList[i].transactionMemo;
-		    		
-		    		let transactionDate = transactionList[i].transactionTime.substring(0,10);
-		    		let transactionTime = transactionList[i].transactionTime.substring(11,19);
-		    		
-		    		let photoUrl = photoList[0].photoUrl; // 등록된 사진 중 첫번째 사진을 띄움
-		    		
-		    		$('#swiper-'+memberId).children('.swiper-wrapper').append(
-		    				"<div class='swiper-slide'><div class='bgGrad' "+
-		    				"style='background-image:linear-gradient(to bottom, transparent, "+grcolor[(i%4)]+" 85%),url(\""+
-		    				photoUrl+"\"); background-position:center center;'><h6>"+
-		    				transactionStore+"<br><small>"+ transactionDate +"</small></h6></div>"
-		    		);
+					// 등록된 사진이 있으면 안가져옴
+					if(photoList.length!=0) {
+						let transactionStore = transactionList[i].transactionStore;
+			    		//let transactionAmt = transactionList[i].transactionAmt;
+			    		let transactionMemo = transactionList[i].transactionMemo;
+			    		
+			    		let transactionDate = transactionList[i].transactionTime.substring(0,10);
+			    		let transactionTime = transactionList[i].transactionTime.substring(11,19);
+			    		
+			    		let photoUrl = photoList[0].photoUrl; // 등록된 사진 중 첫번째 사진을 띄움
+			    		
+			    		$('#swiper-'+memberId).children('.swiper-wrapper').append(
+			    				"<div class='swiper-slide'><div class='bgGrad' "+
+			    				"style='background-image:linear-gradient(to bottom, transparent, "+grcolor[(i%4)]+" 85%),url(\""+
+			    				photoUrl+"\"); background-position:center center;'><h6>"+
+			    				transactionStore+"<br><small>"+ transactionDate +"</small></h6></div>"
+			    		);
+					}
 				}
-				
 			},
 			error: function(e){
 				console.log(e);

@@ -380,7 +380,7 @@ $(function() {
 	<div class="content container">
 		<div class="row myStorySpace ">
 			<div class="storyTitle col-12">
-				<h4>나만의 공간</h4>
+				<h4></h4>
 			</div>
 		</div>
 		<div class="row ourStorySpace mt-4">
