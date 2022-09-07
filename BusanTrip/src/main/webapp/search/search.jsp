@@ -14,12 +14,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <style type="text/css">
 	:root {
-	  --bnk-red: #E60000;
-	  --bnk-dark-red: #BE0000;
-	  --bnk-gray: #545443;
-	  --bnk-grey: #545443;
-	  --bnk-lightgray: #B3B38F;
-	  --bnk-lightgrey: #B3B38F;
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
