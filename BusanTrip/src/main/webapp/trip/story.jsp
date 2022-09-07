@@ -369,36 +369,44 @@ $(function() {
 		$(this).css("background-color","white");
 	})
 	
+	var imageUrl = "/img/backImg_2.jpg"
+	$('.backImg').css({
+		'background-image': 'linear-gradient(rgba(256, 256, 256, 0.4), rgba(256, 256, 256, 0.4)), url("'+imageUrl+'")',
+		'background-size': 'cover', 'background-repeat': 'no-repeat'});
+	
+	
 });
 </script>
 
 </head>
 <body>
-	<c:import url="/header/nav.jsp">
-		<c:param name="navTitle" value="머니앨범"/>
-	</c:import>
-	<div class="content container">
-		<div class="row myStorySpace ">
-			<div class="storyTitle col-12">
-				<h4></h4>
+	<div class="backImg">
+		<c:import url="/header/nav.jsp">
+			<c:param name="navTitle" value="머니앨범"/>
+		</c:import>
+		<div class="content container">
+			<div class="row myStorySpace ">
+				<div class="storyTitle col-12">
+					<h4></h4>
+				</div>
+			</div>
+			<div class="row ourStorySpace mt-4">
+				<div class="storyTitle col-9">
+					<h4>모임</h4>
+				</div>
+				<div class="col-3" align="right">
+					<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
+						<span class="material-symbols-outlined add">add</span>
+					</button>
+					
+				</div>
+				<div class="col-12">
+					
+				</div>
 			</div>
 		</div>
-		<div class="row ourStorySpace mt-4">
-			<div class="storyTitle col-9">
-				<h4>모임</h4>
-			</div>
-			<div class="col-3" align="right">
-				<button type="button" id="addbutton" data-toggle="modal" data-target="#storyModal">
-					<span class="material-symbols-outlined add">add</span>
-				</button>
-				
-			</div>
-			<div class="col-12">
-				
-			</div>
-		</div>
+		<c:import url="/footer/footer.jsp" />
 	</div>
-	<c:import url="/footer/footer.jsp" />
 	<!-- The Modal -->
 	 <div class="modal fade" id="storyModal">
 	   <div class="modal-dialog modal-dialog-centered">
