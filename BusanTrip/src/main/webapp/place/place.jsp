@@ -331,16 +331,18 @@
 	.image-inner-wrapper{
 		margin: 10px;
 		border-radius: 5px;
-		box-shadow: 0px 5px 8px -3px #77dd77;
+		box-shadow: 0px 5px 8px -3px #4682B4;
 		overflow: hidden;
 		height: 70px;
+		color:#53565A;
 	}
 	
 	.image-title{
 		font-weight: bold;
 		font-size: 15px;
-		background-color: #77dd77;
+		background-color: #4682B4;
 		padding: 2px;
+		color:white;
 	}
 	
 	.image-name{
@@ -352,8 +354,6 @@
 		width: 90%;
 		height: 100%;
 		margin: 10px auto 15px;
-		border-radius: 10px;
-		box-shadow: 0px 5px 8px -3px #777777;
 		object-fit: cover;
 	}
 	
@@ -366,8 +366,7 @@
 
 <script>
 	$(function() {
-		let tmpIcn = generateEmoji();
-		$('.image-title').text(tmpIcn + ' ' + $('.image-title').text() + ' ' + tmpIcn);
+		$('.image-title').text($('.image-title').text());
 		
 		if (memberId != 'null') {
 			// 랜덤 이미지 정보 도출
@@ -375,7 +374,6 @@
 				'오륙도 스카이워크': '/img/back-login5.jpg',
 				'다대포 해수욕장': '/img/back-batch-1619.jpg',
 				'기장 죽성교회': '/img/back-batch-0407.jpg',
-				'광안대교': '/img/back-login-register.png'
 			};
 			
 			let imageInfoKeys = Object.keys(imageInfo);
