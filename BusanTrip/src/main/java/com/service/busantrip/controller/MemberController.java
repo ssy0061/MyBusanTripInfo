@@ -162,7 +162,7 @@ public class MemberController {
 		return memberService.findTransactionByTransactionId(transactionId);
 	}
 	
-	@PostMapping("findTransactionBySpecifiㄹcPeriod")
+	@PostMapping("findTransactionBySpecificPeriod")
 	@ResponseBody
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay, Model model, HttpSession session) {
 		List<Transaction> allTransactionListByPeriod = memberService.findTransactionBySpecificPeriod(accountNumber, startDay, finishDay);
