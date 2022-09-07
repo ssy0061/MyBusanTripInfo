@@ -44,6 +44,7 @@
 
 - **Back-end**
     - **곽효석** [(Github)](https://github.com/kkhsuk)
+    - **조서영** [(Github)](https://github.com/choseoyeong)
 
 ### 5-3. 프로젝트 기간
 - **1차 프로젝트 제작 기간**: 2022. 08. 10. ~ 2022. 09. 08.
