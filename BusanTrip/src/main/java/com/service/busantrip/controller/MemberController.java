@@ -89,7 +89,7 @@ public class MemberController {
 		try {
 			Member member = new Member(memberId, memberPw, memberName, memberTele, memberAddr);
 			int registerData = memberService.join(member);
-			String defaultAlbumName = "나의 머니앨범";
+			String defaultAlbumName = memberName+"의 머니앨범";
 			if(registerData == 1) {
 				model.addAttribute("registerData", member.getMemberId());
 				storyService.addStory(defaultAlbumName, memberId, memberId);
