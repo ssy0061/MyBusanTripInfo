@@ -23,13 +23,12 @@
 	.storyTitle h4{
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 500;
-		color:#53565A;
 	}
 	#addbutton{
 		display:flex;
 		justify-content:center;
 		align-items:center;
-		background-color:transparent;
+		background-color:white;
 		border-style:solid;
 		border-width:2px;
 		border-color:#53565A;
@@ -48,7 +47,7 @@
 	}
 	.card-title{
 		font-family: 'Noto Sans KR', sans-serif;
-		font-weight: 400;
+		font-weight: 500;
 	}
 	.card-body:hover{
 		cursor:pointer;
@@ -371,7 +370,7 @@ $(function() {
 	
 	var imageUrl = "/img/backImg_2.jpg"
 	$('.backImg').css({
-		'background-image': 'linear-gradient(rgba(256, 256, 256, 0.4), rgba(256, 256, 256, 0.4)), url("'+imageUrl+'")',
+		'background-image': 'linear-gradient(rgba(256, 256, 256, 0.5), rgba(256, 256, 256, 0.5)), url("'+imageUrl+'")',
 		'background-size': 'cover', 'background-repeat': 'no-repeat'});
 	
 	

@@ -344,6 +344,20 @@
 	.card-row-6-bar{
 		height: 1%;
 	}
+	.card-text{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+		color:#53565A;
+	}
+	.card-text.pay-store{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+	}
+	.card-body>h6{
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
+		color:#53565A;
+	}
 	/* 상하단 바를 위한 필수 css */
 	.content{
 	    margin-top: 90px;
@@ -773,8 +787,8 @@ $(document).ready(function () {
 				    					+ "</div>" 
 			    					+ "</div>"
 			    					+ "<div class='card-body'>"
-			    						+ "<div class='card-text' style='font-size:1rem;font-weight: 500;'>"+ transactionDate+' '+transactionTime+ "</div>"
-			    						+ "<div class='card-text pay-store' style='font-size:1.2rem;font-weight: 500;'>"+transactionStore+"</div>"
+			    						+ "<div class='card-text' style='font-size:1rem;'>"+ transactionDate+' '+transactionTime+ "</div>"
+			    						+ "<div class='card-text pay-store' style='font-size:1.2rem;'>"+transactionStore+"</div>"
 			    						+ "<h6>"+transactionMemo+"</h6>"
 			    					+"</div>"
 		    				+"</div></div>"
@@ -841,15 +855,11 @@ $(document).ready(function () {
 	            $btnDiv.append($str);
 	            $imgDiv.appendChild($btnDiv);
 				$colDiv.appendChild($imgDiv);
-				
-				
-				
-				reader.readAsDataURL(file)
-				
+
+				reader.readAsDataURL(file)			
 			})
 			multiContainer.appendChild($colDiv)
 		}
-			
 	} //readMultiImage(input)
 	const inputMultiImage = document.getElementById("upload")
 		inputMultiImage.addEventListener('change', (e) => {
@@ -875,7 +885,7 @@ $(document).ready(function () {
 		console.log($(this).attr("id").substring(7));
 		fileArr.splice($(this).attr("id").substring(7),1);
 		console.log(fileArr)
-		$(this).parent().remove();
+		$(this).parent().parent().remove();
 	});
 	
 	$('.custom-button').hover(function(){
@@ -956,7 +966,7 @@ $(document).ready(function () {
 				})
 			}
 		} else {
-			alert("최대 4장까지 등록 가능합니다.");
+			alert("사진은 최대 4장까지 등록 가능합니다.");
 		}
 	})
 	
