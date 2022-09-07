@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -186,9 +187,9 @@ public class StoryController {
 
 	@PostMapping("addPhotoToDiaryTransaction")
 	@ResponseBody
-	public void addPhotoToDiaryTransaction(@RequestParam Map<String, Object> param, HttpServletRequest request) {
-		MultipartFile mFile = (MultipartFile) param.get("photo");
-		String diaryTransactionId = (String) param.get("diaryTransactionId");
+	public void addPhotoToDiaryTransaction(@RequestPart(value = "photo", required = false) MultipartFile mFile, 
+										   @RequestPart(value = "diaryTransactionId") String diaryTransactionId, 
+										   HttpServletRequest request) {
 		System.out.println(mFile);
 		System.out.println(diaryTransactionId);
 		/* MultipartFile mFile = photo.getUploadFile(); */
@@ -201,10 +202,11 @@ public class StoryController {
 		String root = ("/img");
 		System.out.println("root " + root);
 		
-		String path = root + "\\diaryphoto\\";
+		/* String path = root + "\\diaryphoto\\"; */
+		String path = "C:\\Users\\busanbank\\git\\MyBusanTripInfo\\BusanTrip\\src\\main\\resources\\static\\img\\diaryphoto\\";
 		
 		//우리가 쓸려고 만든 변수
-		String photoUrl = path+mFile.getOriginalFilename();
+		String photoUrl = "/img/diaryphoto/"+mFile.getOriginalFilename();
 		
 		File copyFile = new File(path + mFile.getOriginalFilename());
 		

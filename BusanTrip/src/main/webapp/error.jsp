@@ -152,7 +152,6 @@
 	}
 </style>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="js/main.js" type="text/javascript"></script>
 <script>
 	$(function() {
 	  setTimeout(function(){$('body').removeClass('loading');}, 100);
