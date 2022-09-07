@@ -3,6 +3,7 @@
 ***
 
 # 여행가실부은✈️
+<center><img src="docImage/mbti.png"/></center><br>
 [🛠 Github link↗](https://github.com/ssy0061/MyBusanTripInfo)
 
 
