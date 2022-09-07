@@ -498,7 +498,7 @@
 	}  // findStorePopularBy end
 	
 	function generateEmoji() {
-		let emojiList = "✈️🛫🛩🏖🏕🚝🚘🚗🚙🚌🥂☀️🐾🍀";
+		let emojiList = "✈️🛫🛩🏖🏕🚝🚘🚗🚙🚌☀️🐾🍀";
 		let randPos = parseInt(Math.random()*emojiList.length/2);
 		emoji = emojiList.substring(2*randPos, 2*randPos+2);
 		return emoji;
