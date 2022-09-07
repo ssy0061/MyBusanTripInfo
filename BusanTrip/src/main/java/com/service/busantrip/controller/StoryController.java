@@ -199,11 +199,12 @@ public class StoryController {
 			System.out.println("업로드한 파일명 " + mFile.getOriginalFilename());
 		}
 		
-		String root = ("/img");
+		String root = request.getSession().getServletContext().getRealPath("/");
 		System.out.println("root " + root);
 		
 		/* String path = root + "\\diaryphoto\\"; */
-		String path = "C:\\Users\\busanbank\\git\\MyBusanTripInfo\\BusanTrip\\src\\main\\resources\\static\\img\\diaryphoto\\";
+		String path = root+"img\\diaryphoto\\";
+		System.out.println("path: "+path);
 		
 		//우리가 쓸려고 만든 변수
 		String photoUrl = "/img/diaryphoto/"+mFile.getOriginalFilename();
