@@ -300,7 +300,7 @@ $(function() {
 	
 	$('.addStoryYes').on('click', addStory)
 	function addStory(){
-		if(confirm("DB랑 연결해놔서 막 추가하면 안되는데도 스토리를 추가하시겠습니까?")) {
+		if(confirm("모임을 생성하시겠습니까?")) {
 			var storyName = $('#storyname').val();
 			//console.log("storyName:: " + storyName + ", currentMemberId:: " + currentMemberId + ", memberList:: " + memberList);
 			

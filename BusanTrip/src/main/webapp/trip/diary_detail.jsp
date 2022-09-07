@@ -111,8 +111,17 @@
 	.modal-header, .modal-footer{
 		width:100%;
 	}
-	.image-area {
-	    position: relative;
+ 	.image-area>div{
+	    display:flex;
+	    flex-direction:column;
+	    flex-wrap:nowrap;
+	} 
+	.imgDiv{
+		display: flex;
+		justify-content: center;
+	}
+	.imgDiv img{
+		object-fit: cover;
 	}
 	.image-area::before {
 	    color: #fff;
@@ -124,6 +133,7 @@
 	}
 	.each-image {
 	    width:50%;
+	    max-height: 200px;
 	    height:auto;
 	    padding:2px 5px;
 	    margin:5px 2px;
@@ -153,6 +163,9 @@
 		border-color:transparent;
 		background-color:#F08080;
 		box-shadow: 0 3px 3px 0 #53565A;
+	}
+	.deleteBtn{
+		height:36px;
 	}
 	#input-label{
 		display:inline-block;
@@ -272,10 +285,24 @@
     #transactionModal .one-pay:hover{
     	cursor: pointer;
     }
+    .imageWrap{
+    	display: inline-flex;
+    	justify-content: center;
+    	align-items: flex-start;
+    }
+    .imgBtn{
+    	display: inline-flex;
+    	flex-direction: column;
+    	justify-content: flex-start;
+    	align-items: flex-start;
+    	width: 40%;
+    	height: 100%;
+    }
     .uploadImg {
     	display: flex;
     	flex-direction: column;
     	align-items: center;
+    	overflow: auto;
     }
     /* card */
     .card-header{
@@ -784,8 +811,12 @@ $(document).ready(function () {
 				const reader = new FileReader()
 				
 	            const $imgDiv = document.createElement('div')
+	            $imgDiv.classList.add('imageWrap')
 	            const $img = document.createElement('img')
 	            $img.classList.add('each-image')
+	            
+	            const $btnDiv = document.createElement('div')
+	            $btnDiv.classList.add('imgBtn')
 	            const $label = document.createElement('label')
 	            $label.classList.add('image-label')
 	            $label.textContent = file.name
@@ -798,13 +829,17 @@ $(document).ready(function () {
 	            $str.append('삭제');
 	            
 	            $imgDiv.appendChild($img);
-	            $imgDiv.appendChild($label);
+	            $btnDiv.appendChild($label);
+	            
 	            reader.onload = e => {
 	            	$img.src = e.target.result;
 	            };
 	            console.log(file.name);
+	            $btnDiv.append($str);
+	            $imgDiv.appendChild($btnDiv);
 				$colDiv.appendChild($imgDiv);
-				$imgDiv.append($str);
+				
+				
 				
 				reader.readAsDataURL(file)
 				
@@ -1038,7 +1073,7 @@ $(document).ready(function () {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div id="transactionStr" class="mt-3"><small>거래내역 하나를 선택해주세요</small></div>
-				<div class="modal-body" align="center">
+				<div class="modal-body" align="center" style="min-height:100px;">
 				
 				</div>
 				<div class="uploadImg mx-auto picture-btn-re py-2">
