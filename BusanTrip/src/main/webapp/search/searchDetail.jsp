@@ -20,12 +20,6 @@
 <style type="text/css">
 
 	:root {
-	  --bnk-red: #E60000;
-	  --bnk-dark-red: #BE0000;
-	  --bnk-gray: #545443;
-	  --bnk-grey: #545443;
-	  --bnk-lightgray: #B3B38F;
-	  --bnk-lightgrey: #B3B38F;
 	  --button-hover: #F5F5F5;
 	  --button-active: #EEEEEE;
 	}
@@ -111,7 +105,6 @@
 	}
 	/* 상하단 바를 위한 필수 css */
 	
-	
 /* 	.content{
 		min-height: 100vh;
 	    width: 100%;
@@ -176,9 +169,7 @@
 	}
 	
 	/* */
-	
 	.accountNumber {
-		max-width: 100px;
 		width: 100%;
 		font-size: 20px;
 	}
