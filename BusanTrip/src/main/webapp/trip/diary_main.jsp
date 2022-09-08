@@ -189,7 +189,7 @@
 				data: {'storyId': storyId, 'diaryName': diaryName},
 				
 				success:function(result) {
-					alert(diaryName + " 다이어리 추가 완료");
+					alert(diaryName + " 머니앨범 추가 완료");
 					//console.log(result);
 					$('.diary-in-story').html("");
 					$('#newDiaryName').val("");
