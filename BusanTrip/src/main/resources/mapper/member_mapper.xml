@@ -7,8 +7,8 @@
 
 	<insert id="join" parameterType="member">
 		INSERT INTO
-		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR)
-		VALUES(#{memberId}, #{memberPw}, #{memberName},#{memberTele},#{memberAddr})
+		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR, MEMBER_GENDER, MEMBER_BIRTH)
+		VALUES(#{memberId}, #{memberPw}, #{memberName},#{memberTele},#{memberAddr},#{memberGender},#{memberBirth})
 	</insert>
 	<select id="findIdExist" parameterType="String" resultType="member">
 		SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_ID = #{memberId}
