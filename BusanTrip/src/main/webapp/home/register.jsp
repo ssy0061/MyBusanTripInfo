@@ -199,8 +199,8 @@
 		
 		$(':submit').click(function() {
 			if (!isValidId || !isValidPw) return false;
-			let birthday = document.getElementById("birthday").value;
-			console.log(birthday)
+			var birth = document.getElementById("birthday");
+			console.log(birth.value);
 		});  // submit button
 		
 	});  // JQuery
@@ -248,14 +248,14 @@
 							
 							<div class="register-box-inner">
 								<label for="birthday" class="inner-text">생년월일 : </label>
-								<input type="date" id="birthday">
+								<input type="date" id="birthday" name="memberBirth">
 								<%-- <input id="checkBday" type="submit" value="확인"> --%>
 							</div>
 							
 							<div class="register-box-inner register-gender">
 								<div class="inner-text">성별 : </div>
-								<input type="radio" id="male" value="male"><label for="male">남</label>
-								<input type="radio" id="female" value="female"><label for="female">여</label>
+								<input type="radio" id="male" name="memberGender" value="남"><label for="male">남</label>
+								<input type="radio" id="female" name="memberGender" value="여"><label for="female">여</label>
 							</div>
 							
 							<div class="register-box-inner">
