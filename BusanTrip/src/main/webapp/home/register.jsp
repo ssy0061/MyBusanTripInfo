@@ -75,12 +75,6 @@
 		font-size: 12px;
 	}
 	
-	/*#checkBday{
-		font-size:12px;
-		padding:0;
-		width:30px;
-	}*/
-	
 	.register-gender>div{
 		width:110px;
 	}
@@ -249,7 +243,6 @@
 							<div class="register-box-inner">
 								<label for="birthday" class="inner-text">생년월일 : </label>
 								<input type="date" id="birthday" name="memberBirth">
-								<%-- <input id="checkBday" type="submit" value="확인"> --%>
 							</div>
 							
 							<div class="register-box-inner register-gender">
