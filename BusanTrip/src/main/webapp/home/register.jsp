@@ -37,7 +37,7 @@
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
-		height: 280px;
+		height: 340px;
 		position: relative;
 		border-radius: 10px;
 		box-shadow:2px 3px 5px 2px lightGray;
@@ -63,7 +63,7 @@
 	.inner-text-red { color: #CB333B; }
 	.inner-text-green { color: green; }
 	
-	.form-box {
+	.form-box, #birthday {
 		width: 160px;
 		margin: 0 5px;
 		font-size: 13px;
@@ -73,6 +73,16 @@
 		width: 100%;
 		text-align: right;
 		font-size: 12px;
+	}
+	
+	/*#checkBday{
+		font-size:12px;
+		padding:0;
+		width:30px;
+	}*/
+	
+	.register-gender>div{
+		width:110px;
 	}
 	
 	#joinbutton {
@@ -189,6 +199,8 @@
 		
 		$(':submit').click(function() {
 			if (!isValidId || !isValidPw) return false;
+			let birthday = document.getElementById("birthday").value;
+			console.log(birthday)
 		});  // submit button
 		
 	});  // JQuery
@@ -232,6 +244,18 @@
 							<div class="register-box-inner">
 								<div class="inner-text">이름 : </div>
 								<input type="text" name="memberName" class="form-box" required="required">
+							</div>
+							
+							<div class="register-box-inner">
+								<label for="birthday" class="inner-text">생년월일 : </label>
+								<input type="date" id="birthday">
+								<%-- <input id="checkBday" type="submit" value="확인"> --%>
+							</div>
+							
+							<div class="register-box-inner register-gender">
+								<div class="inner-text">성별 : </div>
+								<input type="radio" id="male" value="male"><label for="male">남</label>
+								<input type="radio" id="female" value="female"><label for="female">여</label>
 							</div>
 							
 							<div class="register-box-inner">
