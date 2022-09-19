@@ -7,8 +7,25 @@ public class Member {
 	private String memberTele;
 	private String memberAddr;
 	private String memberChar;
+	private String memberGender;
+	private int memberBirth;
 	
 	public Member() { }
+	
+	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr,
+			String memberChar, String memberGender, int memberBirth) {
+		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberName = memberName;
+		this.memberTele = memberTele;
+		this.memberAddr = memberAddr;
+		this.memberChar = memberChar;
+		this.memberGender = memberGender;
+		this.memberBirth = memberBirth;
+	}
+
+	
 	
 	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr,
 			String memberChar) {
@@ -21,6 +38,20 @@ public class Member {
 		this.memberChar = memberChar;
 	}
 
+	
+	
+	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr,
+			String memberGender, int memberBirth) {
+		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberName = memberName;
+		this.memberTele = memberTele;
+		this.memberAddr = memberAddr;
+		this.memberGender = memberGender;
+		this.memberBirth = memberBirth;
+	}
+
 	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr) {
 		super();
 		this.memberId = memberId;
@@ -29,6 +60,8 @@ public class Member {
 		this.memberTele = memberTele;
 		this.memberAddr = memberAddr;
 	}
+	
+	
 	
 	public Member(String memberId, String memberPw) {
 		super();
@@ -84,9 +117,27 @@ public class Member {
 		this.memberChar = memberChar;
 	}
 
+	public String getMemberGender() {
+		return memberGender;
+	}
+
+	public void setMemberGender(String memberGender) {
+		this.memberGender = memberGender;
+	}
+
+	public int getMemberBirth() {
+		return memberBirth;
+	}
+
+	public void setMemberBirth(int memberBirth) {
+		this.memberBirth = memberBirth;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
-				+ ", memberTele=" + memberTele + ", memberAddr=" + memberAddr + ", memberChar=" + memberChar + "]";
+				+ ", memberTele=" + memberTele + ", memberAddr=" + memberAddr + ", memberChar=" + memberChar
+				+ ", memberGender=" + memberGender + ", memberBirth=" + memberBirth + "]";
 	}
+
 }
