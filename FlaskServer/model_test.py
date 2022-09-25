@@ -32,35 +32,42 @@ y = ['카페', '관광지', '카페', '한식', '중식', '한식'] * 10
 lb = LabelEncoder()
 lb.fit(y)
 y = lb.transform(y)
-print(data)
+# print(data)
 X_train, X_test, y_train, y_test = train_test_split(data, y)
 
-print(X_train.shape, y_train.shape)
-print(X_test.shape, y_test.shape)
+# print(X_train.shape, y_train.shape)
+# print(X_test.shape, y_test.shape)
 
 decision_tree_model = DecisionTreeClassifier()
 decision_tree_model.fit(X_train, y_train)
 cross_val = cross_validate(estimator=decision_tree_model, X=X_train, y=y_train, cv=5)
 
-print(f"average test score : {cross_val['test_score'].mean()}")
+# print(f"average test score : {cross_val['test_score'].mean()}")
 
 model = decision_tree_model
-columns=['성별',
-        '나이대',
-        '총 결제 금액'
-        '총 결제 건수', 
-        '건당 평균 결제가격', 
-        '건당 최대 결제가격', 
-        '건당 최소 결제가격']
-user_info = [1,20,708000,32,21040,18000,3000]
-tmp = pd.DataFrame([user_info], columns=columns) # error 해결 필요
+tmp = pd.DataFrame({
+        '성별': [1],
+        '나이대': [20],
+        '총 결제 금액': [708000],
+        '총 결제 건수': [32], 
+        '건당 평균 결제가격': [21040], 
+        '건당 최대 결제 가격': [18000], 
+        '건당 최소 결제 가격': [3000]
+}) # 카테고리 2
 print(tmp)
-y_pred = model.predict(X_test.iloc[0:1,:])
-print(y_pred[0])
-print(y_test[0])
+y_pred = model.predict(tmp)
+print(y_pred)
 
 
-# with open('model/decision_tree_model.dat', 'rb') as f:
-#   model = pickle.load(f)  # 로드
+# print(X_test)
+# print(y_test)
 
-# model.score(X_test, y_test)
+# y_pred = model.predict(X_test.iloc[0:1,:])
+# print(y_pred[0])
+# print(y_test[0])
+
+
+with open('model/decision_tree_model.dat', 'rb') as f:
+  model = pickle.load(f)  # 로드
+
+print(model.score(X_test, y_test))
