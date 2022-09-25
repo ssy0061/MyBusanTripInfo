@@ -66,8 +66,11 @@ print(y_pred)
 # print(y_pred[0])
 # print(y_test[0])
 
+# 저장한 모델 불러오기
+dt = 'model/decision_tree_model.dat'
+et = 'model/et_model.dat'
+rf = 'model/rf_model.dat'
+with open(rf, 'rb') as f:
+  model2 = pickle.load(f)  # 로드
 
-with open('model/decision_tree_model.dat', 'rb') as f:
-  model = pickle.load(f)  # 로드
-
-print(model.score(X_test, y_test))
+print(model2.score(X_test, y_test))
