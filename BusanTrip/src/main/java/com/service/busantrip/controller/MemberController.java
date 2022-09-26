@@ -84,7 +84,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("join")
-	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, String memberGender, int memberAge, Model model, HttpSession session) {
+	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, String memberGender, String memberAge, Model model, HttpSession session) {
 		try {
 			Member member = new Member(memberId, memberPw, memberName, memberTele, memberAddr, memberGender, memberAge);
 			int registerData = memberService.join(member);
