@@ -52,9 +52,10 @@
 		.place-upper { height: auto; }
 		
 		.suggestBox, .suggestBox-choiced { font-size: 15px; cursor:pointer; }
+		.categoryFood, .categoryFood-choiced { font-size:14px; }
 		.title-left { font-size: 16px; }
 		.place-upper-inner { min-height: 210px; }
-		.place-upper-image { height: 0px; visibility: hidden; }
+		/*.place-upper-rank { height: 0px; visibility: hidden; }*/
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
@@ -72,13 +73,13 @@
 			background-color: rgba( 255, 255, 255, 0.6 );
 			width: 90%;
 			margin: 0 10px;
-			height: 710px;
+			height: 720px;
 		}
-		
-		.place-upper { display: flex; }
+
 		.place-lower { overflow: auto; }
 		
 		.suggestBox, .suggestBox-choiced { font-size: 13px; cursor:pointer; }
+		.categoryFood, .categoryFood-choiced { font-size:12px; }
 		.title-left { font-size: 13px; }
 		
 		.backImg { /* web backgorund */
@@ -89,13 +90,14 @@
 			background-repeat: no-repeat;
 		}
 		
-		.place-upper-image{ height: 100%; }
-		.place-upper-inner { min-height: 230px; }
+		.place-upper-rank{ height: 100%; }
+		.place-upper-inner { height:auto; }
 	}
 	@media screen and (min-width: 768.1px) { /* Bigger Web */
 		.suggestBox, .suggestBox-choiced { font-size: 15px; }
+		.categoryFood, .categoryFood-choiced { font-size:14px; }
 		.title-left { font-size: 16px; }
-		.place-upper-inner { min-height: 210px; }
+		.place-upper-inner { height:auto; }
 	}
 	
 	.place-upper, .place-lower {
@@ -113,10 +115,9 @@
 	
 	.place-upper-inner {
 		max-width: 400px;
-		width: 80%;
+		width: 85%;
 		margin: 15px auto;
 		padding: 8px;
-		position: relative;
 		border-radius: 5px;
 		background-color: #a6a6a6;
 		box-shadow: 0px 5px 8px -3px #aaa;
@@ -134,12 +135,7 @@
 	#nowMonth{
 		color: #CB333B;
 	}
-	
-	.place-upper-inner-contents {
-		position: relative;
-		min-height: 100px;
-	}
-	
+
 	.ranking {
 		border-radius: 5px;
 		margin: 15px 10px;
@@ -160,21 +156,20 @@
 		width: 100%;
 		text-align: left;
 		padding: 0 0 0 10px;
-		font-size: 15px;
+		font-size: 14px;
 	}
-	
 	.visitCount {
 		width: 80px;
 		margin: 0 5px 0 0;
 		text-align: right;
 		padding: 0 5px 0 0;
-		font-size: 15px;
+		font-size: 14px;
 		font-weight: bold;
 	}
 	
-	.place-lower-box, .place-upper-image-inner {
+	.place-lower-box, .place-upper-rank-inner {
 		max-width: 400px;
-		width: 80%;
+		width: 85%;
 		min-height: 50px;
 		margin: 15px auto;
 		padding: 8px;
@@ -193,7 +188,7 @@
 	}
 	
 	.title-left { width: 100%; }
-	.title-right { width: 40px; }
+	.title-right { width: 10px; }
 
 	.moreBtn {
 		border: 0;
@@ -207,7 +202,7 @@
 		padding-left:20px;
 	}
 	
-	.regionName, .periodName, .categoryName {
+	.regionName, .periodName, .categoryName, .foodStyle {
 		color: #CB333B;
 	}
 	
@@ -238,6 +233,7 @@
 		padding-top:10px;
 		padding-left:3px;
 	}
+	
 	.ilcafe { background-color: #a25fce; } /*#e7d5fb*/
 	.ilfood { background-color: #F08080; } /*#ffdd99*/ 
 	.iltour { background-color: #4682B4; } /*#c1f0c1*/
@@ -252,7 +248,6 @@
 	.info-right {
 		width: 240%;
 	}
-	
 	.right-arrow {
 		width: 25px;
 	}
@@ -292,43 +287,39 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: 3px 0 0;
+		margin: 3px 0 6px 0;
 	}
 	
 	.suggestBox {
 		background-color: white;
-		border-radius: 10px;
-		border: 3px solid lightGray;
+		color:#53565A;
+		border-bottom: 3px solid lightGray;
 		font-weight: bold;
 		width: 100px;
 		margin: 0 1px 1px;
 	}
-	
 	.suggestBox-choiced {
 		background-color: white;
+		color:black;
 		width: 100px;
-		border-radius: 10px;
+		border-radius:10px;
 		border: 3px solid #CB333B;
 		font-weight: bold;
-		margin: 0 1px 1px;
 	}
-	
 	.suggestBox:hover{
 	    background-color: var(--button-hover);
 	}
-	
 	.suggestBox:active{
 	    background-color: var(--button-active);
 	}
 	
-	.place-upper-image-inner{
+	.place-upper-rank-inner{
 		height: 405px;
 		display: flex;
 		flex-direction: column;
     	justify-content: center;
 	}
-	
-	.image-inner-wrapper{
+	.rank-inner-wrapper{
 		margin: 10px;
 		border-radius: 5px;
 		box-shadow: 0px 5px 8px -3px #4682B4;
@@ -337,26 +328,38 @@
 		color:#53565A;
 	}
 	
-	.image-title{
+	.categoryRow {
+		display:flex;
+		flex-wrap:wrap;
+		justify-content:center;
+	}
+	.categoryCol {
+		padding:0;
+		margin:0;
+	}
+	.categoryFood {
+		color:gray;
 		font-weight: bold;
-		font-size: 15px;
-		background-color: #4682B4;
-		padding: 2px;
+		width: 100px;
+		margin: 0 1px 1px;
+		padding:0 4px;
+	}
+	.categoryFood-choiced {
+		background-color: #F08080;
 		color:white;
-	}
-	
-	.image-name{
+		width: 100px;
+		border-radius:10px;
 		font-weight: bold;
-		font-size: 17px;
+		padding:2px 5px;
 	}
-	
-	#recommImg{
-		width: 90%;
-		height: 100%;
-		margin: 10px auto 15px;
-		object-fit: cover;
+	.categoryFood:hover{
+		cursor: pointer;
+	    background-color: var(--button-hover);
 	}
-	
+	.categoryFood:active{
+	    background-color: var(--button-active);
+	}
+
 	/* modal */
 	.modal-header>h6{
 		font-family: 'Noto Sans KR', sans-serif;
@@ -369,23 +372,6 @@
 		$('.image-title').text($('.image-title').text());
 		
 		if (memberId != 'null') {
-			// 랜덤 이미지 정보 도출
-			let imageInfo = {
-				'오륙도 스카이워크': '/img/back-login5.jpg',
-				'다대포 해수욕장': '/img/back-batch-1619.jpg',
-				'기장 죽성교회': '/img/back-batch-0407.jpg',
-			};
-			
-			let imageInfoKeys = Object.keys(imageInfo);
-			let randInt = parseInt(Math.random()*imageInfoKeys.length);
-			
-			let imgName = imageInfoKeys[randInt];
-			let imgLink = imageInfo[imgName];
-			
-			$('#recommImgTitle').text(imgName);
-			$('#recommImg').attr('src', imgLink);
-			
-			
 			$.ajax({
 				type: 'post',
 				url: '/store/findStorePopularByPersonal',
@@ -415,6 +401,17 @@
 			});  // findStorePopularByPersonal end
 		};  // if
 		
+		$.ajax({
+			type:'post',
+			url:'/member/findMemberInfo',
+			data:{'memberId':memberId},
+			success:function(result){
+				$('#user-name').append(result.memberName);
+				// 수정중
+			},
+			error: function(e){ console.log(e); }
+		}); // 회원 정보
+		
 		$('.suggestBox').click(function(){
 			if ($(this).attr('class') != 'suggestBox-choiced') {
 				let suggestMethod = $(this).attr('method');
@@ -425,6 +422,21 @@
 				
 				findStorePopularBy(suggestMethod, suggestValue);
 			}  // if
+			if($(this).attr('id') == 'suggest-food'){
+				$('#subtitle-food').text("");
+				$('#subtitle-food').append('<dic class="row categoryRow"><div class="categoryCol">'
+					+'<span class="categoryFood categoryKr" method="Category" value="한식">한식</span>'
+					+'<span class="categoryFood" method="Category" value="중식">중식</span>'
+					+'<span class="categoryFood" method="Category" value="일식">일식</span>'
+					+'<span class="categoryFood" method="Category" value="양식">양식</span></div>'
+					+'<div class="categoryCol"><span class="categoryFood" method="Category" value="아시안">아시안</span>'
+					+'<span class="categoryFood" method="Category" value="술집">술집</span>'
+					+'<span class="categoryFood" method="Category" value="뷔페">뷔페</span></div>');
+				$('.categoryKr').trigger('click');
+			} // 음식점 카테고리라면
+			else{
+				$('#subtitle-food').text("");
+			} // 음식점 카테고리가 아니라면
 		});  // div click
 		
 		// 첫 페이지 들어올 시 맨 처음 요소를 클릭
@@ -494,6 +506,18 @@
 			
 		}
 		getInputData()
+    
+		$('#subtitle-food').on('click', '.categoryFood', function(){
+			if($(this).attr('class') != 'categoryFood-choiced'){
+				let catefoodMethod = $(this).attr('method');
+				let catefoodValue = $(this).attr('value');
+				
+				$('.categoryFood-choiced').attr('class', 'categoryFood');
+				$(this).attr('class', 'categoryFood-choiced');
+				
+				findFoodPopularBy(catefoodMethod, catefoodValue);
+			}
+		})
 	});  // JQuery
 	
 	function findStorePopularBy(suggestMethod, suggestValue) {
@@ -520,23 +544,23 @@
 					let s = res[i];
 
 					let categoryCss = "", categoryIcon = "";
-					if (s.storeCategory == "카페") {
+					if (s.storeCategory == "카페/디저트") {
 						categoryCss = "ilcafe";
 						categoryIcon = '<span class="category-icon material-symbols-outlined">coffee</span>';
-					}
-					else if (s.storeCategory == "음식점") {
-						categoryCss = "ilfood";
-						categoryIcon = '<span class="category-icon material-symbols-outlined">dining</span>';
 					}
 					else if (s.storeCategory == "관광지") {
 						categoryCss = "iltour";
 						categoryIcon = '<span class="category-icon material-symbols-outlined">festival</span>';
 					}
+					else {
+						categoryCss = "ilfood";
+						categoryIcon = '<span class="category-icon material-symbols-outlined">dining</span>';
+					}
 					
 					let recommendBox = '<div class="place-lower-box-info place-'+categoryCss;
 					if (s.storeId != null)
 						recommendBox += ' searchBtn" store-id='+s.storeId+' data-toggle="modal" data-target="#searchModal';
-					recommendBox += '"><div class="info-left '+categoryCss+'">'+
+						recommendBox += '"><div class="info-left '+categoryCss+'">'+
 								'<span class="category">'+categoryIcon+'</span></div><div class="info-right">'+
 								'<div class="row placeNameAddr"><div class="info-right-upper"><div class="placeName">'+s.storeName+'</div></div>'+
 								'<div class="info-right-lower"><span class="location">'+s.storeAddr.split(" ")[0]+'</span></div></div></div>';
@@ -569,6 +593,56 @@
 		return emoji;
 	}
 	
+	function findFoodPopularBy(catefoodMethod, catefoodValue) {
+		let dataMapper = {'Category': 'category'};
+		let keydata = dataMapper[catefoodMethod];
+		<%-- 왜 카테고리만 string으로 집어넣으면 안 되는 것인가 특이하네.. category로 하니까 매핑이 되고..--%>
+
+		$.ajax({
+			type: 'post',
+			url: '/store/findStorePopularBy' + catefoodMethod,
+			data: {keydata: catefoodValue},
+			success: function(res) {
+				let titleElem = generateEmoji();
+				if (catefoodMethod == "Category")
+					titleElem += ' 인기 <span class="foodStyle">'+catefoodValue+'</span>';	
+				$('.title-left').html(titleElem)
+				$('.place-lower-box-lower').html('');  // 초기화
+
+				for (var i=0; i<res.length; i++) {
+					let s = res[i];
+
+					let categoryCss = "ilfood";
+					let categoryIcon = '<span class="category-icon material-symbols-outlined">dining</span>';
+					
+					let recommendBox = '<div class="place-lower-box-info place-'+categoryCss;
+					if (s.storeId != null)
+						recommendBox += ' searchBtn" store-id='+s.storeId+' data-toggle="modal" data-target="#searchModal';
+						recommendBox += '"><div class="info-left '+categoryCss+'">'+
+								'<span class="category">'+categoryIcon+'</span></div><div class="info-right">'+
+								'<div class="row placeNameAddr"><div class="info-right-upper"><div class="placeName">'+s.storeName+'</div></div>'+
+								'<div class="info-right-lower"><span class="location">'+s.storeAddr.split(" ")[0]+'</span></div></div></div>';
+					if (s.storeId != null)
+						recommendBox += '<div class="right-arrow material-symbols-outlined">chevron_right</div>';
+					recommendBox += '</div>';
+					
+					$('.place-lower-box-lower').append(recommendBox);
+				}  // for end
+				
+				// collapse 버튼 연결용 코드
+				$('.moreBtn').off('click').click(function(){
+					let targetId = $(this).attr('data-target');
+					$(targetId).collapse('toggle');
+				});  // button click
+				
+				// img 버튼 연결용 코드
+				$('.searchBtn').off('click').click(function(){
+					searchModalChange($(this).attr('store-id'));
+				});  // img click
+			},  // ajax success end
+			error: function(e){ console.log(e); }
+		});  // ajax end
+	}  // findStorePopularBy end
 </script>
 </head>
 
@@ -607,13 +681,18 @@
 								</div>
 							</div>
 						</div>
-						<div class="place-upper-image">
-							<div class="place-upper-image-inner">
-								<div class="image-inner-wrapper">
-									<div class="image-title">추천 관광명소</div>
-									<div class="image-name" id="recommImgTitle"></div>
+						<div class="place-upper-rank">
+							<div class="place-upper-rank-inner">
+								<div class="resultCategory">
+									<p><span id="user-name"></span>
+									<span>님이 속한 </span>
+									<span id="user-age"></span>
+									<span id="user-gender"></span>
+									<span>의</span></p>
+									<p><span>인기 카테고리는 </span>
+									<span id="result-category"></span>
+									<span>입니다.</span></p>
 								</div>
-								<img src="/img/noimg.png" id="recommImg">
 							</div>
 						</div>
 					</div>
@@ -624,9 +703,14 @@
 						<div class="suggestBoxWrap">
 							<span class="suggestBox" method="Region" value="기장">기장</span>
 							<span class="suggestBox" method="Period" value="일년">일년</span>
-							<span class="suggestBox" method="Category" value="카페">카페</span>
-							<span class="suggestBox" method="Category" value="음식점">음식</span>
+							<span class="suggestBox" method="Category" id="suggest-food" value="한식">음식</span>
+							<span class="suggestBox" method="Category" value="카페/디저트">카페</span>
 							<span class="suggestBox" method="Category" value="관광지">관광</span>
+						</div>
+						<div class="place-lower-box-subtitle">
+							<div id="subtitle-food">
+								<%-- subtitle --%>
+							</div>
 						</div>
 						<div class="place-lower-box-title">
 							<div class="title-left">

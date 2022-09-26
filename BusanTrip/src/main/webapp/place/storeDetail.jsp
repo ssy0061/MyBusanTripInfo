@@ -302,7 +302,7 @@
 				$('#holiday').text(result.storeHoliday);
 				$('#searchModal').attr('latitude', result.storeLatitude);
 				$('#searchModal').attr('longitude', result.storeLongitude);
-				if(result.storeCategory === "카페"){
+				if(result.storeThumbnail === null){
 					$('.storeDetail-box-pic').hide();
 				} else{
 					$('.storeDetail-box-pic').show();
