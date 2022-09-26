@@ -19,11 +19,20 @@
 <script>
 
 	$(function() {
+		userData = {'gender': '여',
+					'ages': '20',
+					'amount': '708000',
+					'cnt': '32',
+					'avg_amount': '21040',
+					'max_amount': '18000',
+					'min_amount': '3000'}
 		$(':button').click(function() {
 			$.ajax({
 				type: 'post',
-				url: 'http://127.0.0.1:8888/test/data',
-				data: {'data': $('#data').val()},
+				url: 'http://127.0.0.1:8888/api/ai/data',
+				headers: {'Content-Type': 'application/json'},
+				crossDomain: true,
+				data: JSON.stringify(userData),
 				success:function(result) {
 					$(':text').val("")
 					$('#lst').append('<li>'+result.data+'</li>')

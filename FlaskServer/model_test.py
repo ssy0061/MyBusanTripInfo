@@ -56,7 +56,7 @@ tmp = pd.DataFrame({
 }) # 카테고리 2
 print(tmp)
 y_pred = model.predict(tmp)
-print(y_pred)
+print(lb.inverse_transform(y_pred))
 
 
 # print(X_test)
