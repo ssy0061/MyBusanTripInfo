@@ -242,7 +242,7 @@
 							
 							<div class="register-box-inner">
 								<label for="birthday" class="inner-text">생년월일 : </label>
-								<input type="date" id="birthday" name="memberBirth">
+								<input type="date" id="birthday" name="memberAge">
 							</div>
 							
 							<div class="register-box-inner register-gender">
