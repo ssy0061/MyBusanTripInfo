@@ -20,7 +20,24 @@
 
 	$(function() {
 		
-
+		function getCategory(userData) { /* model 결과 요청 */
+			$.ajax({
+				type: 'post',
+				url: 'http://127.0.0.1:8888/api/ai/data',
+				headers: {'Content-Type': 'application/json'},
+				crossDomain: true,
+				data: JSON.stringify(userData),
+				success:function(result) {
+					/* result.data == 카페 */
+					$(':text').val("")
+					$('#lst').append('<li>'+result.data+'</li>')
+					$()
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		}
 		$(':button').click(function() {
 			$.ajax({
 				type: 'post',
@@ -47,20 +64,8 @@
 							'max_amount': userInfo.MAX_AMT,
 							'min_amount': userInfo.MIN_AMT
 					}
-					$.ajax({
-						type: 'post',
-						url: 'http://127.0.0.1:8888/api/ai/data',
-						headers: {'Content-Type': 'application/json'},
-						crossDomain: true,
-						data: JSON.stringify(userData),
-						success:function(result) {
-							$(':text').val("")
-							$('#lst').append('<li>'+result.data+'</li>')
-						},
-						error: function(e){
-							console.log(e);
-						}
-					})
+					/* model 결과 요청 */
+					getCategory(userData)
 				},
 				error: function(e){
 					console.log(e);
