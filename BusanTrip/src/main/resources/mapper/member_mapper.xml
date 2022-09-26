@@ -7,8 +7,8 @@
 
 	<insert id="join" parameterType="member">
 		INSERT INTO
-		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR, MEMBER_GENDER, MEMBER_BIRTH)
-		VALUES(#{memberId}, #{memberPw}, #{memberName},#{memberTele},#{memberAddr},#{memberGender},#{memberBirth})
+		MEMBER(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_TELE, MEMBER_ADDR, MEMBER_GENDER, MEMBER_AGE)
+		VALUES(#{memberId}, #{memberPw}, #{memberName},#{memberTele},#{memberAddr},#{memberGender},#{memberAge})
 	</insert>
 	<select id="findIdExist" parameterType="String" resultType="member">
 		SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_ID = #{memberId}
@@ -145,4 +145,21 @@
 		SET MEMBER_PW = #{memberPw}, MEMBER_TELE = #{memberTele}, MEMBER_ADDR = #{memberAddr}
 		WHERE MEMBER_ID=#{memberId}
 	</update>
+	
+	<!-- Python MachineLearning관련 -->
+	
+	<!-- FLASK에 보낼 데이터.. -->
+	<select id="findInputDataToML" parameterType="String" resultType="Map">
+		SELECT SUM(TRANSACTION_AMT) AS TOTAL_AMT, COUNT(*) AS TRANSACTION_COUNT, AVG(TRANSACTION_AMT) AS AVG_AMT, MAX(TRANSACTION_AMT) AS MAX_AMT, MIN(TRANSACTION_AMT) AS MIN_AMT,
+		M.MEMBER_GENDER, TRUNC(M.MEMBER_AGE,-1) AS MEMBER_AGE
+		FROM TRANSACTION T, MEMBER M
+		WHERE T.MEMBER_ID = #{memberId} AND M.MEMBER_ID = #{memberId}
+		GROUP BY MEMBER_GENDER, MEMBER_AGE
+	</select>
+	
+	<!-- FLASK에서 받아와서 프론트로 내보낼 데이터 -->
+	<select id="findStoreByCategoryByML" parameterType="Map" resultType='Store'>
+		
+	</select>
+	
 </mapper>

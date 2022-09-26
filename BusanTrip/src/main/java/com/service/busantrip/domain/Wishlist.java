@@ -1,7 +1,5 @@
 package com.service.busantrip.domain;
 
-import java.util.Date;
-
 public class Wishlist {
 	private int wishlistId;
 	private String memberId;
@@ -20,8 +18,6 @@ public class Wishlist {
 		this.member = member;
 		this.store = store;
 	}
-
-	
 
 	public String getMemberId() {
 		return memberId;

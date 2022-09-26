@@ -146,4 +146,9 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.updateMemberInfo(memberPw, memberTele, memberAddr, memberId);
 	}
 
+	@Override
+	public List<Map<String, Object>> findInputDataToML(String memberId) {
+		return memberDAO.findInputDataToML(memberId);
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.service.busantrip.controller;
 
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -85,9 +84,9 @@ public class MemberController {
 	}
 	
 	@PostMapping("join")
-	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, String memberGender, int memberBirth, Model model, HttpSession session) {
+	public String join(String memberId, String memberPw, String memberName, String memberTele, String memberAddr, String memberGender, int memberAge, Model model, HttpSession session) {
 		try {
-			Member member = new Member(memberId, memberPw, memberName, memberTele, memberAddr, memberGender, memberBirth);
+			Member member = new Member(memberId, memberPw, memberName, memberTele, memberAddr, memberGender, memberAge);
 			int registerData = memberService.join(member);
 			String defaultAlbumName = memberName+"의 머니앨범";
 			if(registerData == 1) {
@@ -166,9 +165,6 @@ public class MemberController {
 	@ResponseBody
 	public List<Transaction> findTransactionBySpecificPeriod(String accountNumber, String startDay, String finishDay, Model model, HttpSession session) {
 		List<Transaction> allTransactionListByPeriod = memberService.findTransactionBySpecificPeriod(accountNumber, startDay, finishDay);
-		//System.out.println("finday :: " + finishDay+" 23:59");
-		
-		//System.out.println("현재:: " + LocalTime.now());
 		return allTransactionListByPeriod;
 	}
 	
@@ -183,5 +179,11 @@ public class MemberController {
 	@ResponseBody
 	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr, String memberId) {
 		memberService.updateMemberInfo(memberPw, memberTele, memberAddr, memberId);
+	}
+	
+	@PostMapping("findInputDataToML")
+	@ResponseBody
+	public List<Map<String, Object>> findInputDataToML(String memberId) {
+		return memberService.findInputDataToML(memberId);
 	}
 }
