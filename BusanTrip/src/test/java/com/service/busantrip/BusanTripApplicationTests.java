@@ -30,7 +30,7 @@ class BusanTripApplicationTests {
 	
 //	@Test
 //	void joinService() {
-//		Member member = new Member("member666", "pass666", "여섯", "010-6666-6666", "부산시 기장군");
+//		Member member = new Member("age_test", "age_test", "나이테스트", "010-6666-6666", "부산시 기장군","남", 19990820);
 //		memberService.join(member);
 //	}
 	
@@ -258,8 +258,8 @@ class BusanTripApplicationTests {
 	
 	//storyDAOImpl 에서는 addDiaryTransaction이후 메소드 모두 테스트 해야함..
 	
-	@Test
-	void findInputDataToML() {
-		System.out.println(memberService.findInputDataToML("gwak222"));
-	}
+//	@Test
+//	void findInputDataToML() {
+//		System.out.println(memberService.findInputDataToML("gwak222"));
+//	}
 }
