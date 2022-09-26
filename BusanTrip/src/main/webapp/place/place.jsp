@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
 <%-- 구글 아이콘 --%>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
@@ -35,7 +36,7 @@
 		font-weight: 400;
 		color:#53565A;
 	}
-	
+	/* responsive web */
 	@media screen and (max-width: 575px) { /* mobile */
 		.content{
 			margin-top: 70px; /* 상단바 70*/
@@ -100,6 +101,7 @@
 		.place-upper-inner { height:auto; }
 	}
 	
+	/* total layout */
 	.place-upper, .place-lower {
 		max-width: 720px;
 		text-align: center;
@@ -108,21 +110,20 @@
 		border-radius: 5px;
 	}
 	
+	/* my hotplace */
 	.place-upper {
 		flex-direction: column;
     	justify-content: center;
 	}
-	
-	.place-upper-inner {
+	.place-upper-inner{
 		max-width: 400px;
 		width: 85%;
 		margin: 15px auto;
 		padding: 8px;
 		border-radius: 5px;
-		background-color: #a6a6a6;
+		background-color: white;
 		box-shadow: 0px 5px 8px -3px #aaa;
 	}
-	
 	.place-upper-inner-title {
 		font-weight: bold;
 		font-size: 20px;
@@ -131,10 +132,6 @@
 		margin: 5px 0 0;
 		color:white;
 	}
-	
-	#nowMonth{
-		color: #CB333B;
-	}
 
 	.ranking {
 		border-radius: 5px;
@@ -142,8 +139,9 @@
 		display: flex;
 		justify-content: space-around;
 		padding: 5px 0;
-		background-color: white; /*#FAFAD2*/
+		background-color: #FFF5EE; /*#FAFAD2*/
 		font-weight: bold;
+		box-shadow: 0px 5px 8px -3px #aaa;
 	}
 	
 	.medal {
@@ -167,6 +165,52 @@
 		font-weight: bold;
 	}
 	
+	/* my category */
+	.place-upper-rank-inner{
+		max-width: 400px;
+		width: 85%;
+		margin: 15px auto;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.re-ca-text{
+		margin:0px;
+		padding:2px 5px;
+	}
+	.result-category span {
+		color:#53565A;
+		font-weight:bold;
+		font-size:1em;
+	}
+	#userAge, #userGender, #resultCategory {
+		color:#CB333B;
+	}
+	.result-two{
+		width:100%;
+	}
+	.category-info{
+		display:flex;
+		justify-content: center;
+		flex-wrap:wrap;
+		min-width:200px;
+		margin: 15px 0;
+		padding: 5px 5px;
+		border-radius:5px;
+		background-color: white;
+		box-shadow:2px 3px 5px 2px lightgray;
+	}
+	.category-info span{
+		color:#53565A;
+		font-weight:bold;
+		font-size:13px;
+	}
+	.result-three{
+		width:100%;
+		margin-top:10px;
+	}
+	
+	/* all hotplace */
 	.place-lower-box, .place-upper-rank-inner {
 		max-width: 400px;
 		width: 85%;
@@ -406,11 +450,28 @@
 			url:'/member/findMemberInfo',
 			data:{'memberId':memberId},
 			success:function(result){
-				$('#user-name').append(result.memberName);
-				// 수정중
+				$('#userName').append(result.memberName);
+				$('#userGender').append(result.memberGender);
+				$('#userAge').append(result.memberAge);
 			},
 			error: function(e){ console.log(e); }
 		}); // 회원 정보
+		
+		// canvas - doughnutChart
+		var ctxD = document.getElementById("doughnutChart").getContext('2d');
+		var myLineChart = new Chart(ctxD, {
+			type: 'doughnut',
+			data: {
+				labels: ["한식", "중식", "일식", "양식", "아시안", "술집", "뷔페"],
+				datasets: [{
+					data: [300, 50, 100, 40, 120, 30, 10],
+					backgroundColor: ["#F08080", "#FFA07A", "#fff7b3", "#90EE90", "#66CDAA", "#ADD8E6", "#babaf8"],
+					hoverBackgroundColor: ["#ec5f5f", "#ff9166", "#fff280", "#65e765", "#3ec195", "#8ac7db", "#8b8bf4"]
+				}]
+			}, options: {
+		      responsive: true
+		    }
+		});
 		
 		$('.suggestBox').click(function(){
 			if ($(this).attr('class') != 'suggestBox-choiced') {
@@ -594,7 +655,7 @@
 					<div class="place-upper">
 						<div class="place-upper-inner">
 							<div class="place-upper-inner-title">
-								<span style="color:#CB333B">My</span><span> 핫플</span>
+								<span style="color:#CB333B">My</span><span style="color:#53565A"> 핫플</span>
 							</div>
 							<div class="place-upper-inner-contents">
 								<div class="ranking">
@@ -602,13 +663,11 @@
 									<span class="storeName"></span>
 									<span class="visitCount"></span>
 								</div>
-								
 								<div class="ranking">
 									<img class="medal" src="/img/medal2.png">
 									<span class="storeName"></span>
 									<span class="visitCount"></span>
-								</div>
-								
+								</div>						
 								<div class="ranking">
 									<img class="medal" src="/img/medal3.png">
 									<span class="storeName"></span>
@@ -618,15 +677,32 @@
 						</div>
 						<div class="place-upper-rank">
 							<div class="place-upper-rank-inner">
-								<div class="resultCategory">
-									<p><span id="user-name"></span>
+								<div class="result-category result-one">
+									<p class="re-ca-text"><span id="userName"></span>
 									<span>님이 속한 </span>
-									<span id="user-age"></span>
-									<span id="user-gender"></span>
+									<span id="userAge"></span>
+									<span id="userGender"></span>
 									<span>의</span></p>
-									<p><span>인기 카테고리는 </span>
-									<span id="result-category"></span>
+									<p class="re-ca-text"><span>인기 카테고리는 </span>
+									<span id="resultCategory">카테고리</span>
 									<span>입니다.</span></p>
+								</div>
+								<div class="reuslt-category reuslt-two">
+									<div class="category-info">
+										<span id="resultCategory">카테고리</span>
+										<span>에서의 결제금액 </span>
+										<span id="reCategoryPrice">xx,xxx</span>
+										<span>원</span>
+									</div>
+									<div class="category-info">
+										<span id="resultCategory">카테고리</span>
+										<span>에서의 결제횟수 </span>
+										<span id="reCategoryCount">xx</span>
+										<span>번</span>
+									</div>
+								</div>
+								<div class="result-category result-three">
+									<canvas id="doughnutChart"></canvas>
 								</div>
 							</div>
 						</div>
