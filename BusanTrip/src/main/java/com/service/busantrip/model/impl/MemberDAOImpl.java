@@ -178,4 +178,9 @@ public class MemberDAOImpl implements MemberDAO{
 		map.put("memberId", memberId);
 		sqlSession.update(NS+"updateMemberInfo",map);
 	}
+
+	@Override
+	public List<Map<String, Object>> findInputDataToML(String memberId) {
+		return sqlSession.selectList(NS+"findInputDataToML",memberId);
+	}
 }

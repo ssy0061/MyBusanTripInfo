@@ -45,11 +45,11 @@ class BusanTripApplicationTests {
 //		System.out.println(memberDAO.findAllId());
 //	}
 	
-	@Test
-	void login() {
-		Member member = new Member("gwak222", "pass222");
-		System.out.println("login \n" + memberService.login(member));
-	}
+//	@Test
+//	void login() {
+//		Member member = new Member("gwak222", "pass222");
+//		System.out.println("login \n" + memberService.login(member));
+//	}
 	
 //	@Test	
 //	void getMemberName() {
@@ -207,11 +207,11 @@ class BusanTripApplicationTests {
 	
 	/***** StoryDAOImpl Unit test ******/
 	
-	@Test
-	void findDiaryTransactionByMember() {
-		System.out.println(storyDAO.findDiaryTransactionByMember("jang444"));
-		
-	}
+//	@Test
+//	void findDiaryTransactionByMember() {
+//		System.out.println(storyDAO.findDiaryTransactionByMember("jang444"));
+//		
+//	}
 	
 //	@Test
 //	void addStory() {
@@ -257,4 +257,9 @@ class BusanTripApplicationTests {
 //	}
 	
 	//storyDAOImpl 에서는 addDiaryTransaction이후 메소드 모두 테스트 해야함..
+	
+	@Test
+	void findInputDataToML() {
+		System.out.println(memberService.findInputDataToML("gwak222"));
+	}
 }

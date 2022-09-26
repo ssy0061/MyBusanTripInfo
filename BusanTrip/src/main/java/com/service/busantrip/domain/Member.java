@@ -8,12 +8,12 @@ public class Member {
 	private String memberAddr;
 	private String memberChar;
 	private String memberGender;
-	private int memberBirth;
+	private int memberAge;
 	
 	public Member() { }
 	
 	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr,
-			String memberChar, String memberGender, int memberBirth) {
+			String memberChar, String memberGender, int memberAge) {
 		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
@@ -22,7 +22,7 @@ public class Member {
 		this.memberAddr = memberAddr;
 		this.memberChar = memberChar;
 		this.memberGender = memberGender;
-		this.memberBirth = memberBirth;
+		this.memberAge = memberAge;
 	}
 
 	
@@ -41,7 +41,7 @@ public class Member {
 	
 	
 	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr,
-			String memberGender, int memberBirth) {
+			String memberGender, int memberAge) {
 		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
@@ -49,7 +49,7 @@ public class Member {
 		this.memberTele = memberTele;
 		this.memberAddr = memberAddr;
 		this.memberGender = memberGender;
-		this.memberBirth = memberBirth;
+		this.memberAge = memberAge;
 	}
 
 	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr) {
@@ -125,19 +125,19 @@ public class Member {
 		this.memberGender = memberGender;
 	}
 
-	public int getMemberBirth() {
-		return memberBirth;
+	public int getmemberAge() {
+		return memberAge;
 	}
 
-	public void setMemberBirth(int memberBirth) {
-		this.memberBirth = memberBirth;
+	public void setmemberAge(int memberAge) {
+		this.memberAge = memberAge;
 	}
 
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
 				+ ", memberTele=" + memberTele + ", memberAddr=" + memberAddr + ", memberChar=" + memberChar
-				+ ", memberGender=" + memberGender + ", memberBirth=" + memberBirth + "]";
+				+ ", memberGender=" + memberGender + ", memberAge=" + memberAge + "]";
 	}
 
 }

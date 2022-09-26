@@ -13,7 +13,6 @@ import com.service.busantrip.domain.story.Diary;
 import com.service.busantrip.domain.story.DiaryTransaction;
 import com.service.busantrip.domain.story.Photo;
 import com.service.busantrip.domain.story.Story;
-import com.service.busantrip.dto.req.DiaryTransactionReqDTO;
 import com.service.busantrip.model.StoryDAO;
 @Repository
 public class StoryDAOImpl implements StoryDAO{
