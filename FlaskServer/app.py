@@ -34,17 +34,17 @@ class model(Resource):
         '''유저 정보로 카테고리 추천'''
         gender = 0 if request.json.get('gender') == '남' else 1
         data = pd.DataFrame({
-                '성별': [gender],
-                '나이대': [request.json.get('ages')],
-                '총 결제 금액': [request.json.get('amount')],
-                '총 결제 건수': [request.json.get('cnt')], 
-                '건당 평균 결제가격': [request.json.get('avg_amount')], 
-                '건당 최대 결제 가격': [request.json.get('max_amount')], 
-                '건당 최소 결제 가격': [request.json.get('min_amount')]
-        })
-        category = Predict.get_category('dt',data)
+                'TOTAL_AMT': [request.json.get('amount')],
+                'TRANSACTION_COUNT': [request.json.get('cnt')], 
+                'AVG_AMT': [request.json.get('avg_amount')], 
+                'MAX_AMT': [request.json.get('max_amount')], 
+                'MIN_AMT': [request.json.get('min_amount')],
+                'MEMBER_GENDER': [gender],
+                'MEMBER_AGE': [request.json.get('ages')]
+        }, index=[0])
+        category = Predict.get_category('rf',data) #모델 선택
         print(category)
-        return jsonify({'data': str(category)})
+        return jsonify({'category': str(category)})
 
 if __name__ == '__main__':
     app.run(port=8888, debug=True)

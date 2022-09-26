@@ -38,22 +38,31 @@
 				}
 			})
 		}
+		var memberId = '<%= (String)session.getAttribute("memberId")%>';
+		console.log(memberId)
 		$(':button').click(function() {
 			$.ajax({
 				type: 'post',
 				url: '/member/findInputDataToML',
-				data: {'memberId': 'seo111'},
+				data: {'memberId': memberId},
 				success:function(result) {
+					if (result.length === 0) {
+						console.log('거래내역 없음')
+						return
+					}
+					// console.log(memberId)
 					userInfo = result[0]
+					console.log('userInfo')
+					console.log(userInfo)
 					
 					userData = { /* 샘플 데이터 */
 							'gender': '여',
-							'ages': '20',
-							'amount': '708000',
-							'cnt': '32',
-							'avg_amount': '21040',
-							'max_amount': '18000',
-							'min_amount': '3000'
+							'ages': '40',
+							'amount': '1169000',
+							'cnt': '37',
+							'avg_amount': '31594.595',
+							'max_amount': '138700',
+							'min_amount': '28000'
 					}
 					userData = {
 							'gender': userInfo.MEMBER_GENDER,
