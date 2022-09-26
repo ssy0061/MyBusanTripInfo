@@ -73,7 +73,7 @@
 			background-color: rgba( 255, 255, 255, 0.6 );
 			width: 90%;
 			margin: 0 10px;
-			height: 710px;
+			height: 720px;
 		}
 
 		.place-lower { overflow: auto; }
@@ -156,15 +156,14 @@
 		width: 100%;
 		text-align: left;
 		padding: 0 0 0 10px;
-		font-size: 15px;
+		font-size: 14px;
 	}
-	
 	.visitCount {
 		width: 80px;
 		margin: 0 5px 0 0;
 		text-align: right;
 		padding: 0 5px 0 0;
-		font-size: 15px;
+		font-size: 14px;
 		font-weight: bold;
 	}
 	
@@ -329,8 +328,16 @@
 		color:#53565A;
 	}
 	
+	.categoryRow {
+		display:flex;
+		flex-wrap:wrap;
+		justify-content:center;
+	}
+	.categoryCol {
+		padding:0;
+		margin:0;
+	}
 	.categoryFood {
-		background-color: white;
 		color:gray;
 		font-weight: bold;
 		width: 100px;
@@ -343,7 +350,7 @@
 		width: 100px;
 		border-radius:10px;
 		font-weight: bold;
-		padding:0 4px;
+		padding:2px 5px;
 	}
 	.categoryFood:hover{
 		cursor: pointer;
@@ -394,6 +401,17 @@
 			});  // findStorePopularByPersonal end
 		};  // if
 		
+		$.ajax({
+			type:'post',
+			url:'/member/findMemberInfo',
+			data:{'memberId':memberId},
+			success:function(result){
+				$('#user-name').append(result.memberName);
+				// 수정중
+			},
+			error: function(e){ console.log(e); }
+		}); // 회원 정보
+		
 		$('.suggestBox').click(function(){
 			if ($(this).attr('class') != 'suggestBox-choiced') {
 				let suggestMethod = $(this).attr('method');
@@ -406,13 +424,14 @@
 			}  // if
 			if($(this).attr('id') == 'suggest-food'){
 				$('#subtitle-food').text("");
-				$('#subtitle-food').append('<span class="categoryFood categoryKr" method="Category" value="한식">한식</span>'
+				$('#subtitle-food').append('<dic class="row categoryRow"><div class="categoryCol">'
+					+'<span class="categoryFood categoryKr" method="Category" value="한식">한식</span>'
 					+'<span class="categoryFood" method="Category" value="중식">중식</span>'
 					+'<span class="categoryFood" method="Category" value="일식">일식</span>'
-					+'<span class="categoryFood" method="Category" value="양식">양식</span>'
-					+'<span class="categoryFood" method="Category" value="아시안">아시안</span>'
+					+'<span class="categoryFood" method="Category" value="양식">양식</span></div>'
+					+'<div class="categoryCol"><span class="categoryFood" method="Category" value="아시안">아시안</span>'
 					+'<span class="categoryFood" method="Category" value="술집">술집</span>'
-					+'<span class="categoryFood" method="Category" value="뷔페">뷔페</span>');
+					+'<span class="categoryFood" method="Category" value="뷔페">뷔페</span></div>');
 				$('.categoryKr').trigger('click');
 			} // 음식점 카테고리라면
 			else{
@@ -510,7 +529,7 @@
 	}
 	
 	function findFoodPopularBy(catefoodMethod, catefoodValue) {
-		let dataMapper = {'FoodKr': 'category', 'FoodCn': 'category', 'FoodJp': 'category', 'FoodIt': 'category',  'FoodAs': 'category',  'FoodBr': 'category',  'FoodBf': 'category'};
+		let dataMapper = {'Category': 'category'};
 		let keydata = dataMapper[catefoodMethod];
 		<%-- 왜 카테고리만 string으로 집어넣으면 안 되는 것인가 특이하네.. category로 하니까 매핑이 되고..--%>
 
@@ -599,7 +618,16 @@
 						</div>
 						<div class="place-upper-rank">
 							<div class="place-upper-rank-inner">
-
+								<div class="resultCategory">
+									<p><span id="user-name"></span>
+									<span>님이 속한 </span>
+									<span id="user-age"></span>
+									<span id="user-gender"></span>
+									<span>의</span></p>
+									<p><span>인기 카테고리는 </span>
+									<span id="result-category"></span>
+									<span>입니다.</span></p>
+								</div>
 							</div>
 						</div>
 					</div>
