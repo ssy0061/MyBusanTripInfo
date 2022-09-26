@@ -19,28 +19,55 @@
 <script>
 
 	$(function() {
-		userData = {'gender': '여',
-					'ages': '20',
-					'amount': '708000',
-					'cnt': '32',
-					'avg_amount': '21040',
-					'max_amount': '18000',
-					'min_amount': '3000'}
+		
+
 		$(':button').click(function() {
 			$.ajax({
 				type: 'post',
-				url: 'http://127.0.0.1:8888/api/ai/data',
-				headers: {'Content-Type': 'application/json'},
-				crossDomain: true,
-				data: JSON.stringify(userData),
+				url: '/member/findInputDataToML',
+				data: {'memberId': 'seo111'},
 				success:function(result) {
-					$(':text').val("")
-					$('#lst').append('<li>'+result.data+'</li>')
+					userInfo = result[0]
+					
+					userData = { /* 샘플 데이터 */
+							'gender': '여',
+							'ages': '20',
+							'amount': '708000',
+							'cnt': '32',
+							'avg_amount': '21040',
+							'max_amount': '18000',
+							'min_amount': '3000'
+					}
+					userData = {
+							'gender': userInfo.MEMBER_GENDER,
+							'ages': userInfo.MEMBER_AGE,
+							'amount': userInfo.TOTAL_AMT,
+							'cnt': userInfo.TRANSACTION_COUNT,
+							'avg_amount': userInfo.AVG_AMT,
+							'max_amount': userInfo.MAX_AMT,
+							'min_amount': userInfo.MIN_AMT
+					}
+					$.ajax({
+						type: 'post',
+						url: 'http://127.0.0.1:8888/api/ai/data',
+						headers: {'Content-Type': 'application/json'},
+						crossDomain: true,
+						data: JSON.stringify(userData),
+						success:function(result) {
+							$(':text').val("")
+							$('#lst').append('<li>'+result.data+'</li>')
+						},
+						error: function(e){
+							console.log(e);
+						}
+					})
 				},
 				error: function(e){
 					console.log(e);
 				}
+				
 			})
+			
 		})
 		
 	})
