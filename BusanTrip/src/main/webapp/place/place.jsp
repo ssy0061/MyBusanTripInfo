@@ -442,6 +442,71 @@
 		// 첫 페이지 들어올 시 맨 처음 요소를 클릭
 		$('.suggestBox:eq(0)').click();
 		
+		// flask로 요청
+		function getCategory(userData) { /* model 결과 요청 */
+			$.ajax({
+				type: 'post',
+				url: 'http://127.0.0.1:8888/api/ai/data',
+				headers: {'Content-Type': 'application/json'},
+				crossDomain: true,
+				data: JSON.stringify(userData),
+				success:function(result) {
+					/* result.data == 카페 */
+					console.log(result.category)
+					flaskCategory = result.category
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		}
+		var memberId = '<%= (String)session.getAttribute("memberId")%>';
+		console.log(memberId)
+		
+		flaskCategory = "";
+		function getInputData() {
+			$.ajax({
+				type: 'post',
+				url: '/member/findInputDataToML',
+				data: {'memberId': memberId},
+				success:function(result) {
+					if (result.length === 0) {
+						console.log('거래내역 없음')
+						return
+					}
+					// console.log(memberId)
+					userInfo = result[0]
+					
+					userData = { /* 샘플 데이터 */
+							'gender': '여',
+							'ages': '40',
+							'amount': '1169000',
+							'cnt': '37',
+							'avg_amount': '31594.595',
+							'max_amount': '138700',
+							'min_amount': '28000'
+					}
+					userData = {
+							'gender': userInfo.MEMBER_GENDER,
+							'ages': userInfo.MEMBER_AGE,
+							'amount': userInfo.TOTAL_AMT,
+							'cnt': userInfo.TRANSACTION_COUNT,
+							'avg_amount': userInfo.AVG_AMT,
+							'max_amount': userInfo.MAX_AMT,
+							'min_amount': userInfo.MIN_AMT
+					}
+					/* model 결과 요청 */
+					getCategory(userData)
+				},
+				error: function(e){
+					console.log(e);
+				}
+				
+			})
+			
+		}
+		getInputData()
+    
 		$('#subtitle-food').on('click', '.categoryFood', function(){
 			if($(this).attr('class') != 'categoryFood-choiced'){
 				let catefoodMethod = $(this).attr('method');

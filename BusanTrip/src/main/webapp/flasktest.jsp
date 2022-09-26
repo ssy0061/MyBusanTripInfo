@@ -19,14 +19,8 @@
 <script>
 
 	$(function() {
-		userData = {'gender': '여',
-					'ages': '20',
-					'amount': '708000',
-					'cnt': '32',
-					'avg_amount': '21040',
-					'max_amount': '18000',
-					'min_amount': '3000'}
-		$(':button').click(function() {
+		
+		function getCategory(userData) { /* model 결과 요청 */
 			$.ajax({
 				type: 'post',
 				url: 'http://127.0.0.1:8888/api/ai/data',
@@ -34,13 +28,60 @@
 				crossDomain: true,
 				data: JSON.stringify(userData),
 				success:function(result) {
+					/* result.data == 카페 */
 					$(':text').val("")
 					$('#lst').append('<li>'+result.data+'</li>')
+					$()
 				},
 				error: function(e){
 					console.log(e);
 				}
 			})
+		}
+		var memberId = '<%= (String)session.getAttribute("memberId")%>';
+		console.log(memberId)
+		$(':button').click(function() {
+			$.ajax({
+				type: 'post',
+				url: '/member/findInputDataToML',
+				data: {'memberId': memberId},
+				success:function(result) {
+					if (result.length === 0) {
+						console.log('거래내역 없음')
+						return
+					}
+					// console.log(memberId)
+					userInfo = result[0]
+					console.log('userInfo')
+					console.log(userInfo)
+					
+					userData = { /* 샘플 데이터 */
+							'gender': '여',
+							'ages': '40',
+							'amount': '1169000',
+							'cnt': '37',
+							'avg_amount': '31594.595',
+							'max_amount': '138700',
+							'min_amount': '28000'
+					}
+					userData = {
+							'gender': userInfo.MEMBER_GENDER,
+							'ages': userInfo.MEMBER_AGE,
+							'amount': userInfo.TOTAL_AMT,
+							'cnt': userInfo.TRANSACTION_COUNT,
+							'avg_amount': userInfo.AVG_AMT,
+							'max_amount': userInfo.MAX_AMT,
+							'min_amount': userInfo.MIN_AMT
+					}
+					/* model 결과 요청 */
+					getCategory(userData)
+				},
+				error: function(e){
+					console.log(e);
+				}
+				
+			})
+			
 		})
 		
 	})
