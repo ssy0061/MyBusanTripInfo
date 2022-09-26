@@ -8,12 +8,12 @@ public class Member {
 	private String memberAddr;
 	private String memberChar;
 	private String memberGender;
-	private int memberAge;
+	private String memberAge;
 	
 	public Member() { }
 	
 	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr,
-			String memberChar, String memberGender, int memberAge) {
+			String memberChar, String memberGender, String memberAge) {
 		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
@@ -41,7 +41,7 @@ public class Member {
 	
 	
 	public Member(String memberId, String memberPw, String memberName, String memberTele, String memberAddr,
-			String memberGender, int memberAge) {
+			String memberGender, String memberAge) {
 		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
@@ -125,11 +125,11 @@ public class Member {
 		this.memberGender = memberGender;
 	}
 
-	public int getmemberAge() {
+	public String getmemberAge() {
 		return memberAge;
 	}
 
-	public void setmemberAge(int memberAge) {
+	public void setmemberAge(String memberAge) {
 		this.memberAge = memberAge;
 	}
 

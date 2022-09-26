@@ -40,17 +40,19 @@ public class MemberServiceImpl implements MemberService{
 		String nowDate = simpleDateFormat.format(now); 
 		String memberId = member.getMemberId();
 		
+		System.out.println(member.getmemberAge());
+		
 		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy");
 		String nowYear = simpleDateFormat2.format(now);
+
 		
-		int memberAge = member.getmemberAge();
-		String stringAge = Integer.toString(memberAge);
-		String birthYear = stringAge.substring(0,4);
+		String memberAge = member.getmemberAge();
+		String birthYear = memberAge.substring(0,4);
 		
 		System.out.println(birthYear);
 		System.out.println(nowYear);
 		
-		memberAge =  Integer.parseInt(nowYear) - Integer.parseInt(birthYear);
+		memberAge =  Integer.toString(Integer.parseInt(nowYear) - Integer.parseInt(birthYear));
 		member.setmemberAge(memberAge);
 		
 		memberDAO.join(member);
