@@ -183,7 +183,7 @@
 		font-weight:bold;
 		font-size:1em;
 	}
-	#userAge, #userGender, #resultCategory {
+	#userAge, #userGender, #resultCategory, #resultCategory2, #resultCategory3{
 		color:#CB333B;
 	}
 	.result-two{
@@ -203,7 +203,7 @@
 	.category-info span{
 		color:#53565A;
 		font-weight:bold;
-		font-size:13px;
+		font-size:14px;
 	}
 	.result-three{
 		width:100%;
@@ -413,6 +413,9 @@
 
 <script>
 	$(function() {
+		var memberId = '<%= (String)session.getAttribute("memberId")%>';
+		console.log(memberId)
+		
 		$('.image-title').text($('.image-title').text());
 		
 		if (memberId != 'null') {
@@ -434,7 +437,6 @@
 							storeNameList[i].append('-');
 						}
 					}  // 두 곳 이하 방문한 경우 여기를 돌아서 빈 값을 채운다
-					
 					/*
 					let nowDay = new Date();
 					let nowMonth = nowDay.getMonth() + 1;
@@ -451,8 +453,6 @@
 			data:{'memberId':memberId},
 			success:function(result){
 				$('#userName').append(result.memberName);
-				$('#userGender').append(result.memberGender);
-				$('#userAge').append(result.memberAge);
 			},
 			error: function(e){ console.log(e); }
 		}); // 회원 정보
@@ -514,6 +514,9 @@
 				success:function(result) {
 					/* result.data == 카페 */
 					console.log(result.category)
+					$('#resultCategory').text(result.category);
+					$('#resultCategory2').text(result.category);
+					$('#resultCategory3').text(result.category);
 					flaskCategory = result.category
 				},
 				error: function(e){
@@ -521,8 +524,6 @@
 				}
 			})
 		}
-		var memberId = '<%= (String)session.getAttribute("memberId")%>';
-		console.log(memberId)
 		
 		flaskCategory = "";
 		function getInputData() {
@@ -537,16 +538,6 @@
 					}
 					// console.log(memberId)
 					userInfo = result[0]
-					
-					userData = { /* 샘플 데이터 */
-							'gender': '여',
-							'ages': '40',
-							'amount': '1169000',
-							'cnt': '37',
-							'avg_amount': '31594.595',
-							'max_amount': '138700',
-							'min_amount': '28000'
-					}
 					userData = {
 							'gender': userInfo.MEMBER_GENDER,
 							'ages': userInfo.MEMBER_AGE,
@@ -558,13 +549,13 @@
 					}
 					/* model 결과 요청 */
 					getCategory(userData)
+					$('#userGender').text(userInfo.MEMBER_GENDER);
+					$('#userAge').text(userInfo.MEMBER_AGE);
 				},
 				error: function(e){
 					console.log(e);
 				}
-				
 			})
-			
 		}
 		getInputData()
     
@@ -749,18 +740,18 @@
 									<span id="userGender"></span>
 									<span>의</span></p>
 									<p class="re-ca-text"><span>인기 카테고리는 </span>
-									<span id="resultCategory">카테고리</span>
+									<span id="resultCategory"></span>
 									<span>입니다.</span></p>
 								</div>
 								<div class="reuslt-category reuslt-two">
 									<div class="category-info">
-										<span id="resultCategory">카테고리</span>
+										<span id="resultCategory2"></span>
 										<span>에서의 결제금액 </span>
 										<span id="reCategoryPrice">xx,xxx</span>
 										<span>원</span>
 									</div>
 									<div class="category-info">
-										<span id="resultCategory">카테고리</span>
+										<span id="resultCategory3"></span>
 										<span>에서의 결제횟수 </span>
 										<span id="reCategoryCount">xx</span>
 										<span>번</span>
