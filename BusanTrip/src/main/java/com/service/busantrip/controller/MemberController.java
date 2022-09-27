@@ -189,7 +189,7 @@ public class MemberController {
 	
 	@PostMapping("findTotalAmtByCategory")
 	@ResponseBody
-	public int findTotalAmtByCategory(String memberId, String storeCategory) {
+	public List<Map<String, Object>> findTotalAmtByCategory(String memberId, String storeCategory) {
 		return memberService.findTotalAmtByCategory(memberId, storeCategory);
 	}
 }

@@ -157,10 +157,10 @@
 		GROUP BY MEMBER_GENDER, MEMBER_AGE
 	</select>
 	
-	<select id="findTotalAmtByCategory" parameterType="hashmap" resultType='int'>
-		SELECT SUM(SUM(T.TRANSACTION_AMT)) AS TOTAL_AMT
+	<select id="findTotalAmtByCategory" parameterType="hashmap" resultType='Map'>
+		SELECT SUM(SUM(T.TRANSACTION_AMT)) AS TOTAL_AMT, COUNT(TRANSACTION_AMT) AS COUNT_AMT
 		FROM TRANSACTION T, STORE S
-		WHERE T.MEMBER_ID = 'gwak222' AND S.STORE_CATEGORY = '카페/디저트' AND T.STORE_ID = S.STORE_ID
+		WHERE T.MEMBER_ID = #{memberId} AND S.STORE_CATEGORY = #{storeCategory} AND T.STORE_ID = S.STORE_ID
 		GROUP BY T.TRANSACTION_AMT
 	</select>
 	

@@ -168,7 +168,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int findTotalAmtByCategory(String memberId, String storeCategory) {
+	public List<Map<String, Object>> findTotalAmtByCategory(String memberId, String storeCategory) {
 		return memberDAO.findTotalAmtByCategory(memberId, storeCategory);
 	}
 

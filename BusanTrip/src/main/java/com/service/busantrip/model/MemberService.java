@@ -41,5 +41,5 @@ public interface MemberService {
 	
 	public List<Map<String, Object>> findInputDataToML(String memberId);
 
-	public int findTotalAmtByCategory(String memberId, String storeCategory);
+	public List<Map<String, Object>> findTotalAmtByCategory(String memberId, String storeCategory);
 }

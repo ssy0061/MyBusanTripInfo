@@ -263,8 +263,8 @@ class BusanTripApplicationTests {
 //		System.out.println(memberService.findInputDataToML("gwak222"));
 //	}
 	
-//	@Test
-//	void findTotalAmtByCategory() {
-//		System.out.println(memberService.findTotalAmtByCategory("gwak222", "카페/디저트"));
-//	}
+	@Test
+	void findTotalAmtByCategory() {
+		System.out.println(memberService.findTotalAmtByCategory("gwak222", "카페/디저트"));
+	}
 }
