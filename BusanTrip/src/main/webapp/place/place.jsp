@@ -21,11 +21,6 @@
 	  --button-active: #EEEEEE;
 	}
 
-	/* 상하단 바를 위한 필수 css */
-	.content{
-	    margin-top: 90px;
-	    padding: 20px 0;
-	}
 	/* font */
 	.placeName{
 		font-family: 'Noto Sans KR', sans-serif;
@@ -35,6 +30,11 @@
 		font-family: 'Noto Sans KR', sans-serif;
 		font-weight: 400;
 		color:#53565A;
+	}
+	/* 상하단 바를 위한 필수 css */
+	.content{
+	    margin-top: 90px;
+	    padding: 20px 0;
 	}
 	/* responsive web */
 	@media screen and (max-width: 575px) { /* mobile */
@@ -56,7 +56,7 @@
 		.categoryFood, .categoryFood-choiced { font-size:14px; }
 		.title-left { font-size: 16px; }
 		.place-upper-inner { min-height: 210px; }
-		/*.place-upper-rank { height: 0px; visibility: hidden; }*/
+		#doughnutChart { width:90%; height:80%; }
 	}
 	@media screen and (min-width: 575.1px) { /* Web */
 		.content{
@@ -76,7 +76,7 @@
 			margin: 0 10px;
 			height: 720px;
 		}
-
+		.place-upper-inner { height:auto; }
 		.place-lower { overflow: auto; }
 		
 		.suggestBox, .suggestBox-choiced { font-size: 13px; cursor:pointer; }
@@ -91,14 +91,15 @@
 			background-repeat: no-repeat;
 		}
 		
-		.place-upper-rank{ height: 100%; }
-		.place-upper-inner { height:auto; }
+		#doughnutChart { width:90vw; min-width:200px; height:90vh; min-width:200px;}
 	}
 	@media screen and (min-width: 768.1px) { /* Bigger Web */
 		.suggestBox, .suggestBox-choiced { font-size: 15px; }
 		.categoryFood, .categoryFood-choiced { font-size:14px; }
 		.title-left { font-size: 16px; }
 		.place-upper-inner { height:auto; }
+		
+		#doughnutChart { width:85%; height:60%; }
 	}
 	
 	/* total layout */
@@ -214,6 +215,10 @@
 	.result-three{
 		width:100%;
 		margin-top:10px;
+	}
+	#doughnutChart{
+		display:flex;
+		flex-wrap: nowrap;
 	}
 	
 	/* all hotplace */
@@ -364,7 +369,6 @@
 	}
 	
 	.place-upper-rank-inner{
-		height: 405px;
 		display: flex;
 		flex-direction: column;
     	justify-content: center;
@@ -543,14 +547,14 @@
 					success:function(result){
 						cateInfo = result[0];
 						cateCount[i] = cateInfo.COUNT_AMT;
-						console.log("횟수"+cateInfo.COUNT_AMT);
+						//console.log("횟수"+cateInfo.COUNT_AMT);
 					},
 					error: function(e){ console.log(e); }
 				}); // 나의 카테고리 정보
 			}
 		}
 		getCateCount()
-		console.log("결과"+cateCount);
+		//console.log("결과"+cateCount);
 		
 		// canvas - doughnutChart
 		var ctxD = document.getElementById("doughnutChart").getContext('2d');
@@ -772,7 +776,7 @@
 						</div>
 						<div class="place-upper-rank">
 							<div class="place-upper-rank-inner">
-								<div class="result-category result-one">
+								<div class="result-category result-one mt-2">
 									<p class="re-ca-text"><span id="userName"></span>
 									<span>님을 위한</span>
 									<p class="re-ca-text"><span> AI 추천 카테고리는</span>
@@ -793,7 +797,7 @@
 										<span id="priceBun">번</span>
 									</div>
 								</div>
-								<div class="result-category result-three">
+								<div class="result-category result-three mb-3">
 									<canvas id="doughnutChart"></canvas>
 								</div>
 							</div>
