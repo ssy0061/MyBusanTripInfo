@@ -533,8 +533,8 @@
 		}
 		getInputData()
 		
-		var cateList = ["한식", "중식", "일식", "양식", "아시안", "술집", "뷔페"];
-		var cateCount = [0,0,0,0,0,0,0];
+		var cateList = ["한식", "중식", "일식", "양식", "아시안", "카페/디저트", "술집", "뷔페", "관광지"];
+		var cateCount = [0,0,0,0,0,0,0,0,0];
 		function getCateCount(){
 			for(var i=0; i<cateList.length; i++){
 				var cate = cateList[i];
@@ -561,11 +561,11 @@
 		var myLineChart = new Chart(ctxD, {
 			type: 'doughnut',
 			data: {
-				labels: ["한식", "중식", "일식", "양식", "아시안", "술집", "뷔페"],
+				labels: ["한식", "중식", "일식", "양식", "아시안", "카페/디저트", "술집", "뷔페", "관광지"],
 				datasets: [{
 					data: cateCount,
-					backgroundColor: ["#F08080", "#FFA07A", "#fff7b3", "#90EE90", "#66CDAA", "#ADD8E6", "#babaf8"],
-					hoverBackgroundColor: ["#ec5f5f", "#ff9166", "#fff280", "#65e765", "#3ec195", "#8ac7db", "#8b8bf4"]
+					backgroundColor: ["#F08080", "#FFA07A", "#fff7b3", "#90EE90", "#66CDAA", "#ADD8E6", "#babaf8", "#DDA0DD", "#ffccd5"],
+					hoverBackgroundColor: ["#ec5f5f", "#ff9166", "#fff280", "#65e765", "#3ec195", "#8ac7db", "#8b8bf4", "#d68fd6", "#ff99aa"]
 				}]
 			}, options: {
 		      responsive: true
