@@ -157,9 +157,11 @@
 		GROUP BY MEMBER_GENDER, MEMBER_AGE
 	</select>
 	
-	<!-- FLASK에서 받아와서 프론트로 내보낼 데이터 -->
-	<select id="findStoreByCategoryByML" parameterType="Map" resultType='Store'>
-		
+	<select id="findTotalAmtByCategory" parameterType="hashmap" resultType='int'>
+		SELECT SUM(SUM(T.TRANSACTION_AMT)) AS TOTAL_AMT
+		FROM TRANSACTION T, STORE S
+		WHERE T.MEMBER_ID = 'gwak222' AND S.STORE_CATEGORY = '카페/디저트' AND T.STORE_ID = S.STORE_ID
+		GROUP BY T.TRANSACTION_AMT
 	</select>
 	
 </mapper>

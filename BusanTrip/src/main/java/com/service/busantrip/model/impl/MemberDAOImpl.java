@@ -183,4 +183,12 @@ public class MemberDAOImpl implements MemberDAO{
 	public List<Map<String, Object>> findInputDataToML(String memberId) {
 		return sqlSession.selectList(NS+"findInputDataToML",memberId);
 	}
+
+	@Override
+	public int findTotalAmtByCategory(String memberId, String storeCategory) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("storeCategory", storeCategory);
+		return sqlSession.selectOne(NS+"findTotalAmtByCategory",map);
+	}
 }

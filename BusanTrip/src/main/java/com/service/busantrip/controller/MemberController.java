@@ -186,4 +186,10 @@ public class MemberController {
 	public List<Map<String, Object>> findInputDataToML(String memberId) {
 		return memberService.findInputDataToML(memberId);
 	}
+	
+	@PostMapping("findTotalAmtByCategory")
+	@ResponseBody
+	public int findTotalAmtByCategory(String memberId, String storeCategory) {
+		return memberService.findTotalAmtByCategory(memberId, storeCategory);
+	}
 }
