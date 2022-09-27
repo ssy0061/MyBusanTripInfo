@@ -167,4 +167,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.findInputDataToML(memberId);
 	}
 
+	@Override
+	public int findTotalAmtByCategory(String memberId, String storeCategory) {
+		return memberDAO.findTotalAmtByCategory(memberId, storeCategory);
+	}
+
 }

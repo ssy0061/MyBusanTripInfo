@@ -46,4 +46,6 @@ public interface MemberDAO {
 	public void updateMemberInfo(String memberPw, String memberTele, String memberAddr, String memberId);
 	
 	public List<Map<String, Object>> findInputDataToML(String memberId);
+	
+	public int findTotalAmtByCategory(String memberId, String storeCategory);
 }

@@ -28,11 +28,11 @@ class BusanTripApplicationTests {
 	/***** MemberDAOImpl Unit test ******/
 
 	
-	@Test
-	void joinService() {
-		Member member = new Member("age_test", "age_test", "나이테스트", "010-6666-6666", "부산시 기장군","남", "1999-08-20");
-		memberService.join(member);
-	}
+//	@Test
+//	void joinService() {
+//		Member member = new Member("age_test", "age_test", "나이테스트", "010-6666-6666", "부산시 기장군","남", "1999-08-20");
+//		memberService.join(member);
+//	}
 	
 	
 //	@Test
@@ -261,5 +261,10 @@ class BusanTripApplicationTests {
 //	@Test
 //	void findInputDataToML() {
 //		System.out.println(memberService.findInputDataToML("gwak222"));
+//	}
+	
+//	@Test
+//	void findTotalAmtByCategory() {
+//		System.out.println(memberService.findTotalAmtByCategory("gwak222", "카페/디저트"));
 //	}
 }
