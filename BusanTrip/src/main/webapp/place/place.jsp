@@ -472,7 +472,7 @@
 		function getCategory(userData) { /* model 결과 요청 */
 			$.ajax({
 				type: 'post',
-				url: 'http://127.0.0.1:8888/api/ai/data',
+				url: 'http://192.168.204.85:8888/api/ai/data',
 				headers: {'Content-Type': 'application/json'},
 				crossDomain: true,
 				data: JSON.stringify(userData),
