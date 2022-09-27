@@ -189,7 +189,7 @@
 	#resultCategory{
 		font-size:22px;
 	}
-	#resultCategory, #resultCategory2, #resultCategory3{
+	#resultCategory, #resultCategory2, #resultCategory3, #myCategoryPrice, #myCategoryCount, #priceWon, #priceBun{
 		color:#CB333B;
 	}
 	.result-two{
@@ -463,6 +463,95 @@
 			error: function(e){ console.log(e); }
 		}); // 회원 정보
 		
+		var flaskCategory = "";
+		// flask로 요청
+		function getCategory(userData) { /* model 결과 요청 */
+			$.ajax({
+				type: 'post',
+				url: 'http://127.0.0.1:8888/api/ai/data',
+				headers: {'Content-Type': 'application/json'},
+				crossDomain: true,
+				data: JSON.stringify(userData),
+				success:function(result) {
+					/* result.data == 카페 */
+					console.log(result.category)
+					$('#resultCategory').text(result.category);
+					$('#resultCategory2').text(result.category);
+					$('#resultCategory3').text(result.category);
+					flaskCategory = result.category;
+					
+					$.ajax({
+						type:'post',
+						url:'/member/findTotalAmtByCategory',
+						data:{'memberId':memberId, 'storeCategory':flaskCategory},
+						success:function(result){
+							cateInfo = result[0];
+							$('#myCategoryPrice').text(cateInfo.TOTAL_AMT);
+							$('#myCategoryCount').text(cateInfo.COUNT_AMT);
+						},
+						error: function(e){ console.log(e); }
+					}); // 나의 카테고리 정보
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		} // 나의 카테고리 얻기
+		
+		function getInputData() {
+			$.ajax({
+				type: 'post',
+				url: '/member/findInputDataToML',
+				data: {'memberId': memberId},
+				success:function(result) {
+					if (result.length === 0) {
+						console.log('거래내역 없음')
+						return
+					}
+					// console.log(memberId)
+					userInfo = result[0]
+					userData = {
+							'gender': userInfo.MEMBER_GENDER,
+							'ages': userInfo.MEMBER_AGE,
+							'amount': userInfo.TOTAL_AMT,
+							'cnt': userInfo.TRANSACTION_COUNT,
+							'avg_amount': userInfo.AVG_AMT,
+							'max_amount': userInfo.MAX_AMT,
+							'min_amount': userInfo.MIN_AMT
+					}
+					/* model 결과 요청 */
+					getCategory(userData)
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		}
+		getInputData()
+		
+		var cateList = ["한식", "중식", "일식", "양식", "아시안", "술집", "뷔페"];
+		var cateCount = [0,0,0,0,0,0,0];
+		function getCateCount(){
+			for(var i=0; i<cateList.length; i++){
+				var cate = cateList[i];
+				//console.log("cate"+cate);
+				$.ajax({
+					type:'post',
+					url:'/member/findTotalAmtByCategory',
+					data:{'memberId':memberId, 'storeCategory':cate},
+					async:false,
+					success:function(result){
+						cateInfo = result[0];
+						cateCount[i] = cateInfo.COUNT_AMT;
+						console.log("횟수"+cateInfo.COUNT_AMT);
+					},
+					error: function(e){ console.log(e); }
+				}); // 나의 카테고리 정보
+			}
+		}
+		getCateCount()
+		console.log("결과"+cateCount);
+		
 		// canvas - doughnutChart
 		var ctxD = document.getElementById("doughnutChart").getContext('2d');
 		var myLineChart = new Chart(ctxD, {
@@ -470,7 +559,7 @@
 			data: {
 				labels: ["한식", "중식", "일식", "양식", "아시안", "술집", "뷔페"],
 				datasets: [{
-					data: [300, 50, 100, 40, 120, 30, 10],
+					data: cateCount,
 					backgroundColor: ["#F08080", "#FFA07A", "#fff7b3", "#90EE90", "#66CDAA", "#ADD8E6", "#babaf8"],
 					hoverBackgroundColor: ["#ec5f5f", "#ff9166", "#fff280", "#65e765", "#3ec195", "#8ac7db", "#8b8bf4"]
 				}]
@@ -508,60 +597,6 @@
 		
 		// 첫 페이지 들어올 시 맨 처음 요소를 클릭
 		$('.suggestBox:eq(0)').click();
-		
-		// flask로 요청
-		function getCategory(userData) { /* model 결과 요청 */
-			$.ajax({
-				type: 'post',
-				url: 'http://127.0.0.1:8888/api/ai/data',
-				headers: {'Content-Type': 'application/json'},
-				crossDomain: true,
-				data: JSON.stringify(userData),
-				success:function(result) {
-					/* result.data == 카페 */
-					console.log(result.category)
-					$('#resultCategory').text(result.category);
-					$('#resultCategory2').text(result.category);
-					$('#resultCategory3').text(result.category);
-					flaskCategory = result.category
-				},
-				error: function(e){
-					console.log(e);
-				}
-			})
-		}
-		
-		flaskCategory = "";
-		function getInputData() {
-			$.ajax({
-				type: 'post',
-				url: '/member/findInputDataToML',
-				data: {'memberId': memberId},
-				success:function(result) {
-					if (result.length === 0) {
-						console.log('거래내역 없음')
-						return
-					}
-					// console.log(memberId)
-					userInfo = result[0]
-					userData = {
-							'gender': userInfo.MEMBER_GENDER,
-							'ages': userInfo.MEMBER_AGE,
-							'amount': userInfo.TOTAL_AMT,
-							'cnt': userInfo.TRANSACTION_COUNT,
-							'avg_amount': userInfo.AVG_AMT,
-							'max_amount': userInfo.MAX_AMT,
-							'min_amount': userInfo.MIN_AMT
-					}
-					/* model 결과 요청 */
-					getCategory(userData)
-				},
-				error: function(e){
-					console.log(e);
-				}
-			})
-		}
-		getInputData()
     
 		$('#subtitle-food').on('click', '.categoryFood', function(){
 			if($(this).attr('class') != 'categoryFood-choiced'){
@@ -747,15 +782,15 @@
 								<div class="reuslt-category reuslt-two">
 									<div class="category-info">
 										<span id="resultCategory2"></span>
-										<span>에서의 결제금액 </span>
-										<span id="reCategoryPrice">xx,xxx</span>
-										<span>원</span>
+										<span>에서의 결제금액&nbsp;</span>
+										<span id="myCategoryPrice">0</span>
+										<span id="priceWon">원</span>
 									</div>
 									<div class="category-info">
 										<span id="resultCategory3"></span>
-										<span>에서의 결제횟수 </span>
-										<span id="reCategoryCount">xx</span>
-										<span>번</span>
+										<span>에서의 결제횟수&nbsp;</span>
+										<span id="myCategoryCount"></span>
+										<span id="priceBun">번</span>
 									</div>
 								</div>
 								<div class="result-category result-three">
