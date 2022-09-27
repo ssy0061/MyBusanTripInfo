@@ -185,10 +185,10 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public int findTotalAmtByCategory(String memberId, String storeCategory) {
+	public List<Map<String, Object>> findTotalAmtByCategory(String memberId, String storeCategory) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberId", memberId);
 		map.put("storeCategory", storeCategory);
-		return sqlSession.selectOne(NS+"findTotalAmtByCategory",map);
+		return sqlSession.selectList(NS+"findTotalAmtByCategory",map);
 	}
 }
