@@ -181,9 +181,15 @@
 	.result-category span {
 		color:#53565A;
 		font-weight:bold;
-		font-size:1em;
+		font-size:18px;
 	}
-	#userAge, #userGender, #resultCategory, #resultCategory2, #resultCategory3{
+	#userName{
+		color:black;
+	}
+	#resultCategory{
+		font-size:22px;
+	}
+	#resultCategory, #resultCategory2, #resultCategory3{
 		color:#CB333B;
 	}
 	.result-two{
@@ -549,8 +555,6 @@
 					}
 					/* model 결과 요청 */
 					getCategory(userData)
-					$('#userGender').text(userInfo.MEMBER_GENDER);
-					$('#userAge').text(userInfo.MEMBER_AGE);
 				},
 				error: function(e){
 					console.log(e);
@@ -735,11 +739,8 @@
 							<div class="place-upper-rank-inner">
 								<div class="result-category result-one">
 									<p class="re-ca-text"><span id="userName"></span>
-									<span>님이 속한 </span>
-									<span id="userAge"></span>
-									<span id="userGender"></span>
-									<span>의</span></p>
-									<p class="re-ca-text"><span>인기 카테고리는 </span>
+									<span>님을 위한</span>
+									<p class="re-ca-text"><span> AI 추천 카테고리는</span>
 									<span id="resultCategory"></span>
 									<span>입니다.</span></p>
 								</div>
