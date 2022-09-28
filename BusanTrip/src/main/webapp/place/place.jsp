@@ -77,7 +77,7 @@
 			height: 720px;
 		}
 		.place-upper-inner { height:auto; }
-		.place-lower { overflow: auto; }
+		/* .place-lower { overflow: auto; } 스크롤바 */
 		
 		.suggestBox, .suggestBox-choiced { font-size: 13px; cursor:pointer; }
 		.categoryFood, .categoryFood-choiced { font-size:12px; }
